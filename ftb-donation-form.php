@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: FTB Donation Form
- * Plugin URI: https://for-the-better.nl
+ * Plugin Name: For The Better donatieformulier
+ * Plugin URI: https://forthebetter.nl/
  * Description: A WCAG 2.2 compliant donation form plugin with Mollie payment integration.
  * Version: 1.0.0
  * Author: For The Better

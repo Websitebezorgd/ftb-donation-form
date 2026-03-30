@@ -19,5 +19,5 @@ msgstr ""
 msgid "Make a Donation"
 msgstr ""
 
-msgid "Donate Now"
+msgid "Amount"
 msgstr ""

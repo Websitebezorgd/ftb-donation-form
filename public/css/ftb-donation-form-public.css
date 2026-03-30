@@ -1,1 +1,74 @@
-/* Public styles for FTB Donation Form */
+/* Public styles for FTB Donation Form - Using BEM methodology */
+
+/* Block: Donation Form */
+.donation-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Element: Title */
+.donation-form__title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+/* Element: Form */
+.donation-form__form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Element: Field (generic container for inputs) */
+.donation-form__field {
+    margin-bottom: 15px;
+}
+
+/* Element: Label */
+.donation-form__label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Element: Input */
+.donation-form__input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Modifier: Input error state */
+.donation-form__input--error {
+    border-color: #e74c3c;
+}
+
+/* Element: Submit button */
+.donation-form__submit {
+    padding: 12px 20px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+/* Modifier: Submit button hover */
+.donation-form__submit:hover {
+    background: #229954;
+}
+
+/* Modifier: Form error state */
+.donation-form--error {
+    border: 1px solid #e74c3c;
+}

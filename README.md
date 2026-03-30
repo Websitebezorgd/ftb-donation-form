@@ -91,6 +91,10 @@ All field labels are translatable via any standard WordPress translation plugin 
 
 ---
 
+## Thinks to consider:
+
+- Safety check (escape, sanatize, nonces, rights etc.) !! 
+
 ## File Structure
 
 ```

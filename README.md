@@ -53,7 +53,7 @@ Build a professional WordPress donation plugin with a WCAG 2.2-compliant form, M
 | City | Text | Optional (admin toggle) |
 | GDPR consent | Checkbox | Required, links to privacy statement |
 
-All field labels are translatable via WPML/TranslatePress.
+All field labels are translatable via any standard WordPress translation plugin (WPML, TranslatePress, Polylang, Loco Translate, qTranslate-XT, etc.).
 
 ---
 

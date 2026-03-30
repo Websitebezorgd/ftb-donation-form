@@ -14,8 +14,8 @@ Build a professional WordPress donation plugin with a WCAG 2.2-compliant form, M
 
 | # | Phase | Description | Status |
 |---|-------|-------------|--------|
-| 1 | **Project Setup** | Plugin structure, Mollie SDK integration, activation hooks | ✅ Done |
-| 2 | **Database & Admin** | Custom donation table, admin settings page (Mollie key, field toggles, amount options) | 🔲 Next |
+| 1 | **Project Setup** | Plugin structure, Mollie API via WP HTTP, custom DB table, activation hooks | ✅ Done |
+| 2 | **Database & Admin** | DB ORM class, admin settings page (Mollie key, field toggles, amount options) | 🔲 Next |
 | 3 | **Frontend Form** | WCAG 2.2 compliant form, dynamic fields based on admin config, accessible error handling | 🔲 Todo |
 | 4 | **Mollie Integration** | Payment service class, webhook handling, payment processing, email confirmations | 🔲 Todo |
 | 5 | **Admin Dashboard** | Donation records view, filtering/search, CSV/PDF/Excel export | 🔲 Todo |
@@ -31,6 +31,7 @@ Build a professional WordPress donation plugin with a WCAG 2.2-compliant form, M
 - **Custom database table** — donation records queried separately from WordPress posts
 - **Admin settings page** — field configuration via checkboxes and text inputs (no code needed)
 - **Mollie API key** — stored in `wp_options`, form submission nonce-protected
+- **Dutch as default language** — all strings written in Dutch, wrapped in `__()` so WPML/TranslatePress can translate them to any language
 - **Fixed field labels** — translatable via WPML/TranslatePress, not admin-customizable
 - **Webhook-based payment confirmation** — more reliable than redirect-based confirmation
 - **Configurable post-payment behavior** — redirect, message, or email
@@ -82,8 +83,6 @@ All field labels are translatable via WPML/TranslatePress.
 ```
 ftb-donation-form/
 ├── ftb-donation-form.php               Main plugin file (header, constants, activation)
-├── composer.json                       Composer dependencies (Mollie SDK)
-├── vendor/                             Composer packages (generated, not committed)
 ├── includes/                           Core logic
 │   ├── class-ftb-donation-form.php     Main orchestrator class
 │   ├── class-ftb-donation-form-loader.php  Hook management
@@ -118,16 +117,13 @@ ftb-donation-form/
 
 - PHP 7.4+
 - WordPress 5.0+
-- Composer
+- A Mollie account with an API key
 
 ### Installation
 
-1. Clone or upload the plugin to `wp-content/plugins/ftb-donation-form/`
-2. Install dependencies:
+1. Upload the plugin folder to `wp-content/plugins/ftb-donation-form/`
+2. Activate the plugin in **Plugins > Installed Plugins**
+3. Go to **Donation Form** in the sidebar
+4. Paste your Mollie API key and save
 
-```bash
-composer install
-```
-
-3. Activate the plugin in WordPress admin
-4. Go to **Donation Form** in the sidebar and enter your Mollie API key
+No Composer or command line required.

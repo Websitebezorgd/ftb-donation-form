@@ -22,11 +22,6 @@ define('FTB_DONATION_FORM_VERSION', '1.0.0');
 define('FTB_DONATION_FORM_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('FTB_DONATION_FORM_PLUGIN_URL', plugin_dir_url(__FILE__));
 
-// Load Composer autoloader (Mollie SDK and any other dependencies)
-if ( file_exists( FTB_DONATION_FORM_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
-    require_once FTB_DONATION_FORM_PLUGIN_DIR . 'vendor/autoload.php';
-}
-
 // Include core files
 require_once FTB_DONATION_FORM_PLUGIN_DIR . 'includes/class-ftb-donation-form.php';
 

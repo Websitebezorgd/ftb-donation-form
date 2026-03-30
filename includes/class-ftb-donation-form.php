@@ -59,16 +59,10 @@ class FTB_Donation_Form {
      * @access   private
      */
     private function load_dependencies() {
-        // Include loader
         require_once FTB_DONATION_FORM_PLUGIN_DIR . 'includes/class-ftb-donation-form-loader.php';
-
-        // Include i18n
         require_once FTB_DONATION_FORM_PLUGIN_DIR . 'includes/class-ftb-donation-form-i18n.php';
-
-        // Include admin
+        require_once FTB_DONATION_FORM_PLUGIN_DIR . 'includes/class-ftb-db.php';
         require_once FTB_DONATION_FORM_PLUGIN_DIR . 'admin/class-ftb-donation-form-admin.php';
-
-        // Include public
         require_once FTB_DONATION_FORM_PLUGIN_DIR . 'public/class-ftb-donation-form-public.php';
 
         $this->loader = new FTB_Donation_Form_Loader();
@@ -100,6 +94,7 @@ class FTB_Donation_Form {
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
         $this->loader->add_action('admin_menu', $plugin_admin, 'add_plugin_admin_menu');
+        $this->loader->add_action('admin_init', $plugin_admin, 'register_settings');
     }
 
     /**

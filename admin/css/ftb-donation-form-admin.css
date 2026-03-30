@@ -1,1 +1,180 @@
-/* Admin styles for FTB Donation Form */
+/* FTB Donation Form – Admin styles */
+
+.ftb-admin-wrap {
+    max-width: 50rem;
+}
+
+h1.ftb-admin-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.ftb-admin-title .dashicons {
+    color: #C42E31;
+    font-size: 1.75rem;
+    width: 1.75rem;
+    height: 1.75rem;
+}
+
+/* Sections */
+.ftb-admin-section {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 0.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.ftb-admin-section__title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #c3c4c7;
+    background: #f6f7f7;
+    border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.ftb-admin-section__description {
+    margin: 0.75rem 1rem 0;
+    color: #646970;
+    font-style: italic;
+}
+
+.ftb-admin-section__body {
+    padding: 1rem;
+}
+
+/* Override WP table styles inside our sections */
+.ftb-admin-section__body table.form-table {
+    margin: 0;
+}
+
+.ftb-admin-section__body table.form-table th {
+    padding: 0.5rem 1rem 0.5rem 0;
+    width: 12.5rem;
+    font-weight: 600;
+}
+
+.ftb-admin-section__body table.form-table td {
+    padding: 0.5rem 0;
+}
+
+/* Checkbox list (formuliervelden) */
+.ftb-admin-section__body--checkboxes table.form-table th {
+    display: none;
+}
+
+.ftb-admin-section__body--checkboxes table.form-table td {
+    padding-left: 0;
+}
+
+.ftb-checkbox-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    gap: 0.5rem;
+}
+
+.ftb-checkbox-list li label {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    cursor: pointer;
+}
+
+.ftb-checkbox-list input[type="checkbox"] {
+    margin: 0;
+    flex-shrink: 0;
+}
+
+/* Amount inputs (bedragopties) */
+.ftb-amount-inputs {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    padding-top: 0.5rem;
+}
+
+.ftb-amount-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid #8c8f94;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    background: #fff;
+}
+
+.ftb-amount-input__prefix {
+    padding: 0 0.5rem;
+    background: #f6f7f7;
+    border-right: 1px solid #8c8f94;
+    color: #646970;
+    font-size: 0.875rem;
+    line-height: 2rem;
+    user-select: none;
+}
+
+.ftb-amount-input input[type="number"] {
+    border: none;
+    box-shadow: none;
+    width: 4rem;
+    padding: 0 0.375rem;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: right;
+}
+
+.ftb-amount-input input[type="number"]:focus {
+    outline: 2px solid #2271b1;
+    outline-offset: -2px;
+}
+
+.ftb-field-padded-below {
+    padding-top: 0.5rem;
+    padding-bottom: 0.75rem;
+}
+
+.ftb-field-spaced {
+    padding-top: 0.5rem;
+}
+
+/* Conditional fields (shown/hidden via JS) */
+.ftb-conditional {
+    display: none;
+}
+
+.ftb-conditional.is-visible {
+    display: block;
+}
+
+/* Submit row */
+.ftb-admin-submit {
+    margin: 0.5rem 0 1.5rem;
+}
+
+/* Shortcode info box */
+.ftb-admin-shortcode-info {
+    background: #f0f6fc;
+    border: 1px solid #c3c4c7;
+    border-left: 4px solid #2271b1;
+    border-radius: 0.25rem;
+    padding: 0.75rem 1rem;
+    margin-top: 0.5rem;
+}
+
+.ftb-admin-shortcode-info h2 {
+    margin: 0 0 0.5rem;
+    font-size: 0.875rem;
+}
+
+.ftb-admin-shortcode-info code {
+    font-size: 0.875rem;
+    background: #fff;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #c3c4c7;
+    border-radius: 3px; /* kept as px — not above 3px */
+}

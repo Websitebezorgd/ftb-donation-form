@@ -142,6 +142,13 @@ h1.ftb-admin-title {
     padding-top: 0.5rem;
 }
 
+/* Conditional label (replaces the hidden th) */
+.ftb-conditional-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.375rem;
+}
+
 /* Conditional fields (shown/hidden via JS) */
 .ftb-conditional {
     display: none;

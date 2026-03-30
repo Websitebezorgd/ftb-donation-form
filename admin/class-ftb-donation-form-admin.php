@@ -157,6 +157,27 @@ class FTB_Donation_Form_Admin {
             'ftb_section_amounts'
         );
 
+        // ── Privacyverklaring ─────────────────────────────────────────────────
+
+        register_setting( 'ftb_donation_form_settings', 'ftb_privacy_url', [
+            'sanitize_callback' => 'esc_url_raw',
+        ] );
+
+        add_settings_section(
+            'ftb_section_privacy',
+            __( 'Privacyverklaring', 'ftb-donation-form' ),
+            '__return_false',
+            'ftb_donation_form_settings'
+        );
+
+        add_settings_field(
+            'ftb_privacy_url',
+            __( 'Link naar privacyverklaring', 'ftb-donation-form' ),
+            [ $this, 'field_privacy_url' ],
+            'ftb_donation_form_settings',
+            'ftb_section_privacy'
+        );
+
         // ── Na betaling ───────────────────────────────────────────────────────
 
         register_setting( 'ftb_donation_form_settings', 'ftb_post_payment_behavior', [
@@ -217,9 +238,6 @@ class FTB_Donation_Form_Admin {
             class="regular-text"
             autocomplete="new-password"
         />
-        <p class="description">
-            <?php esc_html_e( 'Vind je API sleutel in je Mollie dashboard onder Ontwikkelaars → API-sleutels. Gebruik de live sleutel voor echte betalingen.', 'ftb-donation-form' ); ?>
-        </p>
         </div>
         <?php
     }
@@ -315,6 +333,22 @@ class FTB_Donation_Form_Admin {
         <?php
     }
 
+    public function field_privacy_url() {
+        $value = get_option( 'ftb_privacy_url', '' );
+        ?>
+        <div style="padding-top: 0.5rem;">
+        <input
+            type="url"
+            id="ftb_privacy_url"
+            name="ftb_privacy_url"
+            value="<?php echo esc_attr( $value ); ?>"
+            class="regular-text"
+            placeholder="https://jouwwebsite.nl/privacyverklaring"
+        />
+        </div>
+        <?php
+    }
+
     public function field_post_payment_behavior() {
         $value = get_option( 'ftb_post_payment_behavior', 'message' );
         ?>
@@ -345,9 +379,6 @@ class FTB_Donation_Form_Admin {
                 rows="3"
                 class="large-text"
             ><?php echo esc_textarea( $message ); ?></textarea>
-            <p class="description">
-                <?php esc_html_e( 'Dit bericht wordt getoond nadat de betaling is afgerond.', 'ftb-donation-form' ); ?>
-            </p>
         </div>
 
         <div class="ftb-conditional ftb-field-spaced" data-show-when="ftb_post_payment_behavior=redirect">
@@ -362,9 +393,6 @@ class FTB_Donation_Form_Admin {
                 class="regular-text"
                 placeholder="https://jouwwebsite.nl/bedankt"
             />
-            <p class="description">
-                <?php esc_html_e( 'De donateur wordt naar deze URL doorgestuurd na een geslaagde betaling.', 'ftb-donation-form' ); ?>
-            </p>
         </div>
         <?php
     }

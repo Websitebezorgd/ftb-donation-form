@@ -27,6 +27,9 @@ if ( ! defined( 'ABSPATH' ) ) {
             <h2 class="ftb-admin-section__title">
                 <?php esc_html_e( 'Mollie instellingen', 'ftb-donation-form' ); ?>
             </h2>
+            <p class="ftb-admin-section__description">
+                <?php esc_html_e( 'Vind je API sleutel in je Mollie dashboard onder Ontwikkelaars → API-sleutels. Gebruik de live sleutel voor echte betalingen.', 'ftb-donation-form' ); ?>
+            </p>
             <div class="ftb-admin-section__body">
                 <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_mollie' ); ?>
             </div>
@@ -58,11 +61,27 @@ if ( ! defined( 'ABSPATH' ) ) {
             </div>
         </div>
 
+        <?php // ── Privacyverklaring ────────────────────────────────────────── ?>
+        <div class="ftb-admin-section">
+            <h2 class="ftb-admin-section__title">
+                <?php esc_html_e( 'Privacyverklaring', 'ftb-donation-form' ); ?>
+            </h2>
+            <p class="ftb-admin-section__description">
+                <?php esc_html_e( 'Voeg de link in naar je privacyverklaring. Deze link wordt boven het toestemmingsveld in het formulier getoond.', 'ftb-donation-form' ); ?>
+            </p>
+            <div class="ftb-admin-section__body">
+                <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_privacy' ); ?>
+            </div>
+        </div>
+
         <?php // ── Na betaling ──────────────────────────────────────────────── ?>
         <div class="ftb-admin-section">
             <h2 class="ftb-admin-section__title">
                 <?php esc_html_e( 'Na betaling', 'ftb-donation-form' ); ?>
             </h2>
+            <p class="ftb-admin-section__description">
+                <?php esc_html_e( 'Kies wat er gebeurt nadat de donateur succesvol heeft betaald.', 'ftb-donation-form' ); ?>
+            </p>
             <div class="ftb-admin-section__body">
                 <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_post_payment' ); ?>
             </div>

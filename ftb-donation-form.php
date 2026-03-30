@@ -78,6 +78,7 @@ function ftb_donation_form_activate() {
     add_option( 'ftb_post_payment_behavior', 'message' );
     add_option( 'ftb_post_payment_redirect_url', '' );
     add_option( 'ftb_post_payment_message', __( 'Thank you for your donation!', 'ftb-donation-form' ) );
+    add_option( 'ftb_privacy_url', '' );
     add_option( 'ftb_db_version', '1.0' );
 }
 

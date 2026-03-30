@@ -126,4 +126,4 @@ ftb-donation-form/
 3. Go to **Donation Form** in the sidebar
 4. Paste your Mollie API key and save
 
-No Composer or command line required.
+

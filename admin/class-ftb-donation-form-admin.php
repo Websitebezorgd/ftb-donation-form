@@ -93,7 +93,8 @@ class FTB_Donation_Form_Admin {
             __( 'API sleutel', 'ftb-donation-form' ),
             [ $this, 'field_mollie_api_key' ],
             'ftb_donation_form_settings',
-            'ftb_section_mollie'
+            'ftb_section_mollie',
+            [ 'label_for' => 'ftb_mollie_api_key' ]
         );
 
         add_settings_field(
@@ -146,7 +147,8 @@ class FTB_Donation_Form_Admin {
             __( 'Vaste bedragen (€)', 'ftb-donation-form' ),
             [ $this, 'field_amount_options' ],
             'ftb_donation_form_settings',
-            'ftb_section_amounts'
+            'ftb_section_amounts',
+            [ 'label_for' => 'ftb_amount_options_0' ]
         );
 
         add_settings_field(
@@ -175,7 +177,8 @@ class FTB_Donation_Form_Admin {
             __( 'Link naar privacyverklaring', 'ftb-donation-form' ),
             [ $this, 'field_privacy_url' ],
             'ftb_donation_form_settings',
-            'ftb_section_privacy'
+            'ftb_section_privacy',
+            [ 'label_for' => 'ftb_privacy_url' ]
         );
 
         // ── Na betaling ───────────────────────────────────────────────────────
@@ -202,7 +205,8 @@ class FTB_Donation_Form_Admin {
             __( 'Actie na betaling', 'ftb-donation-form' ),
             [ $this, 'field_post_payment_behavior' ],
             'ftb_donation_form_settings',
-            'ftb_section_post_payment'
+            'ftb_section_post_payment',
+            [ 'label_for' => 'ftb_post_payment_behavior' ]
         );
 
         add_settings_field(
@@ -229,7 +233,7 @@ class FTB_Donation_Form_Admin {
     public function field_mollie_api_key() {
         $value = get_option( 'ftb_mollie_api_key', '' );
         ?>
-        <div style="padding-top: 0.5rem;">
+        <div class="ftb-admin-section__field">
         <input
             type="password"
             id="ftb_mollie_api_key"
@@ -245,7 +249,7 @@ class FTB_Donation_Form_Admin {
     public function field_mollie_test_mode() {
         $value = get_option( 'ftb_mollie_test_mode', '1' );
         ?>
-        <div class="ftb-field-spaced">
+        <div class="ftb-admin-section__field">
         <label for="ftb_mollie_test_mode">
             <input
                 type="checkbox"
@@ -270,7 +274,8 @@ class FTB_Donation_Form_Admin {
             'city'         => __( 'Plaats', 'ftb-donation-form' ),
         ];
 
-        echo '<ul class="ftb-checkbox-list">';
+        echo '<p class="ftb-admin-section__group-label">' . esc_html__( 'Optionele velden', 'ftb-donation-form' ) . '</p>';
+        echo '<div class="ftb-admin-section__field"><ul class="ftb-checkbox-list">';
         foreach ( $options as $key => $label ) {
             $checked = ! empty( $fields[ $key ] );
             printf(
@@ -281,14 +286,14 @@ class FTB_Donation_Form_Admin {
                 esc_html( $label )
             );
         }
-        echo '</ul>';
+        echo '</ul></div>';
     }
 
     public function field_amount_options() {
         $amounts  = array_values( (array) get_option( 'ftb_amount_options', [ '5', '10', '25' ] ) );
         $defaults = [ '5', '10', '25' ];
 
-        echo '<div class="ftb-amount-inputs ftb-field-padded-below">';
+        echo '<div class="ftb-admin-section__field"><div class="ftb-amount-inputs">';
         for ( $i = 0; $i < 3; $i++ ) {
             $value = isset( $amounts[ $i ] ) ? $amounts[ $i ] : ( $defaults[ $i ] ?? '' );
             printf(
@@ -312,13 +317,13 @@ class FTB_Donation_Form_Admin {
                 absint( $i + 1 )
             );
         }
-        echo '</div>';
+        echo '</div></div>';
     }
 
     public function field_allow_custom_amount() {
         $value = get_option( 'ftb_allow_custom_amount', '1' );
         ?>
-        <div class="ftb-field-spaced">
+        <div class="ftb-admin-section__field">
         <label for="ftb_allow_custom_amount">
             <input
                 type="checkbox"
@@ -336,7 +341,7 @@ class FTB_Donation_Form_Admin {
     public function field_privacy_url() {
         $value = get_option( 'ftb_privacy_url', '' );
         ?>
-        <div style="padding-top: 0.5rem;">
+        <div class="ftb-admin-section__field">
         <input
             type="url"
             id="ftb_privacy_url"
@@ -352,7 +357,7 @@ class FTB_Donation_Form_Admin {
     public function field_post_payment_behavior() {
         $value = get_option( 'ftb_post_payment_behavior', 'message' );
         ?>
-        <div style="padding-top: 0.5rem; padding-bottom: 0.75rem;">
+        <div class="ftb-admin-section__field">
         <select id="ftb_post_payment_behavior" name="ftb_post_payment_behavior">
             <option value="message" <?php selected( $value, 'message' ); ?>>
                 <?php esc_html_e( 'Toon een bedankbericht', 'ftb-donation-form' ); ?>
@@ -369,7 +374,7 @@ class FTB_Donation_Form_Admin {
         $message = get_option( 'ftb_post_payment_message', __( 'Hartelijk dank voor je donatie!', 'ftb-donation-form' ) );
         $url     = get_option( 'ftb_post_payment_redirect_url', '' );
         ?>
-        <div class="ftb-conditional ftb-field-spaced" data-show-when="ftb_post_payment_behavior=message">
+        <div class="ftb-conditional ftb-admin-section__field" data-show-when="ftb_post_payment_behavior=message">
             <label for="ftb_post_payment_message" class="ftb-conditional-label">
                 <?php esc_html_e( 'Bedankbericht', 'ftb-donation-form' ); ?>
             </label>
@@ -381,7 +386,7 @@ class FTB_Donation_Form_Admin {
             ><?php echo esc_textarea( $message ); ?></textarea>
         </div>
 
-        <div class="ftb-conditional ftb-field-spaced" data-show-when="ftb_post_payment_behavior=redirect">
+        <div class="ftb-conditional ftb-admin-section__field" data-show-when="ftb_post_payment_behavior=redirect">
             <label for="ftb_post_payment_redirect_url" class="ftb-conditional-label">
                 <?php esc_html_e( 'Doorstuur-URL', 'ftb-donation-form' ); ?>
             </label>

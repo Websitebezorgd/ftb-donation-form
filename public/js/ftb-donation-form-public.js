@@ -163,7 +163,7 @@
             amount    : { container: document.getElementById( 'ftb-amount' ),          inputId: null },
             name      : { container: document.getElementById( 'ftb-name' ),            inputId: 'ftb-name' },
             email     : { container: document.getElementById( 'ftb-email' ),           inputId: 'ftb-email' },
-            gdpr      : { container: document.getElementById( 'ftb-gdpr' ),            inputId: 'ftb-gdpr' },
+            gdpr      : { container: document.getElementById( 'ftb-gdpr' ) ? document.getElementById( 'ftb-gdpr' ).closest( 'label' ) : null, inputId: 'ftb-gdpr' },
         };
 
         Object.keys( errors ).forEach( function ( field ) {

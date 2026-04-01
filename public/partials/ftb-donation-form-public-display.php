@@ -124,6 +124,10 @@ $old = static function ($key, $default = '') use ($old_values) {
                             <?php esc_html_e('Anders', 'ftb-donation-form'); ?>
                         </label>
                         <div class="donation-form__custom-amount<?php echo $old('amount') !== 'custom' ? ' donation-form__custom-amount--hidden' : ''; ?>" id="ftb-custom-amount-wrapper">
+                            <label class="donation-form__label" for="ftb-custom-amount">
+                                <?php esc_html_e('Vul een bedrag in', 'ftb-donation-form'); ?>
+                            </label>
+                            <div class="donation-form__input-wrapper">
                             <span class="donation-form__currency-prefix" aria-hidden="true">€</span>
                             <input
                                 class="donation-form__input donation-form__input--amount"

@@ -30,6 +30,7 @@ class FTB_DB {
     public function insert_donation( array $data ) {
         global $wpdb;
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
         $result = $wpdb->insert(
             $this->table,
             [
@@ -60,8 +61,10 @@ class FTB_DB {
     public function get_donation_by_mollie_id( string $mollie_id ) {
         global $wpdb;
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         return $wpdb->get_row(
             $wpdb->prepare(
+                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table name from $wpdb->prefix, not user input
                 "SELECT * FROM {$this->table} WHERE mollie_payment_id = %s LIMIT 1",
                 $mollie_id
             )
@@ -77,8 +80,13 @@ class FTB_DB {
     public function get_donation( int $id ) {
         global $wpdb;
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         return $wpdb->get_row(
-            $wpdb->prepare( "SELECT * FROM {$this->table} WHERE id = %d LIMIT 1", $id )
+            $wpdb->prepare(
+                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table name from $wpdb->prefix, not user input
+                "SELECT * FROM {$this->table} WHERE id = %d LIMIT 1",
+                $id
+            )
         );
     }
 
@@ -92,6 +100,7 @@ class FTB_DB {
     public function update_payment_status( string $mollie_id, string $status ) {
         global $wpdb;
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         return $wpdb->update(
             $this->table,
             [ 'payment_status' => sanitize_text_field( $status ) ],
@@ -142,19 +151,20 @@ class FTB_DB {
         }
 
         $allowed_orderby = [ 'created_at', 'amount', 'donor_name', 'payment_status' ];
-        $orderby = in_array( $args['orderby'], $allowed_orderby, true ) ? $args['orderby'] : 'created_at';
-        $order   = strtoupper( $args['order'] ) === 'ASC' ? 'ASC' : 'DESC';
+        $orderby  = in_array( $args['orderby'], $allowed_orderby, true ) ? $args['orderby'] : 'created_at';
+        $order    = strtoupper( $args['order'] ) === 'ASC' ? 'ASC' : 'DESC';
+        $per_page = (int) $args['per_page'];
+        $offset   = ( max( 1, (int) $args['page'] ) - 1 ) * $per_page;
 
-        $offset   = ( max( 1, (int) $args['page'] ) - 1 ) * (int) $args['per_page'];
-        $values[] = (int) $args['per_page'];
-        $values[] = $offset;
+        // Prepare WHERE clause separately so the outer query has exactly 2 static placeholders (LIMIT/OFFSET).
+        if ( ! empty( $values ) ) {
+            $where = $wpdb->prepare( $where, ...$values ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        }
 
-        $sql = $wpdb->prepare(
-            "SELECT * FROM {$this->table} {$where} ORDER BY {$orderby} {$order} LIMIT %d OFFSET %d",
-            $values
-        );
-
-        return $wpdb->get_results( $sql ) ?: [];
+        // $where is now either static or already prepared; $orderby/$order are validated; table name from $wpdb->prefix.
+        return $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+            $wpdb->prepare( "SELECT * FROM {$this->table} {$where} ORDER BY {$orderby} {$order} LIMIT %d OFFSET %d", $per_page, $offset ) // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared
+        ) ?: [];
     }
 
     /**
@@ -181,12 +191,12 @@ class FTB_DB {
             $values[] = $like;
         }
 
-        $sql = "SELECT COUNT(*) FROM {$this->table} {$where}";
-
+        // Prepare WHERE clause separately so no intermediate $sql variable is needed.
         if ( ! empty( $values ) ) {
-            $sql = $wpdb->prepare( $sql, $values );
+            $where = $wpdb->prepare( $where, ...$values ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         }
 
-        return (int) $wpdb->get_var( $sql );
+        // $where is now either static or already prepared; table name from $wpdb->prefix.
+        return (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$this->table} {$where}" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
     }
 }

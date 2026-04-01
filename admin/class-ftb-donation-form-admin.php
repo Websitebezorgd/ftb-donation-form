@@ -305,11 +305,11 @@ class FTB_Donation_Form_Admin {
                         aria-label="%s %d"
                     />
                 </div>',
-                $i,
-                $i,
+                absint( $i ),
+                absint( $i ),
                 esc_attr( $value ),
                 esc_attr__( 'Bedragoptie', 'ftb-donation-form' ),
-                $i + 1
+                absint( $i + 1 )
             );
         }
         echo '</div>';
@@ -423,6 +423,9 @@ class FTB_Donation_Form_Admin {
      * Render the settings page.
      */
     public function display_plugin_setup_page() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'ftb-donation-form' ) );
+        }
         include_once 'partials/ftb-donation-form-admin-display.php';
     }
 }

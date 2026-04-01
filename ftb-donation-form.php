@@ -8,7 +8,7 @@
  * License: GPL v2 or later
  * Text Domain: ftb-donation-form
  * Requires at least: 5.0
- * Tested up to: 6.4
+ * Tested up to: 6.9
  * Requires PHP: 7.4
  */
 

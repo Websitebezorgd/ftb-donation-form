@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Define the internationalization functionality
  *
@@ -31,10 +33,7 @@ class FTB_Donation_Form_i18n {
      * @since    1.0.0
      */
     public function load_plugin_textdomain() {
-        load_plugin_textdomain(
-            'ftb-donation-form',
-            false,
-            dirname(dirname(plugin_basename(__FILE__))) . '/languages/'
-        );
+        // WordPress auto-loads translations for plugins since 4.6.
+        // No manual call needed.
     }
 }

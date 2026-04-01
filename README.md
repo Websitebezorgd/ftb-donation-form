@@ -1,4 +1,4 @@
-# FTB Donation Form
+# For The Better donatieformulier
 
 A professional WordPress donation plugin with a WCAG 2.2-compliant form, Mollie payment integration, no-code admin customization UI, payment dashboard with multi-format export, and Elementor/translator plugin support.
 

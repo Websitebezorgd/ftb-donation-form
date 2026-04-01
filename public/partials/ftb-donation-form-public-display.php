@@ -120,10 +120,15 @@ $old = static function ($key, $default = '') use ($old_values) {
                                 name="ftb_amount"
                                 value="custom"
                                 id="ftb-amount-custom-radio"
+                                aria-expanded="<?php echo $old('amount') === 'custom' ? 'true' : 'false'; ?>"
+                                aria-controls="ftb-custom-amount-wrapper"
                                 <?php checked($old('amount'), 'custom'); ?> />
                             <?php esc_html_e('Anders', 'ftb-donation-form'); ?>
                         </label>
-                        <div class="donation-form__custom-amount<?php echo $old('amount') !== 'custom' ? ' donation-form__custom-amount--hidden' : ''; ?>" id="ftb-custom-amount-wrapper">
+                        <div class="donation-form__custom-amount<?php echo $old('amount') !== 'custom' ? ' donation-form__custom-amount--hidden' : ''; ?>"
+                            id="ftb-custom-amount-wrapper"
+                            role="group"
+                            aria-label="<?php esc_attr_e('Eigen bedrag', 'ftb-donation-form'); ?>">
                             <label class="donation-form__label" for="ftb-custom-amount">
                                 <?php esc_html_e('Vul een bedrag in', 'ftb-donation-form'); ?>
                             </label>

@@ -28,6 +28,7 @@
             const isCustom = customRadio.checked;
             customWrapper.classList.toggle( 'donation-form__custom-amount--hidden', ! isCustom );
             customInput.setAttribute( 'aria-required', isCustom ? 'true' : 'false' );
+            customRadio.setAttribute( 'aria-expanded', isCustom ? 'true' : 'false' );
             if ( isCustom ) {
                 customInput.focus();
             }

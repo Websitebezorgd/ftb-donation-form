@@ -21,7 +21,7 @@ $old = static function ($key, $default = '') use ($old_values) {
 };
 ?>
 
-<div class="donation-form">
+<div class="donation-form" aria-describedby="ftb-donation-title">
 
     <?php if ($success) : ?>
 
@@ -31,7 +31,10 @@ $old = static function ($key, $default = '') use ($old_values) {
 
     <?php else : ?>
 
-        <h2 class="donation-form__title"><?php esc_html_e('Doneer nu', 'ftb-donation-form'); ?></h2>
+        <h2 id="ftb-donation-title"
+            tabindex="-1"
+            aria-live="polite" 
+            class="donation-form__title"><?php esc_html_e('Doneer nu', 'ftb-donation-form'); ?></h2>
 
         <?php if (! empty($errors)) : ?>
             <div class="donation-form__error-summary" id="ftb-error-summary" role="alert" tabindex="-1">
@@ -288,11 +291,9 @@ $old = static function ($key, $default = '') use ($old_values) {
             <div class="donation-form__field">
 
                 <?php if ($privacy_url) : ?>
-                    <p class="donation-form__privacy-link">
-                        <a href="<?php echo esc_url($privacy_url); ?>" target="_blank" rel="noopener noreferrer">
-                            <?php esc_html_e('Lees onze privacyverklaring', 'ftb-donation-form'); ?>
-                        </a>
-                    </p>
+                    <a class="donation-form__privacy-link" href="<?php echo esc_url($privacy_url); ?>" target="_blank" rel="noopener noreferrer">
+                        <?php esc_html_e('Lees onze privacyverklaring', 'ftb-donation-form'); ?>
+                    </a>
                 <?php endif; ?>
 
                 <label class="donation-form__checkbox-label<?php echo ! empty($errors['gdpr']) ? ' donation-form__checkbox-label--error' : ''; ?>">

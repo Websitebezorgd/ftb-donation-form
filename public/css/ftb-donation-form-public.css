@@ -141,6 +141,9 @@
 
 /* ── Fieldset ─────────────────────────────────────────────────────────────── */
 .donation-form__fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
     margin: 0;
     padding: 0;
     border: none;
@@ -372,14 +375,15 @@
     outline-offset: 2px;
 }
 
-.donation-form__checkbox-label a {
+.donation-form__privacy-link {
     color: var(--color-link);
-    text-decoration: underline;
+    text-decoration: underline !important;
 }
 
-.donation-form__checkbox-label a:hover,
-.donation-form__checkbox-label a:focus {
+.donation-form__privacy-link:hover,
+.donation-form__privacy-link:focus {
     color: var(--color-link-hover);
+    text-decoration: none !important;
 }
 
 /* ── Required indicator ───────────────────────────────────────────────────── */

@@ -16,8 +16,8 @@ FTB Donation Form is a WordPress plugin for collecting one-time and recurring do
 |---|-------|-------------|--------|
 | 1 | **Project Setup** | Plugin structure, Mollie API via WP HTTP, custom DB table, activation hooks | ✅ Done |
 | 2 | **Database & Admin** | DB class, admin settings page (Mollie key, field toggles, amount options, post-payment behavior, privacy URL) | ✅ Done |
-| 3 | **Frontend Form** | WCAG 2.2 compliant form, dynamic fields based on admin config, accessible error handling | 🔲 Next |
-| 4 | **Mollie Integration** | Payment service class, webhook handling, payment processing, email confirmations | 🔲 Todo |
+| 3 | **Frontend Form** | WCAG 2.2 compliant form, dynamic fields based on admin config, accessible error handling | ✅ Done |
+| 4 | **Mollie Integration** | Payment service class, webhook handling, payment processing, email confirmations | 🔲 Next |
 | 5 | **Admin Dashboard** | Donation records view, filtering/search, CSV/PDF/Excel export | 🔲 Todo |
 | 6 | **Elementor & Shortcode** | `[ftb_donation_form]` shortcode + Elementor widget | 🔲 Todo |
 | 7 | **Translations** | Wrap strings with `__()`, generate `.pot` file, test WPML/TranslatePress | 🔲 Todo |

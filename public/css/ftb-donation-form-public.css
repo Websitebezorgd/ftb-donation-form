@@ -16,7 +16,7 @@
     --color-success-text:     #2e7d32;
 
     /* Colors — error */
-    --color-error:            #c0392b;
+    --color-error:            #C42E31;
     --color-error-dark:       #7b241c;
     --color-error-darker:     #4a1511;
     --color-error-bg:         #fde8e8;
@@ -102,15 +102,36 @@
 .donation-form__error-summary {
     margin-bottom: var(--space-6);
     padding: var(--space-4);
-    background: var(--color-error-bg);
+    background: var(--color-surface);
     border: 2px solid var(--color-error);
     border-radius: var(--radius-sm);
-    color: var(--color-error-dark);
+    color: var(--color-error);
 }
 
 .donation-form__error-summary-title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
     margin: 0 0 var(--space-2);
-    font-weight: bold;
+    font-weight: 700;
+    font-size: var(--font-size-base);
+    color: var(--color-error);
+}
+
+.donation-form__error-summary-title::before {
+    content: '!';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 1.125rem;
+    height: 1.125rem;
+    border-radius: 50%;
+    background: var(--color-error);
+    color: #fff;
+    font-size: 0.625rem;
+    font-weight: 700;
+    line-height: 1;
 }
 
 .donation-form__error-list {
@@ -120,16 +141,17 @@
 
 .donation-form__error-list li {
     margin-bottom: var(--space-1);
+    font-size: var(--font-size-sm);
 }
 
 .donation-form__error-list a {
-    color: var(--color-error-dark);
+    color: var(--color-error);
     text-decoration: underline;
 }
 
 .donation-form__error-list a:hover,
 .donation-form__error-list a:focus {
-    color: var(--color-error-darker);
+    text-decoration: none;
 }
 
 /* ── Form ─────────────────────────────────────────────────────────────────── */
@@ -354,9 +376,19 @@
 }
 
 .donation-form__error::before {
-    content: '⚠';
-    font-size: var(--font-size-sm);
+    content: '!';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: var(--color-error);
+    color: #fff;
+    font-size: 0.625rem;
+    font-weight: 700;
+    line-height: 1;
 }
 
 /* ── Checkbox ─────────────────────────────────────────────────────────────── */

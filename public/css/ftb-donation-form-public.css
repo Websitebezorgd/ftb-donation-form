@@ -11,9 +11,7 @@
     --color-primary-bg-hover: #f0faf4;
 
     /* Colors — success */
-    --color-success:          ##1E8449;
-    --color-success-bg:       #e8f5e9;
-    --color-success-text:     #2e7d32;
+    --color-success:          #1E8449;
 
     /* Colors — error */
     --color-error:            #C42E31;

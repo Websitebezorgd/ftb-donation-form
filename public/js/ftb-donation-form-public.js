@@ -45,6 +45,31 @@
             }
         } );
 
+        // Toggle: clicking Anders again hides the custom amount field
+        const customLabel = customRadio.parentElement;
+        let wasChecked = false;
+
+        customLabel.addEventListener( 'mousedown', function () {
+            wasChecked = customRadio.checked;
+        } );
+
+        customLabel.addEventListener( 'click', function () {
+            if ( wasChecked ) {
+                setTimeout( function () {
+                    customRadio.checked = false;
+                    updateCustomVisibility();
+                }, 0 );
+            }
+        } );
+
+        customRadio.addEventListener( 'keydown', function ( e ) {
+            if ( e.key === ' ' && customRadio.checked ) {
+                e.preventDefault();
+                customRadio.checked = false;
+                updateCustomVisibility();
+            }
+        } );
+
         // Run once on init (handles server-side re-render with 'custom' selected)
         updateCustomVisibility();
     }

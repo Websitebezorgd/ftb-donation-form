@@ -26,7 +26,7 @@ $old = static function ( $key, $default = '' ) use ( $old_values ) {
     <?php if ( $success ) : ?>
 
     <div class="donation-form__success" role="status">
-        <p><?php esc_html_e( 'Bedankt! Uw donatie is ontvangen.', 'ftb-donation-form' ); ?></p>
+        <p><?php esc_html_e( 'Bedankt! Je donatie is ontvangen.', 'ftb-donation-form' ); ?></p>
     </div>
 
     <?php else : ?>
@@ -150,7 +150,7 @@ $old = static function ( $key, $default = '' ) use ( $old_values ) {
         <!-- ── Persoonsgegevens ────────────────────────────────────────────── -->
         <fieldset class="donation-form__fieldset">
             <legend class="donation-form__legend">
-                <?php esc_html_e( 'Uw gegevens', 'ftb-donation-form' ); ?>
+                <?php esc_html_e( 'Jouw gegevens', 'ftb-donation-form' ); ?>
             </legend>
 
             <!-- Volledige naam -->

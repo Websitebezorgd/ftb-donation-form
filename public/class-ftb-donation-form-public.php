@@ -46,9 +46,9 @@ class FTB_Donation_Form_Public {
                     'errorFrequency'   => __( 'Kies een frequentie.', 'ftb-donation-form' ),
                     'errorAmount'      => __( 'Kies een bedrag.', 'ftb-donation-form' ),
                     'errorCustom'      => __( 'Vul een bedrag in van minimaal €0,01.', 'ftb-donation-form' ),
-                    'errorName'        => __( 'Vul uw volledige naam in.', 'ftb-donation-form' ),
+                    'errorName'        => __( 'Vul je volledige naam in.', 'ftb-donation-form' ),
                     'errorEmail'       => __( 'Vul een geldig e-mailadres in.', 'ftb-donation-form' ),
-                    'errorGdpr'        => __( 'U moet akkoord gaan met de privacyverklaring om te doneren.', 'ftb-donation-form' ),
+                    'errorGdpr'        => __( 'Je moet akkoord gaan met de privacyverklaring om te doneren.', 'ftb-donation-form' ),
                     'errorSummary'     => __( 'Controleer de volgende fouten:', 'ftb-donation-form' ),
                 ],
             ]
@@ -113,7 +113,7 @@ class FTB_Donation_Form_Public {
 
             // Validate name
             if ( empty( $name ) ) {
-                $errors['name'] = __( 'Vul uw volledige naam in.', 'ftb-donation-form' );
+                $errors['name'] = __( 'Vul je volledige naam in.', 'ftb-donation-form' );
             }
 
             // Validate email
@@ -123,7 +123,7 @@ class FTB_Donation_Form_Public {
 
             // Validate GDPR consent
             if ( $gdpr !== '1' ) {
-                $errors['gdpr'] = __( 'U moet akkoord gaan met de privacyverklaring om te doneren.', 'ftb-donation-form' );
+                $errors['gdpr'] = __( 'Je moet akkoord gaan met de privacyverklaring om te doneren.', 'ftb-donation-form' );
             }
 
             // Preserve submitted values for re-rendering the form on error

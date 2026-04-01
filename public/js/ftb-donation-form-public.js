@@ -89,7 +89,7 @@
         // Name
         const nameInput = document.getElementById( 'ftb-name' );
         if ( nameInput && nameInput.value.trim() === '' ) {
-            errors.name = i18n.errorName || 'Vul uw volledige naam in.';
+            errors.name = i18n.errorName || 'Vul je volledige naam in.';
         }
 
         // Email
@@ -104,7 +104,7 @@
         // GDPR
         const gdprInput = document.getElementById( 'ftb-gdpr' );
         if ( gdprInput && ! gdprInput.checked ) {
-            errors.gdpr = i18n.errorGdpr || 'U moet akkoord gaan met de privacyverklaring om te doneren.';
+            errors.gdpr = i18n.errorGdpr || 'Je moet akkoord gaan met de privacyverklaring om te doneren.';
         }
 
         return errors;

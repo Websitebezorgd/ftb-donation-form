@@ -210,11 +210,21 @@ class FTB_Donation_Form_Admin {
         );
 
         add_settings_field(
-            'ftb_post_payment_conditional',
-            '',
-            [ $this, 'field_post_payment_conditional' ],
+            'ftb_post_payment_message_field',
+            __( 'Bedankbericht', 'ftb-donation-form' ),
+            [ $this, 'field_post_payment_message' ],
             'ftb_donation_form_settings',
-            'ftb_section_post_payment'
+            'ftb_section_post_payment',
+            [ 'label_for' => 'ftb_post_payment_message' ]
+        );
+
+        add_settings_field(
+            'ftb_post_payment_redirect_field',
+            __( 'Doorstuur-URL', 'ftb-donation-form' ),
+            [ $this, 'field_post_payment_redirect_url' ],
+            'ftb_donation_form_settings',
+            'ftb_section_post_payment',
+            [ 'label_for' => 'ftb_post_payment_redirect_url' ]
         );
     }
 
@@ -370,14 +380,10 @@ class FTB_Donation_Form_Admin {
         <?php
     }
 
-    public function field_post_payment_conditional() {
+    public function field_post_payment_message() {
         $message = get_option( 'ftb_post_payment_message', __( 'Hartelijk dank voor je donatie!', 'ftb-donation-form' ) );
-        $url     = get_option( 'ftb_post_payment_redirect_url', '' );
         ?>
         <div class="ftb-conditional ftb-admin-section__field" data-show-when="ftb_post_payment_behavior=message">
-            <label for="ftb_post_payment_message" class="ftb-conditional-label">
-                <?php esc_html_e( 'Bedankbericht', 'ftb-donation-form' ); ?>
-            </label>
             <textarea
                 id="ftb_post_payment_message"
                 name="ftb_post_payment_message"
@@ -385,11 +391,13 @@ class FTB_Donation_Form_Admin {
                 class="large-text"
             ><?php echo esc_textarea( $message ); ?></textarea>
         </div>
+        <?php
+    }
 
+    public function field_post_payment_redirect_url() {
+        $url = get_option( 'ftb_post_payment_redirect_url', '' );
+        ?>
         <div class="ftb-conditional ftb-admin-section__field" data-show-when="ftb_post_payment_behavior=redirect">
-            <label for="ftb_post_payment_redirect_url" class="ftb-conditional-label">
-                <?php esc_html_e( 'Doorstuur-URL', 'ftb-donation-form' ); ?>
-            </label>
             <input
                 type="url"
                 id="ftb_post_payment_redirect_url"
@@ -429,7 +437,7 @@ class FTB_Donation_Form_Admin {
      */
     public function display_plugin_setup_page() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'ftb-donation-form' ) );
+            wp_die( esc_html__( 'Je hebt onvoldoende rechten om deze pagina te bekijken.', 'ftb-donation-form' ) );
         }
         include_once 'partials/ftb-donation-form-admin-display.php';
     }

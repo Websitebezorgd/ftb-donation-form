@@ -70,6 +70,19 @@
             }
         } );
 
+        // Escape or Shift+Tab from the custom amount input closes the field
+        customInput.addEventListener( 'keydown', function ( e ) {
+            if ( e.key === 'Escape' ) {
+                e.preventDefault();
+                customRadio.checked = false;
+                updateCustomVisibility();
+                customRadio.focus();
+            } else if ( e.key === 'Tab' && e.shiftKey ) {
+                customRadio.checked = false;
+                updateCustomVisibility();
+            }
+        } );
+
         // Run once on init (handles server-side re-render with 'custom' selected)
         updateCustomVisibility();
     }

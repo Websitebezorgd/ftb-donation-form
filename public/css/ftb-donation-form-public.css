@@ -11,15 +11,12 @@
     --color-primary-bg-hover: #f0faf4;
 
     /* Colors — success */
-    --color-success:          #4caf50;
+    --color-success:          ##1E8449;
     --color-success-bg:       #e8f5e9;
     --color-success-text:     #2e7d32;
 
     /* Colors — error */
     --color-error:            #C42E31;
-    --color-error-dark:       #7b241c;
-    --color-error-darker:     #4a1511;
-    --color-error-bg:         #fde8e8;
 
     /* Colors — focus */
     --color-focus:            #1a73e8;
@@ -89,13 +86,37 @@
 
 /* ── Success message ──────────────────────────────────────────────────────── */
 .donation-form__success {
-    padding: var(--space-5);
-    background: var(--color-success-bg);
-    border: 1px solid var(--color-success);
+    padding: var(--space-4);
+    background: var(--color-surface);
+    border: 2px solid var(--color-success);
     border-radius: var(--radius-sm);
-    color: var(--color-success-text);
+    color: var(--color-success);
+}
+
+.donation-form__success p {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    font-weight: 700;
     font-size: var(--font-size-base);
-    text-align: center;
+    color: var(--color-success);
+}
+
+.donation-form__success p::before {
+    content: '✓';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 1.125rem;
+    height: 1.125rem;
+    border-radius: 50%;
+    background: var(--color-success);
+    color: var(--color-surface);
+    font-size: 0.625rem;
+    font-weight: 700;
+    line-height: 1;
 }
 
 /* ── Error summary ────────────────────────────────────────────────────────── */
@@ -128,7 +149,7 @@
     height: 1.125rem;
     border-radius: 50%;
     background: var(--color-error);
-    color: #fff;
+    color: var(--color-surface);
     font-size: 0.625rem;
     font-weight: 700;
     line-height: 1;
@@ -498,3 +519,4 @@
         align-self: stretch;
     }
 }
+

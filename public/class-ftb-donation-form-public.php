@@ -154,4 +154,5 @@ class FTB_Donation_Form_Public {
         include 'partials/ftb-donation-form-public-display.php';
         return ob_get_clean();
     }
+
 }

@@ -45,6 +45,12 @@
   --space-7: 1.75rem;
   --space-8: 2rem;
 
+  /* Widths */
+  --width-sm: 12.5rem;
+  --width-md: 18.75rem;
+  --width-lg: 25rem;
+  --width-max: 28rem;
+
   /* Border radius */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
@@ -58,7 +64,7 @@
 
 /* ── Block: Donation Form ─────────────────────────────────────────────────── */
 .donation-form {
-  max-width: 37.5rem;
+  max-width: var(--width-max);
   margin: 0 auto;
   padding: var(--space-8);
   background: var(--color-surface);

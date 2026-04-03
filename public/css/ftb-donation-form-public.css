@@ -463,6 +463,13 @@
 }
 
 /* ── Submit button ────────────────────────────────────────────────────────── */
+.donation-form__field--buttons {
+    display: flex;
+    margin-top: var(--space-4);
+    gap: var(--space-3);
+    justify-content: flex-end;
+}
+
 .donation-form__submit {
     padding: var(--space-4) var(--space-7);
     background: var(--color-primary);

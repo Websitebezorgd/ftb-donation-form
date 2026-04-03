@@ -58,10 +58,10 @@ $old = static function ($key, $default = '') use ($old_values) {
         <?php endif; ?>
 
         <?php
-        $step2_fields  = [ 'name', 'email', 'gdpr', 'phone', 'street', 'house_number', 'postal_code', 'city' ];
+        $step2_fields  = ['name', 'email', 'gdpr', 'phone', 'street', 'house_number', 'postal_code', 'city'];
         $start_on_step = 1;
-        foreach ( $step2_fields as $f ) {
-            if ( ! empty( $errors[ $f ] ) ) {
+        foreach ($step2_fields as $f) {
+            if (! empty($errors[$f])) {
                 $start_on_step = 2;
                 break;
             }
@@ -73,7 +73,7 @@ $old = static function ($key, $default = '') use ($old_values) {
             method="post"
             action=""
             novalidate
-            data-start-step="<?php echo esc_attr( $start_on_step ); ?>"
+            data-start-step="<?php echo esc_attr($start_on_step); ?>"
             aria-label="<?php esc_attr_e('Donatieformulier', 'ftb-donation-form'); ?>">
             <?php wp_nonce_field('ftb_donation_submit', 'ftb_donation_nonce'); ?>
 
@@ -173,9 +173,12 @@ $old = static function ($key, $default = '') use ($old_values) {
                                 </p>
                             <?php endif; ?>
                 </fieldset>
-                <button type="button" class="donation-form__next-button" id="ftb-next-button">
-                    <?php esc_html_e('Volgende', 'ftb-donation-form'); ?>
-                </button>
+
+                <div class="donation-form__field donation-form__field--buttons">
+                    <button type="button" class="donation-form__next-button" id="ftb-next-button">
+                        <?php esc_html_e('Volgende', 'ftb-donation-form'); ?>
+                    </button>
+                </div>
             </div>
 
             <div id="ftb-step-2" class="donation-form__step-2" hidden>
@@ -360,7 +363,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                     <?php esc_html_e('Verplicht veld', 'ftb-donation-form'); ?>
                 </p>
 
-                <div class="donation-form__field">
+                <div class="donation-form__field donation-form__field--buttons">
                     <button type="button" class="donation-form__previous-button" id="ftb-previous-button">
                         <?php esc_html_e('Vorige', 'ftb-donation-form'); ?>
                     </button>

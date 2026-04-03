@@ -10,6 +10,7 @@
         if ( ! form ) return;
 
         initCustomAmount();
+        initStepNavigation();
         initClientValidation();
         focusErrorSummary();
     } );
@@ -86,6 +87,72 @@
 
         // Run once on init (handles server-side re-render with 'custom' selected)
         updateCustomVisibility();
+    }
+
+    /* ── Step navigation ────────────────────────────────────────────────── */
+    function initStepNavigation() {
+        const step1   = document.getElementById( 'ftb-step-1' );
+        const step2   = document.getElementById( 'ftb-step-2' );
+        const nextBtn = document.getElementById( 'ftb-next-button' );
+        const prevBtn = document.getElementById( 'ftb-previous-button' );
+
+        if ( ! step1 || ! step2 || ! nextBtn || ! prevBtn ) return;
+
+        nextBtn.addEventListener( 'click', function () {
+            const errors = collectStep1Errors();
+            if ( Object.keys( errors ).length > 0 ) {
+                renderErrors( errors );
+                return;
+            }
+            step1.hidden = true;
+            step2.hidden = false;
+            updateStepIndicator( 2 );
+            ( step2.querySelector( '[tabindex="-1"]' ) || step2.querySelector( 'legend' ) ).focus();
+        } );
+
+        prevBtn.addEventListener( 'click', function () {
+            step2.hidden = true;
+            step1.hidden = false;
+            updateStepIndicator( 1 );
+            ( step1.querySelector( '[tabindex="-1"]' ) || step1.querySelector( 'legend' ) ).focus();
+        } );
+
+        const startStep = parseInt( form.dataset.startStep, 10 ) || 1;
+        if ( startStep === 2 ) {
+            step1.hidden = true;
+            step2.hidden = false;
+            updateStepIndicator( 2 );
+        }
+    }
+
+    function collectStep1Errors() {
+        const errors = {};
+
+        const freqSelected = document.querySelector( 'input[name="ftb_frequency"]:checked' );
+        if ( ! freqSelected ) {
+            errors.frequency = i18n.errorFrequency || 'Kies een frequentie.';
+        }
+
+        const amountSelected = document.querySelector( 'input[name="ftb_amount"]:checked' );
+        if ( ! amountSelected ) {
+            errors.amount = i18n.errorAmount || 'Kies een bedrag.';
+        } else if ( amountSelected.value === 'custom' ) {
+            const customInput = document.getElementById( 'ftb-custom-amount' );
+            const val = customInput ? parseFloat( customInput.value.replace( ',', '.' ) ) : NaN;
+            if ( isNaN( val ) || val < 0.01 ) {
+                errors.amount = i18n.errorCustom || 'Vul een bedrag in van minimaal €0,01.';
+            }
+        }
+
+        return errors;
+    }
+
+    function updateStepIndicator( stepNumber ) {
+        document.querySelectorAll( '[aria-current="step"]' ).forEach( function ( el ) {
+            el.removeAttribute( 'aria-current' );
+        } );
+        const current = document.querySelector( '[data-step="' + stepNumber + '"]' );
+        if ( current ) current.setAttribute( 'aria-current', 'step' );
     }
 
     /* ── Client-side validation ──────────────────────────────────────────── */

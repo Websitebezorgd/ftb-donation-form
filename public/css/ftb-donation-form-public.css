@@ -71,6 +71,7 @@
   border-radius: var(--radius-md);
   box-shadow: var(--shadow);
   font-family: inherit;
+  font-weight: 400;
 }
 
 /* ── Title ────────────────────────────────────────────────────────────────── */
@@ -496,6 +497,7 @@
 
 .donation-form__privacy-link {
   color: var(--color-link);
+  font-size: var(--font-size-base);
   text-decoration: underline !important;
 }
 

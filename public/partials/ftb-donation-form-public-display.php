@@ -78,7 +78,13 @@ $old = static function ($key, $default = '') use ($old_values) {
             <?php wp_nonce_field('ftb_donation_submit', 'ftb_donation_nonce'); ?>
 
             <div id="ftb-step-1">
+
+                <p class="donation-form__required-note">
+                    <span class="donation-form__required" aria-hidden="true">*</span>
+                    <?php esc_html_e('Verplicht veld', 'ftb-donation-form'); ?>
+                </p>
                 <!-- ── Frequentie ──────────────────────────────────────────────────── -->
+
                 <fieldset class="donation-form__fieldset" <?php echo ! empty($errors['frequency']) ? 'aria-describedby="ftb-frequency-error"' : ''; ?>>
                     <legend class="donation-form__legend">
                         <?php esc_html_e('Frequentie', 'ftb-donation-form'); ?>
@@ -182,6 +188,11 @@ $old = static function ($key, $default = '') use ($old_values) {
             </div>
 
             <div id="ftb-step-2" class="donation-form__step-2" hidden>
+
+                <p class="donation-form__required-note">
+                    <span class="donation-form__required" aria-hidden="true">*</span>
+                    <?php esc_html_e('Verplicht veld', 'ftb-donation-form'); ?>
+                </p>
                 <!-- ── Persoonsgegevens ────────────────────────────────────────────── -->
                 <fieldset class="donation-form__fieldset">
                     <legend class="donation-form__legend">
@@ -357,11 +368,6 @@ $old = static function ($key, $default = '') use ($old_values) {
                     <?php endif; ?>
 
                 </div>
-
-                <p class="donation-form__required-note">
-                    <span class="donation-form__required" aria-hidden="true">*</span>
-                    <?php esc_html_e('Verplicht veld', 'ftb-donation-form'); ?>
-                </p>
 
                 <div class="donation-form__field donation-form__field--buttons">
                     <button type="button" class="donation-form__button donation-form__button--previous" id="ftb-previous-button">

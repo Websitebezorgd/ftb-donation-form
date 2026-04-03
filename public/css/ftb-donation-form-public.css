@@ -519,9 +519,9 @@
 }
 
 .donation-form__required-note {
-  margin: 0;
+  margin: 0 0 var(--space-4);
   font-size: var(--font-size-sm);
-  color: var(--color-text-faint);
+  color: var(--color-text);
 }
 
 /* ── Buttons ──────────────────────────────────────────────────────────────── */

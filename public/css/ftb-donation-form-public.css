@@ -2,526 +2,603 @@
 
 /* ── Design tokens ────────────────────────────────────────────────────────── */
 .donation-form {
+  /* Colors — brand */
+  --color-primary: #c42e31;
+  --color-secondary: #2270b6;
 
-    /* Colors — brand */
-    --color-primary:          #27ae60;
-    --color-primary-hover:    #1e8449;
-    --color-primary-active:   #196f3d;
-    --color-primary-bg:       #e8f5ee;
-    --color-primary-bg-hover: #f0faf4;
+  /* Colors — success */
+  --color-success: #1e8449;
 
-    /* Colors — success */
-    --color-success:          #1E8449;
+  /* Colors — error */
+  --color-error: #c42e31;
 
-    /* Colors — error */
-    --color-error:            #C42E31;
+  /* Colors — focus */
+  --color-focus: #251e18;
 
-    /* Colors — focus */
-    --color-focus:            #1a73e8;
+  /* Colors — link */
+  --color-link: #c42e31;
 
-    /* Colors — link */
-    --color-link:             #1565c0;
-    --color-link-hover:       #0d47a1;
+  /* Colors — text */
+  --color-text: #251e18;
 
-    /* Colors — text */
-    --color-text:             #1a1a1a;
-    --color-text-medium:      #333;
-    --color-text-muted:       #555;
-    --color-text-faint:       #666;
+  /* Colors — border */
+  --color-border: #dce3e8;
+  --color-border-hover: #b0bec5;
 
-    /* Colors — border */
-    --color-border:           #ccc;
-    --color-border-hover:     #999;
+  /* Colors — surface */
+  --color-surface: #ffffff;
+  --color-bg: #f1f1f1;
 
-    /* Colors — surface */
-    --color-surface:          #ffffff;
+  /* Typography */
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.5rem;
 
-    /* Typography */
-    --font-size-sm:           0.875rem;
-    --font-size-base:         1rem;
-    --font-size-lg:           1.125rem;
-    --font-size-xl:           1.5rem;
+  /* Spacing (4px grid) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
 
-    /* Spacing (4px grid) */
-    --space-1:                0.25rem;
-    --space-2:                0.5rem;
-    --space-3:                0.75rem;
-    --space-4:                1rem;
-    --space-5:                1.25rem;
-    --space-6:                1.5rem;
-    --space-7:                1.75rem;
-    --space-8:                2rem;
+  /* Border radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
 
-    /* Border radius */
-    --radius-sm:              0.25rem;
-    --radius-md:              0.5rem;
+  /* Transitions */
+  --transition: 0.2s;
 
-    /* Transitions */
-    --transition:             0.2s;
-
-    /* Shadow */
-    --shadow:                 0 2px 0.75rem rgba(0, 0, 0, 0.08);
+  /* Shadow */
+  --shadow: 0 2px 0.75rem #00385a30;
 }
 
 /* ── Block: Donation Form ─────────────────────────────────────────────────── */
 .donation-form {
-    max-width: 37.5rem;
-    margin: 0 auto;
-    padding: var(--space-8);
-    background: var(--color-surface);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow);
-    font-family: inherit;
+  max-width: 37.5rem;
+  margin: 0 auto;
+  padding: var(--space-8);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  font-family: inherit;
 }
 
 /* ── Title ────────────────────────────────────────────────────────────────── */
 .donation-form__title {
-    font-size: var(--font-size-xl);
-    margin: 0 0 var(--space-6);
-    color: var(--color-text);
-    text-align: center;
+  font-size: var(--font-size-xl);
+  font-weight: bold;
+  margin: 0 0 var(--space-6);
+  color: var(--color-text);
+  text-align: center;
 }
 
 /* ── Success message ──────────────────────────────────────────────────────── */
 .donation-form__success {
-    padding: var(--space-4);
-    background: var(--color-surface);
-    border: 2px solid var(--color-success);
-    border-radius: var(--radius-sm);
-    color: var(--color-success);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 2px solid var(--color-success);
+  border-radius: var(--radius-sm);
+  color: var(--color-success);
 }
 
 .donation-form__success p {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    margin: 0;
-    font-weight: 700;
-    font-size: var(--font-size-base);
-    color: var(--color-success);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  font-weight: 700;
+  font-size: var(--font-size-base);
+  color: var(--color-success);
 }
 
 .donation-form__success p::before {
-    content: '✓';
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 1.125rem;
-    height: 1.125rem;
-    border-radius: 50%;
-    background: var(--color-success);
-    color: var(--color-surface);
-    font-size: 0.625rem;
-    font-weight: 700;
-    line-height: 1;
+  content: "✓";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 50%;
+  background: var(--color-success);
+  color: var(--color-surface);
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 1;
 }
 
 /* ── Error summary ────────────────────────────────────────────────────────── */
 .donation-form__error-summary {
-    margin-bottom: var(--space-6);
-    padding: var(--space-4);
-    background: var(--color-surface);
-    border: 2px solid var(--color-error);
-    border-radius: var(--radius-sm);
-    color: var(--color-error);
+  margin-bottom: var(--space-6);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 2px solid var(--color-error);
+  border-radius: var(--radius-sm);
+  color: var(--color-error);
 }
 
 .donation-form__error-summary-title {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    margin: 0 0 var(--space-2);
-    font-weight: 700;
-    font-size: var(--font-size-base);
-    color: var(--color-error);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-2);
+  font-weight: 700;
+  font-size: var(--font-size-base);
+  color: var(--color-error);
 }
 
 .donation-form__error-summary-title::before {
-    content: '!';
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 1.125rem;
-    height: 1.125rem;
-    border-radius: 50%;
-    background: var(--color-error);
-    color: var(--color-surface);
-    font-size: 0.625rem;
-    font-weight: 700;
-    line-height: 1;
+  content: "!";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 50%;
+  background: var(--color-error);
+  color: var(--color-surface);
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .donation-form__error-list {
-    margin: 0;
-    padding-left: var(--space-5);
+  margin: 0;
+  padding-left: var(--space-5);
 }
 
 .donation-form__error-list li {
-    margin-bottom: var(--space-1);
-    font-size: var(--font-size-sm);
+  margin-bottom: var(--space-1);
+  font-size: var(--font-size-sm);
 }
 
 .donation-form__error-list a {
-    color: var(--color-error);
-    text-decoration: underline;
+  color: var(--color-error);
+  text-decoration: underline;
 }
 
 .donation-form__error-list a:hover,
 .donation-form__error-list a:focus {
-    text-decoration: none;
+  text-decoration: none;
+}
+
+/* ── Focus styles ────────────────────────────────────────────────────────── */
+.donation-form *:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Steps ────────────────────────────────────────────────────────────────── */
+.donation-form__steps {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  gap: var(--space-8);
+}
+
+.donation-form__steps li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-sm);
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+.donation-form__steps li::before {
+  content: attr(data-step);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  font-size: var(--font-size-sm);
+  font-weight: bold;
+  color: var(--color-text);
+  background: var(--color-border);
+}
+
+.donation-form__steps li[aria-current="step"]::before {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-surface);
 }
 
 /* ── Form ─────────────────────────────────────────────────────────────────── */
 .donation-form__form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
 }
 
 /* ── Fieldset ─────────────────────────────────────────────────────────────── */
 .donation-form__fieldset {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
-    margin: 0;
-    padding: 0;
-    border: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  border: none;
 }
 
 .donation-form__legend {
-    font-size: var(--font-size-base);
-    font-weight: bold;
-    color: var(--color-text-medium);
-    margin-bottom: var(--space-3);
-    padding: 0;
-    display: block;
-    width: 100%;
+  font-size: var(--font-size-base);
+  font-weight: bold;
+  color: var(--color-text);
+  margin-bottom: var(--space-3);
+  padding: 0;
+  display: block;
+  width: 100%;
 }
 
 /* ── Radio group ──────────────────────────────────────────────────────────── */
 .donation-form__radio-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
 }
 
 .donation-form__radio-label {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    border: 2px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-size: var(--font-size-base);
-    color: var(--color-text-medium);
-    transition: border-color var(--transition), background-color var(--transition);
-    user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  transition:
+    border-color var(--transition),
+    background-color var(--transition);
+  user-select: none;
 }
 
 .donation-form__radio-label:hover {
-    border-color: var(--color-primary);
-    background-color: var(--color-primary-bg-hover);
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-surface);
 }
 
 /* Hide native radio visually but keep it accessible */
 .donation-form__radio {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* Selected state */
 .donation-form__radio:checked + span,
 .donation-form__radio:checked ~ span {
-    /* handled via label styling below */
+  /* handled via label styling below */
 }
 
 .donation-form__radio-label:has(.donation-form__radio:checked) {
-    border-color: var(--color-primary);
-    background-color: var(--color-primary-bg);
-    font-weight: bold;
-    color: var(--color-primary-hover);
+  border-color: var(--color-secondary);
+  background-color: var(--color-secondary);
+  font-weight: bold;
+  color: var(--color-surface);
 }
 
 /* Focus indicator — WCAG 2.2 Focus Appearance */
 .donation-form__radio:focus-visible + *,
 .donation-form__radio-label:has(.donation-form__radio:focus-visible) {
-    outline: 3px solid var(--color-focus);
-    outline-offset: 2px;
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+  background: var(--color-focus);
+  color: var(--color-surface);
+  border-color: (--color-focus);
+  border-radius: var(--radius-sm);
 }
 
 /* ── Amount radio group ───────────────────────────────────────────────────── */
 .donation-form__radio-group--amounts {
-    align-items: center;
+  align-items: center;
 }
 
 .donation-form__radio-label--amount {
-    min-width: 4.5rem;
-    justify-content: center;
-    font-size: var(--font-size-base);
-    font-weight: 500;
+  min-width: 4.5rem;
+  justify-content: center;
+  font-size: var(--font-size-base);
+  font-weight: 500;
 }
 
 .donation-form__radio-label--custom {
-    border-style: dashed;
+  border-style: dashed;
 }
 
 /* ── Custom amount input ──────────────────────────────────────────────────── */
 .donation-form__custom-amount {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    padding: 0 var(--space-1);
-    margin: var(--space-2) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: 0 var(--space-1);
+  margin: var(--space-2) 0;
 }
 
 .donation-form__custom-amount--hidden {
-    display: none;
+  display: none;
 }
 
 .donation-form__input-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: var(--space-3);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-3);
 }
 
 .donation-form__currency-prefix {
-    font-size: var(--font-size-base);
-    font-weight: bold;
-    color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  font-weight: bold;
+  color: var(--color-text-muted);
 }
 
 .donation-form__input--amount {
-    width: 6rem;
-    padding: var(--space-2) var(--space-3);
-    border: 2px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    font-size: var(--font-size-base);
+  width: 6rem;
+  padding: var(--space-2) var(--space-3);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-base);
 }
 
 .donation-form__input--amount:focus-visible {
-    outline: 3px solid var(--color-focus);
-    outline-offset: 2px;
-    border-color: var(--color-focus);
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+  border-color: var(--color-focus);
 }
 
 /* ── Field ────────────────────────────────────────────────────────────────── */
 .donation-form__field {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
 /* Row layout for street+housenumber, postalcode+city */
 .donation-form__field--row {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: var(--space-3);
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--space-3);
 }
 
 .donation-form__field--street {
-    flex: 1 1 60%;
+  flex: 1 1 60%;
 }
 
 .donation-form__field--house-number {
-    flex: 1 1 35%;
+  flex: 1 1 35%;
 }
 
 .donation-form__field--postal-code {
-    flex: 1 1 35%;
+  flex: 1 1 35%;
 }
 
 .donation-form__field--city {
-    flex: 1 1 60%;
+  flex: 1 1 60%;
 }
 
 /* ── Label ────────────────────────────────────────────────────────────────── */
 .donation-form__label {
-    font-size: var(--font-size-base);
-    font-weight: 600;
-    color: var(--color-text-medium);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-text);
 }
 
 /* ── Input ────────────────────────────────────────────────────────────────── */
 .donation-form__input {
-    width: 100%;
-    padding: var(--space-3);
-    border: 2px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    font-size: var(--font-size-base);
-    color: var(--color-text);
-    background: var(--color-surface);
-    box-sizing: border-box;
-    transition: border-color var(--transition);
+  width: 100%;
+  padding: var(--space-3);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  background: var(--color-surface);
+  box-sizing: border-box;
+  transition: border-color var(--transition);
 }
 
 .donation-form__input:hover {
-    border-color: var(--color-border-hover);
+  border-color: var(--color-border-hover);
 }
 
 .donation-form__input:focus-visible {
-    outline: 3px solid var(--color-focus);
-    outline-offset: 2px;
-    border-color: var(--color-focus);
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  border-color: var(--color-focus);
 }
 
 /* Error state: red border + icon, not color alone (WCAG 1.4.1) */
 .donation-form__input--error {
-    border-color: var(--color-error);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='%23c0392b'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right var(--space-3) center;
-    padding-right: 2.5rem;
+  border-color: var(--color-error);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='%23c0392b'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-3) center;
+  padding-right: 2.5rem;
 }
 
 /* ── Inline field error ───────────────────────────────────────────────────── */
 .donation-form__error {
-    margin: 0;
-    font-size: var(--font-size-sm);
-    color: var(--color-error);
-    display: flex;
-    align-items: center;
-    gap: var(--space-1);
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
 }
 
 .donation-form__error::before {
-    content: '!';
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    background: var(--color-error);
-    color: #fff;
-    font-size: 0.625rem;
-    font-weight: 700;
-    line-height: 1;
+  content: "!";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--color-error);
+  color: #fff;
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 1;
 }
 
 /* ── Checkbox ─────────────────────────────────────────────────────────────── */
 .donation-form__checkbox-label {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-2);
-    font-size: var(--font-size-base);
-    color: var(--color-text-medium);
-    cursor: pointer;
-    line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  cursor: pointer;
+  line-height: 1.5;
 }
 
 .donation-form__checkbox-label--error {
-    color: var(--color-error);
+  color: var(--color-error);
 }
 
 .donation-form__checkbox {
-    flex-shrink: 0;
-    width: 1.25rem;
-    height: 1.25rem;
-    margin-top: 2px;
-    cursor: pointer;
-    accent-color: var(--color-primary);
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: var(--color-primary);
 }
 
 .donation-form__checkbox:focus-visible {
-    outline: 3px solid var(--color-focus);
-    outline-offset: 2px;
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 .donation-form__privacy-link {
-    color: var(--color-link);
-    text-decoration: underline !important;
+  color: var(--color-link);
+  text-decoration: underline !important;
 }
 
 .donation-form__privacy-link:hover,
 .donation-form__privacy-link:focus {
-    color: var(--color-link-hover);
-    text-decoration: none !important;
+  text-decoration: none !important;
+}
+
+.donation-form__privacy-link:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+  color: var(--color-focus);
 }
 
 /* ── Required indicator ───────────────────────────────────────────────────── */
 .donation-form__required {
-    color: var(--color-error);
-    margin-left: 2px;
+  color: var(--color-error);
+  margin-left: 2px;
 }
 
 .donation-form__required-note {
-    margin: 0;
-    font-size: var(--font-size-sm);
-    color: var(--color-text-faint);
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-faint);
 }
 
-/* ── Submit button ────────────────────────────────────────────────────────── */
+/* ── Buttons ──────────────────────────────────────────────────────────────── */
 .donation-form__field--buttons {
-    display: flex;
-    margin-top: var(--space-4);
-    gap: var(--space-3);
-    justify-content: flex-end;
+  display: flex;
+  flex-direction: row;
+  margin-top: var(--space-4);
+  gap: var(--space-3);
+  justify-content: center;
 }
 
-.donation-form__submit {
-    padding: var(--space-4) var(--space-7);
-    background: var(--color-primary);
-    color: var(--color-surface);
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: var(--font-size-lg);
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color var(--transition);
-    align-self: flex-start;
+.donation-form__button {
+  width: 100%;
+  padding: var(--space-4) var(--space-7);
+  background: var(--color-primary);
+  color: var(--color-surface);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-lg);
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color var(--transition);
 }
 
-.donation-form__submit:hover {
-    background: var(--color-primary-hover);
+.donation-form__button:hover {
+  background: var(--color-secondary);
 }
 
-.donation-form__submit:focus-visible {
-    outline: 3px solid var(--color-focus);
-    outline-offset: 3px;
+.donation-form__button:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+  background: var(--color-focus);
+  color: var(--color-surface);
+  border-color: var(--color-focus);
 }
 
-.donation-form__submit:active {
-    background: var(--color-primary-active);
+.donation-form__button:active {
+  background: var(--color-secondary);
+}
+
+.donation-form__button--next {
+  width: 100% !important;
+}
+
+.donation-form__button--previous {
+  width: 33% !important;
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.donation-form__button--previous:hover {
+  background: var(--color-primary);
+  color: var(--color-surface);
+}
+
+.donation-form__button--submit {
+  width: 66% !important;
 }
 
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 @media (max-width: 30rem) {
-    .donation-form {
-        padding: var(--space-5) var(--space-4);
-    }
+  .donation-form {
+    padding: var(--space-5) var(--space-4);
+  }
 
-    .donation-form__field--row {
-        flex-direction: column;
-    }
+  .donation-form__field--row {
+    flex-direction: column;
+  }
 
-    .donation-form__field--street,
-    .donation-form__field--house-number,
-    .donation-form__field--postal-code,
-    .donation-form__field--city {
-        flex: none;
-        width: 100%;
-    }
+  .donation-form__field--street,
+  .donation-form__field--house-number,
+  .donation-form__field--postal-code,
+  .donation-form__field--city {
+    flex: none;
+    width: 100%;
+  }
 
-    .donation-form__radio-group--amounts {
-        flex-wrap: wrap;
-    }
+  .donation-form__radio-group--amounts {
+    flex-wrap: wrap;
+  }
 
-    .donation-form__submit {
-        width: 100%;
-        text-align: center;
-        align-self: stretch;
-    }
+  .donation-form__submit {
+    width: 100%;
+    text-align: center;
+    align-self: stretch;
+  }
 }
-

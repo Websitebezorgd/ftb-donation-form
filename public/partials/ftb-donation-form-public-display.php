@@ -175,7 +175,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                 </fieldset>
 
                 <div class="donation-form__field donation-form__field--buttons">
-                    <button type="button" class="donation-form__next-button" id="ftb-next-button">
+                    <button type="button" class="donation-form__button donation-form__button--next" id="ftb-next-button">
                         <?php esc_html_e('Volgende', 'ftb-donation-form'); ?>
                     </button>
                 </div>
@@ -364,10 +364,10 @@ $old = static function ($key, $default = '') use ($old_values) {
                 </p>
 
                 <div class="donation-form__field donation-form__field--buttons">
-                    <button type="button" class="donation-form__previous-button" id="ftb-previous-button">
+                    <button type="button" class="donation-form__button donation-form__button--previous" id="ftb-previous-button">
                         <?php esc_html_e('Vorige', 'ftb-donation-form'); ?>
                     </button>
-                    <button class="donation-form__submit" type="submit">
+                    <button class="donation-form__button donation-form__button--submit" type="submit">
                         <?php esc_html_e('Doneer nu', 'ftb-donation-form'); ?>
                     </button>
                 </div>

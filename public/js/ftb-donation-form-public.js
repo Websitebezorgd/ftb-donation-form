@@ -114,7 +114,7 @@
             step2.hidden = true;
             step1.hidden = false;
             updateStepIndicator( 1 );
-            ( step1.querySelector( '[tabindex="-1"]' ) || step1.querySelector( 'legend' ) ).focus();
+            ( step1.querySelector( 'input, button, select, textarea' ) || step1 ).focus();
         } );
 
         const startStep = parseInt( form.dataset.startStep, 10 ) || 1;

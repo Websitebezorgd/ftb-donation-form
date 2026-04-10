@@ -55,7 +55,7 @@ FTB Donation Form is a WordPress plugin for collecting one-time and recurring do
 
 | Field | Type | Notes |
 |-------|------|-------|
-| Donation frequency | Radio buttons | One-time, Weekly, Monthly, Yearly |
+| Donation frequency | Radio buttons | One-time, Monthly, Yearly |
 | Amount | Radio buttons + text input | Up to 3 preset amounts (admin-configured), or custom |
 | Full name | Text | Required |
 | Email | Email | Required |

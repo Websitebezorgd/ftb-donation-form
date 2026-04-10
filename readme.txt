@@ -19,7 +19,7 @@ FTB Donation Form is a WordPress plugin for collecting one-time and recurring do
 * Mollie integration with API key storage and webhook handling
 * Admin customization — field toggles, amount options, post-payment behavior, privacy URL
 * Donation records dashboard with multi-format export (CSV, PDF, Excel)
-* One-time and recurring payments (weekly, monthly, yearly)
+* One-time and recurring payments (monthly, yearly)
 * Email confirmations for donors
 * Elementor widget and [ftb_donation_form] shortcode
 * WPML/TranslatePress compatible

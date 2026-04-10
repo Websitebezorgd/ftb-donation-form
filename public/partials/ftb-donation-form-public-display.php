@@ -94,7 +94,6 @@ $old = static function ($key, $default = '') use ($old_values) {
                         <?php
                         $frequencies = [
                             'one_time' => __('Eenmalig', 'ftb-donation-form'),
-                            'weekly'   => __('Wekelijks', 'ftb-donation-form'),
                             'monthly'  => __('Maandelijks', 'ftb-donation-form'),
                             'yearly'   => __('Jaarlijks', 'ftb-donation-form'),
                         ];

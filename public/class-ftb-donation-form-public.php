@@ -93,7 +93,7 @@ class FTB_Donation_Form_Public {
             // phpcs:enable
 
             // Validate frequency
-            $allowed_frequencies = [ 'one_time', 'weekly', 'monthly', 'yearly' ];
+            $allowed_frequencies = [ 'one_time', 'monthly', 'yearly' ];
             if ( ! in_array( $frequency, $allowed_frequencies, true ) ) {
                 $errors['frequency'] = __( 'Kies een frequentie.', 'ftb-donation-form' );
             }

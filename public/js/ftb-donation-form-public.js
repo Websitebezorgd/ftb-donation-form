@@ -27,7 +27,7 @@
 
         function updateCustomVisibility() {
             const isCustom = customRadio.checked;
-            customWrapper.classList.toggle( 'donation-form__custom-amount--hidden', ! isCustom );
+            customWrapper.classList.toggle( 'ftb-donation-form__custom-amount--hidden', ! isCustom );
             customInput.setAttribute( 'aria-required', isCustom ? 'true' : 'false' );
             customRadio.setAttribute( 'aria-expanded', isCustom ? 'true' : 'false' );
             if ( isCustom ) {
@@ -121,8 +121,8 @@
         if ( startStep === 2 ) {
             step1.hidden = true;
             step2.hidden = false;
-            updateStepIndicator( 2 );
         }
+        updateStepIndicator( startStep );
     }
 
     function collectStep1Errors() {
@@ -148,11 +148,15 @@
     }
 
     function updateStepIndicator( stepNumber ) {
-        document.querySelectorAll( '[aria-current="step"]' ).forEach( function ( el ) {
+        document.querySelectorAll( '[data-step]' ).forEach( function ( el ) {
             el.removeAttribute( 'aria-current' );
         } );
         const current = document.querySelector( '[data-step="' + stepNumber + '"]' );
         if ( current ) current.setAttribute( 'aria-current', 'step' );
+
+        const baseTitle = document.title.replace( /^Stap \d+: /, '' );
+        const heading = current ? current.querySelector( 'h2' ) : null;
+        if ( heading ) document.title = heading.textContent.trim() + ' — ' + baseTitle;
     }
 
     /* ── Client-side validation ──────────────────────────────────────────── */
@@ -218,7 +222,7 @@
 
     function renderErrors( errors ) {
         // Remove any previous JS-injected errors
-        document.querySelectorAll( '.donation-form__error--js' ).forEach( function ( el ) {
+        document.querySelectorAll( '.ftb-donation-form__error--js' ).forEach( function ( el ) {
             el.remove();
         } );
         const existingSummary = document.getElementById( 'ftb-error-summary' );
@@ -242,14 +246,14 @@
             if ( input ) {
                 input.setAttribute( 'aria-invalid', 'true' );
                 input.setAttribute( 'aria-describedby', 'ftb-' + field + '-error' );
-                input.classList.add( 'donation-form__input--error' );
+                input.classList.add( 'ftb-donation-form__input--error' );
             }
 
             // Inject error paragraph after the container
             const target = mapping.container ? mapping.container.parentElement || mapping.container : null;
             if ( target ) {
                 const errEl = document.createElement( 'p' );
-                errEl.className  = 'donation-form__error donation-form__error--js';
+                errEl.className  = 'ftb-donation-form__error ftb-donation-form__error--js';
                 errEl.id         = 'ftb-' + field + '-error';
                 errEl.textContent = errors[ field ];
 
@@ -267,18 +271,18 @@
 
     function buildErrorSummary( errors ) {
         const div = document.createElement( 'div' );
-        div.className  = 'donation-form__error-summary';
+        div.className  = 'ftb-donation-form__error-summary';
         div.id         = 'ftb-error-summary';
         div.setAttribute( 'role', 'alert' );
         div.setAttribute( 'tabindex', '-1' );
 
         const title = document.createElement( 'p' );
-        title.className   = 'donation-form__error-summary-title';
+        title.className   = 'ftb-donation-form__error-summary-title';
         title.textContent  = i18n.errorSummary || 'Controleer de volgende fouten:';
         div.appendChild( title );
 
         const ul = document.createElement( 'ul' );
-        ul.className = 'donation-form__error-list';
+        ul.className = 'ftb-donation-form__error-list';
         Object.keys( errors ).forEach( function ( field ) {
             const li = document.createElement( 'li' );
             const a  = document.createElement( 'a' );

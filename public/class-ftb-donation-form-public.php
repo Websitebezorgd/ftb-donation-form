@@ -59,7 +59,10 @@ class FTB_Donation_Form_Public {
         add_shortcode( 'ftb_donation_form', [ $this, 'render_donation_form' ] );
     }
 
-    public function render_donation_form() {
+    public function render_donation_form( $atts = [] ) {
+        $atts  = shortcode_atts( [ 'title' => __( 'Doneer nu', 'ftb-donation-form' ) ], $atts, 'ftb_donation_form' );
+        $title = sanitize_text_field( $atts['title'] );
+
         $errors     = [];
         $old_values = [];
         $success    = false;

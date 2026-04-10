@@ -279,16 +279,7 @@
   font-size: var(--font-size-lg);
 }
 
-.ftb-donation-form__fieldset--radio {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: start;
-  gap: var(--space-3) var(--space-2);
-}
-
 .ftb-donation-form__fieldset--radio legend {
-  width: 100%;
   margin-bottom: var(--space-3);
 }
 
@@ -557,6 +548,16 @@
 .ftb-donation-form__required {
   color: var(--color-error);
   margin-left: 2px;
+}
+
+.ftb-donation-form__step-intro {
+  margin: 0 0 var(--space-6);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+}
+
+.ftb-donation-form__step-intro:focus {
+  outline: none;
 }
 
 .ftb-donation-form__required-note {

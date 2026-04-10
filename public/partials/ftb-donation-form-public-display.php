@@ -91,26 +91,28 @@ $old = static function ($key, $default = '') use ($old_values) {
                         <h3><?php esc_html_e('Frequentie', 'ftb-donation-form'); ?> <span class="ftb-donation-form__required" aria-hidden="true">*</span></h3>
                     </legend>
 
-                    <?php
-                    $frequencies = [
-                        'one_time' => __('Eenmalig', 'ftb-donation-form'),
-                        'monthly'  => __('Maandelijks', 'ftb-donation-form'),
-                        'yearly'   => __('Jaarlijks', 'ftb-donation-form'),
-                    ];
-                    $selected_freq = $old('frequency', 'one_time');
-                    foreach ($frequencies as $val => $label) :
-                    ?>
-                        <input
-                            class="ftb-donation-form__radio"
-                            type="radio"
-                            id="ftb-frequency-<?php echo esc_attr($val); ?>"
-                            name="ftb_frequency"
-                            value="<?php echo esc_attr($val); ?>"
-                            <?php checked($selected_freq, $val); ?> />
-                        <label class="ftb-donation-form__radio-label" for="ftb-frequency-<?php echo esc_attr($val); ?>">
-                            <?php echo esc_html($label); ?>
-                        </label>
-                    <?php endforeach; ?>
+                    <div class="ftb-donation-form__radio-group">
+                        <?php
+                        $frequencies = [
+                            'one_time' => __('Eenmalig', 'ftb-donation-form'),
+                            'monthly'  => __('Maandelijks', 'ftb-donation-form'),
+                            'yearly'   => __('Jaarlijks', 'ftb-donation-form'),
+                        ];
+                        $selected_freq = $old('frequency', 'one_time');
+                        foreach ($frequencies as $val => $label) :
+                        ?>
+                            <input
+                                class="ftb-donation-form__radio"
+                                type="radio"
+                                id="ftb-frequency-<?php echo esc_attr($val); ?>"
+                                name="ftb_frequency"
+                                value="<?php echo esc_attr($val); ?>"
+                                <?php checked($selected_freq, $val); ?> />
+                            <label class="ftb-donation-form__radio-label" for="ftb-frequency-<?php echo esc_attr($val); ?>">
+                                <?php echo esc_html($label); ?>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
 
                     <?php if (! empty($errors['frequency'])) : ?>
                         <p class="ftb-donation-form__error" id="ftb-frequency-error">
@@ -125,32 +127,36 @@ $old = static function ($key, $default = '') use ($old_values) {
                         <h3><?php esc_html_e('Bedrag', 'ftb-donation-form'); ?> <span class="ftb-donation-form__required" aria-hidden="true">*</span></h3>
                     </legend>
 
-                    <?php foreach ($amount_options as $preset) : ?>
-                        <input
-                            class="ftb-donation-form__radio"
-                            type="radio"
-                            id="ftb-amount-<?php echo esc_attr($preset); ?>"
-                            name="ftb_amount"
-                            value="<?php echo esc_attr($preset); ?>"
-                            <?php checked($old('amount'), (string) $preset); ?> />
-                        <label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--amount" for="ftb-amount-<?php echo esc_attr($preset); ?>">
-                            <span aria-hidden="true">€</span><?php echo esc_html(number_format((float) $preset, 0, ',', '.')); ?>
-                        </label>
-                    <?php endforeach; ?>
+                    <div class="ftb-donation-form__radio-group">
+                        <?php foreach ($amount_options as $preset) : ?>
+                            <input
+                                class="ftb-donation-form__radio"
+                                type="radio"
+                                id="ftb-amount-<?php echo esc_attr($preset); ?>"
+                                name="ftb_amount"
+                                value="<?php echo esc_attr($preset); ?>"
+                                <?php checked($old('amount'), (string) $preset); ?> />
+                            <label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--amount" for="ftb-amount-<?php echo esc_attr($preset); ?>">
+                                <span aria-hidden="true">€</span><?php echo esc_html(number_format((float) $preset, 0, ',', '.')); ?>
+                            </label>
+                        <?php endforeach; ?>
+
+                        <?php if ($allow_custom) : ?>
+                            <input
+                                class="ftb-donation-form__radio"
+                                type="radio"
+                                id="ftb-amount-custom-radio"
+                                name="ftb_amount"
+                                value="custom"
+                                aria-controls="ftb-custom-amount-wrapper"
+                                <?php checked($old('amount'), 'custom'); ?> />
+                            <label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--custom" for="ftb-amount-custom-radio">
+                                <?php esc_html_e('Anders', 'ftb-donation-form'); ?>
+                            </label>
+                        <?php endif; ?>
+                    </div>
 
                     <?php if ($allow_custom) : ?>
-                        <input
-                            class="ftb-donation-form__radio"
-                            type="radio"
-                            id="ftb-amount-custom-radio"
-                            name="ftb_amount"
-                            value="custom"
-                            aria-controls="ftb-custom-amount-wrapper"
-                            <?php checked($old('amount'), 'custom'); ?> />
-                        <label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--custom" for="ftb-amount-custom-radio">
-                            <?php esc_html_e('Anders', 'ftb-donation-form'); ?>
-                        </label>
-
                         <div class="ftb-donation-form__custom-amount<?php echo $old('amount') !== 'custom' ? ' ftb-donation-form__custom-amount--hidden' : ''; ?>"
                             id="ftb-custom-amount-wrapper"
                             role="group"
@@ -189,6 +195,10 @@ $old = static function ($key, $default = '') use ($old_values) {
             </div>
 
             <div id="ftb-step-2" class="ftb-donation-form__step-2" hidden>
+
+                <p class="ftb-donation-form__step-intro" tabindex="-1">
+                    <?php esc_html_e('Vul jouw gegevens in om de donatie te voltooien.', 'ftb-donation-form'); ?>
+                </p>
 
                 <p class="ftb-donation-form__required-note">
                     <span class="ftb-donation-form__required" aria-hidden="true">*</span>

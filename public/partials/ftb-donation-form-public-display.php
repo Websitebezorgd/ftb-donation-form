@@ -81,14 +81,13 @@ $old = static function ($key, $default = '') use ($old_values) {
             <div id="ftb-step-1">
 
                 <p class="ftb-donation-form__required-note">
-                    <span class="ftb-donation-form__required" aria-hidden="true">*</span>
-                    <?php esc_html_e('Verplicht veld', 'ftb-donation-form'); ?>
+                    <?php esc_html_e('Als iets verplicht is, staat dit erbij.', 'ftb-donation-form'); ?>
                 </p>
 
                 <!-- ── Frequentie ─────────────────────────────────────────── -->
-                <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" <?php echo ! empty($errors['frequency']) ? 'aria-describedby="ftb-frequency-error"' : ''; ?>>
+                <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-required="true" <?php echo ! empty($errors['frequency']) ? 'aria-describedby="ftb-frequency-error"' : ''; ?>>
                     <legend class="ftb-donation-form__legend">
-                        <h3><?php esc_html_e('Frequentie', 'ftb-donation-form'); ?> <span class="ftb-donation-form__required" aria-hidden="true">*</span></h3>
+                        <h3><?php esc_html_e('Frequentie (verplicht)', 'ftb-donation-form'); ?></h3>
                     </legend>
 
                     <div class="ftb-donation-form__radio-group">
@@ -122,9 +121,9 @@ $old = static function ($key, $default = '') use ($old_values) {
                 </fieldset>
 
                 <!-- ── Bedrag ─────────────────────────────────────────────── -->
-                <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" <?php echo ! empty($errors['amount']) ? 'aria-describedby="ftb-amount-error"' : ''; ?>>
+                <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-required="true" <?php echo ! empty($errors['amount']) ? 'aria-describedby="ftb-amount-error"' : ''; ?>>
                     <legend class="ftb-donation-form__legend">
-                        <h3><?php esc_html_e('Bedrag', 'ftb-donation-form'); ?> <span class="ftb-donation-form__required" aria-hidden="true">*</span></h3>
+                        <h3><?php esc_html_e('Bedrag (verplicht)', 'ftb-donation-form'); ?></h3>
                     </legend>
 
                     <div class="ftb-donation-form__radio-group">
@@ -175,7 +174,8 @@ $old = static function ($key, $default = '') use ($old_values) {
                                     step="0.01"
                                     value="<?php echo esc_attr($old('custom_amount')); ?>"
                                     aria-label="<?php esc_attr_e('Eigen bedrag in euro', 'ftb-donation-form'); ?>"
-                                    <?php echo $old('amount') === 'custom' ? 'aria-required="true"' : ''; ?> />
+                                    aria-required="<?php echo $old('amount') === 'custom' ? 'true' : 'false'; ?>"
+                                    aria-invalid="false" />
                             </div>
                         </div>
                     <?php endif; ?>
@@ -201,8 +201,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                 </p>
 
                 <p class="ftb-donation-form__required-note">
-                    <span class="ftb-donation-form__required" aria-hidden="true">*</span>
-                    <?php esc_html_e('Verplicht veld', 'ftb-donation-form'); ?>
+                    <?php esc_html_e('Als iets verplicht is, staat dit erbij.', 'ftb-donation-form'); ?>
                 </p>
 
                 <!-- ── Persoonsgegevens ───────────────────────────────────── -->
@@ -212,8 +211,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                     </legend>
 
                     <label class="ftb-donation-form__label" for="ftb-name">
-                        <?php esc_html_e('Volledige naam', 'ftb-donation-form'); ?>
-                        <span class="ftb-donation-form__required" aria-hidden="true">*</span>
+                        <?php esc_html_e('Volledige naam (verplicht)', 'ftb-donation-form'); ?>
                     </label>
                     <input
                         class="ftb-donation-form__input<?php echo ! empty($errors['name']) ? ' ftb-donation-form__input--error' : ''; ?>"
@@ -223,8 +221,8 @@ $old = static function ($key, $default = '') use ($old_values) {
                         value="<?php echo esc_attr($old('name')); ?>"
                         autocomplete="name"
                         aria-required="true"
+                        aria-invalid="<?php echo ! empty($errors['name']) ? 'true' : 'false'; ?>"
                         <?php if (! empty($errors['name'])) : ?>
-                        aria-invalid="true"
                         aria-describedby="ftb-name-error"
                         <?php endif; ?> />
                     <?php if (! empty($errors['name'])) : ?>
@@ -234,8 +232,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                     <?php endif; ?>
 
                     <label class="ftb-donation-form__label" for="ftb-email">
-                        <?php esc_html_e('E-mailadres', 'ftb-donation-form'); ?>
-                        <span class="ftb-donation-form__required" aria-hidden="true">*</span>
+                        <?php esc_html_e('E-mailadres (verplicht)', 'ftb-donation-form'); ?>
                     </label>
                     <input
                         class="ftb-donation-form__input<?php echo ! empty($errors['email']) ? ' ftb-donation-form__input--error' : ''; ?>"
@@ -245,8 +242,8 @@ $old = static function ($key, $default = '') use ($old_values) {
                         value="<?php echo esc_attr($old('email')); ?>"
                         autocomplete="email"
                         aria-required="true"
+                        aria-invalid="<?php echo ! empty($errors['email']) ? 'true' : 'false'; ?>"
                         <?php if (! empty($errors['email'])) : ?>
-                        aria-invalid="true"
                         aria-describedby="ftb-email-error"
                         <?php endif; ?> />
                     <?php if (! empty($errors['email'])) : ?>
@@ -342,14 +339,13 @@ $old = static function ($key, $default = '') use ($old_values) {
                             id="ftb-gdpr"
                             value="1"
                             aria-required="true"
+                            aria-invalid="<?php echo ! empty($errors['gdpr']) ? 'true' : 'false'; ?>"
                             <?php checked($old('gdpr'), '1'); ?>
                             <?php if (! empty($errors['gdpr'])) : ?>
-                            aria-invalid="true"
                             aria-describedby="ftb-gdpr-error"
                             <?php endif; ?> />
                         <label class="ftb-donation-form__checkbox-label<?php echo ! empty($errors['gdpr']) ? ' ftb-donation-form__checkbox-label--error' : ''; ?>" for="ftb-gdpr">
-                            <?php esc_html_e('Ik ga akkoord met de privacyverklaring', 'ftb-donation-form'); ?>
-                            <span class="ftb-donation-form__required" aria-hidden="true">*</span>
+                            <?php esc_html_e('Ik ga akkoord met de privacyverklaring (verplicht)', 'ftb-donation-form'); ?>
                         </label>
                     </div>
 

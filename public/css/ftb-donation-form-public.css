@@ -103,7 +103,7 @@
 }
 
 .ftb-donation-form__success p::before {
-  content: "✓";
+  content: "✓" / "";
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -139,7 +139,7 @@
 }
 
 .ftb-donation-form__error-summary-title::before {
-  content: "!";
+  content: "!" / "";
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -475,7 +475,7 @@
 }
 
 .ftb-donation-form__error::before {
-  content: "!";
+  content: "!" / "";
   display: inline-flex;
   align-items: center;
   justify-content: center;

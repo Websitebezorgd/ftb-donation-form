@@ -81,7 +81,7 @@ $old = static function ($key, $default = '') use ($old_values) {
             <div id="ftb-step-1">
 
                 <p class="ftb-donation-form__required-note">
-                    <?php esc_html_e('Als iets verplicht is, staat dit erbij.', 'ftb-donation-form'); ?>
+                    <?php esc_html_e('Bij velden die verplicht zijn, staat (verplicht) erachter.', 'ftb-donation-form'); ?>
                 </p>
 
                 <!-- ── Frequentie ─────────────────────────────────────────── -->
@@ -201,7 +201,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                 </p>
 
                 <p class="ftb-donation-form__required-note">
-                    <?php esc_html_e('Als iets verplicht is, staat dit erbij.', 'ftb-donation-form'); ?>
+                    <?php esc_html_e('Bij velden die verplicht zijn, staat (verplicht) erachter.', 'ftb-donation-form'); ?>
                 </p>
 
                 <!-- ── Persoonsgegevens ───────────────────────────────────── -->

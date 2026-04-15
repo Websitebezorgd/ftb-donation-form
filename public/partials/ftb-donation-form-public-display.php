@@ -72,7 +72,6 @@ $old = static function ($key, $default = '') use ($old_values) {
             class="ftb-donation-form__form"
             id="ftb-donation-form"
             method="post"
-            action=""
             novalidate
             data-start-step="<?php echo esc_attr($start_on_step); ?>"
             aria-label="<?php esc_attr_e('Donatieformulier', 'ftb-donation-form'); ?>">
@@ -106,7 +105,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                                 id="ftb-frequency-<?php echo esc_attr($val); ?>"
                                 name="ftb_frequency"
                                 value="<?php echo esc_attr($val); ?>"
-                                <?php checked($selected_freq, $val); ?> />
+                                <?php checked($selected_freq, $val); ?>>
                             <label class="ftb-donation-form__radio-label" for="ftb-frequency-<?php echo esc_attr($val); ?>">
                                 <?php echo esc_html($label); ?>
                             </label>
@@ -134,7 +133,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                                 id="ftb-amount-<?php echo esc_attr($preset); ?>"
                                 name="ftb_amount"
                                 value="<?php echo esc_attr($preset); ?>"
-                                <?php checked($old('amount'), (string) $preset); ?> />
+                                <?php checked($old('amount'), (string) $preset); ?>>
                             <label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--amount" for="ftb-amount-<?php echo esc_attr($preset); ?>">
                                 <span aria-hidden="true">€</span><?php echo esc_html(number_format((float) $preset, 0, ',', '.')); ?>
                             </label>
@@ -148,7 +147,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                                 name="ftb_amount"
                                 value="custom"
                                 aria-controls="ftb-custom-amount-wrapper"
-                                <?php checked($old('amount'), 'custom'); ?> />
+                                <?php checked($old('amount'), 'custom'); ?>>
                             <label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--custom" for="ftb-amount-custom-radio">
                                 <?php esc_html_e('Anders', 'ftb-donation-form'); ?>
                             </label>
@@ -175,7 +174,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                                     value="<?php echo esc_attr($old('custom_amount')); ?>"
                                     aria-label="<?php esc_attr_e('Eigen bedrag in euro', 'ftb-donation-form'); ?>"
                                     aria-required="<?php echo $old('amount') === 'custom' ? 'true' : 'false'; ?>"
-                                    aria-invalid="false" />
+                                    aria-invalid="false">
                             </div>
                         </div>
                     <?php endif; ?>
@@ -224,7 +223,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                         aria-invalid="<?php echo ! empty($errors['name']) ? 'true' : 'false'; ?>"
                         <?php if (! empty($errors['name'])) : ?>
                         aria-describedby="ftb-name-error"
-                        <?php endif; ?> />
+                        <?php endif; ?>>
                     <?php if (! empty($errors['name'])) : ?>
                         <p class="ftb-donation-form__error" id="ftb-name-error">
                             <?php echo esc_html($errors['name']); ?>
@@ -245,7 +244,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                         aria-invalid="<?php echo ! empty($errors['email']) ? 'true' : 'false'; ?>"
                         <?php if (! empty($errors['email'])) : ?>
                         aria-describedby="ftb-email-error"
-                        <?php endif; ?> />
+                        <?php endif; ?>>
                     <?php if (! empty($errors['email'])) : ?>
                         <p class="ftb-donation-form__error" id="ftb-email-error">
                             <?php echo esc_html($errors['email']); ?>
@@ -262,7 +261,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                             name="ftb_phone"
                             id="ftb-phone"
                             value="<?php echo esc_attr($old('phone')); ?>"
-                            autocomplete="tel" />
+                            autocomplete="tel">
                     <?php endif; ?>
 
                     <?php if ($field_enabled('street')) : ?>
@@ -275,7 +274,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                             name="ftb_street"
                             id="ftb-street"
                             value="<?php echo esc_attr($old('street')); ?>"
-                            autocomplete="address-line1" />
+                            autocomplete="address-line1">
                     <?php endif; ?>
 
                     <?php if ($field_enabled('house_number')) : ?>
@@ -288,7 +287,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                             name="ftb_house_number"
                             id="ftb-house-number"
                             value="<?php echo esc_attr($old('house_number')); ?>"
-                            autocomplete="address-line2" />
+                            autocomplete="address-line2">
                     <?php endif; ?>
 
                     <?php if ($field_enabled('postal_code')) : ?>
@@ -301,7 +300,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                             name="ftb_postal_code"
                             id="ftb-postal-code"
                             value="<?php echo esc_attr($old('postal_code')); ?>"
-                            autocomplete="postal-code" />
+                            autocomplete="postal-code">
                     <?php endif; ?>
 
                     <?php if ($field_enabled('city')) : ?>
@@ -314,7 +313,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                             name="ftb_city"
                             id="ftb-city"
                             value="<?php echo esc_attr($old('city')); ?>"
-                            autocomplete="address-level2" />
+                            autocomplete="address-level2">
                     <?php endif; ?>
 
                 </fieldset>
@@ -343,7 +342,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                             <?php checked($old('gdpr'), '1'); ?>
                             <?php if (! empty($errors['gdpr'])) : ?>
                             aria-describedby="ftb-gdpr-error"
-                            <?php endif; ?> />
+                            <?php endif; ?>>
                         <label class="ftb-donation-form__checkbox-label<?php echo ! empty($errors['gdpr']) ? ' ftb-donation-form__checkbox-label--error' : ''; ?>" for="ftb-gdpr">
                             <?php esc_html_e('Ik ga akkoord met de privacyverklaring (verplicht)', 'ftb-donation-form'); ?>
                         </label>

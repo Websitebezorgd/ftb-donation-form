@@ -444,7 +444,14 @@
   background: var(--color-surface);
   box-sizing: border-box;
   transition: border-color var(--transition);
+}
+
+.ftb-donation-form__fieldset--personal .ftb-donation-form__input {
   margin-bottom: var(--space-6);
+}
+
+.ftb-donation-form__fieldset--personal .ftb-donation-form__input--error {
+  margin-bottom: var(--space-2);
 }
 
 .ftb-donation-form__input:hover {
@@ -468,7 +475,7 @@
 
 /* ── Inline field error ───────────────────────────────────────────────────── */
 .ftb-donation-form__error {
-  margin: 0;
+  margin: var(--space-1) 0 var(--space-6);
   font-size: var(--font-size-sm);
   color: var(--color-error);
   display: flex;

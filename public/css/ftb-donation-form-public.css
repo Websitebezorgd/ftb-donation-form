@@ -625,31 +625,13 @@
   width: 66% !important;
 }
 
-/* ── Responsive ───────────────────────────────────────────────────────────── */
+/* ── Responsive (matches --width-max: 30rem) ──────────────────────────────── */
 @media (max-width: 30rem) {
   .ftb-donation-form {
     padding: var(--space-5) var(--space-4);
   }
 
-  .ftb-donation-form__field--row {
-    flex-direction: column;
-  }
-
-  .ftb-donation-form__field--street,
-  .ftb-donation-form__field--house-number,
-  .ftb-donation-form__field--postal-code,
-  .ftb-donation-form__field--city {
-    flex: none;
-    width: 100%;
-  }
-
-  .ftb-donation-form__radio-group--amounts {
-    flex-wrap: wrap;
-  }
-
-  .ftb-donation-form__submit {
-    width: 100%;
-    text-align: center;
-    align-self: stretch;
+  .ftb-donation-form__steps {
+    gap: var(--space-4);
   }
 }

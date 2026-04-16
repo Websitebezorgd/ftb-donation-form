@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+      lang="nl"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Donatie Formulier</title>
+  </head>
+  <body>
+    <h1>Voorbeeld Donatie Formulier</h1>
+    <div class="ftb-donation-form">
+      <h2 class="ftb-donation-form__title">Doneer nu</h2>
+      <form class="ftb-donation-form__form" action="#" method="post">
+        <fieldset class="ftb-donation-form__fieldset">
+          <legend class="ftb-donation-form__legend">
+            <h3>Hoe vaak wil je doneren?</h3>
+          </legend>
+          <div class="ftb-donation-form__radio-group">
+            <input
+              class="ftb-donation-form__radio"
+              type="radio"
+              id="one-time"
+              name="frequency"
+              value="one-time"
+            />
+            <label class="ftb-donation-form__radio-label" for="one-time"
+              >Eenmalig</label
+            >
+
+            <input
+              class="ftb-donation-form__radio"
+              type="radio"
+              id="monthly"
+              name="frequency"
+              value="monthly"
+            />
+            <label class="ftb-donation-form__radio-label" for="monthly"
+              >Maandelijks</label
+            >
+
+            <input
+              class="ftb-donation-form__radio"
+              type="radio"
+              id="yearly"
+              name="frequency"
+              value="yearly"
+            />
+            <label class="ftb-donation-form__radio-label" for="yearly"
+              >Jaarlijks</label
+            >
+          </div>
+        </fieldset>
+        <div class="ftb-donation-form__field--buttons">
+          <button
+            type="submit"
+            class="ftb-donation-form__button ftb-donation-form__button--submit"
+          >
+            Doneer
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

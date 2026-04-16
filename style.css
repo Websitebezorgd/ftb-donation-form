@@ -223,11 +223,25 @@
   color: var(--color-surface);
 }
 
+.ftb-donation-form__steps li.is-active::before {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-surface);
+}
+
 .ftb-donation-form__steps li h2 {
   font-size: inherit;
   font-weight: inherit;
   margin: 0;
   padding: 0;
+}
+
+.ftb-donation-form__step {
+  display: none;
+}
+
+.ftb-donation-form__step.is-active {
+  display: block;
 }
 
 /* ── Form ─────────────────────────────────────────────────────────────────── */
@@ -623,6 +637,11 @@
   width: 66% !important;
 }
 
+/* ── Error Messages ──────────────────────────────────────────────────────── */
+[hidden] {
+  display: none !important;
+}
+
 /* ── Responsive (matches --width-max: 30rem) ──────────────────────────────── */
 @media (max-width: 30rem) {
   .ftb-donation-form {
@@ -633,3 +652,5 @@
     gap: var(--space-4);
   }
 }
+
+

@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
     <title>Donatie Formulier</title>
   </head>
 
@@ -43,9 +44,10 @@
 
         <!-- STEP 1 -->
         <div class="ftb-donation-form__step is-active" data-step="1">
-            <p class="ftb-donation-form__step-intro">
-              Vul in hoeveel je wil doneren en hoe vaak. Als iets verplicht is, staat het erbij.
-            </p>
+          <p class="ftb-donation-form__step-intro">
+            Vul in hoeveel je wil doneren en hoe vaak. Als iets verplicht is,
+            staat het erbij.
+          </p>
           <!-- Fieldset 1 -->
           <fieldset
             class="ftb-donation-form__fieldset"
@@ -104,7 +106,7 @@
             aria-describedby="error-amount"
           >
             <legend class="ftb-donation-form__legend">
-              >Welk bedrag wil je doneren? (Verplicht)
+              Welk bedrag wil je doneren? (Verplicht)
             </legend>
 
             <div class="ftb-donation-form__radio-group">
@@ -171,6 +173,8 @@
                   class="ftb-donation-form__input ftb-donation-form__input--amount"
                   min="1"
                   step="1"
+                  required
+                  aria-required="true"
                 />
               </div>
             </div>
@@ -193,9 +197,9 @@
 
         <!-- STEP 2 -->
         <div class="ftb-donation-form__step" data-step="2">
-            <p class="ftb-donation-form__step-intro">
-              Vul je gegevens in. Als iets verplicht is, staat het erbij.
-            </p>
+          <p class="ftb-donation-form__step-intro">
+            Vul je gegevens in. Als iets verplicht is, staat het erbij.
+          </p>
           <!-- Personal Information -->
           <fieldset
             class="ftb-donation-form__fieldset ftb-donation-form__fieldset--personal"
@@ -351,9 +355,9 @@
               </label>
             </div>
 
-             <p id="error-privacy" class="ftb-donation-form__error" hidden>
-                Je moet akkoord gaan met de privacyverklaring
-              </p>
+            <p id="error-privacy" class="ftb-donation-form__error" hidden>
+              Je moet akkoord gaan met de privacyverklaring
+            </p>
           </fieldset>
 
           <!-- Buttons -->

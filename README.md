@@ -51,7 +51,8 @@ The development process is split into small, manageable steps:
 | 6 | Mollie integration | Payment flow + webhook | 🔲 Todo |
 | 7 | Dashboard | Donation records overview | 🔲 Todo |
 | 8 | Translations | i18n + `.pot` file | 🔲 Todo |
-| 9 | Testing & security | Accessibility + sanitization + nonces | 🔲 Todo |
+| 9 | Testing | Accessibility + validation (throughout all phases) | 🔲 Ongoing |
+| 10 | Security | Nonces, sanitization, escaping (WordPress phase) | 🔲 Todo |
 
 ---
 

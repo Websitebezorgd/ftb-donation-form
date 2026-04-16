@@ -2,23 +2,24 @@
 <html lang="nl">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-      lang="nl"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <title>Donatie Formulier</title>
   </head>
+
   <body>
     <h1>Voorbeeld Donatie Formulier</h1>
+
     <div class="ftb-donation-form">
       <h2 class="ftb-donation-form__title">Doneer nu</h2>
+
       <form class="ftb-donation-form__form" action="#" method="post">
+        <!-- Fieldset 1 -->
         <fieldset class="ftb-donation-form__fieldset">
           <legend class="ftb-donation-form__legend">
             <h3>Hoe vaak wil je doneren?</h3>
           </legend>
+
           <div class="ftb-donation-form__radio-group">
             <input
               class="ftb-donation-form__radio"
@@ -54,6 +55,133 @@
             >
           </div>
         </fieldset>
+
+        <!-- Fieldset 2 -->
+        <fieldset class="ftb-donation-form__fieldset">
+          <legend class="ftb-donation-form__legend">
+            <h3>Welk bedrag wil je doneren?</h3>
+          </legend>
+
+          <div class="ftb-donation-form__radio-group">
+            <input
+              class="ftb-donation-form__radio"
+              type="radio"
+              id="amount-1"
+              name="amount"
+              value="5"
+            />
+            <label class="ftb-donation-form__radio-label" for="amount-1"
+              >€5</label
+            >
+
+            <input
+              class="ftb-donation-form__radio"
+              type="radio"
+              id="amount-2"
+              name="amount"
+              value="10"
+            />
+            <label class="ftb-donation-form__radio-label" for="amount-2"
+              >€10</label
+            >
+
+            <input
+              class="ftb-donation-form__radio"
+              type="radio"
+              id="amount-3"
+              name="amount"
+              value="25"
+            />
+            <label class="ftb-donation-form__radio-label" for="amount-3"
+              >€25</label
+            >
+
+            <input
+              class="ftb-donation-form__radio"
+              type="radio"
+              id="amount-4"
+              name="amount"
+              value="other"
+            />
+            <label class="ftb-donation-form__radio-label" for="amount-4"
+              >Anders</label
+            >
+          </div>
+
+          <!-- CUSTOM AMOUNT (hidden by default)-->
+          <div
+            class="ftb-donation-form__custom-amount ftb-donation-form__custom-amount--hidden"
+          >
+            <label class="ftb-donation-form__label" for="custom-amount">
+              Vul je eigen bedrag in
+            </label>
+
+            <div class="ftb-donation-form__input-wrapper">
+              <span class="ftb-donation-form__currency-prefix">€</span>
+
+              <input
+                id="custom-amount"
+                type="number"
+                class="ftb-donation-form__input ftb-donation-form__input--amount"
+                min="1"
+                step="1"
+              />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Personal Information -->
+        <fieldset
+          class="ftb-donation-form__fieldset ftb-donation-form__fieldset--personal"
+        >
+          <legend class="ftb-donation-form__legend">
+            <h3>Jouw gegevens</h3>
+          </legend>
+          <div class="ftb-donation-form__field">
+            <label class="ftb-donation-form__label" for="name">Volledige naam<span class="ftb-donation-form__required">*</span>
+            </label>
+
+            <input
+              class="ftb-donation-form__input"
+              type="text"
+              id="name"
+              name="name"
+              required
+              autocomplete="name"
+            />
+          </div>
+
+          <div class="ftb-donation-form__field">
+            <label class="ftb-donation-form__label" for="email">
+              E-mail <span class="ftb-donation-form__required">*</span>
+            </label>
+
+            <input
+              class="ftb-donation-form__input"
+              type="email"
+              id="email"
+              name="email"
+              required
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="ftb-donation-form__field">
+            <label class="ftb-donation-form__label" for="phone">
+              Telefoon <span class="ftb-donation-form__required">*</span>
+            </label>
+
+            <input
+              class="ftb-donation-form__input"
+              type="tel"
+              id="phone"
+              name="phone"
+              autocomplete="tel"
+            />
+          </div>
+        </fieldset>
+
+        <!-- Buttons -->
         <div class="ftb-donation-form__field--buttons">
           <button
             type="submit"

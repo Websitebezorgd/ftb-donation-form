@@ -138,7 +138,8 @@
             <h3>Jouw gegevens</h3>
           </legend>
           <div class="ftb-donation-form__field">
-            <label class="ftb-donation-form__label" for="name">Volledige naam<span class="ftb-donation-form__required">*</span>
+            <label class="ftb-donation-form__label" for="name"
+              >Volledige naam<span class="ftb-donation-form__required">*</span>
             </label>
 
             <input
@@ -178,6 +179,95 @@
               name="phone"
               autocomplete="tel"
             />
+          </div>
+
+          <div class="ftb-donation-form__field ftb-donation-form__field--row">
+            <div
+              class="ftb-donation-form__field ftb-donation-form__field--street"
+            >
+              <label class="ftb-donation-form__label" for="street"
+                >Straat</label
+              >
+              <input
+                class="ftb-donation-form__input"
+                type="text"
+                id="street"
+                name="street"
+              />
+            </div>
+
+            <div
+              class="ftb-donation-form__field ftb-donation-form__field--house-number"
+            >
+              <label class="ftb-donation-form__label" for="house-number"
+                >Huisnummer</label
+              >
+              <input
+                class="ftb-donation-form__input"
+                type="text"
+                id="house-number"
+                name="house-number"
+              />
+            </div>
+          </div>
+
+          <div class="ftb-donation-form__field ftb-donation-form__field--row">
+            <div
+              class="ftb-donation-form__field ftb-donation-form__field--postal-code"
+            >
+              <label class="ftb-donation-form__label" for="postal"
+                >Postcode</label
+              >
+              <input
+                class="ftb-donation-form__input"
+                type="text"
+                id="postal"
+                name="postal"
+              />
+            </div>
+
+            <div
+              class="ftb-donation-form__field ftb-donation-form__field--city"
+            >
+              <label class="ftb-donation-form__label" for="city">Plaats</label>
+              <input
+                class="ftb-donation-form__input"
+                type="text"
+                id="city"
+                name="city"
+              />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Consent -->
+
+        <fieldset
+          class="ftb-donation-form__fieldset ftb-donation-form__fieldset--consent"
+        >
+          <legend class="ftb-donation-form__legend">
+            Privacy & toestemming
+          </legend>
+
+          <a
+            class="ftb-donation-form__privacy-link"
+            href="/privacyverklaring"
+            target="_blank"
+          >
+            Bekijk privacyverklaring
+          </a>
+
+          <div class="ftb-donation-form__checkbox-wrapper">
+            <input
+              class="ftb-donation-form__checkbox"
+              type="checkbox"
+              id="privacy"
+              name="privacy"
+              required
+            />
+            <label class="ftb-donation-form__checkbox-label" for="privacy">
+              Ik ga akkoord met de privacyverklaring
+            </label>
           </div>
         </fieldset>
 

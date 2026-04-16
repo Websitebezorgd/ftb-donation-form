@@ -175,7 +175,7 @@
 }
 
 /* ── Focus styles ────────────────────────────────────────────────────────── */
-.ftb-donation-form *:focus-visible {
+.ftb-donation-form :focus-visible {
   outline: 3px solid var(--color-focus);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
@@ -241,7 +241,7 @@
 .ftb-donation-form__fieldset {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: var(--space-2);
   margin: 0 0 var(--space-6);
   padding: 0;
   border: none;
@@ -255,13 +255,6 @@
   padding: 0;
   display: block;
   width: 100%;
-}
-
-.ftb-donation-form__legend h3 {
-  font-size: inherit;
-  font-weight: inherit;
-  margin: 0;
-  padding: 0;
 }
 
 /* ── Radio group ──────────────────────────────────────────────────────────── */
@@ -378,7 +371,7 @@
 .ftb-donation-form__currency-prefix {
   font-size: var(--font-size-base);
   font-weight: bold;
-  color: var(--color-text-muted);
+  color: var(--color-text);
 }
 
 .ftb-donation-form__input--amount {
@@ -400,6 +393,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  margin-bottom: var(--space-6);
 }
 
 /* Row layout for street+housenumber, postalcode+city */
@@ -430,7 +424,6 @@
   font-size: var(--font-size-base);
   font-weight: 600;
   color: var(--color-text);
-  margin-bottom: var(--space-2);
 }
 
 /* ── Input ────────────────────────────────────────────────────────────────── */
@@ -444,10 +437,6 @@
   background: var(--color-surface);
   box-sizing: border-box;
   transition: border-color var(--transition);
-}
-
-.ftb-donation-form__fieldset--personal .ftb-donation-form__input {
-  margin-bottom: var(--space-6);
 }
 
 .ftb-donation-form__fieldset--personal .ftb-donation-form__input--error {
@@ -475,7 +464,7 @@
 
 /* ── Inline field error ───────────────────────────────────────────────────── */
 .ftb-donation-form__error {
-  margin: var(--space-1) 0 var(--space-6);
+  margin: var(--space-1) 0 0;
   font-size: var(--font-size-sm);
   color: var(--color-error);
   display: flex;
@@ -615,7 +604,7 @@
 }
 
 .ftb-donation-form__button--next {
-  width: 100% !important;
+  width: 100%;
 }
 
 .ftb-donation-form__button--previous {

@@ -24,7 +24,7 @@
         <li data-step="2">Jouw gegevens</li>
       </ol>
 
-      <form class="ftb-donation-form__form" action="#" method="post">
+      <form class="ftb-donation-form__form" action="#" method="post" novalidate>
         <!-- SUCCESS MESSAGE -->
         <div class="ftb-donation-form__success" hidden>
           <p>Bedankt voor je donatie!</p>
@@ -170,11 +170,11 @@
                 <input
                   id="custom-amount"
                   type="number"
+                  name="custom-amount"
+                  class="ftb-donation-form__input ftb-donation-form__input--custom
                   aria-label="Vul zelf een bedrag in"
                   min="1"
                   step="1"
-                  required
-                  aria-required="true"
                 />
               </div>
             </div>

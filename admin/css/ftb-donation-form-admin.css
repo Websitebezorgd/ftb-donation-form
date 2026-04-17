@@ -1,0 +1,227 @@
+/* FTB Donation Form – Admin styles */
+
+/* ── Design tokens ────────────────────────────────────────────────────────── */
+.ftb-admin__wrap {
+
+    /* Colors — brand */
+    --color-brand:             #C42E31;
+
+    /* Colors — WP admin UI */
+    --color-focus:             #2271b1;
+    --color-border:            #c3c4c7;
+    --color-border-input:      #8c8f94;
+    --color-surface:           #ffffff;
+    --color-surface-muted:     #f6f7f7;
+    --color-surface-info:      #f0f6fc;
+    --color-text-muted:        #646970;
+
+    /* Typography */
+    --font-size-sm:            0.875rem;
+    --font-size-base:          1rem;
+
+    /* Spacing (4px grid) */
+    --space-1:                 0.25rem;
+    --space-2:                 0.5rem;
+    --space-3:                 0.75rem;
+    --space-4:                 1rem;
+    --space-5:                 1.25rem;
+    --space-6:                 1.5rem;
+    --space-7:                 1.75rem;
+
+    /* Border radius */
+    --radius-sm:               0.25rem;
+
+    /* Sizing */
+    --input-height:            2rem;
+}
+
+/* ── Wrap ─────────────────────────────────────────────────────────────────── */
+.ftb-admin__wrap {
+    max-width: 50rem;
+}
+
+/* ── Title ────────────────────────────────────────────────────────────────── */
+h1.ftb-admin__title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+}
+
+.ftb-admin__title .dashicons {
+    color: var(--color-brand);
+    font-size: var(--space-7);
+    width: var(--space-7);
+    height: var(--space-7);
+}
+
+/* ── Sections ─────────────────────────────────────────────────────────────── */
+.ftb-admin-form__section {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-5);
+}
+
+.ftb-admin-form__title {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin: 0;
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface-muted);
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+.ftb-admin-form__description {
+    margin: var(--space-3) var(--space-4) 0;
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
+.ftb-admin-form__group {
+    padding: var(--space-4);
+}
+
+/* ── WP form-table overrides ──────────────────────────────────────────────── */
+.ftb-admin-form__group table.form-table {
+    margin: 0;
+}
+
+.ftb-admin-form__group table.form-table th {
+    padding: var(--space-2) var(--space-4) var(--space-2) 0;
+    width: 12.5rem;
+    font-weight: 600;
+}
+
+.ftb-admin-form__group table.form-table td {
+    padding: var(--space-2) 0;
+}
+
+/* ── Checkbox list (formuliervelden) ──────────────────────────────────────── */
+.ftb-admin-form__group--checkboxes table.form-table th {
+    display: none;
+}
+
+.ftb-admin-form__group--checkboxes table.form-table td {
+    padding-left: 0;
+}
+
+.ftb-checkbox-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    gap: var(--space-2);
+}
+
+.ftb-checkbox-list li label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    cursor: pointer;
+}
+
+.ftb-checkbox-list input[type="checkbox"] {
+    margin: 0;
+    flex-shrink: 0;
+}
+
+/* ── Group label (checkbox groups without a single input to associate) ─────── */
+.ftb-admin-form__group-label {
+    margin: 0 0 var(--space-2);
+    font-weight: 600;
+    font-size: var(--font-size-base);
+}
+
+/* ── Field content wrapper (consistent spacing in every section) ──────────── */
+.ftb-admin-form__field {
+    padding-top: var(--space-2);
+    margin-bottom: var(--space-3);
+}
+
+/* ── Amount inputs (bedragopties) ─────────────────────────────────────────── */
+.ftb-amount-inputs {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+}
+
+.ftb-amount-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--color-border-input);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--color-surface);
+}
+
+.ftb-amount-input__prefix {
+    padding: 0 var(--space-2);
+    background: var(--color-surface-muted);
+    border-right: 1px solid var(--color-border-input);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    line-height: var(--input-height);
+    user-select: none;
+}
+
+.ftb-amount-input input[type="number"] {
+    border: none;
+    box-shadow: none;
+    width: 4rem;
+    padding: 0 var(--space-1);
+    height: var(--input-height);
+    line-height: var(--input-height);
+    text-align: right;
+}
+
+.ftb-amount-input input[type="number"]:focus {
+    outline: 2px solid var(--color-focus);
+    outline-offset: -2px;
+}
+
+/* ── Conditional label ────────────────────────────────────────────────────── */
+.ftb-conditional-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: var(--space-1);
+}
+
+/* ── Conditional fields (shown/hidden via JS) ─────────────────────────────── */
+.ftb-conditional {
+    display: none;
+}
+
+.ftb-conditional.is-visible {
+    display: block;
+}
+
+/* ── Submit row ───────────────────────────────────────────────────────────── */
+.ftb-admin-form__submit {
+    margin: var(--space-2) 0 var(--space-6);
+}
+
+/* ── Shortcode info box ───────────────────────────────────────────────────── */
+.ftb-admin__shortcode {
+    background: var(--color-surface-info);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-focus);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3) var(--space-4);
+    margin-top: var(--space-2);
+}
+
+.ftb-admin__shortcode h2 {
+    margin: 0 0 var(--space-2);
+    font-size: var(--font-size-sm);
+}
+
+.ftb-admin__shortcode code {
+    font-size: var(--font-size-sm);
+    background: var(--color-surface);
+    padding: var(--space-1) var(--space-2);
+    border: 1px solid var(--color-border);
+    border-radius: 3px; /* kept as px — not above 3px */
+}

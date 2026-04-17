@@ -105,6 +105,28 @@ class FTB_Donation_Form_Admin {
             'ftb_section_mollie'
         );
 
+        // ── Titel ───────────────────────────────────────────────────────────────
+
+        register_setting( 'ftb_donation_form_settings', 'ftb_form_heading', [
+            'sanitize_callback' => 'sanitize_text_field',
+        ] );
+
+        add_settings_section(
+            'ftb_section_kop',
+            __( 'Titel', 'ftb-donation-form' ),
+            '__return_false',
+            'ftb_donation_form_settings'
+        );
+
+        add_settings_field(
+            'ftb_form_heading',
+            __( 'Titel formulier', 'ftb-donation-form' ),
+            [ $this, 'field_form_heading' ],
+            'ftb_donation_form_settings',
+            'ftb_section_heading',
+            [ 'label_for' => 'ftb_form_heading' ]
+        );
+
         // ── Formuliervelden ───────────────────────────────────────────────────
 
         register_setting( 'ftb_donation_form_settings', 'ftb_form_fields', [
@@ -344,6 +366,23 @@ class FTB_Donation_Form_Admin {
             />
             <?php esc_html_e( 'Donateur mag een eigen bedrag invullen', 'ftb-donation-form' ); ?>
         </label>
+        </div>
+        <?php
+    }
+
+    public function field_form_heading() {
+        $value = get_option( 'ftb_form_heading', '' );
+        ?>
+        <div class="ftb-admin-form__field">
+            <input
+                type="text"
+                id="ftb_form_heading"
+                name="ftb_form_heading"
+                value="<?php echo esc_attr( $value ); ?>"
+                class="regular-text"
+                placeholder="<?php esc_attr_e( 'Doneer nu', 'ftb-donation-form' ); ?>"
+            />
+            <p class="description"><?php esc_html_e( 'Laat leeg om de standaardtekst "Doneer nu" te gebruiken.', 'ftb-donation-form' ); ?></p>
         </div>
         <?php
     }

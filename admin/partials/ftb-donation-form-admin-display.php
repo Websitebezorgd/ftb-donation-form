@@ -35,6 +35,19 @@ if ( ! defined( 'ABSPATH' ) ) {
             </div>
         </section>
 
+        <?php // ── Kop ──────────────────────────────────────────────────────── ?>
+        <section class="ftb-admin-form__section">
+            <h2 class="ftb-admin-form__title">
+                <?php esc_html_e( 'Titel', 'ftb-donation-form' ); ?>
+            </h2>
+            <p class="ftb-admin-form__description">
+                <?php esc_html_e( 'Pas de titel van het formulier aan.', 'ftb-donation-form' ); ?>
+            </p>
+            <div class="ftb-admin-form__group">
+                <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_heading' ); ?>
+            </div>
+        </section>
+
         <?php // ── Formuliervelden ─────────────────────────────────────────── ?>
         <section class="ftb-admin-form__section">
             <h2 class="ftb-admin-form__title">
@@ -71,6 +84,19 @@ if ( ! defined( 'ABSPATH' ) ) {
             </p>
             <div class="ftb-admin-form__group">
                 <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_privacy' ); ?>
+            </div>
+        </section>
+
+        <?php // ── Formulierteksten ────────────────────────────────────────── ?>
+        <section class="ftb-admin-form__section">
+            <h2 class="ftb-admin-form__title">
+                <?php esc_html_e( 'Formulierteksten', 'ftb-donation-form' ); ?>
+            </h2>
+            <p class="ftb-admin-form__description">
+                <?php esc_html_e( 'Pas de teksten in het formulier aan naar wens.', 'ftb-donation-form' ); ?>
+            </p>
+            <div class="ftb-admin-form__group">
+                <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_form_texts' ); ?>
             </div>
         </section>
 

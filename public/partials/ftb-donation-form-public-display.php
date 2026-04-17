@@ -31,9 +31,7 @@ $old = static function ($key, $default = '') use ($old_values) {
 
     <?php else : ?>
 
-        <h2 id="ftb-donation-title" class="ftb-donation-form__title">
-            <?php echo esc_html($title); ?>
-        </h2>
+        <h2 id="ftb-donation-title" class="ftb-donation-form__title"><?php echo esc_html($title); ?></h2>
 
         <?php
         $step2_fields  = ['name', 'email', 'gdpr', 'phone', 'street', 'house_number', 'postal_code', 'city'];
@@ -47,12 +45,8 @@ $old = static function ($key, $default = '') use ($old_values) {
         ?>
 
         <ol class="ftb-donation-form__steps">
-            <li data-step="1" class="<?php echo $start_on_step === 1 ? 'is-active' : ''; ?>" <?php echo $start_on_step === 1 ? 'aria-current="step"' : ''; ?>>
-                <?php esc_html_e('Jouw donatie', 'ftb-donation-form'); ?>
-            </li>
-            <li data-step="2" class="<?php echo $start_on_step === 2 ? 'is-active' : ''; ?>" <?php echo $start_on_step === 2 ? 'aria-current="step"' : ''; ?>>
-                <?php esc_html_e('Jouw gegevens', 'ftb-donation-form'); ?>
-            </li>
+            <li data-step="1" class="<?php echo $start_on_step === 1 ? 'is-active' : ''; ?>" <?php echo $start_on_step === 1 ? 'aria-current="step"' : ''; ?>><?php esc_html_e('Jouw donatie', 'ftb-donation-form'); ?></li>
+            <li data-step="2" class="<?php echo $start_on_step === 2 ? 'is-active' : ''; ?>" <?php echo $start_on_step === 2 ? 'aria-current="step"' : ''; ?>><?php esc_html_e('Jouw gegevens', 'ftb-donation-form'); ?></li>
         </ol>
 
         <div class="ftb-donation-form__error-summary" id="ftb-error-summary" role="alert" tabindex="-1" <?php echo empty($errors) ? 'hidden' : ''; ?>>
@@ -77,19 +71,13 @@ $old = static function ($key, $default = '') use ($old_values) {
 
             <div id="ftb-step-1" class="ftb-donation-form__step is-active" data-step="1">
 
-                <p class="ftb-donation-form__step-intro">
-                    <?php esc_html_e('Vul in hoeveel je wil doneren en hoe vaak. Als iets verplicht is, staat het erbij.', 'ftb-donation-form'); ?>
-                </p>
+                <p class="ftb-donation-form__step-intro"><?php esc_html_e('Vul in hoeveel je wil doneren en hoe vaak. Als iets verplicht is, staat het erbij.', 'ftb-donation-form'); ?></p>
 
-                <p class="ftb-donation-form__required-note">
-                    <?php esc_html_e('Bij velden die verplicht zijn, staat (verplicht) erachter.', 'ftb-donation-form'); ?>
-                </p>
+                <p class="ftb-donation-form__required-note"><?php esc_html_e('Bij velden die verplicht zijn, staat (verplicht) erachter.', 'ftb-donation-form'); ?></p>
 
                 <!-- ── Frequentie ─────────────────────────────────────────── -->
                 <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-required="true" aria-describedby="ftb-frequency-error">
-                    <legend class="ftb-donation-form__legend">
-                        <h3><?php esc_html_e('Frequentie (verplicht)', 'ftb-donation-form'); ?></h3>
-                    </legend>
+                    <legend class="ftb-donation-form__legend"><h3><?php esc_html_e('Frequentie (verplicht)', 'ftb-donation-form'); ?></h3></legend>
 
                     <div class="ftb-donation-form__radio-group">
                         <?php
@@ -108,22 +96,16 @@ $old = static function ($key, $default = '') use ($old_values) {
                                 name="ftb_frequency"
                                 value="<?php echo esc_attr($val); ?>"
                                 <?php checked($selected_freq, $val); ?>>
-                            <label class="ftb-donation-form__radio-label" for="ftb-frequency-<?php echo esc_attr($val); ?>">
-                                <?php echo esc_html($label); ?>
-                            </label>
+                            <label class="ftb-donation-form__radio-label" for="ftb-frequency-<?php echo esc_attr($val); ?>"><?php echo esc_html($label); ?></label>
                         <?php endforeach; ?>
                     </div>
 
-                    <p class="ftb-donation-form__error" id="ftb-frequency-error" <?php echo empty($errors['frequency']) ? 'hidden' : ''; ?>>
-                        <?php echo ! empty($errors['frequency']) ? esc_html($errors['frequency']) : esc_html__('Kies hoe vaak je wilt doneren', 'ftb-donation-form'); ?>
-                    </p>
+                    <p class="ftb-donation-form__error" id="ftb-frequency-error" <?php echo empty($errors['frequency']) ? 'hidden' : ''; ?>><?php echo ! empty($errors['frequency']) ? esc_html($errors['frequency']) : esc_html__('Kies hoe vaak je wilt doneren', 'ftb-donation-form'); ?></p>
                 </fieldset>
 
                 <!-- ── Bedrag ─────────────────────────────────────────────── -->
                 <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-required="true" aria-describedby="ftb-amount-error">
-                    <legend class="ftb-donation-form__legend">
-                        <h3><?php esc_html_e('Bedrag (verplicht)', 'ftb-donation-form'); ?></h3>
-                    </legend>
+                    <legend class="ftb-donation-form__legend"><h3><?php esc_html_e('Bedrag (verplicht)', 'ftb-donation-form'); ?></h3></legend>
 
                     <div class="ftb-donation-form__radio-group ftb-donation-form__radio-group--amounts">
                         <?php foreach ($amount_options as $preset) : ?>
@@ -134,9 +116,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                                 name="ftb_amount"
                                 value="<?php echo esc_attr($preset); ?>"
                                 <?php checked($old('amount'), (string) $preset); ?>>
-                            <label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--amount" for="ftb-amount-<?php echo esc_attr($preset); ?>">
-                                <span aria-hidden="true">€</span><?php echo esc_html(number_format((float) $preset, 0, ',', '.')); ?>
-                            </label>
+                            <label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--amount" for="ftb-amount-<?php echo esc_attr($preset); ?>">€<?php echo esc_html(number_format((float) $preset, 0, ',', '.')); ?></label>
                         <?php endforeach; ?>
 
                         <?php if ($allow_custom) : ?>
@@ -148,9 +128,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                                 value="custom"
                                 aria-controls="ftb-custom-amount-wrapper"
                                 <?php checked($old('amount'), 'custom'); ?>>
-                            <label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--custom" for="ftb-amount-custom-radio">
-                                <?php esc_html_e('Anders', 'ftb-donation-form'); ?>
-                            </label>
+                            <label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--custom" for="ftb-amount-custom-radio"><?php esc_html_e('Anders', 'ftb-donation-form'); ?></label>
                         <?php endif; ?>
                     </div>
 
@@ -179,38 +157,26 @@ $old = static function ($key, $default = '') use ($old_values) {
                         </div>
                     <?php endif; ?>
 
-                    <p class="ftb-donation-form__error" id="ftb-amount-error" <?php echo empty($errors['amount']) ? 'hidden' : ''; ?>>
-                        <?php echo ! empty($errors['amount']) ? esc_html($errors['amount']) : esc_html__('Kies een bedrag om te doneren', 'ftb-donation-form'); ?>
-                    </p>
+                    <p class="ftb-donation-form__error" id="ftb-amount-error" <?php echo empty($errors['amount']) ? 'hidden' : ''; ?>><?php echo ! empty($errors['amount']) ? esc_html($errors['amount']) : esc_html__('Kies een bedrag om te doneren', 'ftb-donation-form'); ?></p>
                 </fieldset>
 
                 <div class="ftb-donation-form__field ftb-donation-form__field--buttons">
-                    <button type="button" class="ftb-donation-form__button ftb-donation-form__button--next" id="ftb-next-button">
-                        <?php esc_html_e('Volgende', 'ftb-donation-form'); ?>
-                    </button>
+                    <button type="button" class="ftb-donation-form__button ftb-donation-form__button--next" id="ftb-next-button"><?php esc_html_e('Volgende', 'ftb-donation-form'); ?></button>
                 </div>
             </div>
 
             <div id="ftb-step-2" class="ftb-donation-form__step" data-step="2" hidden>
 
-                <p class="ftb-donation-form__step-intro" tabindex="-1">
-                    <?php esc_html_e('Vul jouw gegevens in om de donatie te voltooien.', 'ftb-donation-form'); ?>
-                </p>
+                <p class="ftb-donation-form__step-intro" tabindex="-1"><?php esc_html_e('Vul jouw gegevens in om de donatie te voltooien.', 'ftb-donation-form'); ?></p>
 
-                <p class="ftb-donation-form__required-note">
-                    <?php esc_html_e('Bij velden die verplicht zijn, staat (verplicht) erachter.', 'ftb-donation-form'); ?>
-                </p>
+                <p class="ftb-donation-form__required-note"><?php esc_html_e('Bij velden die verplicht zijn, staat (verplicht) erachter.', 'ftb-donation-form'); ?></p>
 
                 <!-- ── Persoonsgegevens ───────────────────────────────────── -->
                 <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--personal">
-                    <legend class="ftb-donation-form__legend">
-                        <h3><?php esc_html_e('Jouw gegevens', 'ftb-donation-form'); ?></h3>
-                    </legend>
+                    <legend class="ftb-donation-form__legend"><h3><?php esc_html_e('Jouw gegevens', 'ftb-donation-form'); ?></h3></legend>
 
                     <div class="ftb-donation-form__field">
-                        <label class="ftb-donation-form__label" for="ftb-name">
-                            <?php esc_html_e('Volledige naam (verplicht)', 'ftb-donation-form'); ?>
-                        </label>
+                        <label class="ftb-donation-form__label" for="ftb-name"><?php esc_html_e('Volledige naam (verplicht)', 'ftb-donation-form'); ?></label>
                         <input
                             class="ftb-donation-form__input<?php echo ! empty($errors['name']) ? ' ftb-donation-form__input--error' : ''; ?>"
                             type="text"
@@ -221,15 +187,11 @@ $old = static function ($key, $default = '') use ($old_values) {
                             aria-required="true"
                             aria-invalid="<?php echo ! empty($errors['name']) ? 'true' : 'false'; ?>"
                             aria-describedby="ftb-name-error">
-                        <p class="ftb-donation-form__error" id="ftb-name-error" <?php echo empty($errors['name']) ? 'hidden' : ''; ?>>
-                            <?php echo ! empty($errors['name']) ? esc_html($errors['name']) : esc_html__('Vul je naam in', 'ftb-donation-form'); ?>
-                        </p>
+                        <p class="ftb-donation-form__error" id="ftb-name-error" <?php echo empty($errors['name']) ? 'hidden' : ''; ?>><?php echo ! empty($errors['name']) ? esc_html($errors['name']) : esc_html__('Vul je naam in', 'ftb-donation-form'); ?></p>
                     </div>
 
                     <div class="ftb-donation-form__field">
-                        <label class="ftb-donation-form__label" for="ftb-email">
-                            <?php esc_html_e('E-mailadres (verplicht)', 'ftb-donation-form'); ?>
-                        </label>
+                        <label class="ftb-donation-form__label" for="ftb-email"><?php esc_html_e('E-mailadres (verplicht)', 'ftb-donation-form'); ?></label>
                         <input
                             class="ftb-donation-form__input<?php echo ! empty($errors['email']) ? ' ftb-donation-form__input--error' : ''; ?>"
                             type="email"
@@ -240,16 +202,12 @@ $old = static function ($key, $default = '') use ($old_values) {
                             aria-required="true"
                             aria-invalid="<?php echo ! empty($errors['email']) ? 'true' : 'false'; ?>"
                             aria-describedby="ftb-email-error">
-                        <p class="ftb-donation-form__error" id="ftb-email-error" <?php echo empty($errors['email']) ? 'hidden' : ''; ?>>
-                            <?php echo ! empty($errors['email']) ? esc_html($errors['email']) : esc_html__('Vul een geldig e-mailadres in', 'ftb-donation-form'); ?>
-                        </p>
+                        <p class="ftb-donation-form__error" id="ftb-email-error" <?php echo empty($errors['email']) ? 'hidden' : ''; ?>><?php echo ! empty($errors['email']) ? esc_html($errors['email']) : esc_html__('Vul een geldig e-mailadres in', 'ftb-donation-form'); ?></p>
                     </div>
 
                     <?php if ($field_enabled('phone')) : ?>
                         <div class="ftb-donation-form__field">
-                            <label class="ftb-donation-form__label" for="ftb-phone">
-                                <?php esc_html_e('Telefoonnummer', 'ftb-donation-form'); ?>
-                            </label>
+                            <label class="ftb-donation-form__label" for="ftb-phone"><?php esc_html_e('Telefoonnummer', 'ftb-donation-form'); ?></label>
                             <input
                                 class="ftb-donation-form__input"
                                 type="tel"
@@ -264,9 +222,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                         <div class="ftb-donation-form__field ftb-donation-form__field--row">
                             <?php if ($field_enabled('street')) : ?>
                                 <div class="ftb-donation-form__field ftb-donation-form__field--street">
-                                    <label class="ftb-donation-form__label" for="ftb-street">
-                                        <?php esc_html_e('Straat', 'ftb-donation-form'); ?>
-                                    </label>
+                                    <label class="ftb-donation-form__label" for="ftb-street"><?php esc_html_e('Straat', 'ftb-donation-form'); ?></label>
                                     <input
                                         class="ftb-donation-form__input"
                                         type="text"
@@ -278,9 +234,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                             <?php endif; ?>
                             <?php if ($field_enabled('house_number')) : ?>
                                 <div class="ftb-donation-form__field ftb-donation-form__field--house-number">
-                                    <label class="ftb-donation-form__label" for="ftb-house-number">
-                                        <?php esc_html_e('Huisnummer', 'ftb-donation-form'); ?>
-                                    </label>
+                                    <label class="ftb-donation-form__label" for="ftb-house-number"><?php esc_html_e('Huisnummer', 'ftb-donation-form'); ?></label>
                                     <input
                                         class="ftb-donation-form__input"
                                         type="text"
@@ -297,9 +251,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                         <div class="ftb-donation-form__field ftb-donation-form__field--row">
                             <?php if ($field_enabled('postal_code')) : ?>
                                 <div class="ftb-donation-form__field ftb-donation-form__field--postal-code">
-                                    <label class="ftb-donation-form__label" for="ftb-postal-code">
-                                        <?php esc_html_e('Postcode', 'ftb-donation-form'); ?>
-                                    </label>
+                                    <label class="ftb-donation-form__label" for="ftb-postal-code"><?php esc_html_e('Postcode', 'ftb-donation-form'); ?></label>
                                     <input
                                         class="ftb-donation-form__input"
                                         type="text"
@@ -311,9 +263,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                             <?php endif; ?>
                             <?php if ($field_enabled('city')) : ?>
                                 <div class="ftb-donation-form__field ftb-donation-form__field--city">
-                                    <label class="ftb-donation-form__label" for="ftb-city">
-                                        <?php esc_html_e('Plaats', 'ftb-donation-form'); ?>
-                                    </label>
+                                    <label class="ftb-donation-form__label" for="ftb-city"><?php esc_html_e('Plaats', 'ftb-donation-form'); ?></label>
                                     <input
                                         class="ftb-donation-form__input"
                                         type="text"
@@ -330,14 +280,10 @@ $old = static function ($key, $default = '') use ($old_values) {
 
                 <!-- ── GDPR ───────────────────────────────────────────────── -->
                 <fieldset class="ftb-donation-form__fieldset">
-                    <legend class="ftb-donation-form__legend">
-                        <h3><?php esc_html_e('Privacyverklaring', 'ftb-donation-form'); ?></h3>
-                    </legend>
+                    <legend class="ftb-donation-form__legend"><h3><?php esc_html_e('Privacyverklaring', 'ftb-donation-form'); ?></h3></legend>
 
                     <?php if ($privacy_url) : ?>
-                        <a class="ftb-donation-form__privacy-link" href="<?php echo esc_url($privacy_url); ?>" target="_blank" rel="noopener noreferrer">
-                            <?php esc_html_e('Lees onze privacyverklaring', 'ftb-donation-form'); ?>
-                        </a>
+                        <a class="ftb-donation-form__privacy-link" href="<?php echo esc_url($privacy_url); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Lees onze privacyverklaring', 'ftb-donation-form'); ?></a>
                     <?php endif; ?>
 
                     <div class="ftb-donation-form__checkbox-wrapper">
@@ -351,23 +297,15 @@ $old = static function ($key, $default = '') use ($old_values) {
                             aria-invalid="<?php echo ! empty($errors['gdpr']) ? 'true' : 'false'; ?>"
                             aria-describedby="ftb-gdpr-error"
                             <?php checked($old('gdpr'), '1'); ?>>
-                        <label class="ftb-donation-form__checkbox-label<?php echo ! empty($errors['gdpr']) ? ' ftb-donation-form__checkbox-label--error' : ''; ?>" for="ftb-gdpr">
-                            <?php esc_html_e('Ik ga akkoord met de privacyverklaring (verplicht)', 'ftb-donation-form'); ?>
-                        </label>
+                        <label class="ftb-donation-form__checkbox-label<?php echo ! empty($errors['gdpr']) ? ' ftb-donation-form__checkbox-label--error' : ''; ?>" for="ftb-gdpr"><?php esc_html_e('Ik ga akkoord met de privacyverklaring (verplicht)', 'ftb-donation-form'); ?></label>
                     </div>
 
-                    <p class="ftb-donation-form__error" id="ftb-gdpr-error" <?php echo empty($errors['gdpr']) ? 'hidden' : ''; ?>>
-                        <?php echo ! empty($errors['gdpr']) ? esc_html($errors['gdpr']) : esc_html__('Je moet akkoord gaan met de privacyverklaring', 'ftb-donation-form'); ?>
-                    </p>
+                    <p class="ftb-donation-form__error" id="ftb-gdpr-error" <?php echo empty($errors['gdpr']) ? 'hidden' : ''; ?>><?php echo ! empty($errors['gdpr']) ? esc_html($errors['gdpr']) : esc_html__('Je moet akkoord gaan met de privacyverklaring', 'ftb-donation-form'); ?></p>
                 </fieldset>
 
                 <div class="ftb-donation-form__field ftb-donation-form__field--buttons">
-                    <button type="button" class="ftb-donation-form__button ftb-donation-form__button--previous" id="ftb-previous-button">
-                        <?php esc_html_e('Vorige', 'ftb-donation-form'); ?>
-                    </button>
-                    <button class="ftb-donation-form__button ftb-donation-form__button--submit" type="submit">
-                        <?php esc_html_e('Doneer nu', 'ftb-donation-form'); ?>
-                    </button>
+                    <button type="button" class="ftb-donation-form__button ftb-donation-form__button--previous" id="ftb-previous-button"><?php esc_html_e('Vorige', 'ftb-donation-form'); ?></button>
+                    <button class="ftb-donation-form__button ftb-donation-form__button--submit" type="submit"><?php esc_html_e( 'Doneer nu', 'ftb-donation-form' ); ?></button>
                 </div>
             </div>
         </form>

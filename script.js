@@ -24,11 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     currentStep = index;
-
     focusFirstInput(index);
-
-    const summary = document.querySelector(".ftb-donation-form__error-summary");
-    if (summary) summary.hidden = true;
   }
 
   function focusFirstInput(stepIndex) {
@@ -40,20 +36,54 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ─────────────────────────────────────────────
+  // ERROR SUMMARY MANAGEMENT
+  // ─────────────────────────────────────────────
+
+  function syncErrorSummary(stepIndex) {
+    const activeStep = steps[stepIndex];
+    const summary = document.querySelector(".ftb-donation-form__error-summary");
+    const list = summary?.querySelector(".ftb-donation-form__error-list");
+
+    if (!summary || !list) return;
+
+    const visibleErrors = activeStep.querySelectorAll(
+      ".ftb-donation-form__error:not([hidden])",
+    );
+
+    list.innerHTML = "";
+
+    if (visibleErrors.length === 0) {
+      summary.hidden = true;
+      return;
+    }
+
+    visibleErrors.forEach((error) => {
+      const id = error.id.replace("error-", "");
+      const li = document.createElement("li");
+      li.innerHTML = `<a href="#${id}">${error.textContent}</a>`;
+      list.appendChild(li);
+    });
+
+    summary.hidden = false;
+  }
+
+  // ─────────────────────────────────────────────
   // VALIDATION
   // ─────────────────────────────────────────────
 
   function validateStep(stepIndex) {
     let isValid = true;
-
     const activeStep = steps[stepIndex];
     const errors = activeStep.querySelectorAll(".ftb-donation-form__error");
 
+    // Reset all errors
     errors.forEach((e) => (e.hidden = true));
 
     // STEP 1
     if (stepIndex === 0) {
-      const frequency = activeStep.querySelector('input[name="frequency"]:checked');
+      const frequency = activeStep.querySelector(
+        'input[name="frequency"]:checked',
+      );
       const amount = activeStep.querySelector('input[name="amount"]:checked');
       const customAmount = activeStep.querySelector("#custom-amount");
 
@@ -65,10 +95,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!amount) {
         activeStep.querySelector("#error-amount").hidden = false;
         isValid = false;
-      }
-
-      if (amount?.value === "other") {
-        if (!customAmount.value || Number(customAmount.value) < 1) {
+      } else if (amount.value === "other") {
+        if (!customAmount?.value || Number(customAmount.value) < 1) {
           activeStep.querySelector("#error-amount").hidden = false;
           isValid = false;
         }
@@ -77,43 +105,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // STEP 2
     if (stepIndex === 1) {
-      console.log("STEP 2 VALIDATION");
-
       const name = activeStep.querySelector("#name");
       const email = activeStep.querySelector("#email");
       const privacy = activeStep.querySelector("#privacy");
 
-      console.log("Values:", {
-        name: name?.value,
-        email: email?.value,
-        privacy: privacy?.checked,
-      });
-
-      const errorName = activeStep.querySelector("#error-name");
-      const errorEmail = activeStep.querySelector("#error-email");
-      const errorPrivacy = activeStep.querySelector("#error-privacy");
-
       if (!name?.value.trim()) {
-        console.log("NAME INVALID");
-        errorName.hidden = false;
+        activeStep.querySelector("#error-name").hidden = false;
         isValid = false;
       }
 
       if (!email?.value.trim() || !email.checkValidity()) {
-        console.log("EMAIL INVALID");
-        errorEmail.hidden = false;
+        activeStep.querySelector("#error-email").hidden = false;
         isValid = false;
       }
 
       if (!privacy?.checked) {
-        console.log("PRIVACY INVALID");
-        errorPrivacy.hidden = false;
+        activeStep.querySelector("#error-privacy").hidden = false;
         isValid = false;
       }
     }
 
-    updateErrorSummary(stepIndex);
-
+    syncErrorSummary(stepIndex);
     return isValid;
   }
 
@@ -131,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ─────────────────────────────────────────────
-  // AMOUNT + CUSTOM AMOUNT MODULE (clean + a11y-safe)
+  // AMOUNT + CUSTOM AMOUNT MODULE
   // ─────────────────────────────────────────────
 
   const amountRadios = document.querySelectorAll('input[name="amount"]');
@@ -151,6 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     customRadio.setAttribute("aria-expanded", String(isVisible));
     customAmountInput.setAttribute("aria-required", String(isVisible));
+    customAmountInput.required = isVisible;
 
     if (isVisible) {
       setTimeout(() => customAmountInput.focus(), 0);
@@ -159,107 +172,71 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  const isCustom = customRadio.checked;
-
+  const isCustom = customRadio?.checked ?? false;
   customAmountInput.required = isCustom;
-  customAmountInput.setAttribute("aria-required", isCustom ? "true" : "false");
+  customAmountInput.setAttribute("aria-required", String(isCustom));
 
-  // radio change
   amountRadios.forEach((radio) => {
     radio.addEventListener("change", () => {
       setCustomAmountVisible(radio.value === "other" && radio.checked);
-
       document.querySelector("#error-amount").hidden = true;
+      syncErrorSummary(currentStep);
     });
   });
 
-  // typing in custom amount
   customAmountInput?.addEventListener("input", () => {
     if (Number(customAmountInput.value) > 0) {
       document.querySelector("#error-amount").hidden = true;
+      syncErrorSummary(currentStep);
     }
   });
 
   // ─────────────────────────────────────────────
-  // FREQUENCY + PRIVACY LIVE ERRORS
+  // LIVE ERROR CLEARING
   // ─────────────────────────────────────────────
 
-const frequencyRadios = document.querySelectorAll('input[name="frequency"]');
-const nameInput = document.querySelector("#name");
-const emailInput = document.querySelector("#email");
-const privacyCheckbox = document.querySelector("#privacy");
+  const frequencyRadios = document.querySelectorAll('input[name="frequency"]');
+  const nameInput = document.querySelector("#name");
+  const emailInput = document.querySelector("#email");
+  const privacyCheckbox = document.querySelector("#privacy");
 
-// FREQUENCY
-frequencyRadios.forEach((radio) => {
-  radio.addEventListener("change", () => {
-    document.querySelector("#error-frequency").hidden = true;
-  });
-});
-
-// NAME
-nameInput?.addEventListener("input", () => {
-  if (nameInput.value.trim()) {
-    document.querySelector("#error-name").hidden = true;
-  }
-});
-
-// EMAIL (belangrijk: checkValidity)
-emailInput?.addEventListener("input", () => {
-  if (emailInput.value.trim() && emailInput.checkValidity()) {
-    document.querySelector("#error-email").hidden = true;
-  }
-});
-
-// PRIVACY
-privacyCheckbox?.addEventListener("change", () => {
-  if (privacyCheckbox.checked) {
-    document.querySelector("#error-privacy").hidden = true;
-  }
-});
-
-  // ─────────────────────────────────────────────
-  // ERROR SUMMARY
-  // ─────────────────────────────────────────────
-
-  function updateErrorSummary(stepIndex) {
-    const activeStep = steps[stepIndex];
-    const summary = document.querySelector(".ftb-donation-form__error-summary");
-    const list = summary?.querySelector(".ftb-donation-form__error-list");
-
-    if (!summary || !list) return;
-
-    list.innerHTML = "";
-
-    const errors = activeStep.querySelectorAll(
-      ".ftb-donation-form__error:not([hidden])",
-    );
-
-    if (errors.length === 0) {
-      summary.hidden = true;
-      return;
-    }
-
-    errors.forEach((error) => {
-      const id = error.id.replace("error-", "");
-
-      const li = document.createElement("li");
-      li.innerHTML = `<a href="#${id}">${error.textContent}</a>`;
-
-      list.appendChild(li);
+  frequencyRadios.forEach((radio) => {
+    radio.addEventListener("change", () => {
+      document.querySelector("#error-frequency").hidden = true;
+      syncErrorSummary(currentStep);
     });
+  });
 
-    summary.hidden = false;
-  }
+  nameInput?.addEventListener("input", () => {
+    if (nameInput.value.trim()) {
+      document.querySelector("#error-name").hidden = true;
+      syncErrorSummary(currentStep);
+    }
+  });
+
+  emailInput?.addEventListener("input", () => {
+    if (emailInput.value.trim() && emailInput.checkValidity()) {
+      document.querySelector("#error-email").hidden = true;
+      syncErrorSummary(currentStep);
+    }
+  });
+
+  privacyCheckbox?.addEventListener("change", () => {
+    if (privacyCheckbox.checked) {
+      document.querySelector("#error-privacy").hidden = true;
+      syncErrorSummary(currentStep);
+    }
+  });
+
+  // ─────────────────────────────────────────────
+  // FORM SUBMIT
+  // ─────────────────────────────────────────────
 
   const form = document.querySelector(".ftb-donation-form__form");
 
-form?.addEventListener("submit", (e) => {
-  console.log("SUBMIT FIRED");
-
-  const isValid = validateStep(currentStep);
-
-  if (!isValid) {
-    e.preventDefault();
-  }
-});
+  form?.addEventListener("submit", (e) => {
+    if (!validateStep(currentStep)) {
+      e.preventDefault();
+    }
+  });
 });

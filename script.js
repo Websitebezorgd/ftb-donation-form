@@ -53,9 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // STEP 1
     if (stepIndex === 0) {
-      const frequency = activeStep.querySelector(
-        'input[name="frequency"]:checked',
-      );
+      const frequency = activeStep.querySelector('input[name="frequency"]:checked');
       const amount = activeStep.querySelector('input[name="amount"]:checked');
       const customAmount = activeStep.querySelector("#custom-amount");
 
@@ -186,9 +184,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // FREQUENCY + PRIVACY LIVE ERRORS
   // ─────────────────────────────────────────────
 
+const frequencyRadios = document.querySelectorAll('input[name="frequency"]');
 const nameInput = document.querySelector("#name");
 const emailInput = document.querySelector("#email");
 const privacyCheckbox = document.querySelector("#privacy");
+
+// FREQUENCY
+frequencyRadios.forEach((radio) => {
+  radio.addEventListener("change", () => {
+    document.querySelector("#error-frequency").hidden = true;
+  });
+});
 
 // NAME
 nameInput?.addEventListener("input", () => {

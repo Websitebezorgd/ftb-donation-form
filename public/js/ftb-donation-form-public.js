@@ -84,7 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     summary.hidden = false;
-    summary.focus();
   }
 
   // ─────────────────────────────────────────────
@@ -148,6 +147,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     syncErrorSummary(stepIndex);
+
+    if (!isValid) {
+      const summary = document.querySelector(".ftb-donation-form__error-summary");
+      if (summary && !summary.hidden) summary.focus();
+    }
+
     return isValid;
   }
 

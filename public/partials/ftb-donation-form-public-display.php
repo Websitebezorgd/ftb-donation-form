@@ -73,8 +73,6 @@ $old = static function ($key, $default = '') use ($old_values) {
 
                 <p class="ftb-donation-form__step-intro"><?php esc_html_e('Vul in hoeveel je wil doneren en hoe vaak. Als iets verplicht is, staat het erbij.', 'ftb-donation-form'); ?></p>
 
-                <p class="ftb-donation-form__required-note"><?php esc_html_e('Bij velden die verplicht zijn, staat (verplicht) erachter.', 'ftb-donation-form'); ?></p>
-
                 <!-- ── Frequentie ─────────────────────────────────────────── -->
                 <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-required="true" aria-describedby="ftb-frequency-error">
                     <legend class="ftb-donation-form__legend"><h3><?php esc_html_e('Frequentie (verplicht)', 'ftb-donation-form'); ?></h3></legend>
@@ -167,9 +165,7 @@ $old = static function ($key, $default = '') use ($old_values) {
 
             <div id="ftb-step-2" class="ftb-donation-form__step" data-step="2" hidden>
 
-                <p class="ftb-donation-form__step-intro" tabindex="-1"><?php esc_html_e('Vul jouw gegevens in om de donatie te voltooien.', 'ftb-donation-form'); ?></p>
-
-                <p class="ftb-donation-form__required-note"><?php esc_html_e('Bij velden die verplicht zijn, staat (verplicht) erachter.', 'ftb-donation-form'); ?></p>
+                <p class="ftb-donation-form__step-intro" tabindex="-1"><?php esc_html_e('Vul jouw gegevens in om de donatie te voltooien. Als iets verplicht is, staat het erbij.', 'ftb-donation-form'); ?></p>
 
                 <!-- ── Persoonsgegevens ───────────────────────────────────── -->
                 <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--personal">

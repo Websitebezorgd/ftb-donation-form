@@ -1,0 +1,23 @@
+# Copyright (C) 2023 For The Better
+# This file is distributed under the same license as the FTB Donation Form package.
+msgid ""
+msgstr ""
+"Project-Id-Version: FTB Donation Form 1.0.0\n"
+"Report-Msgid-Bugs-To: https://for-the-better.nl\n"
+"POT-Creation-Date: 2023-10-01 12:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "FTB Donation Form Settings"
+msgstr ""
+
+msgid "Make a Donation"
+msgstr ""
+
+msgid "Amount"
+msgstr ""

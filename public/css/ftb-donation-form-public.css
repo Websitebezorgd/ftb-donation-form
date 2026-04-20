@@ -230,7 +230,7 @@
 }
 
 .ftb-donation-form__steps li h2,
-.ftb-donation-form__legend h3 {
+.ftb-donation-form__legend {
   font-size: inherit;
   font-weight: inherit;
   margin: 0;

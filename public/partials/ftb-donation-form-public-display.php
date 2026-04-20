@@ -171,7 +171,7 @@ $old = static function ($key, $default = '') use ($old_values) {
 
                 <!-- ── Persoonsgegevens ───────────────────────────────────── -->
                 <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--personal">
-                    <legend class="ftb-donation-form__legend"><h3><?php esc_html_e('Jouw gegevens', 'ftb-donation-form'); ?></h3></legend>
+                    <legend class="ftb-donation-form__legend"><?php esc_html_e('Jouw gegevens', 'ftb-donation-form'); ?></legend>
 
                     <div class="ftb-donation-form__field">
                         <label class="ftb-donation-form__label" for="ftb-name"><?php esc_html_e('Volledige naam (verplicht)', 'ftb-donation-form'); ?></label>
@@ -278,7 +278,7 @@ $old = static function ($key, $default = '') use ($old_values) {
 
                 <!-- ── GDPR ───────────────────────────────────────────────── -->
                 <fieldset class="ftb-donation-form__fieldset">
-                    <legend class="ftb-donation-form__legend"><h3><?php esc_html_e('Privacyverklaring', 'ftb-donation-form'); ?></h3></legend>
+                    <legend class="ftb-donation-form__legend"><?php esc_html_e('Privacyverklaring', 'ftb-donation-form'); ?></legend>
 
                     <?php if ($privacy_url) : ?>
                         <a class="ftb-donation-form__privacy-link" href="<?php echo esc_url($privacy_url); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Lees onze privacyverklaring', 'ftb-donation-form'); ?></a>

@@ -74,8 +74,8 @@ $old = static function ($key, $default = '') use ($old_values) {
                 <p class="ftb-donation-form__step-intro"><?php esc_html_e('Vul in hoeveel je wil doneren en hoe vaak. Als iets verplicht is, staat het erbij.', 'ftb-donation-form'); ?></p>
 
                 <!-- ── Frequentie ─────────────────────────────────────────── -->
-                <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-required="true" aria-describedby="ftb-frequency-error">
-                    <legend class="ftb-donation-form__legend"><h3><?php esc_html_e('Frequentie (verplicht)', 'ftb-donation-form'); ?></h3></legend>
+                <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-describedby="ftb-frequency-error">
+                    <legend class="ftb-donation-form__legend"><?php esc_html_e('Frequentie (verplicht)', 'ftb-donation-form'); ?></legend>
 
                     <div class="ftb-donation-form__radio-group">
                         <?php
@@ -93,8 +93,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                                 id="ftb-frequency-<?php echo esc_attr($val); ?>"
                                 name="ftb_frequency"
                                 value="<?php echo esc_attr($val); ?>"
-                                <?php checked($selected_freq, $val); ?>>
-                            <label class="ftb-donation-form__radio-label" for="ftb-frequency-<?php echo esc_attr($val); ?>"><?php echo esc_html($label); ?></label>
+                                <?php checked($selected_freq, $val); ?>><label class="ftb-donation-form__radio-label" for="ftb-frequency-<?php echo esc_attr($val); ?>"><?php echo esc_html($label); ?></label>
                         <?php endforeach; ?>
                     </div>
 
@@ -102,8 +101,8 @@ $old = static function ($key, $default = '') use ($old_values) {
                 </fieldset>
 
                 <!-- ── Bedrag ─────────────────────────────────────────────── -->
-                <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-required="true" aria-describedby="ftb-amount-error">
-                    <legend class="ftb-donation-form__legend"><h3><?php esc_html_e('Bedrag (verplicht)', 'ftb-donation-form'); ?></h3></legend>
+                <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-describedby="ftb-amount-error">
+                    <legend class="ftb-donation-form__legend"><?php esc_html_e('Bedrag (verplicht)', 'ftb-donation-form'); ?></legend>
 
                     <div class="ftb-donation-form__radio-group ftb-donation-form__radio-group--amounts">
                         <?php foreach ($amount_options as $preset) : ?>
@@ -113,8 +112,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                                 id="ftb-amount-<?php echo esc_attr($preset); ?>"
                                 name="ftb_amount"
                                 value="<?php echo esc_attr($preset); ?>"
-                                <?php checked($old('amount'), (string) $preset); ?>>
-                            <label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--amount" for="ftb-amount-<?php echo esc_attr($preset); ?>">€<?php echo esc_html(number_format((float) $preset, 0, ',', '.')); ?></label>
+                                <?php checked($old('amount'), (string) $preset); ?>><label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--amount" for="ftb-amount-<?php echo esc_attr($preset); ?>">€<?php echo esc_html(number_format((float) $preset, 0, ',', '.')); ?></label>
                         <?php endforeach; ?>
 
                         <?php if ($allow_custom) : ?>
@@ -125,8 +123,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                                 name="ftb_amount"
                                 value="custom"
                                 aria-controls="ftb-custom-amount-wrapper"
-                                <?php checked($old('amount'), 'custom'); ?>>
-                            <label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--custom" for="ftb-amount-custom-radio"><?php esc_html_e('Anders', 'ftb-donation-form'); ?></label>
+                                <?php checked($old('amount'), 'custom'); ?>><label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--custom" for="ftb-amount-custom-radio"><?php esc_html_e('Anders', 'ftb-donation-form'); ?></label>
                         <?php endif; ?>
                     </div>
 

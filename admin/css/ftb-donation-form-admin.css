@@ -37,8 +37,17 @@
 
 /* ── Wrap ─────────────────────────────────────────────────────────────────── */
 .ftb-admin__wrap {
-    max-width: 50rem;
+    max-width: 72rem;
 }
+
+/* ── Two-column layout ────────────────────────────────────────────────────── */
+.ftb-admin-form__columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 var(--space-6);
+    align-items: start;
+}
+
 
 /* ── Title ────────────────────────────────────────────────────────────────── */
 h1.ftb-admin__title {

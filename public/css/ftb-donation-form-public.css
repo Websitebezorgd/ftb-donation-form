@@ -658,6 +658,15 @@
   .ftb-donation-form__steps {
     gap: var(--space-4);
   }
+
+  .ftb-donation-form__field--buttons,
+  .ftb-donation-form__field--row {
+    flex-direction: column;
+  }
+
+  .ftb-donation-form__button {
+    width: 100% !important;
+  }
 }
 
 

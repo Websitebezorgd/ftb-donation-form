@@ -70,7 +70,7 @@ $old = static function ($key, $default = '') use ($old_values) {
             <?php wp_nonce_field('ftb_donation_submit', 'ftb_donation_nonce'); ?>
 
             <div id="ftb-step-1" class="ftb-donation-form__step is-active" data-step="1">
-
+                <?php if ( $enable_recurring ) : ?>
                 <p class="ftb-donation-form__step-intro"><?php esc_html_e('Vul in hoeveel je wil doneren en hoe vaak. Als iets verplicht is, staat het erbij.', 'ftb-donation-form'); ?></p>
 
                 <!-- ── Frequentie ─────────────────────────────────────────── -->
@@ -99,6 +99,10 @@ $old = static function ($key, $default = '') use ($old_values) {
 
                     <p class="ftb-donation-form__error" id="ftb-frequency-error" <?php echo empty($errors['frequency']) ? 'hidden' : ''; ?>><?php echo ! empty($errors['frequency']) ? esc_html($errors['frequency']) : esc_html__('Kies hoe vaak je wilt doneren', 'ftb-donation-form'); ?></p>
                 </fieldset>
+                <?php else : ?>
+                <input type="hidden" name="ftb_frequency" value="one_time">
+                <p class="ftb-donation-form__step-intro"><?php esc_html_e('Geef aan hoeveel je wil doneren. Als iets verplicht is, staat het erbij.', 'ftb-donation-form'); ?></p>
+                <?php endif; ?>
 
                 <!-- ── Bedrag ─────────────────────────────────────────────── -->
                 <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-describedby="ftb-amount-error">

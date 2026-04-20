@@ -35,7 +35,7 @@ class FTB_Donation_Form_Admin {
             $this->plugin_name,
             plugin_dir_url( __FILE__ ) . 'css/ftb-donation-form-admin.css',
             [],
-            $this->version
+            filemtime( plugin_dir_path( __FILE__ ) . 'css/ftb-donation-form-admin.css' )
         );
     }
 
@@ -182,6 +182,21 @@ class FTB_Donation_Form_Admin {
             [ $this, 'field_allow_custom_amount' ],
             'ftb_donation_form_settings',
             'ftb_section_amounts'
+        );
+
+        // ── Frequentie ────────────────────────────────────────────────────────
+
+        add_option( 'ftb_enable_recurring', '1' );
+
+        register_setting( 'ftb_donation_form_settings', 'ftb_enable_recurring', [
+            'sanitize_callback' => 'absint',
+        ] );
+
+        add_settings_section(
+            'ftb_section_frequency',
+            '',
+            '__return_false',
+            'ftb_donation_form_settings'
         );
 
         // ── Privacyverklaring ─────────────────────────────────────────────────

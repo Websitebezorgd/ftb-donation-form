@@ -65,6 +65,25 @@ if ( ! defined( 'ABSPATH' ) ) {
                     </div>
                 </section>
 
+                <?php // ── Frequentie ────────────────────────────────────────── ?>
+                <section class="ftb-admin-form__section">
+                    <h2 class="ftb-admin-form__title">
+                        <?php esc_html_e( 'Frequentie', 'ftb-donation-form' ); ?>
+                    </h2>
+                    <p class="ftb-admin-form__description">
+                        <?php esc_html_e( 'Kies of donateurs alleen eenmalig kunnen doneren, of ook maandelijks en jaarlijks.', 'ftb-donation-form' ); ?>
+                    </p>
+                    <div class="ftb-admin-form__group">
+                        <?php $recurring = get_option( 'ftb_enable_recurring', '1' ); ?>
+                        <input type="hidden" name="ftb_enable_recurring" value="0">
+                        <label class="ftb-toggle" for="ftb_enable_recurring">
+                            <input class="ftb-toggle__input" type="checkbox" id="ftb_enable_recurring" name="ftb_enable_recurring" value="1" <?php checked( '1', $recurring ); ?>>
+                            <span class="ftb-toggle__slider" aria-hidden="true"></span>
+                            <span><?php esc_html_e( 'Terugkerende betalingen inschakelen', 'ftb-donation-form' ); ?></span>
+                        </label>
+                    </div>
+                </section>
+
                 <?php // ── Na betaling ───────────────────────────────────────── ?>
                 <section class="ftb-admin-form__section">
                     <h2 class="ftb-admin-form__title">

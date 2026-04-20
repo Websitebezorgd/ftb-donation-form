@@ -207,6 +207,60 @@ h1.ftb-admin__title {
     display: block;
 }
 
+/* ── Toggle switch ────────────────────────────────────────────────────────── */
+.ftb-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+}
+
+.ftb-toggle__input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+}
+
+.ftb-toggle__slider {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 1.375rem;
+    background: var(--color-border);
+    border-radius: 999px;
+    transition: background 0.2s;
+}
+
+.ftb-toggle__slider::after {
+    content: '';
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    background: #fff;
+    border-radius: 50%;
+    margin-top: 0.1875rem;
+    margin-left: 0.1875rem;
+    transition: transform 0.2s;
+}
+
+.ftb-toggle__input:checked + .ftb-toggle__slider {
+    background: var(--color-brand);
+}
+
+.ftb-toggle__input:checked + .ftb-toggle__slider::after {
+    transform: translateX(1.125rem);
+}
+
+.ftb-toggle__input:focus-visible + .ftb-toggle__slider {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+}
+
 /* ── Submit row ───────────────────────────────────────────────────────────── */
 .ftb-admin-form__submit {
     margin: var(--space-2) 0 var(--space-6);

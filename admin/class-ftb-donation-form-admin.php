@@ -19,6 +19,9 @@ class FTB_Donation_Form_Admin {
     public function __construct( $plugin_name, $version ) {
         $this->plugin_name = $plugin_name;
         $this->version     = $version;
+        add_filter( 'option_page_capability_ftb_donation_form_settings', function() {
+            return 'ftb_manage_settings';
+        } );
     }
 
     /**
@@ -59,7 +62,7 @@ class FTB_Donation_Form_Admin {
         add_menu_page(
             __( 'Donatieformulier instellingen', 'ftb-donation-form' ),
             __( 'Donatieformulier', 'ftb-donation-form' ),
-            'manage_options',
+            'ftb_manage_settings',
             'ftb-donation-form',
             [ $this, 'display_plugin_setup_page' ],
             'dashicons-heart',
@@ -475,7 +478,7 @@ class FTB_Donation_Form_Admin {
      * Render the settings page.
      */
     public function display_plugin_setup_page() {
-        if ( ! current_user_can( 'manage_options' ) ) {
+        if ( ! current_user_can( 'ftb_manage_settings' ) ) {
             wp_die( esc_html__( 'Je hebt onvoldoende rechten om deze pagina te bekijken.', 'ftb-donation-form' ) );
         }
         include_once 'partials/ftb-donation-form-admin-display.php';

@@ -35,6 +35,14 @@ add_action('plugins_loaded', 'ftb_donation_form_init');
 // Activation hook
 register_activation_hook(__FILE__, 'ftb_donation_form_activate');
 function ftb_donation_form_activate() {
+    $editor = get_role( 'editor' );
+    if ( $editor ) {
+        $editor->add_cap( 'ftb_manage_settings' );
+    }
+    $admin = get_role( 'administrator' );
+    if ( $admin ) {
+        $admin->add_cap( 'ftb_manage_settings' );
+    }
     global $wpdb;
 
     $table_name      = $wpdb->prefix . 'ftb_donations';
@@ -85,6 +93,12 @@ function ftb_donation_form_activate() {
 // Deactivation hook
 register_deactivation_hook(__FILE__, 'ftb_donation_form_deactivate');
 function ftb_donation_form_deactivate() {
-    // Intentionally left empty — table and options are preserved on deactivation.
-    // Data is only removed on uninstall.
+    $editor = get_role( 'editor' );
+    if ( $editor ) {
+        $editor->remove_cap( 'ftb_manage_settings' );
+    }
+    $admin = get_role( 'administrator' );
+    if ( $admin ) {
+        $admin->remove_cap( 'ftb_manage_settings' );
+    }
 }

@@ -70,9 +70,8 @@ $old = static function ($key, $default = '') use ($old_values) {
             <?php wp_nonce_field('ftb_donation_submit', 'ftb_donation_nonce'); ?>
 
             <div id="ftb-step-1" class="ftb-donation-form__step is-active" data-step="1">
+                <p class="ftb-donation-form__step-intro"><?php esc_html_e('Als iets verplicht is, staat dat erbij.', 'ftb-donation-form'); ?></p>
                 <?php if ( $enable_recurring ) : ?>
-                <p class="ftb-donation-form__step-intro"><?php esc_html_e('Geef aan hoeveel je wil doneren en hoe vaak. Als iets verplicht is, staat het erbij.', 'ftb-donation-form'); ?></p>
-
                 <!-- ── Frequentie ─────────────────────────────────────────── -->
                 <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-describedby="ftb-frequency-error">
                     <legend class="ftb-donation-form__legend"><?php esc_html_e('Frequentie (verplicht)', 'ftb-donation-form'); ?></legend>
@@ -101,7 +100,6 @@ $old = static function ($key, $default = '') use ($old_values) {
                 </fieldset>
                 <?php else : ?>
                 <input type="hidden" name="ftb_frequency" value="one_time">
-                <p class="ftb-donation-form__step-intro"><?php esc_html_e('Geef aan hoeveel je wil doneren. Als iets verplicht is, staat het erbij.', 'ftb-donation-form'); ?></p>
                 <?php endif; ?>
 
                 <!-- ── Bedrag ─────────────────────────────────────────────── -->
@@ -169,7 +167,7 @@ $old = static function ($key, $default = '') use ($old_values) {
 
             <div id="ftb-step-2" class="ftb-donation-form__step" data-step="2" hidden>
 
-                <p class="ftb-donation-form__step-intro" tabindex="-1"><?php esc_html_e('Vul jouw gegevens in om de donatie te voltooien. Als iets verplicht is, staat het erbij.', 'ftb-donation-form'); ?></p>
+                <p class="ftb-donation-form__step-intro" tabindex="-1"><?php esc_html_e('Als iets verplicht is, staat dat erbij.', 'ftb-donation-form'); ?></p>
 
                 <!-- ── Persoonsgegevens ───────────────────────────────────── -->
                 <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--personal">

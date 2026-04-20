@@ -22,15 +22,43 @@ if ( ! defined( 'ABSPATH' ) ) {
     <form method="post" action="options.php" class="ftb-admin-form">
         <?php settings_fields( 'ftb_donation_form_settings' ); ?>
 
-        <div class="ftb-admin-form__columns">
+        <?php // ── Top grid: API key + Shortcode ─────────────────────────── ?>
+        <div class="ftb-admin-form__grid">
 
-            <div class="ftb-admin-form__main">
+            <section class="ftb-admin-form__section">
+                <h2 class="ftb-admin-form__title">
+                    <?php esc_html_e( 'Mollie instellingen', 'ftb-donation-form' ); ?>
+                </h2>
+                <p class="ftb-admin-form__description">
+                    <?php esc_html_e( 'Vind je API sleutel in je Mollie dashboard onder Ontwikkelaars → API-sleutels. Gebruik de live sleutel voor echte betalingen.', 'ftb-donation-form' ); ?>
+                </p>
+                <div class="ftb-admin-form__group">
+                    <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_mollie' ); ?>
+                </div>
+            </section>
 
-                <?php // ── Kop ──────────────────────────────────────────────── ?>
+            <div class="ftb-admin__shortcode">
+                <h2><?php esc_html_e( 'Shortcode', 'ftb-donation-form' ); ?></h2>
+                <p>
+                    <?php esc_html_e( 'Plaats het donatieformulier op een pagina met deze shortcode:', 'ftb-donation-form' ); ?>
+                </p>
+                <code>[ftb_donation_form]</code>
+            </div>
+
+        </div>
+
+        <?php // ── Formulier instellingen ────────────────────────────────── ?>
+        <h2 class="ftb-admin-form__section-heading"><?php esc_html_e( 'Formulier instellingen', 'ftb-donation-form' ); ?></h2>
+
+        <div class="ftb-admin-form__grid">
+
+            <div class="ftb-admin-form__col">
+
+                <?php // ── Titel ────────────────────────────────────────────── ?>
                 <section class="ftb-admin-form__section">
-                    <h2 class="ftb-admin-form__title">
+                    <h3 class="ftb-admin-form__title">
                         <?php esc_html_e( 'Titel', 'ftb-donation-form' ); ?>
-                    </h2>
+                    </h3>
                     <p class="ftb-admin-form__description">
                         <?php esc_html_e( 'Pas de titel van het formulier aan.', 'ftb-donation-form' ); ?>
                     </p>
@@ -39,37 +67,11 @@ if ( ! defined( 'ABSPATH' ) ) {
                     </div>
                 </section>
 
-                <?php // ── Formuliervelden ──────────────────────────────────── ?>
+                <?php // ── Frequentie ───────────────────────────────────────── ?>
                 <section class="ftb-admin-form__section">
-                    <h2 class="ftb-admin-form__title">
-                        <?php esc_html_e( 'Formuliervelden', 'ftb-donation-form' ); ?>
-                    </h2>
-                    <p class="ftb-admin-form__description">
-                        <?php esc_html_e( 'Naam en e-mailadres zijn altijd verplicht. Vink de overige velden aan die je wilt tonen.', 'ftb-donation-form' ); ?>
-                    </p>
-                    <div class="ftb-admin-form__group ftb-admin-form__group--checkboxes">
-                        <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_fields' ); ?>
-                    </div>
-                </section>
-
-                <?php // ── Bedragopties ──────────────────────────────────────── ?>
-                <section class="ftb-admin-form__section">
-                    <h2 class="ftb-admin-form__title">
-                        <?php esc_html_e( 'Bedragopties', 'ftb-donation-form' ); ?>
-                    </h2>
-                    <p class="ftb-admin-form__description">
-                        <?php esc_html_e( 'Kies maximaal drie vaste bedragen die de donateur kan selecteren. De donateur kan altijd ook een eigen bedrag invullen.', 'ftb-donation-form' ); ?>
-                    </p>
-                    <div class="ftb-admin-form__group">
-                        <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_amounts' ); ?>
-                    </div>
-                </section>
-
-                <?php // ── Frequentie ────────────────────────────────────────── ?>
-                <section class="ftb-admin-form__section">
-                    <h2 class="ftb-admin-form__title">
+                    <h3 class="ftb-admin-form__title">
                         <?php esc_html_e( 'Frequentie', 'ftb-donation-form' ); ?>
-                    </h2>
+                    </h3>
                     <p class="ftb-admin-form__description">
                         <?php esc_html_e( 'Kies of donateurs alleen eenmalig kunnen doneren, of ook maandelijks en jaarlijks.', 'ftb-donation-form' ); ?>
                     </p>
@@ -84,41 +86,41 @@ if ( ! defined( 'ABSPATH' ) ) {
                     </div>
                 </section>
 
-                <?php // ── Na betaling ───────────────────────────────────────── ?>
+                <?php // ── Bedragopties ─────────────────────────────────────── ?>
                 <section class="ftb-admin-form__section">
-                    <h2 class="ftb-admin-form__title">
-                        <?php esc_html_e( 'Na betaling', 'ftb-donation-form' ); ?>
-                    </h2>
+                    <h3 class="ftb-admin-form__title">
+                        <?php esc_html_e( 'Bedragopties', 'ftb-donation-form' ); ?>
+                    </h3>
                     <p class="ftb-admin-form__description">
-                        <?php esc_html_e( 'Kies wat er gebeurt nadat de donateur succesvol heeft betaald.', 'ftb-donation-form' ); ?>
+                        <?php esc_html_e( 'Kies maximaal drie vaste bedragen die de donateur kan selecteren. De donateur kan altijd ook een eigen bedrag invullen.', 'ftb-donation-form' ); ?>
                     </p>
                     <div class="ftb-admin-form__group">
-                        <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_post_payment' ); ?>
+                        <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_amounts' ); ?>
+                    </div>
+                </section>
+
+                <?php // ── Formuliervelden ──────────────────────────────────── ?>
+                <section class="ftb-admin-form__section">
+                    <h3 class="ftb-admin-form__title">
+                        <?php esc_html_e( 'Formuliervelden', 'ftb-donation-form' ); ?>
+                    </h3>
+                    <p class="ftb-admin-form__description">
+                        <?php esc_html_e( 'Naam en e-mailadres zijn altijd verplicht. Vink de overige velden aan die je wilt tonen.', 'ftb-donation-form' ); ?>
+                    </p>
+                    <div class="ftb-admin-form__group ftb-admin-form__group--checkboxes">
+                        <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_fields' ); ?>
                     </div>
                 </section>
 
             </div>
 
-            <div class="ftb-admin-form__sidebar">
+            <div class="ftb-admin-form__col">
 
-                <?php // ── Mollie ────────────────────────────────────────────── ?>
+                <?php // ── Privacyverklaring ────────────────────────────────── ?>
                 <section class="ftb-admin-form__section">
-                    <h2 class="ftb-admin-form__title">
-                        <?php esc_html_e( 'Mollie instellingen', 'ftb-donation-form' ); ?>
-                    </h2>
-                    <p class="ftb-admin-form__description">
-                        <?php esc_html_e( 'Vind je API sleutel in je Mollie dashboard onder Ontwikkelaars → API-sleutels. Gebruik de live sleutel voor echte betalingen.', 'ftb-donation-form' ); ?>
-                    </p>
-                    <div class="ftb-admin-form__group">
-                        <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_mollie' ); ?>
-                    </div>
-                </section>
-
-                <?php // ── Privacyverklaring ─────────────────────────────────── ?>
-                <section class="ftb-admin-form__section">
-                    <h2 class="ftb-admin-form__title">
+                    <h3 class="ftb-admin-form__title">
                         <?php esc_html_e( 'Privacyverklaring', 'ftb-donation-form' ); ?>
-                    </h2>
+                    </h3>
                     <p class="ftb-admin-form__description">
                         <?php esc_html_e( 'Voeg de link in naar je privacyverklaring. Deze link wordt boven het toestemmingsveld in het formulier getoond.', 'ftb-donation-form' ); ?>
                     </p>
@@ -127,13 +129,18 @@ if ( ! defined( 'ABSPATH' ) ) {
                     </div>
                 </section>
 
-                <div class="ftb-admin__shortcode">
-                    <h2><?php esc_html_e( 'Shortcode', 'ftb-donation-form' ); ?></h2>
-                    <p>
-                        <?php esc_html_e( 'Plaats het donatieformulier op een pagina met deze shortcode:', 'ftb-donation-form' ); ?>
+                <?php // ── Na betaling ──────────────────────────────────────── ?>
+                <section class="ftb-admin-form__section">
+                    <h3 class="ftb-admin-form__title">
+                        <?php esc_html_e( 'Na betaling', 'ftb-donation-form' ); ?>
+                    </h3>
+                    <p class="ftb-admin-form__description">
+                        <?php esc_html_e( 'Kies wat er gebeurt nadat de donateur succesvol heeft betaald.', 'ftb-donation-form' ); ?>
                     </p>
-                    <code>[ftb_donation_form]</code>
-                </div>
+                    <div class="ftb-admin-form__group">
+                        <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_post_payment' ); ?>
+                    </div>
+                </section>
 
             </div>
 

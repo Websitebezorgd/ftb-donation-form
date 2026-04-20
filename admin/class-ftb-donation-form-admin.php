@@ -159,6 +159,9 @@ class FTB_Donation_Form_Admin {
         register_setting( 'ftb_donation_form_settings', 'ftb_allow_custom_amount', [
             'sanitize_callback' => 'absint',
         ] );
+        register_setting( 'ftb_donation_form_settings', 'ftb_min_custom_amount', [
+            'sanitize_callback' => [ $this, 'sanitize_min_custom_amount' ],
+        ] );
 
         add_settings_section(
             'ftb_section_amounts',
@@ -169,7 +172,7 @@ class FTB_Donation_Form_Admin {
 
         add_settings_field(
             'ftb_amount_options',
-            __( 'Vaste bedragen (€)', 'ftb-donation-form' ),
+            __( 'Vaste bedragen (minimaal €1)', 'ftb-donation-form' ),
             [ $this, 'field_amount_options' ],
             'ftb_donation_form_settings',
             'ftb_section_amounts',
@@ -182,6 +185,15 @@ class FTB_Donation_Form_Admin {
             [ $this, 'field_allow_custom_amount' ],
             'ftb_donation_form_settings',
             'ftb_section_amounts'
+        );
+
+        add_settings_field(
+            'ftb_min_custom_amount',
+            __( 'Minimumbedrag eigen bedrag (minimaal €1)', 'ftb-donation-form' ),
+            [ $this, 'field_min_custom_amount' ],
+            'ftb_donation_form_settings',
+            'ftb_section_amounts',
+            [ 'label_for' => 'ftb_min_custom_amount' ]
         );
 
         // ── Frequentie ────────────────────────────────────────────────────────
@@ -370,6 +382,28 @@ class FTB_Donation_Form_Admin {
         echo '</div></div>';
     }
 
+    public function field_min_custom_amount() {
+        $value = get_option( 'ftb_min_custom_amount', '1' );
+        ?>
+        <div class="ftb-admin-form__field">
+            <div class="ftb-amount-inputs">
+                <div class="ftb-amount-input">
+                    <span class="ftb-amount-input__prefix" aria-hidden="true">€</span>
+                    <input
+                        type="number"
+                        id="ftb_min_custom_amount"
+                        name="ftb_min_custom_amount"
+                        value="<?php echo esc_attr( $value ); ?>"
+                        min="1"
+                        step="1"
+                        class="small-text"
+                    />
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+
     public function field_allow_custom_amount() {
         $value = get_option( 'ftb_allow_custom_amount', '1' );
         ?>
@@ -468,6 +502,11 @@ class FTB_Donation_Form_Admin {
     }
 
     // ── Sanitization callbacks ─────────────────────────────────────────────────
+
+    public function sanitize_min_custom_amount( $input ) {
+        $value = (float) $input;
+        return $value >= 1 ? number_format( $value, 2, '.', '' ) : '1.00';
+    }
 
     public function sanitize_form_fields( $input ) {
         $allowed = [ 'phone', 'street', 'house_number', 'postal_code', 'city' ];

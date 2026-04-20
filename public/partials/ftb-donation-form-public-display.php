@@ -71,7 +71,7 @@ $old = static function ($key, $default = '') use ($old_values) {
 
             <div id="ftb-step-1" class="ftb-donation-form__step is-active" data-step="1">
                 <?php if ( $enable_recurring ) : ?>
-                <p class="ftb-donation-form__step-intro"><?php esc_html_e('Vul in hoeveel je wil doneren en hoe vaak. Als iets verplicht is, staat het erbij.', 'ftb-donation-form'); ?></p>
+                <p class="ftb-donation-form__step-intro"><?php esc_html_e('Geef aan hoeveel je wil doneren en hoe vaak. Als iets verplicht is, staat het erbij.', 'ftb-donation-form'); ?></p>
 
                 <!-- ── Frequentie ─────────────────────────────────────────── -->
                 <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-describedby="ftb-frequency-error">
@@ -137,7 +137,10 @@ $old = static function ($key, $default = '') use ($old_values) {
                             role="group"
                             aria-label="<?php esc_attr_e('Eigen bedrag', 'ftb-donation-form'); ?>">
                             <label class="ftb-donation-form__label" for="ftb-custom-amount">
-                                <?php esc_html_e('Vul een bedrag in', 'ftb-donation-form'); ?>
+                                <?php
+                                /* translators: %s: minimum amount, e.g. "1" */
+                                printf( esc_html__( 'Vul een bedrag in (minimaal €%s)', 'ftb-donation-form' ), esc_html( $min_custom_amount ) );
+                                ?>
                             </label>
                             <div class="ftb-donation-form__input-wrapper">
                                 <span class="ftb-donation-form__currency-prefix" aria-hidden="true">€</span>
@@ -146,7 +149,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                                     type="number"
                                     name="ftb_custom_amount"
                                     id="ftb-custom-amount"
-                                    min="0.01"
+                                    min="<?php echo esc_attr( $min_custom_amount ); ?>"
                                     step="0.01"
                                     value="<?php echo esc_attr($old('custom_amount')); ?>"
                                     aria-label="<?php esc_attr_e('Eigen bedrag in euro', 'ftb-donation-form'); ?>"

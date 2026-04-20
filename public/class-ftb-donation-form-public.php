@@ -37,15 +37,19 @@ class FTB_Donation_Form_Public {
             true
         );
 
+        $min_amount = (float) get_option( 'ftb_min_custom_amount', '1' );
+
         wp_localize_script(
             $this->plugin_name,
             'ftbDonationForm',
             [
                 'allowCustomAmount' => (bool) get_option( 'ftb_allow_custom_amount', '1' ),
+                'minCustomAmount'   => $min_amount,
                 'i18n'              => [
                     'errorFrequency'   => __( 'Kies een frequentie.', 'ftb-donation-form' ),
                     'errorAmount'      => __( 'Kies een bedrag.', 'ftb-donation-form' ),
-                    'errorCustom'      => __( 'Vul een bedrag in van minimaal €0,01.', 'ftb-donation-form' ),
+                    /* translators: %s: minimum amount, e.g. "1" */
+                    'errorCustom'      => sprintf( __( 'Je eigen bedrag moet minimaal €%s zijn.', 'ftb-donation-form' ), $min_amount ),
                     'errorName'        => __( 'Vul je volledige naam in.', 'ftb-donation-form' ),
                     'errorEmail'       => __( 'Vul een geldig e-mailadres in.', 'ftb-donation-form' ),
                     'errorGdpr'        => __( 'Je moet akkoord gaan met de privacyverklaring om te doneren.', 'ftb-donation-form' ),
@@ -71,8 +75,9 @@ class FTB_Donation_Form_Public {
         // Read admin settings (needed by both processing and template)
         $form_fields      = get_option( 'ftb_form_fields', [] );
         $amount_options   = array_values( array_filter( (array) get_option( 'ftb_amount_options', [ '5', '10', '25' ] ) ) );
-        $allow_custom     = (bool) get_option( 'ftb_allow_custom_amount', '1' );
-        $enable_recurring = (bool) get_option( 'ftb_enable_recurring', '1' );
+        $allow_custom      = (bool) get_option( 'ftb_allow_custom_amount', '1' );
+        $min_custom_amount = (float) get_option( 'ftb_min_custom_amount', '1' );
+        $enable_recurring  = (bool) get_option( 'ftb_enable_recurring', '1' );
         $privacy_url      = get_option( 'ftb_privacy_url', '' );
 
         if ( isset( $_POST['ftb_donation_nonce'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- verified on next line
@@ -107,8 +112,9 @@ class FTB_Donation_Form_Public {
             $amount = 0.0;
             if ( $amount_raw === 'custom' && $allow_custom ) {
                 $amount = (float) str_replace( ',', '.', $custom_amount );
-                if ( $amount < 0.01 ) {
-                    $errors['amount'] = __( 'Vul een bedrag in van minimaal €0,01.', 'ftb-donation-form' );
+                if ( $amount < $min_custom_amount ) {
+                    /* translators: %s: minimum amount, e.g. "1" */
+                    $errors['amount'] = sprintf( __( 'Vul een bedrag in van minimaal €%s.', 'ftb-donation-form' ), $min_custom_amount );
                 }
             } elseif ( ! empty( $amount_raw ) ) {
                 $amount = (float) $amount_raw;

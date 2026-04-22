@@ -275,6 +275,57 @@ h1.ftb-admin__title {
     outline-offset: 2px;
 }
 
+/* ── Inline notices ───────────────────────────────────────────────────────── */
+.ftb-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+}
+
+.ftb-notice .dashicons {
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    font-size: 1rem;
+    width: 1rem;
+    height: 1rem;
+}
+
+.ftb-notice--warning {
+    background: #fffbeb;
+    border: 1px solid #fbbf24;
+    color: #78350f;
+}
+
+.ftb-notice--warning .dashicons {
+    color: #d97706;
+}
+
+.ftb-notice--info {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-focus);
+    color: inherit;
+}
+
+.ftb-notice--info .dashicons {
+    color: var(--color-focus);
+}
+
+.ftb-notice--error {
+    background: #fff1f2;
+    border: 1px solid #fca5a5;
+    color: #7f1d1d;
+}
+
+.ftb-notice--error .dashicons {
+    color: #dc2626;
+}
+
 /* ── Donation status badges ───────────────────────────────────────────────── */
 .ftb-status {
     display: inline-block;

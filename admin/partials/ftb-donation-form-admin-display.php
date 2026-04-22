@@ -83,6 +83,12 @@ if ( ! defined( 'ABSPATH' ) ) {
                             <span class="ftb-toggle__slider" aria-hidden="true"></span>
                             <span><?php esc_html_e( 'Terugkerende betalingen inschakelen', 'ftb-donation-form' ); ?></span>
                         </label>
+                        <?php if ( '1' === $recurring ) : ?>
+                        <div class="ftb-notice ftb-notice--info" role="note">
+                            <span class="dashicons dashicons-info-outline" aria-hidden="true"></span>
+                            <?php esc_html_e( 'Zorg dat SEPA-incasso is ingeschakeld in je Mollie-dashboard onder Betaalmethoden.', 'ftb-donation-form' ); ?>
+                        </div>
+                        <?php endif; ?>
                     </div>
                 </section>
 
@@ -151,6 +157,12 @@ if ( ! defined( 'ABSPATH' ) ) {
                     </p>
                     <div class="ftb-admin-form__group">
                         <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_privacy' ); ?>
+                        <?php if ( ! get_option( 'ftb_privacy_url', '' ) ) : ?>
+                        <div class="ftb-notice ftb-notice--error" role="note">
+                            <span class="dashicons dashicons-warning" aria-hidden="true"></span>
+                            <?php esc_html_e( 'Je verzamelt persoonsgegevens. Voeg een link naar je privacyverklaring toe om aan de AVG te voldoen.', 'ftb-donation-form' ); ?>
+                        </div>
+                        <?php endif; ?>
                     </div>
                 </section>
 

@@ -1,0 +1,78 @@
+MOLLIE INTEGRATION — PHASE 6
+=============================
+
+What needs to be built to make payments work:
+
+1. Mollie PHP SDK
+   Install via Composer, or bundle manually in the plugin.
+
+2. Create a payment
+   When the form submits successfully, call Mollie's API to create a payment
+   and redirect the donor to Mollie's checkout page.
+
+3. Webhook endpoint
+   A WordPress REST API route that Mollie calls when a payment status changes.
+   This updates the record in wp_ftb_donations.
+
+4. Return URL
+   After payment, Mollie sends the donor back to the site. The plugin then shows
+   the thank-you message or redirects to a page, based on the admin setting.
+
+5. Recurring payments
+   For monthly/yearly donations, Mollie uses mandates (SEPA Direct Debit).
+   The first payment creates the mandate; subsequent ones are charged automatically
+   via the Mollie API.
+
+The database layer (FTB_DB) and the mollie_payment_id / payment_status columns
+are already in place — the groundwork is done.
+
+
+IMPLEMENTATION ORDER
+====================
+
+Step 1 — Install the Mollie PHP SDK
+   Run: composer require mollie/mollie-api-php
+   Only include production dependencies in the final plugin package.
+
+Step 2 — Create class-ftb-mollie-service.php
+   A wrapper class around the SDK. Handles:
+   - Initialising the Mollie API client with the saved API key
+   - Creating one-time payments
+   - Creating recurring payments / subscriptions
+   - Fetching payment status
+
+Step 3 — Hook into the form submission
+   In public/class-ftb-donation-form-public.php, replace the placeholder
+   comment with a call to FTB_Mollie_Service to create a payment.
+   Save the Mollie payment ID to the database, then redirect the donor.
+
+Step 4 — Register the webhook endpoint
+   Add a REST API route (e.g. /wp-json/ftb/v1/webhook) that Mollie calls
+   when a payment status changes. The endpoint:
+   - Verifies the request is from Mollie
+   - Fetches the payment from Mollie to get the current status
+   - Calls FTB_DB::update_payment_status() to update the record
+
+Step 5 — Handle the return URL
+   After the donor completes or cancels payment on Mollie's page, they land
+   back on the site. Show the thank-you message or redirect based on the
+   ftb_post_payment_behavior admin setting.
+
+Step 6 — Recurring / SEPA Direct Debit
+   For monthly and yearly donations:
+   - First payment: create a payment with sequenceType = "first"
+   - Mollie returns a mandate after successful payment
+   - Subsequent charges: create a payment with sequenceType = "recurring"
+     using the customer ID and mandate
+   Note: SEPA Direct Debit must be enabled in the Mollie dashboard
+   under Payment Methods.
+
+
+NOTES
+=====
+
+- Use the test API key during development; switch to live key for production.
+- The Mollie webhook must be publicly reachable (not localhost).
+  Use a tool like ngrok for local testing.
+- Store the Mollie customer ID in wp_ftb_donations or a separate meta table
+  for recurring payment support.

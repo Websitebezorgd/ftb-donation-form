@@ -33,7 +33,10 @@ class FTB_Donation_Form_i18n {
      * @since    1.0.0
      */
     public function load_plugin_textdomain() {
-        // WordPress auto-loads translations for plugins since 4.6.
-        // No manual call needed.
+        load_plugin_textdomain(
+            'ftb-donation-form',
+            false,
+            dirname( plugin_basename( FTB_DONATION_FORM_PLUGIN_DIR . 'ftb-donation-form.php' ) ) . '/languages'
+        );
     }
 }

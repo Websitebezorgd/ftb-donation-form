@@ -153,6 +153,19 @@ class FTB_Donation_Form_Public {
             ];
 
             if ( empty( $errors ) ) {
+                $db = new FTB_DB();
+                $db->insert_donation( [
+                    'donor_name'         => $name,
+                    'donor_email'        => $email,
+                    'donor_phone'        => $phone,
+                    'donor_street'       => $street,
+                    'donor_house_number' => $house_number,
+                    'donor_postal_code'  => $postal_code,
+                    'donor_city'         => $city,
+                    'amount'             => $amount,
+                    'frequency'          => $frequency,
+                ] );
+
                 // TODO Phase 4: initiate Mollie payment and redirect to payment URL.
                 // $service = new FTB_Mollie_Service();
                 // $payment = $service->create_payment( ... );

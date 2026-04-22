@@ -27,8 +27,12 @@ class FTB_Donation_Form_Admin {
     /**
      * Enqueue admin styles only on our plugin page.
      */
+    private function is_plugin_page( $hook ) {
+        return in_array( $hook, [ 'toplevel_page_ftb-donation-form', 'ftb-donation-form_page_ftb-submissions' ], true );
+    }
+
     public function enqueue_styles( $hook ) {
-        if ( 'toplevel_page_ftb-donation-form' !== $hook ) {
+        if ( ! $this->is_plugin_page( $hook ) ) {
             return;
         }
         wp_enqueue_style(
@@ -43,7 +47,7 @@ class FTB_Donation_Form_Admin {
      * Enqueue admin scripts only on our plugin page.
      */
     public function enqueue_scripts( $hook ) {
-        if ( 'toplevel_page_ftb-donation-form' !== $hook ) {
+        if ( ! $this->is_plugin_page( $hook ) ) {
             return;
         }
         wp_enqueue_script(
@@ -67,6 +71,24 @@ class FTB_Donation_Form_Admin {
             [ $this, 'display_plugin_setup_page' ],
             'dashicons-heart',
             30
+        );
+
+        add_submenu_page(
+            'ftb-donation-form',
+            __( 'Instellingen', 'ftb-donation-form' ),
+            __( 'Instellingen', 'ftb-donation-form' ),
+            'ftb_manage_settings',
+            'ftb-donation-form',
+            [ $this, 'display_plugin_setup_page' ]
+        );
+
+        add_submenu_page(
+            'ftb-donation-form',
+            __( 'Donaties', 'ftb-donation-form' ),
+            __( 'Donaties', 'ftb-donation-form' ),
+            'ftb_manage_settings',
+            'ftb-submissions',
+            [ $this, 'display_submissions_page' ]
         );
     }
 
@@ -460,5 +482,16 @@ class FTB_Donation_Form_Admin {
             wp_die( esc_html__( 'Je hebt onvoldoende rechten om deze pagina te bekijken.', 'ftb-donation-form' ) );
         }
         include_once 'partials/ftb-donation-form-admin-display.php';
+    }
+
+    /**
+     * Render the donations submissions page.
+     */
+    public function display_submissions_page() {
+        if ( ! current_user_can( 'ftb_manage_settings' ) ) {
+            wp_die( esc_html__( 'Je hebt onvoldoende rechten om deze pagina te bekijken.', 'ftb-donation-form' ) );
+        }
+        require_once plugin_dir_path( __FILE__ ) . 'class-ftb-donations-list-table.php';
+        include_once 'partials/ftb-donation-form-submissions-display.php';
     }
 }

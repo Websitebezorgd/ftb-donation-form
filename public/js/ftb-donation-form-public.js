@@ -113,12 +113,17 @@ document.addEventListener("DOMContentLoaded", () => {
         isValid = false;
       }
 
+      const amountError = activeStep.querySelector("#ftb-amount-error");
+      const minAmount = ftbDonationForm?.minCustomAmount ?? 1;
+
       if (!amount) {
-        activeStep.querySelector("#ftb-amount-error").hidden = false;
+        amountError.textContent = ftbDonationForm?.i18n?.errorAmount ?? amountError.textContent;
+        amountError.hidden = false;
         isValid = false;
       } else if (amount.value === "custom") {
-        if (!customAmount?.value || Number(customAmount.value) < 1) {
-          activeStep.querySelector("#ftb-amount-error").hidden = false;
+        if (!customAmount?.value || Number(customAmount.value) < minAmount) {
+          amountError.textContent = ftbDonationForm?.i18n?.errorCustom ?? amountError.textContent;
+          amountError.hidden = false;
           isValid = false;
         }
       }
@@ -215,7 +220,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   customAmountInput?.addEventListener("input", () => {
-    if (Number(customAmountInput.value) > 0) {
+    const minAmount = ftbDonationForm?.minCustomAmount ?? 1;
+    if (Number(customAmountInput.value) >= minAmount) {
       const amountError = document.querySelector("#ftb-amount-error");
       if (amountError) amountError.hidden = true;
       syncErrorSummary(currentStep);

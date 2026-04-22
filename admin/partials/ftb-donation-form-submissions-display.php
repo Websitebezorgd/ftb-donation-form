@@ -23,7 +23,7 @@ $list_table->prepare_items();
     <form method="get">
         <input type="hidden" name="page" value="ftb-submissions">
         <?php if ( ! empty( $_GET['status'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>
-            <input type="hidden" name="status" value="<?php echo esc_attr( sanitize_text_field( wp_unslash( $_GET['status'] ) ) ); ?>">
+            <input type="hidden" name="status" value="<?php echo esc_attr( sanitize_text_field( wp_unslash( $_GET['status'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only view filter, no data is modified ?>">
         <?php endif; ?>
         <?php $list_table->views(); ?>
         <?php $list_table->search_box( __( 'Zoeken', 'ftb-donation-form' ), 'ftb-donations-search' ); ?>

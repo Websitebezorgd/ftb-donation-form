@@ -223,6 +223,23 @@ Outstanding before submitting: `readme.txt`, `LICENSE` file, and a cleanly bundl
 
 ---
 
+## Open questions
+
+### Dashboard — edit and delete per row
+Individual delete is straightforward (row action link). Edit is more work — what should be editable?
+The most useful thing would be manually updating the payment status (e.g. marking a bank transfer as paid). Editing donor details is less common and adds significant form complexity.
+- [ ] Is updating payment status enough for edit, or do we need to change donor info too?
+
+### Fixed amounts — make optional?
+Currently the form always shows three fixed amount buttons.
+- [ ] Should fixed amounts be optional, so the form can show only a custom amount input?
+
+### Accessibility — Narrator + radio buttons
+Windows Narrator does not announce the radio buttons in the frequency and amount fieldsets correctly.
+- [ ] Investigate and fix Narrator compatibility with the radio button groups (phase 9)
+
+---
+
 ## Notes
 
 - Focus is on understanding and maintainability, not speed

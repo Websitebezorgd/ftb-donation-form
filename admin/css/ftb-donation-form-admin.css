@@ -49,6 +49,10 @@
     margin-bottom: var(--space-5);
 }
 
+.ftb-admin-form__col {
+    min-width: 0;
+}
+
 /* ── Section heading between grids ───────────────────────────────────────── */
 .ftb-admin-form__section-heading {
     font-size: 1.125rem;
@@ -297,16 +301,6 @@ h1.ftb-admin__title {
     font-size: 1rem;
     width: 1rem;
     height: 1rem;
-}
-
-.ftb-notice--warning {
-    background: #fffbeb;
-    border: 1px solid #fbbf24;
-    color: #78350f;
-}
-
-.ftb-notice--warning .dashicons {
-    color: #d97706;
 }
 
 .ftb-notice--info {

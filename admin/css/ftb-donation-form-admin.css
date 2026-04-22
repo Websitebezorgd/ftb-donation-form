@@ -271,7 +271,7 @@ h1.ftb-admin__title {
 }
 
 .ftb-toggle__input:checked + .ftb-toggle__slider {
-    background: var(--color-brand);
+    background: var(--color-focus);
 }
 
 .ftb-toggle__input:checked + .ftb-toggle__slider::after {

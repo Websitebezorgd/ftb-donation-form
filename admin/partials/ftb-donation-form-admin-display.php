@@ -85,7 +85,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         </label>
                         <?php if ( '1' === $recurring ) : ?>
                         <div class="ftb-notice ftb-notice--info" role="note">
-                            <span class="dashicons dashicons-info-outline" aria-hidden="true"></span>
+                            <span class="dashicons dashicons-info" aria-hidden="true"></span>
                             <?php esc_html_e( 'Zorg dat SEPA-incasso is ingeschakeld in je Mollie-dashboard onder Betaalmethoden.', 'ftb-donation-form' ); ?>
                         </div>
                         <?php endif; ?>

@@ -77,8 +77,11 @@ class FTB_Donation_Form_Public {
         $amount_options   = array_values( array_filter( (array) get_option( 'ftb_amount_options', [ '5', '10', '25' ] ) ) );
         $allow_custom      = (bool) get_option( 'ftb_allow_custom_amount', '1' );
         $min_custom_amount = (float) get_option( 'ftb_min_custom_amount', '1' );
-        $enable_recurring  = (bool) get_option( 'ftb_enable_recurring', '1' );
-        $privacy_url      = get_option( 'ftb_privacy_url', '' );
+        $enable_recurring        = (bool) get_option( 'ftb_enable_recurring', '1' );
+        $privacy_url             = get_option( 'ftb_privacy_url', '' );
+        $post_payment_behavior   = get_option( 'ftb_post_payment_behavior', 'message' );
+        $post_payment_message    = get_option( 'ftb_post_payment_message', '' ) ?: __( 'Hartelijk dank voor je donatie!', 'ftb-donation-form' );
+        $post_payment_redirect   = get_option( 'ftb_post_payment_redirect_url', '' );
 
         if ( isset( $_POST['ftb_donation_nonce'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- verified on next line
             $nonce = sanitize_text_field( wp_unslash( $_POST['ftb_donation_nonce'] ) );

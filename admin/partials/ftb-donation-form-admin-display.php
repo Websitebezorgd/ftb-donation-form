@@ -176,7 +176,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_post_payment' ); ?>
                         <?php
                         $behavior     = get_option( 'ftb_post_payment_behavior', 'message' );
-                        $message      = get_option( 'ftb_post_payment_message', __( 'Hartelijk dank voor je donatie!', 'ftb-donation-form' ) );
+                        $message      = get_option( 'ftb_post_payment_message', 'Hartelijk dank voor je donatie!' );
                         $redirect_url = get_option( 'ftb_post_payment_redirect_url', '' );
                         ?>
                         <div class="ftb-conditional<?php echo $behavior === 'message' ? ' is-visible' : ''; ?>" data-show-when="ftb_post_payment_behavior=message">
@@ -187,6 +187,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                     name="ftb_post_payment_message"
                                     rows="3"
                                     class="large-text"
+                                    placeholder="<?php esc_attr_e( 'Hartelijk dank voor je donatie!', 'ftb-donation-form' ); ?>"
                                 ><?php echo esc_textarea( $message ); ?></textarea>
                             </div>
                         </div>

@@ -26,7 +26,7 @@ $old = static function ($key, $default = '') use ($old_values) {
     <?php if ($success) : ?>
 
         <div class="ftb-donation-form__success" role="status">
-            <p tabindex="-1" autofocus><?php esc_html_e('Bedankt! Je donatie is ontvangen.', 'ftb-donation-form'); ?></p>
+            <p tabindex="-1" autofocus><?php echo esc_html( $post_payment_message ); ?></p>
         </div>
 
     <?php else : ?>

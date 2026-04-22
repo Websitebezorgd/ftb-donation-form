@@ -168,6 +168,63 @@ class FTB_DB {
     }
 
     /**
+     * Delete a donation by ID.
+     *
+     * @param int $id Row ID.
+     * @return bool
+     */
+    public function delete_donation( int $id ): bool {
+        global $wpdb;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        return (bool) $wpdb->delete( $this->table, [ 'id' => $id ], [ '%d' ] );
+    }
+
+    /**
+     * Fetch all donations matching filters (no pagination — used for CSV export).
+     *
+     * @param array $args Same filter keys as get_donations(), minus pagination.
+     * @return array
+     */
+    public function get_all_donations( array $args = [] ): array {
+        global $wpdb;
+
+        $args = wp_parse_args( $args, [
+            'status'  => '',
+            'search'  => '',
+            'orderby' => 'created_at',
+            'order'   => 'DESC',
+        ] );
+
+        $where  = 'WHERE 1=1';
+        $values = [];
+
+        if ( ! empty( $args['status'] ) ) {
+            $where   .= ' AND payment_status = %s';
+            $values[] = $args['status'];
+        }
+
+        if ( ! empty( $args['search'] ) ) {
+            $where   .= ' AND (donor_name LIKE %s OR donor_email LIKE %s)';
+            $like     = '%' . $wpdb->esc_like( $args['search'] ) . '%';
+            $values[] = $like;
+            $values[] = $like;
+        }
+
+        $allowed_orderby = [ 'created_at', 'amount', 'donor_name', 'payment_status' ];
+        $orderby = in_array( $args['orderby'], $allowed_orderby, true ) ? $args['orderby'] : 'created_at';
+        $order   = strtoupper( $args['order'] ) === 'ASC' ? 'ASC' : 'DESC';
+
+        if ( ! empty( $values ) ) {
+            $where = $wpdb->prepare( $where, ...$values ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        }
+
+        return $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+            "SELECT * FROM {$this->table} {$where} ORDER BY {$orderby} {$order}" // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared
+        ) ?: [];
+    }
+
+    /**
      * Count donations matching the given filters (used for pagination).
      *
      * @param array $args Same filter keys as get_donations(), minus pagination.

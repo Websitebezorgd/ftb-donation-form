@@ -485,13 +485,72 @@ class FTB_Donation_Form_Admin {
     }
 
     /**
+     * Handle CSV export on admin_init — before any output is sent.
+     */
+    public function handle_csv_export() {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        if ( ! is_admin() || ! isset( $_GET['action'] ) || 'export_csv' !== $_GET['action'] ) {
+            return;
+        }
+        if ( ! isset( $_GET['page'] ) || 'ftb-submissions' !== $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            return;
+        }
+        if ( ! current_user_can( 'ftb_manage_settings' ) ) {
+            wp_die( esc_html__( 'Je hebt onvoldoende rechten om deze actie uit te voeren.', 'ftb-donation-form' ) );
+        }
+
+        check_admin_referer( 'ftb_export_csv' );
+        $this->stream_csv_export();
+        exit;
+    }
+
+    /**
      * Render the donations submissions page.
      */
     public function display_submissions_page() {
         if ( ! current_user_can( 'ftb_manage_settings' ) ) {
             wp_die( esc_html__( 'Je hebt onvoldoende rechten om deze pagina te bekijken.', 'ftb-donation-form' ) );
         }
+
         require_once plugin_dir_path( __FILE__ ) . 'class-ftb-donations-list-table.php';
         include_once 'partials/ftb-donation-form-submissions-display.php';
+    }
+
+    private function stream_csv_export() {
+        $db        = new FTB_DB();
+        $donations = $db->get_all_donations();
+
+        header( 'Content-Type: text/csv; charset=utf-8' );
+        header( 'Content-Disposition: attachment; filename="donaties-' . gmdate( 'Y-m-d' ) . '.csv"' );
+
+        $output = fopen( 'php://output', 'w' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen
+        // BOM so Excel opens UTF-8 correctly.
+        fwrite( $output, "\xEF\xBB\xBF" ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fwrite
+
+        fputcsv( $output, [ 'Naam', 'E-mail', 'Telefoon', 'Straat', 'Huisnummer', 'Postcode', 'Plaats', 'Bedrag', 'Frequentie', 'Status', 'Datum' ], ';' );
+
+        $frequency_labels = [
+            'one_time' => 'Eenmalig',
+            'monthly'  => 'Maandelijks',
+            'yearly'   => 'Jaarlijks',
+        ];
+
+        foreach ( $donations as $donation ) {
+            fputcsv( $output, [ // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fputcsv
+                $donation->donor_name,
+                $donation->donor_email,
+                $donation->donor_phone,
+                $donation->donor_street,
+                $donation->donor_house_number,
+                $donation->donor_postal_code,
+                $donation->donor_city,
+                number_format( (float) $donation->amount, 2, ',', '.' ),
+                $frequency_labels[ $donation->frequency ] ?? $donation->frequency,
+                $donation->payment_status,
+                $donation->created_at,
+            ], ';' );
+        }
+
+        fclose( $output ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
     }
 }

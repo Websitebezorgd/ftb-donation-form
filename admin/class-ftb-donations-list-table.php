@@ -30,6 +30,7 @@ class FTB_Donations_List_Table extends WP_List_Table {
 
     public function get_columns() {
         return [
+            'cb'             => '<input type="checkbox" />',
             'donor_name'     => __( 'Naam', 'ftb-donation-form' ),
             'donor_email'    => __( 'E-mailadres', 'ftb-donation-form' ),
             'donor_phone'    => __( 'Telefoonnummer', 'ftb-donation-form' ),
@@ -48,6 +49,35 @@ class FTB_Donations_List_Table extends WP_List_Table {
             'payment_status' => [ 'payment_status', false ],
             'created_at'     => [ 'created_at', true ],
         ];
+    }
+
+    protected function column_cb( $item ) {
+        return sprintf( '<input type="checkbox" name="donation[]" value="%d" />', absint( $item->id ) );
+    }
+
+    protected function get_bulk_actions() {
+        return [
+            'delete' => __( 'Verwijderen', 'ftb-donation-form' ),
+        ];
+    }
+
+    public function process_bulk_action() {
+        if ( 'delete' !== $this->current_action() ) {
+            return;
+        }
+
+        check_admin_referer( 'bulk-donaties' );
+
+        $ids = array_map( 'absint', (array) ( $_POST['donation'] ?? [] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        $deleted = 0;
+        foreach ( $ids as $id ) {
+            if ( $id > 0 && $this->db->delete_donation( $id ) ) {
+                $deleted++;
+            }
+        }
+
+        wp_safe_redirect( add_query_arg( 'deleted', $deleted, admin_url( 'admin.php?page=ftb-submissions' ) ) );
+        exit;
     }
 
     protected function column_default( $item, $column_name ) {

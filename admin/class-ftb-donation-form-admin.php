@@ -485,6 +485,39 @@ class FTB_Donation_Form_Admin {
     }
 
     /**
+     * Handle bulk delete on admin_init — before any output is sent.
+     */
+    public function handle_bulk_delete() {
+        // phpcs:disable WordPress.Security.NonceVerification.Missing
+        if ( empty( $_POST['page'] ) || 'ftb-submissions' !== $_POST['page'] ) {
+            return;
+        }
+        $action = isset( $_POST['action'] ) ? sanitize_text_field( wp_unslash( $_POST['action'] ) ) : '';
+        $action2 = isset( $_POST['action2'] ) ? sanitize_text_field( wp_unslash( $_POST['action2'] ) ) : '';
+        // phpcs:enable
+        if ( 'delete' !== $action && 'delete' !== $action2 ) {
+            return;
+        }
+        if ( ! current_user_can( 'ftb_manage_settings' ) ) {
+            wp_die( esc_html__( 'Je hebt onvoldoende rechten om deze actie uit te voeren.', 'ftb-donation-form' ) );
+        }
+
+        check_admin_referer( 'bulk-donaties' );
+
+        $ids     = array_map( 'absint', (array) ( $_POST['donation'] ?? [] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        $db      = new FTB_DB();
+        $deleted = 0;
+        foreach ( $ids as $id ) {
+            if ( $id > 0 && $db->delete_donation( $id ) ) {
+                $deleted++;
+            }
+        }
+
+        wp_safe_redirect( add_query_arg( 'deleted', $deleted, admin_url( 'admin.php?page=ftb-submissions' ) ) );
+        exit;
+    }
+
+    /**
      * Handle CSV export on admin_init — before any output is sent.
      */
     public function handle_csv_export() {

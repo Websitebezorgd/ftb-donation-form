@@ -11,7 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $list_table = new FTB_Donations_List_Table();
-$list_table->process_bulk_action();
 $list_table->prepare_items();
 ?>
 <div class="wrap">

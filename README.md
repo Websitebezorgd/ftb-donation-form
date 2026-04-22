@@ -42,9 +42,9 @@ This plugin is built from scratch to maintain full overview and control. Each ph
 
 ## Current status
 
-Phases 1–5, 7, and 10 are complete. The form collects and stores donations, all admin settings are configurable, and submitted donations appear in the WordPress dashboard.
+Phases 1–5, 7, 8, and 10 are complete. The form collects and stores donations, all admin settings are configurable, submitted donations appear in the WordPress dashboard with search, filters, bulk delete, and CSV export, and the plugin is fully translation-ready with an English translation included.
 
-Phases 1–5, 7, 8, and 10 are complete. **Next up:** Mollie payment integration — creating payments and handling webhook callbacks to update payment status.
+**Next up:** Mollie payment integration — creating payments and handling webhook callbacks to update payment status.
 
 ---
 
@@ -74,6 +74,12 @@ Phases 1–5, 7, 8, and 10 are complete. **Next up:** Mollie payment integration
 - Payment status badges
 - Bulk delete
 - CSV export (UTF-8 with BOM for Excel)
+
+### Translations
+- All strings wrapped in `__()` / `esc_html_e()` / `esc_attr_e()`
+- `.pot` file included in `/languages`
+- English (`en_US`) translation included
+- Compatible with WPML and TranslatePress
 
 ### Security
 - Nonces on every form submission
@@ -140,6 +146,38 @@ Accessibility is a core requirement, not an afterthought:
 - Error summary with focus management on validation failure
 - `aria-invalid`, `aria-required`, `aria-current` throughout
 - WCAG 2.2 guidelines
+
+---
+
+## Translations (phase 8)
+
+All PHP strings are wrapped in `__()` / `esc_html_e()` / `esc_attr_e()` with the text domain `ftb-donation-form`. JavaScript error messages are passed from PHP via `wp_localize_script` — no separate JS translation file needed.
+
+**How it works:**
+- Site locale `nl_NL` → no `.mo` file needed → Dutch strings render from code
+- Site locale `en_US` → WordPress loads `ftb-donation-form-en_US.mo` → English shown
+- With WPML or TranslatePress the locale switches automatically — no special handling needed
+
+**Files per language** (in `/languages`):
+```
+ftb-donation-form.pot        ← template, regenerated with WP-CLI after code changes
+ftb-donation-form-en_US.po   ← human-editable, translated in Poedit
+ftb-donation-form-en_US.mo   ← compiled binary that WordPress reads
+```
+
+**Adding a new language:**
+1. Open Poedit → File → New from POT/PO file → select `languages/ftb-donation-form.pot`
+2. Choose the target language (e.g. `fr_FR`)
+3. Translate all strings and save — Poedit writes the `.po` and `.mo`
+
+**Updating the `.pot` after code changes:**
+
+Run from the plugin root (uses Local's PHP binary):
+```
+"C:\Users\rosit\AppData\Roaming\Local\lightning-services\php-8.2.29+0\bin\win64\php.exe" -c "...php.ini-production" -d "extension_dir=...ext" -d "extension=mbstring" C:\tmp\wp-cli.phar i18n make-pot . languages/ftb-donation-form.pot --domain=ftb-donation-form --exclude=Static,index.html --allow-root
+```
+
+Then in Poedit: **Catalogue → Update from POT file** to pick up new strings, save to recompile the `.mo`.
 
 ---
 

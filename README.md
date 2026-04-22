@@ -33,8 +33,8 @@ This plugin is built from scratch to maintain full overview and control. Each ph
 | 4 | Validation | Client-side (JS) + server-side (PHP) + nonces | ✅ Done |
 | 5 | Admin settings | API key, form options, fields, privacy, post-payment | ✅ Done |
 | 6 | Mollie integration | Payment flow + webhook status updates | 🔲 Todo |
-| 7 | Dashboard | Donation records overview with search, filters, pagination | ✅ Done |
-| 8 | Translations | i18n + `.pot` file + WPML / TranslatePress compatibility | 🔲 Todo |
+| 7 | Dashboard | Donation records overview with search, filters, pagination, delete, CSV export | ✅ Done |
+| 8 | Translations | i18n + `.pot` file + WPML / TranslatePress compatibility | ✅ Done |
 | 9 | Testing | Accessibility + validation (throughout all phases) | 🔄 Ongoing |
 | 10 | Security | Nonces, sanitization, escaping, capability checks | ✅ Done |
 
@@ -44,7 +44,7 @@ This plugin is built from scratch to maintain full overview and control. Each ph
 
 Phases 1–5, 7, and 10 are complete. The form collects and stores donations, all admin settings are configurable, and submitted donations appear in the WordPress dashboard.
 
-**Next up:** Mollie payment integration — creating payments and handling webhook callbacks to update payment status.
+Phases 1–5, 7, 8, and 10 are complete. **Next up:** Mollie payment integration — creating payments and handling webhook callbacks to update payment status.
 
 ---
 
@@ -72,6 +72,8 @@ Phases 1–5, 7, and 10 are complete. The form collects and stores donations, al
 - All submitted donations listed with: name, email, phone, address, amount, frequency, status, date
 - Sortable columns, search box, and status filter tabs (all / pending / paid / failed / cancelled)
 - Payment status badges
+- Bulk delete
+- CSV export (UTF-8 with BOM for Excel)
 
 ### Security
 - Nonces on every form submission

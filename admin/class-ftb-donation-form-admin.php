@@ -253,23 +253,7 @@ class FTB_Donation_Form_Admin {
             [ 'label_for' => 'ftb_post_payment_behavior' ]
         );
 
-        add_settings_field(
-            'ftb_post_payment_message_field',
-            __( 'Bedankbericht', 'ftb-donation-form' ),
-            [ $this, 'field_post_payment_message' ],
-            'ftb_donation_form_settings',
-            'ftb_section_post_payment',
-            [ 'label_for' => 'ftb_post_payment_message' ]
-        );
 
-        add_settings_field(
-            'ftb_post_payment_redirect_field',
-            __( 'Doorstuur-URL', 'ftb-donation-form' ),
-            [ $this, 'field_post_payment_redirect_url' ],
-            'ftb_donation_form_settings',
-            'ftb_section_post_payment',
-            [ 'label_for' => 'ftb_post_payment_redirect_url' ]
-        );
     }
 
     // ── Section descriptions ───────────────────────────────────────────────────
@@ -437,36 +421,6 @@ class FTB_Donation_Form_Admin {
                 <?php esc_html_e( 'Doorsturen naar een pagina', 'ftb-donation-form' ); ?>
             </option>
         </select>
-        </div>
-        <?php
-    }
-
-    public function field_post_payment_message() {
-        $message = get_option( 'ftb_post_payment_message', __( 'Hartelijk dank voor je donatie!', 'ftb-donation-form' ) );
-        ?>
-        <div class="ftb-conditional ftb-admin-form__field" data-show-when="ftb_post_payment_behavior=message">
-            <textarea
-                id="ftb_post_payment_message"
-                name="ftb_post_payment_message"
-                rows="3"
-                class="large-text"
-            ><?php echo esc_textarea( $message ); ?></textarea>
-        </div>
-        <?php
-    }
-
-    public function field_post_payment_redirect_url() {
-        $url = get_option( 'ftb_post_payment_redirect_url', '' );
-        ?>
-        <div class="ftb-conditional ftb-admin-form__field" data-show-when="ftb_post_payment_behavior=redirect">
-            <input
-                type="url"
-                id="ftb_post_payment_redirect_url"
-                name="ftb_post_payment_redirect_url"
-                value="<?php echo esc_attr( $url ); ?>"
-                class="regular-text"
-                placeholder="https://jouwwebsite.nl/bedankt"
-            />
         </div>
         <?php
     }

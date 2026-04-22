@@ -285,7 +285,7 @@ class FTB_Donation_Form_Admin {
     }
 
     public function section_amounts_description() {
-        echo '<p>' . esc_html__( 'Voer de vaste bedragen in die de donateur kan kiezen. Scheid bedragen met een komma. De donateur kan altijd ook een eigen bedrag invullen.', 'ftb-donation-form' ) . '</p>';
+        echo '<p>' . esc_html__( 'Voer drie vaste bedragen in die de donateur kan kiezen. De donateur kan ook een eigen bedrag invullen als deze optie is ingeschakeld.', 'ftb-donation-form' ) . '</p>';
     }
 
     // ── Field renderers ────────────────────────────────────────────────────────

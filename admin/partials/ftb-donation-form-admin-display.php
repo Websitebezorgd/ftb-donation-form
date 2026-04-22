@@ -98,7 +98,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <?php esc_html_e( 'Bedragopties', 'ftb-donation-form' ); ?>
                     </h3>
                     <p class="ftb-admin-form__description">
-                        <?php esc_html_e( 'Kies maximaal drie vaste bedragen die de donateur kan selecteren. De donateur kan altijd ook een eigen bedrag invullen.', 'ftb-donation-form' ); ?>
+                        <?php esc_html_e( 'Kies drie vaste bedragen die de donateur kan selecteren. De donateur kan ook een eigen bedrag invullen als deze optie is ingeschakeld.', 'ftb-donation-form' ); ?>
                     </p>
                     <div class="ftb-admin-form__group">
                         <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_amounts' ); ?>

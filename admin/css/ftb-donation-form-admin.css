@@ -201,11 +201,15 @@ h1.ftb-admin__title {
     outline-offset: -2px;
 }
 
-/* ── Conditional label ────────────────────────────────────────────────────── */
-.ftb-conditional-label {
+/* ── Stacked label + field (conditional fields) ───────────────────────────── */
+.ftb-admin-form__stacked-field {
+    margin-top: var(--space-3);
+}
+
+.ftb-admin-form__label {
     display: block;
     font-weight: 600;
-    margin-bottom: var(--space-1);
+    margin-bottom: var(--space-2);
 }
 
 /* ── Conditional fields (shown/hidden via JS) ─────────────────────────────── */

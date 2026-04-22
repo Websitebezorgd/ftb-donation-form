@@ -169,10 +169,16 @@ class FTB_Donation_Form_Public {
                     'frequency'          => $frequency,
                 ] );
 
-                // TODO Phase 4: initiate Mollie payment and redirect to payment URL.
+                // TODO Phase 6: initiate Mollie payment and redirect to payment URL.
                 // $service = new FTB_Mollie_Service();
                 // $payment = $service->create_payment( ... );
                 // wp_redirect( $payment->getCheckoutUrl() ); exit;
+
+                if ( 'redirect' === $post_payment_behavior && ! empty( $post_payment_redirect ) ) {
+                    wp_safe_redirect( $post_payment_redirect );
+                    exit;
+                }
+
                 $success = true;
             }
         }

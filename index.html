@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FTB Donatieformulier — Demo</title>
+  <link rel="stylesheet" href="Static/style.css">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f1f1f1;
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 2rem 1rem;
+      box-sizing: border-box;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ftb-donation-form" aria-describedby="ftb-donation-title">
+
+    <h2 id="ftb-donation-title" class="ftb-donation-form__title">Doneer nu</h2>
+
+    <ol class="ftb-donation-form__steps">
+      <li data-step="1" class="is-active" aria-current="step">Jouw donatie</li>
+      <li data-step="2">Jouw gegevens</li>
+    </ol>
+
+    <div class="ftb-donation-form__error-summary" id="ftb-error-summary" role="alert" tabindex="-1" hidden>
+      <p class="ftb-donation-form__error-summary-title">Controleer de volgende fouten:</p>
+      <ul class="ftb-donation-form__error-list"></ul>
+    </div>
+
+    <form
+      class="ftb-donation-form__form"
+      id="ftb-donation-form"
+      novalidate
+      data-start-step="1"
+      aria-label="Donatieformulier">
+
+      <!-- ── Stap 1: Donatie ──────────────────────────────────────────── -->
+      <div id="ftb-step-1" class="ftb-donation-form__step is-active" data-step="1">
+
+        <p class="ftb-donation-form__step-intro">Als iets verplicht is, staat dat erbij.</p>
+
+        <!-- Frequentie -->
+        <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-describedby="ftb-frequency-error">
+          <legend class="ftb-donation-form__legend">Frequentie (verplicht)</legend>
+          <div class="ftb-donation-form__radio-group">
+            <input class="ftb-donation-form__radio" type="radio" id="ftb-frequency-one_time" name="ftb_frequency" value="one_time"><label class="ftb-donation-form__radio-label" for="ftb-frequency-one_time">Eenmalig</label>
+            <input class="ftb-donation-form__radio" type="radio" id="ftb-frequency-monthly" name="ftb_frequency" value="monthly"><label class="ftb-donation-form__radio-label" for="ftb-frequency-monthly">Maandelijks</label>
+            <input class="ftb-donation-form__radio" type="radio" id="ftb-frequency-yearly" name="ftb_frequency" value="yearly"><label class="ftb-donation-form__radio-label" for="ftb-frequency-yearly">Jaarlijks</label>
+          </div>
+          <p class="ftb-donation-form__error" id="ftb-frequency-error" hidden>Kies hoe vaak je wilt doneren</p>
+        </fieldset>
+
+        <!-- Bedrag -->
+        <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-describedby="ftb-amount-error">
+          <legend class="ftb-donation-form__legend">Bedrag (verplicht)</legend>
+          <div class="ftb-donation-form__radio-group ftb-donation-form__radio-group--amounts">
+            <input class="ftb-donation-form__radio" type="radio" id="ftb-amount-5" name="ftb_amount" value="5"><label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--amount" for="ftb-amount-5">€5</label>
+            <input class="ftb-donation-form__radio" type="radio" id="ftb-amount-10" name="ftb_amount" value="10"><label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--amount" for="ftb-amount-10">€10</label>
+            <input class="ftb-donation-form__radio" type="radio" id="ftb-amount-25" name="ftb_amount" value="25"><label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--amount" for="ftb-amount-25">€25</label>
+            <input class="ftb-donation-form__radio" type="radio" id="ftb-amount-custom-radio" name="ftb_amount" value="custom" aria-controls="ftb-custom-amount-wrapper"><label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--custom" for="ftb-amount-custom-radio">Anders</label>
+          </div>
+
+          <div class="ftb-donation-form__custom-amount ftb-donation-form__custom-amount--hidden"
+            id="ftb-custom-amount-wrapper"
+            role="group"
+            aria-label="Eigen bedrag">
+            <label class="ftb-donation-form__label" for="ftb-custom-amount">Vul een bedrag in (minimaal €1)</label>
+            <div class="ftb-donation-form__input-wrapper">
+              <span class="ftb-donation-form__currency-prefix" aria-hidden="true">€</span>
+              <input
+                class="ftb-donation-form__input ftb-donation-form__input--amount"
+                type="number"
+                name="ftb_custom_amount"
+                id="ftb-custom-amount"
+                min="1"
+                step="0.01"
+                aria-label="Eigen bedrag in euro"
+                aria-required="false"
+                aria-invalid="false">
+            </div>
+          </div>
+
+          <p class="ftb-donation-form__error" id="ftb-amount-error" hidden>Kies een bedrag om te doneren</p>
+        </fieldset>
+
+        <div class="ftb-donation-form__field ftb-donation-form__field--buttons">
+          <button type="button" class="ftb-donation-form__button ftb-donation-form__button--next" id="ftb-next-button">Volgende</button>
+        </div>
+      </div>
+
+      <!-- ── Stap 2: Gegevens ─────────────────────────────────────────── -->
+      <div id="ftb-step-2" class="ftb-donation-form__step" data-step="2" hidden>
+
+        <p class="ftb-donation-form__step-intro" tabindex="-1">Als iets verplicht is, staat dat erbij.</p>
+
+        <!-- Persoonsgegevens -->
+        <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--personal">
+          <legend class="ftb-donation-form__legend">Jouw gegevens</legend>
+
+          <div class="ftb-donation-form__field">
+            <label class="ftb-donation-form__label" for="ftb-name">Volledige naam (verplicht)</label>
+            <input
+              class="ftb-donation-form__input"
+              type="text"
+              name="ftb_name"
+              id="ftb-name"
+              autocomplete="name"
+              aria-required="true"
+              aria-invalid="false"
+              aria-describedby="ftb-name-error">
+            <p class="ftb-donation-form__error" id="ftb-name-error" hidden>Vul je volledige naam in</p>
+          </div>
+
+          <div class="ftb-donation-form__field">
+            <label class="ftb-donation-form__label" for="ftb-email">E-mailadres (verplicht)</label>
+            <input
+              class="ftb-donation-form__input"
+              type="email"
+              name="ftb_email"
+              id="ftb-email"
+              autocomplete="email"
+              aria-required="true"
+              aria-invalid="false"
+              aria-describedby="ftb-email-error">
+            <p class="ftb-donation-form__error" id="ftb-email-error" hidden>Vul een geldig e-mailadres in</p>
+          </div>
+
+        </fieldset>
+
+        <!-- Privacyverklaring -->
+        <fieldset class="ftb-donation-form__fieldset">
+          <legend class="ftb-donation-form__legend">Privacyverklaring</legend>
+
+          <a class="ftb-donation-form__privacy-link" href="#" target="_blank" rel="noopener noreferrer">Lees onze privacyverklaring</a>
+
+          <div class="ftb-donation-form__checkbox-wrapper">
+            <input
+              class="ftb-donation-form__checkbox"
+              type="checkbox"
+              name="ftb_gdpr"
+              id="ftb-gdpr"
+              value="1"
+              aria-required="true"
+              aria-invalid="false"
+              aria-describedby="ftb-gdpr-error">
+            <label class="ftb-donation-form__checkbox-label" for="ftb-gdpr">Ik ga akkoord met de privacyverklaring (verplicht)</label>
+          </div>
+
+          <p class="ftb-donation-form__error" id="ftb-gdpr-error" hidden>Je moet akkoord gaan met de privacyverklaring</p>
+        </fieldset>
+
+        <div class="ftb-donation-form__field ftb-donation-form__field--buttons">
+          <button type="button" class="ftb-donation-form__button ftb-donation-form__button--previous" id="ftb-previous-button">Vorige</button>
+          <button class="ftb-donation-form__button ftb-donation-form__button--submit" type="submit">Doneer nu</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <script>
+    var ftbDonationForm = {
+      allowCustomAmount: true,
+      minCustomAmount: 1,
+      i18n: {
+        errorFrequency: 'Kies een frequentie.',
+        errorAmount:    'Kies een bedrag.',
+        errorCustom:    'Je eigen bedrag moet minimaal \u20ac1 zijn.',
+        errorName:      'Vul je volledige naam in.',
+        errorEmail:     'Vul een geldig e-mailadres in.',
+        errorGdpr:      'Je moet akkoord gaan met de privacyverklaring om te doneren.',
+        errorSummary:   'Controleer de volgende fouten:'
+      }
+    };
+  </script>
+  <script src="Static/script.js"></script>
+
+</body>
+</html>

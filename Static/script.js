@@ -4,18 +4,18 @@
 document.addEventListener("DOMContentLoaded", () => {
   const steps = document.querySelectorAll(".ftb-donation-form__step");
   const nextBtn = document.querySelector(".ftb-donation-form__button--next");
-  const prevBtn = document.querySelector(
-    ".ftb-donation-form__button--previous",
-  );
-  const stepIndicators = document.querySelectorAll(
-    ".ftb-donation-form__steps li",
-  );
+  const prevBtn = document.querySelector(".ftb-donation-form__button--previous");
+  const stepIndicators = document.querySelectorAll(".ftb-donation-form__steps li");
+  const form = document.querySelector(".ftb-donation-form__form");
 
-  let currentStep = 0;
+  const startStep = parseInt(form?.dataset.startStep ?? "1", 10) - 1;
+  let currentStep = startStep;
 
   function goToStep(index) {
     steps.forEach((step, i) => {
-      step.classList.toggle("is-active", i === index);
+      const active = i === index;
+      step.classList.toggle("is-active", active);
+      step.hidden = !active;
     });
 
     stepIndicators.forEach((indicator, i) => {
@@ -29,11 +29,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function focusFirstInput(stepIndex) {
     const activeStep = steps[stepIndex];
-    const firstField = activeStep.querySelector(
-      "input, select, textarea, button",
-    );
+    const firstField = activeStep.querySelector("input, select, textarea, button");
     if (firstField) firstField.focus();
   }
+
+  // Initialise to the correct starting step without triggering focus
+  steps.forEach((step, i) => {
+    const active = i === startStep;
+    step.classList.toggle("is-active", active);
+    step.hidden = !active;
+  });
+  stepIndicators.forEach((indicator, i) => {
+    indicator.classList.toggle("is-active", i === startStep);
+    indicator.setAttribute("aria-current", i === startStep ? "step" : "false");
+  });
 
   // ─────────────────────────────────────────────
   // ERROR SUMMARY MANAGEMENT
@@ -58,9 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     visibleErrors.forEach((error) => {
-      const id = error.id.replace("error-", "");
+      const fieldId = error.id.replace(/-error$/, "");
       const li = document.createElement("li");
-      li.innerHTML = `<a href="#${id}">${error.textContent}</a>`;
+      li.innerHTML = `<a href="#${fieldId}">${error.textContent}</a>`;
       list.appendChild(li);
     });
 
@@ -81,23 +90,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // STEP 1
     if (stepIndex === 0) {
-      const frequency = activeStep.querySelector(
-        'input[name="frequency"]:checked',
-      );
-      const amount = activeStep.querySelector('input[name="amount"]:checked');
-      const customAmount = activeStep.querySelector("#custom-amount");
+      const frequency = activeStep.querySelector('input[name="ftb_frequency"]:checked');
+      const amount = activeStep.querySelector('input[name="ftb_amount"]:checked');
+      const customAmount = activeStep.querySelector("#ftb-custom-amount");
 
       if (!frequency) {
-        activeStep.querySelector("#error-frequency").hidden = false;
+        activeStep.querySelector("#ftb-frequency-error").hidden = false;
         isValid = false;
       }
 
+      const amountError = activeStep.querySelector("#ftb-amount-error");
+      const minAmount = ftbDonationForm?.minCustomAmount ?? 1;
+
       if (!amount) {
-        activeStep.querySelector("#error-amount").hidden = false;
+        amountError.textContent = ftbDonationForm?.i18n?.errorAmount ?? amountError.textContent;
+        amountError.hidden = false;
         isValid = false;
-      } else if (amount.value === "other") {
-        if (!customAmount?.value || Number(customAmount.value) < 1) {
-          activeStep.querySelector("#error-amount").hidden = false;
+      } else if (amount.value === "custom") {
+        if (!customAmount?.value || Number(customAmount.value) < minAmount) {
+          amountError.textContent = ftbDonationForm?.i18n?.errorCustom ?? amountError.textContent;
+          amountError.hidden = false;
           isValid = false;
         }
       }
@@ -105,27 +117,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // STEP 2
     if (stepIndex === 1) {
-      const name = activeStep.querySelector("#name");
-      const email = activeStep.querySelector("#email");
-      const privacy = activeStep.querySelector("#privacy");
+      const name = activeStep.querySelector("#ftb-name");
+      const email = activeStep.querySelector("#ftb-email");
+      const gdpr = activeStep.querySelector("#ftb-gdpr");
 
       if (!name?.value.trim()) {
-        activeStep.querySelector("#error-name").hidden = false;
+        activeStep.querySelector("#ftb-name-error").hidden = false;
         isValid = false;
       }
 
       if (!email?.value.trim() || !email.checkValidity()) {
-        activeStep.querySelector("#error-email").hidden = false;
+        activeStep.querySelector("#ftb-email-error").hidden = false;
         isValid = false;
       }
 
-      if (!privacy?.checked) {
-        activeStep.querySelector("#error-privacy").hidden = false;
+      if (!gdpr?.checked) {
+        activeStep.querySelector("#ftb-gdpr-error").hidden = false;
         isValid = false;
       }
     }
 
     syncErrorSummary(stepIndex);
+
+    if (!isValid) {
+      const summary = document.querySelector(".ftb-donation-form__error-summary");
+      if (summary && !summary.hidden) summary.focus();
+    }
+
     return isValid;
   }
 
@@ -146,12 +164,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // AMOUNT + CUSTOM AMOUNT MODULE
   // ─────────────────────────────────────────────
 
-  const amountRadios = document.querySelectorAll('input[name="amount"]');
-  const customAmountBox = document.querySelector(
-    ".ftb-donation-form__custom-amount",
-  );
-  const customAmountInput = document.querySelector("#custom-amount");
-  const customRadio = document.querySelector("#amount-4");
+  const amountRadios = document.querySelectorAll('input[name="ftb_amount"]');
+  const customAmountBox = document.querySelector(".ftb-donation-form__custom-amount");
+  const customAmountInput = document.querySelector("#ftb-custom-amount");
+  const customRadio = document.querySelector("#ftb-amount-custom-radio");
 
   function setCustomAmountVisible(isVisible) {
     if (!customAmountBox || !customAmountInput || !customRadio) return;
@@ -172,21 +188,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  const isCustom = customRadio?.checked ?? false;
-  customAmountInput.required = isCustom;
-  customAmountInput.setAttribute("aria-required", String(isCustom));
+  if (customAmountInput && customRadio) {
+    const isCustom = customRadio.checked;
+    customAmountInput.required = isCustom;
+    customAmountInput.setAttribute("aria-required", String(isCustom));
+  }
 
   amountRadios.forEach((radio) => {
     radio.addEventListener("change", () => {
-      setCustomAmountVisible(radio.value === "other" && radio.checked);
-      document.querySelector("#error-amount").hidden = true;
+      setCustomAmountVisible(radio.value === "custom" && radio.checked);
+      const amountError = document.querySelector("#ftb-amount-error");
+      if (amountError) amountError.hidden = true;
       syncErrorSummary(currentStep);
     });
   });
 
   customAmountInput?.addEventListener("input", () => {
-    if (Number(customAmountInput.value) > 0) {
-      document.querySelector("#error-amount").hidden = true;
+    const minAmount = ftbDonationForm?.minCustomAmount ?? 1;
+    if (Number(customAmountInput.value) >= minAmount) {
+      const amountError = document.querySelector("#ftb-amount-error");
+      if (amountError) amountError.hidden = true;
       syncErrorSummary(currentStep);
     }
   });
@@ -195,48 +216,58 @@ document.addEventListener("DOMContentLoaded", () => {
   // LIVE ERROR CLEARING
   // ─────────────────────────────────────────────
 
-  const frequencyRadios = document.querySelectorAll('input[name="frequency"]');
-  const nameInput = document.querySelector("#name");
-  const emailInput = document.querySelector("#email");
-  const privacyCheckbox = document.querySelector("#privacy");
+  const frequencyRadios = document.querySelectorAll('input[name="ftb_frequency"]');
+  const nameInput = document.querySelector("#ftb-name");
+  const emailInput = document.querySelector("#ftb-email");
+  const gdprCheckbox = document.querySelector("#ftb-gdpr");
 
   frequencyRadios.forEach((radio) => {
     radio.addEventListener("change", () => {
-      document.querySelector("#error-frequency").hidden = true;
+      const freqError = document.querySelector("#ftb-frequency-error");
+      if (freqError) freqError.hidden = true;
       syncErrorSummary(currentStep);
     });
   });
 
   nameInput?.addEventListener("input", () => {
     if (nameInput.value.trim()) {
-      document.querySelector("#error-name").hidden = true;
+      const nameError = document.querySelector("#ftb-name-error");
+      if (nameError) nameError.hidden = true;
       syncErrorSummary(currentStep);
     }
   });
 
   emailInput?.addEventListener("input", () => {
     if (emailInput.value.trim() && emailInput.checkValidity()) {
-      document.querySelector("#error-email").hidden = true;
+      const emailError = document.querySelector("#ftb-email-error");
+      if (emailError) emailError.hidden = true;
       syncErrorSummary(currentStep);
     }
   });
 
-  privacyCheckbox?.addEventListener("change", () => {
-    if (privacyCheckbox.checked) {
-      document.querySelector("#error-privacy").hidden = true;
+  gdprCheckbox?.addEventListener("change", () => {
+    if (gdprCheckbox.checked) {
+      const gdprError = document.querySelector("#ftb-gdpr-error");
+      if (gdprError) gdprError.hidden = true;
       syncErrorSummary(currentStep);
     }
   });
 
   // ─────────────────────────────────────────────
-  // FORM SUBMIT
+  // FORM SUBMIT — demo: show success state
   // ─────────────────────────────────────────────
-
-  const form = document.querySelector(".ftb-donation-form__form");
 
   form?.addEventListener("submit", (e) => {
-    if (!validateStep(currentStep)) {
-      e.preventDefault();
+    e.preventDefault();
+    if (!validateStep(currentStep)) return;
+
+    const wrapper = document.querySelector(".ftb-donation-form");
+    if (wrapper) {
+      wrapper.innerHTML = `
+        <div class="ftb-donation-form__success" role="status">
+          <p tabindex="-1" autofocus>Bedankt! Je donatie is ontvangen.</p>
+        </div>`;
+      wrapper.querySelector("p").focus();
     }
   });
 });

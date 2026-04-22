@@ -217,6 +217,10 @@ h1.ftb-admin__title {
     display: block;
 }
 
+.ftb-row-hidden {
+    display: none !important;
+}
+
 /* ── Toggle switch ────────────────────────────────────────────────────────── */
 .ftb-toggle {
     display: inline-flex;

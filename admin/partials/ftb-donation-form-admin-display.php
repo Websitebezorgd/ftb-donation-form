@@ -96,6 +96,31 @@ if ( ! defined( 'ABSPATH' ) ) {
                     </p>
                     <div class="ftb-admin-form__group">
                         <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_amounts' ); ?>
+                        <?php
+                        $allow_custom = get_option( 'ftb_allow_custom_amount', '1' );
+                        $min_value    = get_option( 'ftb_min_custom_amount', '1' );
+                        ?>
+                        <div class="ftb-conditional<?php echo $allow_custom === '1' ? ' is-visible' : ''; ?>" data-show-when="ftb_allow_custom_amount=1">
+                            <table class="form-table"><tbody><tr>
+                                <th scope="row"><label for="ftb_min_custom_amount"><?php esc_html_e( 'Minimumbedrag eigen bedrag (minimaal €1)', 'ftb-donation-form' ); ?></label></th>
+                                <td>
+                                    <div class="ftb-amount-inputs">
+                                        <div class="ftb-amount-input">
+                                            <span class="ftb-amount-input__prefix" aria-hidden="true">€</span>
+                                            <input
+                                                type="number"
+                                                id="ftb_min_custom_amount"
+                                                name="ftb_min_custom_amount"
+                                                value="<?php echo esc_attr( $min_value ); ?>"
+                                                min="1"
+                                                step="1"
+                                                class="small-text"
+                                            />
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr></tbody></table>
+                        </div>
                     </div>
                 </section>
 

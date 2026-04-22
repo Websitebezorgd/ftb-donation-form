@@ -16,15 +16,16 @@
             var parts    = condition.split('=');
             var fieldId  = parts[0];
             var expected = parts[1];
-            var actual   = $('#' + fieldId).val();
+            var $field   = $('#' + fieldId);
+            var actual   = $field.is(':checkbox') ? ( $field.is(':checked') ? '1' : '0' ) : $field.val();
             var $row     = $(this).closest('tr');
 
             if ( actual === expected ) {
                 $(this).addClass('is-visible');
-                $row.show();
+                $row.removeClass('ftb-row-hidden');
             } else {
                 $(this).removeClass('is-visible');
-                $row.hide();
+                $row.addClass('ftb-row-hidden');
             }
         });
     }
@@ -33,8 +34,8 @@
         // Run on page load to reflect saved value
         updateConditionalFields();
 
-        // Re-run whenever any select changes
-        $('select').on('change', updateConditionalFields);
+        // Re-run whenever any select or checkbox changes
+        $('select, input[type="checkbox"]').on('change', updateConditionalFields);
     });
 
 }(jQuery));

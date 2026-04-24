@@ -33,9 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function focusFirstInput(stepIndex) {
     const activeStep = steps[stepIndex];
-    const firstField = activeStep.querySelector(
-      "input, select, textarea, button",
-    );
+    const introEl = activeStep.querySelector('[tabindex="-1"]');
+    if (introEl) {
+      introEl.focus();
+      return;
+    }
+    const firstField = activeStep.querySelector("input, select, textarea, button");
     if (firstField) firstField.focus();
   }
 

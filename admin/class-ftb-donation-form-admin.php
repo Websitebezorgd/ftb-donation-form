@@ -54,7 +54,7 @@ class FTB_Donation_Form_Admin {
             $this->plugin_name,
             plugin_dir_url( __FILE__ ) . 'js/ftb-donation-form-admin.js',
             [ 'jquery' ],
-            $this->version,
+            filemtime( plugin_dir_path( __FILE__ ) . 'js/ftb-donation-form-admin.js' ),
             true
         );
     }

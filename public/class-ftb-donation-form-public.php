@@ -23,7 +23,7 @@ class FTB_Donation_Form_Public {
             $this->plugin_name,
             plugin_dir_url( __FILE__ ) . 'css/ftb-donation-form-public.css',
             [],
-            $this->version,
+            filemtime( plugin_dir_path( __FILE__ ) . 'css/ftb-donation-form-public.css' ),
             'all'
         );
     }
@@ -33,7 +33,7 @@ class FTB_Donation_Form_Public {
             $this->plugin_name,
             plugin_dir_url( __FILE__ ) . 'js/ftb-donation-form-public.js',
             [],
-            $this->version,
+            filemtime( plugin_dir_path( __FILE__ ) . 'js/ftb-donation-form-public.js' ),
             true
         );
 

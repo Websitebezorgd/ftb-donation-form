@@ -44,6 +44,8 @@ This plugin is built from scratch to maintain full overview and control. Each ph
 
 Phases 1–5, 7, 8, and 10 are complete. The form collects and stores donations, all admin settings are configurable, submitted donations appear in the WordPress dashboard with search, filters, bulk delete, and CSV export, and the plugin is fully translation-ready with an English translation included.
 
+A full code audit (accessibility, security, bugs, inconsistencies) has been completed and all identified issues resolved. See the open questions section for known remaining topics.
+
 **Next up:** Mollie payment integration — creating payments and handling webhook callbacks to update payment status.
 
 ---
@@ -86,6 +88,9 @@ Phases 1–5, 7, 8, and 10 are complete. The form collects and stores donations,
 - All input sanitised, all output escaped
 - Capability checks (`ftb_manage_settings`) on every admin page
 - Prepared statements for all database queries
+- Submitted amount validated against admin-configured preset values
+- Frequency validated against recurring setting (only `one_time` accepted when recurring is disabled)
+- `post_payment_behavior` validated against allowed values (`message` / `redirect`)
 
 ---
 
@@ -144,7 +149,10 @@ Accessibility is a core requirement, not an afterthought:
 - Full keyboard support and visible focus indicators
 - Screen reader support (tested with NVDA and Windows Narrator)
 - Error summary with focus management on validation failure
-- `aria-invalid`, `aria-required`, `aria-current` throughout
+- `aria-invalid` on both text inputs and radio groups, updated dynamically by JS
+- `aria-required`, `aria-current` throughout
+- Step 2 intro paragraph receives focus on navigation so screen readers hear the context before the fields
+- Labels are plain text only; no links or interactive elements embedded in label text (NL Design System)
 - WCAG 2.2 guidelines
 
 ---
@@ -235,8 +243,8 @@ Currently the form always shows three fixed amount buttons.
 - [ ] Should fixed amounts be optional, so the form can show only a custom amount input?
 
 ### Accessibility — Narrator + radio buttons
-Windows Narrator does not announce the radio buttons in the frequency and amount fieldsets correctly.
-- [ ] Investigate and fix Narrator compatibility with the radio button groups (phase 9)
+`aria-invalid` is now set dynamically on radio inputs when errors appear or clear. Full Narrator testing with the updated behaviour is still outstanding.
+- [ ] Retest frequency and amount radio groups with Windows Narrator after the aria-invalid fix (phase 9)
 
 ---
 

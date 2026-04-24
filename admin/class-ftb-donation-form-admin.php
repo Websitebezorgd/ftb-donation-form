@@ -216,13 +216,6 @@ class FTB_Donation_Form_Admin {
             'sanitize_callback' => 'absint',
         ] );
 
-        add_settings_section(
-            'ftb_section_frequency',
-            '',
-            '__return_false',
-            'ftb_donation_form_settings'
-        );
-
         // ── Privacyverklaring ─────────────────────────────────────────────────
 
         register_setting( 'ftb_donation_form_settings', 'ftb_privacy_url', [

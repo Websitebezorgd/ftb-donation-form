@@ -34,7 +34,7 @@ $list_table->prepare_items();
         printf(
             /* translators: %d: number of deleted donations */
             esc_html( _n( '%d donatie verwijderd.', '%d donaties verwijderd.', $deleted, 'ftb-donation-form' ) ),
-            $deleted
+            absint( $deleted )
         );
         ?>
         </p>

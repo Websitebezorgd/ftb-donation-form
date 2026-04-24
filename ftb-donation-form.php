@@ -59,7 +59,7 @@ function ftb_donation_form_activate() {
         donor_postal_code varchar(20) NOT NULL DEFAULT '',
         donor_city varchar(100) NOT NULL DEFAULT '',
         amount decimal(10,2) NOT NULL DEFAULT 0.00,
-        frequency varchar(20) NOT NULL DEFAULT 'one-time',
+        frequency varchar(20) NOT NULL DEFAULT 'one_time',
         mollie_payment_id varchar(100) NOT NULL DEFAULT '',
         payment_status varchar(20) NOT NULL DEFAULT 'pending',
         created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,

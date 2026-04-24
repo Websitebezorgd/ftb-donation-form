@@ -137,7 +137,7 @@ class FTB_Donation_Form_Admin {
         ] );
 
         add_settings_section(
-            'ftb_section_kop',
+            'ftb_section_heading',
             __( 'Titel', 'ftb-donation-form' ),
             '__return_false',
             'ftb_donation_form_settings'

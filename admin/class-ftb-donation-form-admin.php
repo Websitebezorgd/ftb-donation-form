@@ -212,8 +212,6 @@ class FTB_Donation_Form_Admin {
 
         // ── Frequentie ────────────────────────────────────────────────────────
 
-        add_option( 'ftb_enable_recurring', '1' );
-
         register_setting( 'ftb_donation_form_settings', 'ftb_enable_recurring', [
             'sanitize_callback' => 'absint',
         ] );

@@ -75,6 +75,8 @@ function ftb_donation_form_activate() {
     // Default plugin options
     add_option( 'ftb_mollie_api_key', '' );
     add_option( 'ftb_mollie_test_mode', '1' );
+    add_option( 'ftb_form_heading', '' );
+    add_option( 'ftb_enable_recurring', '1' );
     add_option( 'ftb_form_fields', [
         'phone'        => '1',
         'street'       => '1',
@@ -84,6 +86,7 @@ function ftb_donation_form_activate() {
     ] );
     add_option( 'ftb_amount_options', [ '5', '10', '25' ] );
     add_option( 'ftb_allow_custom_amount', '1' );
+    add_option( 'ftb_min_custom_amount', '1.00' );
     add_option( 'ftb_post_payment_behavior', 'message' );
     add_option( 'ftb_post_payment_redirect_url', '' );
     add_option( 'ftb_post_payment_message', '' );

@@ -123,6 +123,9 @@ ftb-donation-form/
 │   ├── style.css
 │   └── script.js
 └── languages/
+    ├── ftb-donation-form.pot
+    ├── ftb-donation-form-en_US.po
+    └── ftb-donation-form-en_US.mo    
 ```
 
 ---

@@ -95,8 +95,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const activeStep = steps[stepIndex];
     const errors = activeStep.querySelectorAll(".ftb-donation-form__error");
 
-    // Reset all errors
+    // Reset all errors and aria-invalid on radios
     errors.forEach((e) => (e.hidden = true));
+    activeStep.querySelectorAll('input[type="radio"]').forEach((r) => r.setAttribute("aria-invalid", "false"));
 
     // STEP 1
     if (stepIndex === 0) {
@@ -111,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const frequencyError = activeStep.querySelector("#ftb-frequency-error");
       if (frequencyError && !frequency) {
         frequencyError.hidden = false;
+        activeStep.querySelectorAll('input[name="ftb_frequency"]').forEach((r) => r.setAttribute("aria-invalid", "true"));
         isValid = false;
       }
 
@@ -120,11 +122,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!amount) {
         amountError.textContent = ftbDonationForm?.i18n?.errorAmount ?? amountError.textContent;
         amountError.hidden = false;
+        activeStep.querySelectorAll('input[name="ftb_amount"]').forEach((r) => r.setAttribute("aria-invalid", "true"));
         isValid = false;
       } else if (amount.value === "custom") {
         if (!customAmount?.value || Number(customAmount.value) < minAmount) {
           amountError.textContent = ftbDonationForm?.i18n?.errorCustom ?? amountError.textContent;
           amountError.hidden = false;
+          activeStep.querySelectorAll('input[name="ftb_amount"]').forEach((r) => r.setAttribute("aria-invalid", "true"));
           isValid = false;
         }
       }
@@ -216,6 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
       setCustomAmountVisible(radio.value === "custom" && radio.checked);
       const amountError = document.querySelector("#ftb-amount-error");
       if (amountError) amountError.hidden = true;
+      amountRadios.forEach((r) => r.setAttribute("aria-invalid", "false"));
       syncErrorSummary(currentStep);
     });
   });
@@ -244,6 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
     radio.addEventListener("change", () => {
       const freqError = document.querySelector("#ftb-frequency-error");
       if (freqError) freqError.hidden = true;
+      frequencyRadios.forEach((r) => r.setAttribute("aria-invalid", "false"));
       syncErrorSummary(currentStep);
     });
   });

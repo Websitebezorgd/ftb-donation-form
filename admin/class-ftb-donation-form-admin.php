@@ -248,7 +248,9 @@ class FTB_Donation_Form_Admin {
         // ── Na betaling ───────────────────────────────────────────────────────
 
         register_setting( 'ftb_donation_form_settings', 'ftb_post_payment_behavior', [
-            'sanitize_callback' => 'sanitize_text_field',
+            'sanitize_callback' => function( $value ) {
+                return in_array( $value, [ 'message', 'redirect' ], true ) ? $value : 'message';
+            },
         ] );
         register_setting( 'ftb_donation_form_settings', 'ftb_post_payment_message', [
             'sanitize_callback' => 'wp_kses_post',

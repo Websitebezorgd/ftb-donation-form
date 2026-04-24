@@ -150,7 +150,6 @@ $old = static function ($key, $default = '') use ($old_values) {
                                     min="<?php echo esc_attr( $min_custom_amount ); ?>"
                                     step="0.01"
                                     value="<?php echo esc_attr($old('custom_amount')); ?>"
-                                    aria-label="<?php esc_attr_e('Eigen bedrag in euro', 'ftb-donation-form'); ?>"
                                     aria-required="<?php echo $old('amount') === 'custom' ? 'true' : 'false'; ?>"
                                     aria-invalid="false">
                             </div>
@@ -282,6 +281,8 @@ $old = static function ($key, $default = '') use ($old_values) {
 
                     <?php if ($privacy_url) : ?>
                         <a class="ftb-donation-form__privacy-link" href="<?php echo esc_url($privacy_url); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Lees onze privacyverklaring', 'ftb-donation-form'); ?></a>
+                    <?php else : ?>
+                        <p class="ftb-donation-form__privacy-missing"><?php esc_html_e('Privacyverklaring nog niet beschikbaar.', 'ftb-donation-form'); ?></p>
                     <?php endif; ?>
 
                     <div class="ftb-donation-form__checkbox-wrapper">

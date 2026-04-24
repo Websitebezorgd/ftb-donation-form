@@ -108,8 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       const customAmount = activeStep.querySelector("#ftb-custom-amount");
 
-      if (!frequency) {
-        activeStep.querySelector("#ftb-frequency-error").hidden = false;
+      const frequencyError = activeStep.querySelector("#ftb-frequency-error");
+      if (frequencyError && !frequency) {
+        frequencyError.hidden = false;
         isValid = false;
       }
 

@@ -119,7 +119,7 @@ class FTB_Donation_Form_Public {
                     /* translators: %s: minimum amount, e.g. "1" */
                     $errors['amount'] = sprintf( __( 'Je eigen bedrag moet minimaal €%s zijn.', 'ftb-donation-form' ), $min_custom_amount );
                 }
-            } elseif ( ! empty( $amount_raw ) ) {
+            } elseif ( in_array( $amount_raw, $amount_options, true ) ) {
                 $amount = (float) $amount_raw;
             } else {
                 $errors['amount'] = __( 'Kies een bedrag.', 'ftb-donation-form' );

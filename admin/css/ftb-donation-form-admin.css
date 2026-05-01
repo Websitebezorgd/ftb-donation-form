@@ -229,6 +229,11 @@ h1.ftb-admin__title {
     display: none !important;
 }
 
+/* ── Toggle groups (toggle + its conditional field) ──────────────────────── */
+.ftb-toggle-group + .ftb-toggle-group {
+    margin-top: var(--space-5);
+}
+
 /* ── Toggle switch ────────────────────────────────────────────────────────── */
 .ftb-toggle {
     display: inline-flex;

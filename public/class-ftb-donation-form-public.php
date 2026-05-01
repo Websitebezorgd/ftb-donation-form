@@ -43,8 +43,9 @@ class FTB_Donation_Form_Public {
             $this->plugin_name,
             'ftbDonationForm',
             [
-                'allowCustomAmount' => (bool) get_option( 'ftb_allow_custom_amount', '1' ),
-                'minCustomAmount'   => $min_amount,
+                'allowCustomAmount'  => (bool) get_option( 'ftb_allow_custom_amount', '1' ),
+                'showPresetAmounts'  => (bool) get_option( 'ftb_show_preset_amounts', '1' ),
+                'minCustomAmount'    => $min_amount,
                 'i18n'              => [
                     'errorFrequency'   => __( 'Kies een frequentie.', 'ftb-donation-form' ),
                     'errorAmount'      => __( 'Kies een bedrag.', 'ftb-donation-form' ),
@@ -73,8 +74,9 @@ class FTB_Donation_Form_Public {
         $success    = false;
 
         // Read admin settings (needed by both processing and template)
-        $form_fields      = get_option( 'ftb_form_fields', [] );
-        $amount_options   = array_values( array_filter( (array) get_option( 'ftb_amount_options', [ '5', '10', '25' ] ) ) );
+        $form_fields       = get_option( 'ftb_form_fields', [] );
+        $amount_options    = array_values( array_filter( (array) get_option( 'ftb_amount_options', [ '5', '10', '25' ] ) ) );
+        $show_presets      = (bool) get_option( 'ftb_show_preset_amounts', '1' );
         $allow_custom      = (bool) get_option( 'ftb_allow_custom_amount', '1' );
         $min_custom_amount = (float) get_option( 'ftb_min_custom_amount', '1' );
         $enable_recurring        = (bool) get_option( 'ftb_enable_recurring', '1' );
@@ -119,7 +121,7 @@ class FTB_Donation_Form_Public {
                     /* translators: %s: minimum amount, e.g. "1" */
                     $errors['amount'] = sprintf( __( 'Je eigen bedrag moet minimaal €%s zijn.', 'ftb-donation-form' ), $min_custom_amount );
                 }
-            } elseif ( in_array( $amount_raw, $amount_options, true ) ) {
+            } elseif ( $show_presets && in_array( $amount_raw, $amount_options, true ) ) {
                 $amount = (float) $amount_raw;
             } else {
                 $errors['amount'] = __( 'Kies een bedrag.', 'ftb-donation-form' );

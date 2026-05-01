@@ -178,37 +178,15 @@ class FTB_Donation_Form_Admin {
         register_setting( 'ftb_donation_form_settings', 'ftb_amount_options', [
             'sanitize_callback' => [ $this, 'sanitize_amount_options' ],
         ] );
+        register_setting( 'ftb_donation_form_settings', 'ftb_show_preset_amounts', [
+            'sanitize_callback' => [ $this, 'sanitize_show_preset_amounts' ],
+        ] );
         register_setting( 'ftb_donation_form_settings', 'ftb_allow_custom_amount', [
             'sanitize_callback' => 'absint',
         ] );
         register_setting( 'ftb_donation_form_settings', 'ftb_min_custom_amount', [
             'sanitize_callback' => [ $this, 'sanitize_min_custom_amount' ],
         ] );
-
-        add_settings_section(
-            'ftb_section_amounts',
-            __( 'Bedragopties', 'ftb-donation-form' ),
-            [ $this, 'section_amounts_description' ],
-            'ftb_donation_form_settings'
-        );
-
-        add_settings_field(
-            'ftb_amount_options',
-            __( 'Vaste bedragen (minimaal €1)', 'ftb-donation-form' ),
-            [ $this, 'field_amount_options' ],
-            'ftb_donation_form_settings',
-            'ftb_section_amounts',
-            [ 'label_for' => 'ftb_amount_options_0' ]
-        );
-
-        add_settings_field(
-            'ftb_allow_custom_amount',
-            __( 'Eigen bedrag', 'ftb-donation-form' ),
-            [ $this, 'field_allow_custom_amount' ],
-            'ftb_donation_form_settings',
-            'ftb_section_amounts'
-        );
-
 
         // ── Frequentie ────────────────────────────────────────────────────────
 
@@ -465,6 +443,21 @@ class FTB_Donation_Form_Admin {
             }
         }
         return ! empty( $amounts ) ? $amounts : [ '5', '10', '25' ];
+    }
+
+    public function sanitize_show_preset_amounts( $input ) {
+        $value  = absint( $input );
+        $custom = isset( $_POST['ftb_allow_custom_amount'] ) ? absint( wp_unslash( $_POST['ftb_allow_custom_amount'] ) ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- nonce verified by Settings API before sanitize callbacks run
+        if ( ! $value && ! $custom ) {
+            add_settings_error(
+                'ftb_donation_form_settings',
+                'ftb_amounts_both_hidden',
+                __( 'Je moet minimaal één bedragoptie inschakelen. Vaste bedragen zijn hersteld.', 'ftb-donation-form' ),
+                'error'
+            );
+            return 1;
+        }
+        return $value;
     }
 
     /**

@@ -85,6 +85,7 @@ function ftb_donation_form_activate() {
         'city'         => '1',
     ] );
     add_option( 'ftb_amount_options', [ '5', '10', '25' ] );
+    add_option( 'ftb_show_preset_amounts', '1' );
     add_option( 'ftb_allow_custom_amount', '1' );
     add_option( 'ftb_min_custom_amount', '1.00' );
     add_option( 'ftb_post_payment_behavior', 'message' );

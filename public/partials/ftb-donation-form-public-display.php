@@ -8,6 +8,7 @@
  * @var bool   $success        Whether the form was successfully submitted
  * @var array  $form_fields    Admin-configured optional fields
  * @var array  $amount_options Admin-configured preset amounts
+ * @var bool   $show_presets   Whether preset amount buttons are enabled
  * @var bool   $allow_custom   Whether custom amount input is enabled
  * @var string $privacy_url    Privacy policy URL
  */
@@ -106,18 +107,21 @@ $old = static function ($key, $default = '') use ($old_values) {
                 <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-describedby="ftb-amount-error">
                     <legend class="ftb-donation-form__legend"><?php esc_html_e('Bedrag (verplicht)', 'ftb-donation-form'); ?></legend>
 
+                    <?php if ($show_presets || $allow_custom) : ?>
                     <div class="ftb-donation-form__radio-group ftb-donation-form__radio-group--amounts">
-                        <?php foreach ($amount_options as $preset) : ?>
-                            <input
-                                class="ftb-donation-form__radio"
-                                type="radio"
-                                id="ftb-amount-<?php echo esc_attr($preset); ?>"
-                                name="ftb_amount"
-                                value="<?php echo esc_attr($preset); ?>"
-                                <?php checked($old('amount'), (string) $preset); ?>><label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--amount" for="ftb-amount-<?php echo esc_attr($preset); ?>">€<?php echo esc_html(number_format((float) $preset, 0, ',', '.')); ?></label>
-                        <?php endforeach; ?>
+                        <?php if ($show_presets) : ?>
+                            <?php foreach ($amount_options as $preset) : ?>
+                                <input
+                                    class="ftb-donation-form__radio"
+                                    type="radio"
+                                    id="ftb-amount-<?php echo esc_attr($preset); ?>"
+                                    name="ftb_amount"
+                                    value="<?php echo esc_attr($preset); ?>"
+                                    <?php checked($old('amount'), (string) $preset); ?>><label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--amount" for="ftb-amount-<?php echo esc_attr($preset); ?>">€<?php echo esc_html(number_format((float) $preset, 0, ',', '.')); ?></label>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
 
-                        <?php if ($allow_custom) : ?>
+                        <?php if ($allow_custom && $show_presets) : ?>
                             <input
                                 class="ftb-donation-form__radio"
                                 type="radio"
@@ -126,11 +130,15 @@ $old = static function ($key, $default = '') use ($old_values) {
                                 value="custom"
                                 aria-controls="ftb-custom-amount-wrapper"
                                 <?php checked($old('amount'), 'custom'); ?>><label class="ftb-donation-form__radio-label ftb-donation-form__radio-label--custom" for="ftb-amount-custom-radio"><?php esc_html_e('Anders', 'ftb-donation-form'); ?></label>
+                        <?php elseif ($allow_custom && ! $show_presets) : ?>
+                            <input type="hidden" name="ftb_amount" value="custom">
                         <?php endif; ?>
                     </div>
+                    <?php endif; ?>
 
                     <?php if ($allow_custom) : ?>
-                        <div class="ftb-donation-form__custom-amount<?php echo $old('amount') !== 'custom' ? ' ftb-donation-form__custom-amount--hidden' : ''; ?>"
+                        <?php $custom_always_visible = ! $show_presets; ?>
+                        <div class="ftb-donation-form__custom-amount<?php echo ( ! $custom_always_visible && $old('amount') !== 'custom' ) ? ' ftb-donation-form__custom-amount--hidden' : ''; ?>"
                             id="ftb-custom-amount-wrapper"
                             role="group"
                             aria-label="<?php esc_attr_e('Eigen bedrag', 'ftb-donation-form'); ?>">
@@ -150,7 +158,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                                     min="<?php echo esc_attr( $min_custom_amount ); ?>"
                                     step="0.01"
                                     value="<?php echo esc_attr($old('custom_amount')); ?>"
-                                    aria-required="<?php echo $old('amount') === 'custom' ? 'true' : 'false'; ?>"
+                                    aria-required="<?php echo ( $custom_always_visible || $old('amount') === 'custom' ) ? 'true' : 'false'; ?>"
                                     aria-invalid="false">
                             </div>
                         </div>

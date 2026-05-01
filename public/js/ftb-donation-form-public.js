@@ -104,13 +104,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // STEP 1
     if (stepIndex === 0) {
+      const showPresets = ftbDonationForm?.showPresetAmounts ?? true;
       const frequency = activeStep.querySelector(
         'input[name="ftb_frequency"]:checked',
       );
-      const amount = activeStep.querySelector(
-        'input[name="ftb_amount"]:checked',
-      );
       const customAmount = activeStep.querySelector("#ftb-custom-amount");
+      const amountError = activeStep.querySelector("#ftb-amount-error");
+      const minAmount = ftbDonationForm?.minCustomAmount ?? 1;
 
       const frequencyError = activeStep.querySelector("#ftb-frequency-error");
       if (frequencyError && !frequency) {
@@ -119,20 +119,27 @@ document.addEventListener("DOMContentLoaded", () => {
         isValid = false;
       }
 
-      const amountError = activeStep.querySelector("#ftb-amount-error");
-      const minAmount = ftbDonationForm?.minCustomAmount ?? 1;
-
-      if (!amount) {
-        amountError.textContent = ftbDonationForm?.i18n?.errorAmount ?? amountError.textContent;
-        amountError.hidden = false;
-        activeStep.querySelectorAll('input[name="ftb_amount"]').forEach((r) => r.setAttribute("aria-invalid", "true"));
-        isValid = false;
-      } else if (amount.value === "custom") {
+      if (!showPresets) {
+        // Only custom amount visible — validate the input directly
         if (!customAmount?.value || Number(customAmount.value) < minAmount) {
           amountError.textContent = ftbDonationForm?.i18n?.errorCustom ?? amountError.textContent;
           amountError.hidden = false;
+          isValid = false;
+        }
+      } else {
+        const amount = activeStep.querySelector('input[name="ftb_amount"]:checked');
+        if (!amount) {
+          amountError.textContent = ftbDonationForm?.i18n?.errorAmount ?? amountError.textContent;
+          amountError.hidden = false;
           activeStep.querySelectorAll('input[name="ftb_amount"]').forEach((r) => r.setAttribute("aria-invalid", "true"));
           isValid = false;
+        } else if (amount.value === "custom") {
+          if (!customAmount?.value || Number(customAmount.value) < minAmount) {
+            amountError.textContent = ftbDonationForm?.i18n?.errorCustom ?? amountError.textContent;
+            amountError.hidden = false;
+            activeStep.querySelectorAll('input[name="ftb_amount"]').forEach((r) => r.setAttribute("aria-invalid", "true"));
+            isValid = false;
+          }
         }
       }
     }
@@ -193,15 +200,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const customAmountInput = document.querySelector("#ftb-custom-amount");
   const customRadio = document.querySelector("#ftb-amount-custom-radio");
 
+  const showPresets = ftbDonationForm?.showPresetAmounts ?? true;
+
   function setCustomAmountVisible(isVisible) {
-    if (!customAmountBox || !customAmountInput || !customRadio) return;
+    if (!customAmountBox || !customAmountInput) return;
+    if (!showPresets) return; // always visible when no presets
 
     customAmountBox.classList.toggle(
       "ftb-donation-form__custom-amount--hidden",
       !isVisible,
     );
 
-    customRadio.setAttribute("aria-expanded", String(isVisible));
+    if (customRadio) customRadio.setAttribute("aria-expanded", String(isVisible));
     customAmountInput.setAttribute("aria-required", String(isVisible));
     customAmountInput.required = isVisible;
 
@@ -212,15 +222,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  if (customAmountInput && customRadio) {
-    const isCustom = customRadio.checked;
-    customAmountInput.required = isCustom;
-    customAmountInput.setAttribute("aria-required", String(isCustom));
+  if (customAmountInput) {
+    if (!showPresets) {
+      // Custom amount is always required when it's the only option
+      customAmountInput.required = true;
+      customAmountInput.setAttribute("aria-required", "true");
+    } else if (customRadio) {
+      const isCustom = customRadio.checked;
+      customAmountInput.required = isCustom;
+      customAmountInput.setAttribute("aria-required", String(isCustom));
+    }
   }
 
   amountRadios.forEach((radio) => {
     radio.addEventListener("change", () => {
-      setCustomAmountVisible(radio.value === "custom" && radio.checked);
+      if (showPresets) {
+        setCustomAmountVisible(radio.value === "custom" && radio.checked);
+      }
       const amountError = document.querySelector("#ftb-amount-error");
       if (amountError) amountError.hidden = true;
       amountRadios.forEach((r) => r.setAttribute("aria-invalid", "false"));

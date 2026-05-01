@@ -98,33 +98,78 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <?php esc_html_e( 'Bedragopties', 'ftb-donation-form' ); ?>
                     </h3>
                     <p class="ftb-admin-form__description">
-                        <?php esc_html_e( 'Kies drie vaste bedragen die de donateur kan selecteren. De donateur kan ook een eigen bedrag invullen als deze optie is ingeschakeld.', 'ftb-donation-form' ); ?>
+                        <?php esc_html_e( 'Kies welke bedragopties beschikbaar zijn. Je moet minimaal één optie inschakelen.', 'ftb-donation-form' ); ?>
                     </p>
                     <div class="ftb-admin-form__group">
-                        <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_amounts' ); ?>
                         <?php
+                        $show_presets = get_option( 'ftb_show_preset_amounts', '1' );
                         $allow_custom = get_option( 'ftb_allow_custom_amount', '1' );
                         $min_value    = get_option( 'ftb_min_custom_amount', '1' );
+                        $amounts      = array_values( (array) get_option( 'ftb_amount_options', [ '5', '10', '25' ] ) );
+                        $defaults     = [ '5', '10', '25' ];
                         ?>
-                        <div class="ftb-conditional<?php echo $allow_custom === '1' ? ' is-visible' : ''; ?>" data-show-when="ftb_allow_custom_amount=1">
-                            <div class="ftb-admin-form__stacked-field">
-                                <label class="ftb-admin-form__label" for="ftb_min_custom_amount"><?php esc_html_e( 'Minimumbedrag eigen bedrag (minimaal €1)', 'ftb-donation-form' ); ?></label>
-                                <div class="ftb-amount-inputs">
-                                    <div class="ftb-amount-input">
-                                        <span class="ftb-amount-input__prefix" aria-hidden="true">€</span>
-                                        <input
-                                            type="number"
-                                            id="ftb_min_custom_amount"
-                                            name="ftb_min_custom_amount"
-                                            value="<?php echo esc_attr( $min_value ); ?>"
-                                            min="1"
-                                            step="1"
-                                            class="small-text"
-                                        />
+
+                        <div class="ftb-toggle-group">
+                            <input type="hidden" name="ftb_show_preset_amounts" value="0">
+                            <label class="ftb-toggle" for="ftb_show_preset_amounts">
+                                <input class="ftb-toggle__input" type="checkbox" id="ftb_show_preset_amounts" name="ftb_show_preset_amounts" value="1" <?php checked( '1', $show_presets ); ?>>
+                                <span class="ftb-toggle__slider" aria-hidden="true"></span>
+                                <span><?php esc_html_e( 'Vaste bedragen tonen', 'ftb-donation-form' ); ?></span>
+                            </label>
+                            <div class="ftb-conditional<?php echo $show_presets === '1' ? ' is-visible' : ''; ?>" data-show-when="ftb_show_preset_amounts=1">
+                                <div class="ftb-admin-form__stacked-field">
+                                    <label class="ftb-admin-form__label"><?php esc_html_e( 'Vaste bedragen (minimaal €1)', 'ftb-donation-form' ); ?></label>
+                                    <div class="ftb-amount-inputs">
+                                        <?php for ( $i = 0; $i < 3; $i++ ) :
+                                            $val = isset( $amounts[ $i ] ) ? $amounts[ $i ] : ( $defaults[ $i ] ?? '' );
+                                        ?>
+                                        <div class="ftb-amount-input">
+                                            <span class="ftb-amount-input__prefix" aria-hidden="true">€</span>
+                                            <input
+                                                type="number"
+                                                name="ftb_amount_options[<?php echo absint( $i ); ?>]"
+                                                id="ftb_amount_options_<?php echo absint( $i ); ?>"
+                                                value="<?php echo esc_attr( $val ); ?>"
+                                                min="1"
+                                                step="1"
+                                                class="small-text"
+                                                aria-label="<?php echo esc_attr( sprintf( __( 'Bedragoptie %d', 'ftb-donation-form' ), $i + 1 ) ); ?>"
+                                            />
+                                        </div>
+                                        <?php endfor; ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="ftb-toggle-group">
+                            <input type="hidden" name="ftb_allow_custom_amount" value="0">
+                            <label class="ftb-toggle" for="ftb_allow_custom_amount">
+                                <input class="ftb-toggle__input" type="checkbox" id="ftb_allow_custom_amount" name="ftb_allow_custom_amount" value="1" <?php checked( '1', $allow_custom ); ?>>
+                                <span class="ftb-toggle__slider" aria-hidden="true"></span>
+                                <span><?php esc_html_e( 'Eigen bedrag toestaan', 'ftb-donation-form' ); ?></span>
+                            </label>
+                            <div class="ftb-conditional<?php echo $allow_custom === '1' ? ' is-visible' : ''; ?>" data-show-when="ftb_allow_custom_amount=1">
+                                <div class="ftb-admin-form__stacked-field">
+                                    <label class="ftb-admin-form__label" for="ftb_min_custom_amount"><?php esc_html_e( 'Minimumbedrag eigen bedrag (minimaal €1)', 'ftb-donation-form' ); ?></label>
+                                    <div class="ftb-amount-inputs">
+                                        <div class="ftb-amount-input">
+                                            <span class="ftb-amount-input__prefix" aria-hidden="true">€</span>
+                                            <input
+                                                type="number"
+                                                id="ftb_min_custom_amount"
+                                                name="ftb_min_custom_amount"
+                                                value="<?php echo esc_attr( $min_value ); ?>"
+                                                min="1"
+                                                step="1"
+                                                class="small-text"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </section>
 

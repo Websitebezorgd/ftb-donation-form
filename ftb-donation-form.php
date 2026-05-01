@@ -18,6 +18,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+
 // Define plugin constants
 define('FTB_DONATION_FORM_VERSION', '1.0.0');
 define('FTB_DONATION_FORM_PLUGIN_DIR', plugin_dir_path(__FILE__));

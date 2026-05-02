@@ -133,7 +133,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                                 min="1"
                                                 step="1"
                                                 class="small-text"
-                                                aria-label="<?php echo esc_attr( sprintf( __( 'Bedragoptie %d', 'ftb-donation-form' ), $i + 1 ) ); ?>"
+                                                aria-label="<?php /* translators: %d: amount option number */ echo esc_attr( sprintf( __( 'Bedragoptie %d', 'ftb-donation-form' ), $i + 1 ) ); ?>"
                                             />
                                         </div>
                                         <?php endfor; ?>

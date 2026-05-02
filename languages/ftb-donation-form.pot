@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-02T12:38:42+00:00\n"
+"POT-Creation-Date: 2026-05-02T13:14:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ftb-donation-form\n"
@@ -84,7 +84,7 @@ msgstr ""
 
 #: admin/class-ftb-donation-form-admin.php:205
 #: admin/partials/ftb-donation-form-admin-display.php:196
-#: public/partials/ftb-donation-form-public-display.php:288
+#: public/partials/ftb-donation-form-public-display.php:289
 msgid "Privacyverklaring"
 msgstr ""
 
@@ -116,27 +116,27 @@ msgstr ""
 
 #: admin/class-ftb-donation-form-admin.php:301
 #: admin/class-ftb-donations-list-table.php:36
-#: public/partials/ftb-donation-form-public-display.php:215
+#: public/partials/ftb-donation-form-public-display.php:216
 msgid "Telefoonnummer"
 msgstr ""
 
 #: admin/class-ftb-donation-form-admin.php:302
-#: public/partials/ftb-donation-form-public-display.php:230
+#: public/partials/ftb-donation-form-public-display.php:231
 msgid "Straat"
 msgstr ""
 
 #: admin/class-ftb-donation-form-admin.php:303
-#: public/partials/ftb-donation-form-public-display.php:242
+#: public/partials/ftb-donation-form-public-display.php:243
 msgid "Huisnummer"
 msgstr ""
 
 #: admin/class-ftb-donation-form-admin.php:304
-#: public/partials/ftb-donation-form-public-display.php:259
+#: public/partials/ftb-donation-form-public-display.php:260
 msgid "Postcode"
 msgstr ""
 
 #: admin/class-ftb-donation-form-admin.php:305
-#: public/partials/ftb-donation-form-public-display.php:271
+#: public/partials/ftb-donation-form-public-display.php:272
 msgid "Plaats"
 msgstr ""
 
@@ -154,7 +154,7 @@ msgstr ""
 
 #: admin/class-ftb-donation-form-admin.php:382
 #: public/class-ftb-donation-form-public.php:68
-#: public/partials/ftb-donation-form-public-display.php:315
+#: public/partials/ftb-donation-form-public-display.php:316
 msgid "Doneer nu"
 msgstr ""
 
@@ -409,12 +409,12 @@ msgid "Jouw donatie"
 msgstr ""
 
 #: public/partials/ftb-donation-form-public-display.php:50
-#: public/partials/ftb-donation-form-public-display.php:181
+#: public/partials/ftb-donation-form-public-display.php:182
 msgid "Jouw gegevens"
 msgstr ""
 
 #: public/partials/ftb-donation-form-public-display.php:74
-#: public/partials/ftb-donation-form-public-display.php:177
+#: public/partials/ftb-donation-form-public-display.php:178
 msgid "Als iets verplicht is, staat dat erbij."
 msgstr ""
 
@@ -439,51 +439,51 @@ msgid "Eigen bedrag"
 msgstr ""
 
 #. translators: %s: minimum amount, e.g. "1"
-#: public/partials/ftb-donation-form-public-display.php:148
+#: public/partials/ftb-donation-form-public-display.php:149
 #, php-format
 msgid "Vul een bedrag in (minimaal €%s)"
 msgstr ""
 
-#: public/partials/ftb-donation-form-public-display.php:167
+#: public/partials/ftb-donation-form-public-display.php:168
 msgid "Kies een bedrag om te doneren"
 msgstr ""
 
-#: public/partials/ftb-donation-form-public-display.php:171
+#: public/partials/ftb-donation-form-public-display.php:172
 msgid "Volgende"
 msgstr ""
 
-#: public/partials/ftb-donation-form-public-display.php:184
+#: public/partials/ftb-donation-form-public-display.php:185
 msgid "Volledige naam (verplicht)"
 msgstr ""
 
-#: public/partials/ftb-donation-form-public-display.php:195
+#: public/partials/ftb-donation-form-public-display.php:196
 msgid "Vul je naam in"
 msgstr ""
 
-#: public/partials/ftb-donation-form-public-display.php:199
+#: public/partials/ftb-donation-form-public-display.php:200
 msgid "E-mailadres (verplicht)"
 msgstr ""
 
-#: public/partials/ftb-donation-form-public-display.php:210
+#: public/partials/ftb-donation-form-public-display.php:211
 msgid "Vul een geldig e-mailadres in"
 msgstr ""
 
-#: public/partials/ftb-donation-form-public-display.php:291
+#: public/partials/ftb-donation-form-public-display.php:292
 msgid "Lees onze privacyverklaring"
 msgstr ""
 
-#: public/partials/ftb-donation-form-public-display.php:293
+#: public/partials/ftb-donation-form-public-display.php:294
 msgid "Privacyverklaring nog niet beschikbaar."
 msgstr ""
 
-#: public/partials/ftb-donation-form-public-display.php:307
+#: public/partials/ftb-donation-form-public-display.php:308
 msgid "Ik ga akkoord met de privacyverklaring (verplicht)"
 msgstr ""
 
-#: public/partials/ftb-donation-form-public-display.php:310
+#: public/partials/ftb-donation-form-public-display.php:311
 msgid "Je moet akkoord gaan met de privacyverklaring"
 msgstr ""
 
-#: public/partials/ftb-donation-form-public-display.php:314
+#: public/partials/ftb-donation-form-public-display.php:315
 msgid "Vorige"
 msgstr ""

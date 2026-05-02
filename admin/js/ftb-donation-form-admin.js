@@ -21,10 +21,10 @@
             var $row     = $(this).closest('tr');
 
             if ( actual === expected ) {
-                $(this).addClass('is-visible');
+                $(this).addClass('is-visible').prop('hidden', false);
                 $row.removeClass('ftb-row-hidden');
             } else {
-                $(this).removeClass('is-visible');
+                $(this).removeClass('is-visible').prop('hidden', true);
                 $row.addClass('ftb-row-hidden');
             }
         });

@@ -141,7 +141,8 @@ $old = static function ($key, $default = '') use ($old_values) {
                         <div class="ftb-donation-form__custom-amount<?php echo ( ! $custom_always_visible && $old('amount') !== 'custom' ) ? ' ftb-donation-form__custom-amount--hidden' : ''; ?>"
                             id="ftb-custom-amount-wrapper"
                             role="group"
-                            aria-label="<?php esc_attr_e('Eigen bedrag', 'ftb-donation-form'); ?>">
+                            aria-label="<?php esc_attr_e('Eigen bedrag', 'ftb-donation-form'); ?>"
+                            <?php echo ( ! $custom_always_visible && $old('amount') !== 'custom' ) ? 'hidden' : ''; ?>>
                             <label class="ftb-donation-form__label" for="ftb-custom-amount">
                                 <?php
                                 /* translators: %s: minimum amount, e.g. "1" */

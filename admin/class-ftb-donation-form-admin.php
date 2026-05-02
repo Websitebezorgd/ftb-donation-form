@@ -224,7 +224,7 @@ class FTB_Donation_Form_Admin {
             },
         ] );
         register_setting( 'ftb_donation_form_settings', 'ftb_post_payment_message', [
-            'sanitize_callback' => 'wp_kses_post',
+            'sanitize_callback' => 'sanitize_textarea_field',
         ] );
         register_setting( 'ftb_donation_form_settings', 'ftb_post_payment_redirect_url', [
             'sanitize_callback' => 'esc_url_raw',

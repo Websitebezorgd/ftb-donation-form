@@ -98,9 +98,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const activeStep = steps[stepIndex];
     const errors = activeStep.querySelectorAll(".ftb-donation-form__error");
 
-    // Reset all errors and aria-invalid on radios
+    // Reset all errors and aria-invalid
     errors.forEach((e) => (e.hidden = true));
-    activeStep.querySelectorAll('input[type="radio"]').forEach((r) => r.setAttribute("aria-invalid", "false"));
+    activeStep.querySelectorAll("input").forEach((el) => el.setAttribute("aria-invalid", "false"));
 
     // STEP 1
     if (stepIndex === 0) {
@@ -152,16 +152,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!name?.value.trim()) {
         activeStep.querySelector("#ftb-name-error").hidden = false;
+        name.setAttribute("aria-invalid", "true");
         isValid = false;
       }
 
       if (!email?.value.trim() || !email.checkValidity()) {
         activeStep.querySelector("#ftb-email-error").hidden = false;
+        email.setAttribute("aria-invalid", "true");
         isValid = false;
       }
 
       if (!gdpr?.checked) {
         activeStep.querySelector("#ftb-gdpr-error").hidden = false;
+        gdpr.setAttribute("aria-invalid", "true");
         isValid = false;
       }
     }
@@ -210,6 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "ftb-donation-form__custom-amount--hidden",
       !isVisible,
     );
+    customAmountBox.hidden = !isVisible;
 
     if (customRadio) customRadio.setAttribute("aria-expanded", String(isVisible));
     customAmountInput.setAttribute("aria-required", String(isVisible));
@@ -279,6 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (nameInput.value.trim()) {
       const nameError = document.querySelector("#ftb-name-error");
       if (nameError) nameError.hidden = true;
+      nameInput.setAttribute("aria-invalid", "false");
       syncErrorSummary(currentStep);
     }
   });
@@ -287,6 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (emailInput.value.trim() && emailInput.checkValidity()) {
       const emailError = document.querySelector("#ftb-email-error");
       if (emailError) emailError.hidden = true;
+      emailInput.setAttribute("aria-invalid", "false");
       syncErrorSummary(currentStep);
     }
   });
@@ -295,6 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (gdprCheckbox.checked) {
       const gdprError = document.querySelector("#ftb-gdpr-error");
       if (gdprError) gdprError.hidden = true;
+      gdprCheckbox.setAttribute("aria-invalid", "false");
       syncErrorSummary(currentStep);
     }
   });

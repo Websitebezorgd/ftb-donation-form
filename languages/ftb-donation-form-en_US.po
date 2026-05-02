@@ -6,7 +6,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ftb-donation-"
 "form\n"
 "POT-Creation-Date: 2026-05-02T12:38:42+00:00\n"
-"PO-Revision-Date: 2026-05-02 14:42+0200\n"
+"PO-Revision-Date: 2026-05-02 14:53+0200\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
 "Language: en_US\n"
@@ -443,7 +443,7 @@ msgstr "Check the following errors:"
 
 #: public/class-ftb-donation-form-public.php:92
 msgid "Beveiligingscontrole mislukt. Probeer het opnieuw."
-msgstr "Beveiligingscontrole mislukt. Probeer het opnieuw."
+msgstr "Security check failed. Try again."
 
 #: public/partials/ftb-donation-form-public-display.php:49
 msgid "Jouw donatie"

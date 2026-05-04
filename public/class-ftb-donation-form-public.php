@@ -60,6 +60,15 @@ class FTB_Donation_Form_Public {
         );
     }
 
+    public function restrict_rest_namespace(): void {
+        add_filter( 'rest_pre_dispatch', static function ( $result, $server, WP_REST_Request $request ) {
+            if ( strpos( $request->get_route(), '/ftb/v1' ) === 0 && $request->get_method() !== 'POST' ) {
+                return new WP_Error( 'rest_forbidden', '', [ 'status' => 403 ] );
+            }
+            return $result;
+        }, 10, 3 );
+    }
+
     public function register_webhook_route(): void {
         register_rest_route( 'ftb/v1', '/webhook', [
             'methods'             => 'POST',

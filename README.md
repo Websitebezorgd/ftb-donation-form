@@ -32,7 +32,7 @@ This plugin is built from scratch to maintain full overview and control. Each ph
 | 3 | WordPress integration | Shortcode rendering + asset enqueue | ✅ Done |
 | 4 | Validation | Client-side (JS) + server-side (PHP) + nonces | ✅ Done |
 | 5 | Admin settings | API key, form options, fields, privacy, post-payment | ✅ Done |
-| 6 | Mollie integration | Payment flow + webhook status updates | 🔲 Todo |
+| 6 | Mollie integration | Payment flow + webhook status updates | 🔄 Ongoing |
 | 7 | Dashboard | Donation records overview with search, filters, pagination, delete, CSV export | ✅ Done |
 | 8 | Translations | i18n + `.pot` file + WPML / TranslatePress compatibility | ✅ Done |
 | 9 | Testing | Accessibility + validation (throughout all phases) | 🔄 Ongoing |
@@ -42,11 +42,13 @@ This plugin is built from scratch to maintain full overview and control. Each ph
 
 ## Current status
 
-Phases 1–5, 7, 8, and 10 are complete. The form collects and stores donations, all admin settings are configurable, submitted donations appear in the WordPress dashboard with search, filters, bulk delete, and CSV export, and the plugin is fully translation-ready with an English translation included.
+Phases 1–5, 7, 8, and 10 are complete. Phase 6 (Mollie) is in progress.
 
-A full code audit (accessibility, security, bugs) has been completed. All high and medium severity issues have been resolved. Two known lower-priority bugs remain — see the open questions section.
+The one-time payment flow is fully built and tested locally: the form redirects donors to Mollie's checkout page, and the thank-you message or redirect is shown on return. The webhook endpoint is built and secured but requires a live HTTPS server for full end-to-end testing — Mollie cannot reach a local development environment. Recurring payments (monthly/yearly) are not yet built.
 
-**Next up:** Mollie payment integration — creating payments and handling webhook callbacks to update payment status.
+A full code audit (accessibility, security, bugs) has been completed. All high and medium severity issues have been resolved. Known lower-priority issues remain — see the open questions section.
+
+**Next up:** Test the webhook flow on a staging server with HTTPS, then build recurring payment support.
 
 ---
 
@@ -60,6 +62,13 @@ A full code audit (accessibility, security, bugs) has been completed. All high a
 - GDPR consent checkbox with link to privacy statement
 - Client-side and server-side validation with accessible error summary
 - Full keyboard navigation, screen reader support, WCAG 2.2
+
+### Mollie payments
+- One-time payment flow: form redirects donor to Mollie checkout, returns to thank-you or redirect page
+- Webhook endpoint at `/wp-json/ftb/v1/webhook` — Mollie calls this when payment status changes; updates `payment_status` in the database
+- API key validated against Mollie on save — shows an error notice if the key is invalid
+- Webhook URL omitted on local dev environments (Mollie requires HTTPS; local sites are HTTP)
+- REST namespace restricted to POST only — no data accessible via GET
 
 ### Admin settings
 - **Mollie:** API key + test mode toggle
@@ -93,6 +102,11 @@ A full code audit (accessibility, security, bugs) has been completed. All high a
 - `post_payment_behavior` validated against allowed values (`message` / `redirect`)
 - All user-submitted text fields capped with `mb_substr()` to match database `varchar` column lengths
 - Thank-you message sanitised as plain text (`sanitize_textarea_field`) — consistent with `esc_html()` output
+- Mollie API key validated against Mollie on save via `methods->allActive()`
+- Webhook re-fetches payment from Mollie before updating status — never trusts raw POST body
+- Webhook checks donation exists in DB before making any Mollie API call
+- REST namespace `/ftb/v1` restricted to POST — any GET request returns 403
+- Webhook URL only passed to Mollie when HTTPS; omitted on `.local` / `localhost` to prevent Mollie rejecting the payment
 
 ---
 
@@ -106,7 +120,8 @@ ftb-donation-form/
 │   ├── class-ftb-donation-form.php
 │   ├── class-ftb-donation-form-loader.php
 │   ├── class-ftb-donation-form-i18n.php
-│   └── class-ftb-db.php           # Database access layer
+│   ├── class-ftb-db.php           # Database access layer
+│   └── class-ftb-mollie-service.php  # Mollie SDK wrapper
 ├── admin/
 │   ├── class-ftb-donation-form-admin.php
 │   ├── class-ftb-donations-list-table.php
@@ -221,15 +236,20 @@ A phase is only complete when:
 
 ## Mollie integration (phase 6)
 
-What needs to be built to make payments work:
+### Built
+1. **Mollie PHP SDK** — installed via Composer (`mollie/mollie-api-php ^3.10`), autoloaded in `ftb-donation-form.php`
+2. **Create a payment** — on successful form submission, `FTB_Mollie_Service::create_payment()` calls Mollie and redirects the donor to the checkout page; the Mollie payment ID is stored in `wp_ftb_donations`
+3. **Webhook endpoint** — `POST /wp-json/ftb/v1/webhook`; Mollie calls this when status changes; the handler re-fetches the payment from Mollie and updates `payment_status` in the database
+4. **Return URL** — after payment, Mollie sends the donor back; the plugin shows the thank-you message or redirects based on the admin setting (`ftb_post_payment_behavior`)
+5. **API key validation** — the key is tested against Mollie when saved in admin settings
 
-1. **Mollie PHP SDK** — installed via Composer, or bundled manually in the plugin
-2. **Create a payment** — when the form submits successfully, call Mollie's API to create a payment and redirect the donor to Mollie's checkout page
-3. **Webhook endpoint** — a WordPress REST API route that Mollie calls when a payment status changes; this updates the record in `wp_ftb_donations`
-4. **Return URL** — after payment Mollie sends the donor back to the site; the plugin shows the thank-you message or redirects based on the admin setting
-5. **Recurring payments** — for monthly/yearly, Mollie uses mandates (SEPA Direct Debit); the first payment creates the mandate, subsequent ones are charged automatically via the Mollie API
+### Still to do
+6. **Webhook end-to-end test** — requires a live server with HTTPS; Mollie cannot call a local development URL
+7. **Recurring payments** — monthly/yearly donations use Mollie Subscriptions (SEPA Direct Debit); the first payment creates a mandate, subsequent charges happen automatically via the API
 
-The database layer (`FTB_DB`) and the `mollie_payment_id` / `payment_status` columns are already in place — the groundwork is done.
+### Requirements before going live
+- SSL certificate on the hosting (HTTPS required for Mollie webhooks)
+- Live Mollie API key entered in settings with Test mode disabled
 
 ---
 
@@ -264,6 +284,10 @@ Currently the form always shows three fixed amount buttons.
 ### Accessibility — Narrator + radio buttons
 `aria-invalid` is now set dynamically on radio inputs when errors appear or clear. Full Narrator testing with the updated behaviour is still outstanding.
 - [ ] Retest frequency and amount radio groups with Windows Narrator after the aria-invalid fix (phase 9)
+
+### Return URL — unverified
+Anyone who visits the donation page with `?ftb_return=1` in the URL sees the thank-you message, even without having paid. Not a security hole (no data is changed or exposed), but a donor could bookmark the URL and later think they've donated without actually paying.
+- [ ] Consider verifying the payment status before showing the thank-you message (requires storing the Mollie payment ID in a cookie or session on the way out)
 
 ### Known bugs — currency handling
 Two related issues with how amounts are processed that are lower priority but worth fixing before going to production:

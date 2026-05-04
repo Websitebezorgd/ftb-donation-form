@@ -41,12 +41,12 @@ class FTB_DB {
                 'donor_house_number' => sanitize_text_field( $data['donor_house_number'] ?? '' ),
                 'donor_postal_code'  => sanitize_text_field( $data['donor_postal_code'] ?? '' ),
                 'donor_city'       => sanitize_text_field( $data['donor_city'] ?? '' ),
-                'amount'           => (float) $data['amount'],
+                'amount'           => (int) round( (float) $data['amount'] * 100 ),
                 'frequency'        => sanitize_text_field( $data['frequency'] ),
                 'mollie_payment_id' => sanitize_text_field( $data['mollie_payment_id'] ?? '' ),
                 'payment_status'   => 'pending',
             ],
-            [ '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%f', '%s', '%s', '%s' ]
+            [ '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s' ]
         );
 
         return $result ? $wpdb->insert_id : false;

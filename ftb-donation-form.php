@@ -26,6 +26,7 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 
 // Define plugin constants
 define('FTB_DONATION_FORM_VERSION', '1.0.0');
+define('FTB_DONATION_FORM_DB_VERSION', '1.1');
 define('FTB_DONATION_FORM_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('FTB_DONATION_FORM_PLUGIN_URL', plugin_dir_url(__FILE__));
 
@@ -64,7 +65,7 @@ function ftb_donation_form_activate() {
         donor_house_number varchar(20) NOT NULL DEFAULT '',
         donor_postal_code varchar(20) NOT NULL DEFAULT '',
         donor_city varchar(100) NOT NULL DEFAULT '',
-        amount decimal(10,2) NOT NULL DEFAULT 0.00,
+        amount int NOT NULL DEFAULT 0,
         frequency varchar(20) NOT NULL DEFAULT 'one_time',
         mollie_payment_id varchar(100) NOT NULL DEFAULT '',
         payment_status varchar(20) NOT NULL DEFAULT 'pending',
@@ -98,8 +99,39 @@ function ftb_donation_form_activate() {
     add_option( 'ftb_post_payment_redirect_url', '' );
     add_option( 'ftb_post_payment_message', '' );
     add_option( 'ftb_privacy_url', '' );
-    add_option( 'ftb_db_version', '1.0' );
+    add_option( 'ftb_db_version', FTB_DONATION_FORM_DB_VERSION );
 }
+
+// DB migration — runs on every page load but exits early once the version matches.
+function ftb_donation_form_maybe_migrate_db() {
+    if ( get_option( 'ftb_db_version' ) === FTB_DONATION_FORM_DB_VERSION ) {
+        return;
+    }
+
+    global $wpdb;
+    $table = $wpdb->prefix . 'ftb_donations';
+
+    // Check the actual column type so we never multiply already-migrated data.
+    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+    $col_type = $wpdb->get_var( $wpdb->prepare(
+        'SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s AND COLUMN_NAME = %s',
+        DB_NAME,
+        $table,
+        'amount'
+    ) );
+
+    if ( $col_type && 'int' !== strtolower( $col_type ) ) {
+        // Multiply existing euro values to cents while the column is still decimal.
+        // $table is $wpdb->prefix . literal string — not user input.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+        $wpdb->query( "UPDATE {$table} SET amount = ROUND(amount * 100)" );
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.SchemaChange
+        $wpdb->query( "ALTER TABLE {$table} MODIFY amount INT NOT NULL DEFAULT 0" );
+    }
+
+    update_option( 'ftb_db_version', FTB_DONATION_FORM_DB_VERSION );
+}
+add_action( 'plugins_loaded', 'ftb_donation_form_maybe_migrate_db', 5 );
 
 // Deactivation hook
 register_deactivation_hook(__FILE__, 'ftb_donation_form_deactivate');

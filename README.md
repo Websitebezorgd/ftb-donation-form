@@ -99,7 +99,7 @@ The dashboard now includes individual row delete and a payment status edit page 
 - All input sanitised, all output escaped
 - Capability checks (`ftb_manage_settings`) on every admin page
 - Prepared statements for all database queries
-- Submitted amount validated against admin-configured preset values
+- Submitted amount validated against admin-configured preset values; stored as integer cents to avoid float precision issues
 - Frequency validated against recurring setting (only `one_time` accepted when recurring is disabled)
 - `post_payment_behavior` validated against allowed values (`message` / `redirect`)
 - All user-submitted text fields capped with `mb_substr()` to match database `varchar` column lengths
@@ -279,13 +279,6 @@ Outstanding before submitting: `readme.txt`, `LICENSE` file, and a cleanly bundl
 `aria-invalid` is now set dynamically on radio inputs when errors appear or clear. Full Narrator testing with the updated behaviour is still outstanding.
 - [ ] Retest frequency and amount radio groups with Windows Narrator after the aria-invalid fix (phase 9)
 
-### Known bugs — currency handling
-Two related issues with how amounts are processed that are lower priority but worth fixing before going to production:
-
-- **Float precision** — amounts are stored and compared as PHP floats. Floating point arithmetic is unreliable for money (e.g. `0.1 + 0.2 !== 0.3`). The correct approach is to store amounts as integers in cents and only format for display.
-- **Decimal input** — the server-side handler replaces `,` with `.` to handle European decimal notation, but `<input type="number">` always submits a dot regardless of locale. The comma replacement is harmless but the assumption is fragile if the input type ever changes.
-
-Both require a database schema change (`amount int` instead of `decimal/float`) and updates to the sanitizer, validator, and display formatting.
 
 ---
 

@@ -96,7 +96,7 @@ class FTB_Donations_List_Table extends WP_List_Table {
             case 'donor_address':
                 return $this->render_address( $item );
             case 'amount':
-                return '&euro;' . number_format( (float) $item->amount, 2, ',', '.' );
+                return '&euro;' . number_format( $item->amount / 100, 2, ',', '.' );
             case 'frequency':
                 $labels = [
                     'one_time' => __( 'Eenmalig', 'ftb-donation-form' ),

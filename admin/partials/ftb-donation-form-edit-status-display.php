@@ -54,7 +54,7 @@ $statuses = [
         </tr>
         <tr>
             <th scope="row"><?php esc_html_e( 'Bedrag', 'ftb-donation-form' ); ?></th>
-            <td>&euro;<?php echo esc_html( number_format( (float) $donation->amount, 2, ',', '.' ) ); ?></td>
+            <td>&euro;<?php echo esc_html( number_format( $donation->amount / 100, 2, ',', '.' ) ); ?></td>
         </tr>
         <tr>
             <th scope="row"><?php esc_html_e( 'Huidige status', 'ftb-donation-form' ); ?></th>

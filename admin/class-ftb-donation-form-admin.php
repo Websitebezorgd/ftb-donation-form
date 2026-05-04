@@ -659,7 +659,7 @@ class FTB_Donation_Form_Admin {
                 $donation->donor_house_number,
                 $donation->donor_postal_code,
                 $donation->donor_city,
-                number_format( (float) $donation->amount, 2, ',', '.' ),
+                number_format( $donation->amount / 100, 2, ',', '.' ),
                 $frequency_labels[ $donation->frequency ] ?? $donation->frequency,
                 $donation->payment_status,
                 $donation->created_at,

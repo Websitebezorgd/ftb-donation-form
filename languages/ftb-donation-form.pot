@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-04T12:36:40+00:00\n"
+"POT-Creation-Date: 2026-05-04T13:47:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ftb-donation-form\n"
@@ -153,7 +153,7 @@ msgid "Donateur mag een eigen bedrag invullen"
 msgstr ""
 
 #: admin/class-ftb-donation-form-admin.php:382
-#: public/class-ftb-donation-form-public.php:112
+#: public/class-ftb-donation-form-public.php:127
 #: public/partials/ftb-donation-form-public-display.php:316
 msgid "Doneer nu"
 msgstr ""
@@ -175,20 +175,28 @@ msgid "Je moet minimaal één bedragoptie inschakelen. Vaste bedragen zijn herst
 msgstr ""
 
 #: admin/class-ftb-donation-form-admin.php:487
-#: admin/class-ftb-donation-form-admin.php:550
+#: admin/class-ftb-donation-form-admin.php:619
 msgid "Je hebt onvoldoende rechten om deze pagina te bekijken."
 msgstr ""
 
 #: admin/class-ftb-donation-form-admin.php:507
-#: admin/class-ftb-donation-form-admin.php:537
+#: admin/class-ftb-donation-form-admin.php:544
+#: admin/class-ftb-donation-form-admin.php:575
+#: admin/class-ftb-donation-form-admin.php:606
 msgid "Je hebt onvoldoende rechten om deze actie uit te voeren."
 msgstr ""
 
+#: admin/class-ftb-donation-form-admin.php:584
+msgid "Ongeldige status."
+msgstr ""
+
 #: admin/class-ftb-donations-list-table.php:34
+#: admin/partials/ftb-donation-form-edit-status-display.php:48
 msgid "Naam"
 msgstr ""
 
 #: admin/class-ftb-donations-list-table.php:35
+#: admin/partials/ftb-donation-form-edit-status-display.php:52
 msgid "E-mailadres"
 msgstr ""
 
@@ -197,6 +205,7 @@ msgid "Adres"
 msgstr ""
 
 #: admin/class-ftb-donations-list-table.php:38
+#: admin/partials/ftb-donation-form-edit-status-display.php:56
 msgid "Bedrag"
 msgstr ""
 
@@ -213,46 +222,56 @@ msgstr ""
 msgid "Datum"
 msgstr ""
 
-#: admin/class-ftb-donations-list-table.php:60
+#: admin/class-ftb-donations-list-table.php:75
+#: admin/partials/ftb-donation-form-edit-status-display.php:38
+msgid "Status wijzigen"
+msgstr ""
+
+#: admin/class-ftb-donations-list-table.php:76
+#: admin/class-ftb-donations-list-table.php:84
 msgid "Verwijderen"
 msgstr ""
 
-#: admin/class-ftb-donations-list-table.php:78
+#: admin/class-ftb-donations-list-table.php:102
 #: public/partials/ftb-donation-form-public-display.php:83
 msgid "Eenmalig"
 msgstr ""
 
-#: admin/class-ftb-donations-list-table.php:79
+#: admin/class-ftb-donations-list-table.php:103
 #: public/partials/ftb-donation-form-public-display.php:84
 msgid "Maandelijks"
 msgstr ""
 
-#: admin/class-ftb-donations-list-table.php:80
+#: admin/class-ftb-donations-list-table.php:104
 #: public/partials/ftb-donation-form-public-display.php:85
 msgid "Jaarlijks"
 msgstr ""
 
-#: admin/class-ftb-donations-list-table.php:107
-#: admin/class-ftb-donations-list-table.php:158
+#: admin/class-ftb-donations-list-table.php:131
+#: admin/class-ftb-donations-list-table.php:182
+#: admin/partials/ftb-donation-form-edit-status-display.php:30
 msgid "In afwachting"
 msgstr ""
 
-#: admin/class-ftb-donations-list-table.php:108
-#: admin/class-ftb-donations-list-table.php:159
+#: admin/class-ftb-donations-list-table.php:132
+#: admin/class-ftb-donations-list-table.php:183
+#: admin/partials/ftb-donation-form-edit-status-display.php:31
 msgid "Betaald"
 msgstr ""
 
-#: admin/class-ftb-donations-list-table.php:109
-#: admin/class-ftb-donations-list-table.php:160
+#: admin/class-ftb-donations-list-table.php:133
+#: admin/class-ftb-donations-list-table.php:184
+#: admin/partials/ftb-donation-form-edit-status-display.php:32
 msgid "Mislukt"
 msgstr ""
 
-#: admin/class-ftb-donations-list-table.php:110
-#: admin/class-ftb-donations-list-table.php:161
+#: admin/class-ftb-donations-list-table.php:134
+#: admin/class-ftb-donations-list-table.php:185
+#: admin/partials/ftb-donation-form-edit-status-display.php:33
 msgid "Geannuleerd"
 msgstr ""
 
-#: admin/class-ftb-donations-list-table.php:169
+#: admin/class-ftb-donations-list-table.php:193
 msgid "Alle"
 msgstr ""
 
@@ -339,7 +358,7 @@ msgid "Bedankbericht"
 msgstr ""
 
 #: admin/partials/ftb-donation-form-admin-display.php:245
-#: public/class-ftb-donation-form-public.php:129
+#: public/class-ftb-donation-form-public.php:144
 msgid "Hartelijk dank voor je donatie!"
 msgstr ""
 
@@ -351,19 +370,43 @@ msgstr ""
 msgid "Instellingen opslaan"
 msgstr ""
 
+#: admin/partials/ftb-donation-form-edit-status-display.php:26
+msgid "Donatie niet gevonden."
+msgstr ""
+
+#: admin/partials/ftb-donation-form-edit-status-display.php:42
+msgid "Terug naar donaties"
+msgstr ""
+
+#: admin/partials/ftb-donation-form-edit-status-display.php:60
+msgid "Huidige status"
+msgstr ""
+
+#: admin/partials/ftb-donation-form-edit-status-display.php:74
+msgid "Nieuwe status"
+msgstr ""
+
+#: admin/partials/ftb-donation-form-edit-status-display.php:88
+msgid "Status opslaan"
+msgstr ""
+
 #: admin/partials/ftb-donation-form-submissions-display.php:22
 msgid "Exporteer CSV"
 msgstr ""
 
 #. translators: %d: number of deleted donations
-#: admin/partials/ftb-donation-form-submissions-display.php:36
+#: admin/partials/ftb-donation-form-submissions-display.php:38
 #, php-format
 msgid "%d donatie verwijderd."
 msgid_plural "%d donaties verwijderd."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/partials/ftb-donation-form-submissions-display.php:50
+#: admin/partials/ftb-donation-form-submissions-display.php:48
+msgid "Status bijgewerkt."
+msgstr ""
+
+#: admin/partials/ftb-donation-form-submissions-display.php:58
 msgid "Zoeken"
 msgstr ""
 
@@ -374,34 +417,34 @@ msgid "Donatie van %s"
 msgstr ""
 
 #: public/class-ftb-donation-form-public.php:50
-#: public/class-ftb-donation-form-public.php:165
+#: public/class-ftb-donation-form-public.php:180
 msgid "Kies een frequentie."
 msgstr ""
 
 #: public/class-ftb-donation-form-public.php:51
-#: public/class-ftb-donation-form-public.php:179
+#: public/class-ftb-donation-form-public.php:194
 msgid "Kies een bedrag."
 msgstr ""
 
 #. translators: %s: minimum amount, e.g. "1"
 #: public/class-ftb-donation-form-public.php:53
-#: public/class-ftb-donation-form-public.php:174
+#: public/class-ftb-donation-form-public.php:189
 #, php-format
 msgid "Je eigen bedrag moet minimaal €%s zijn."
 msgstr ""
 
 #: public/class-ftb-donation-form-public.php:54
-#: public/class-ftb-donation-form-public.php:184
+#: public/class-ftb-donation-form-public.php:199
 msgid "Vul je volledige naam in."
 msgstr ""
 
 #: public/class-ftb-donation-form-public.php:55
-#: public/class-ftb-donation-form-public.php:189
+#: public/class-ftb-donation-form-public.php:204
 msgid "Vul een geldig e-mailadres in."
 msgstr ""
 
 #: public/class-ftb-donation-form-public.php:56
-#: public/class-ftb-donation-form-public.php:194
+#: public/class-ftb-donation-form-public.php:209
 msgid "Je moet akkoord gaan met de privacyverklaring om te doneren."
 msgstr ""
 
@@ -410,15 +453,15 @@ msgstr ""
 msgid "Controleer de volgende fouten:"
 msgstr ""
 
-#: public/class-ftb-donation-form-public.php:144
+#: public/class-ftb-donation-form-public.php:159
 msgid "Beveiligingscontrole mislukt. Probeer het opnieuw."
 msgstr ""
 
-#: public/class-ftb-donation-form-public.php:257
+#: public/class-ftb-donation-form-public.php:289
 msgid "De betalingsservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
 msgstr ""
 
-#: public/class-ftb-donation-form-public.php:258
+#: public/class-ftb-donation-form-public.php:290
 msgid "Betaling mislukt"
 msgstr ""
 

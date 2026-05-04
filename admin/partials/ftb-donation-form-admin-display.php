@@ -31,6 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 </h2>
                 <p class="ftb-admin-form__description">
                     <?php esc_html_e( 'Vind je API sleutel in je Mollie dashboard onder Ontwikkelaars → API-sleutels. Gebruik de live sleutel voor echte betalingen.', 'ftb-donation-form' ); ?>
+                    <a href="<?php echo esc_url( 'https://my.mollie.com/dashboard/login' ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Inloggen bij Mollie', 'ftb-donation-form' ); ?><span class="dashicons dashicons-external" aria-hidden="true" style="font-size: 1em; width: 1em; height: 1em; vertical-align: text-bottom; text-decoration: none; display: inline-block;"></span></a>
                 </p>
                 <div class="ftb-admin-form__group">
                     <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_mollie' ); ?>

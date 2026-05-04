@@ -189,21 +189,22 @@ ftb-donation-form-en_US.l10n.php  ← PHP cache used by WordPress 6.5+ for faste
 2. Choose the target language (e.g. `fr_FR`)
 3. Translate all strings and save — Poedit writes the `.po` and `.mo`
 
-**Updating the `.pot` after code changes:**
+**Updating translations after code changes — checklist:**
 
-Run from the plugin root in Local's site shell:
+1. Regenerate `.pot` (run from plugin root in Local's site shell):
 ```
 wp i18n make-pot . languages/ftb-donation-form.pot --domain=ftb-donation-form --exclude=vendor
 ```
-
-Then in Poedit: **Catalogue → Update from POT file** to pick up new strings, save to recompile the `.mo`.
-
-After saving in Poedit, recompile the `.l10n.php`:
+2. In Poedit: open `ftb-donation-form-en_US.po` → **Catalogue → Update from POT file** → translate new strings → Save
+3. Recompile `.mo` and `.l10n.php`:
 ```
 wp i18n make-mo languages/ftb-donation-form-en_US.po
 wp i18n make-php languages/ftb-donation-form-en_US.po languages/
 ```
-Then manually add `if ( ! defined( 'ABSPATH' ) ) exit;` on line 2 of the regenerated `.l10n.php`.
+4. Add ABSPATH check on line 2 of the regenerated `.l10n.php`:
+```php
+if ( ! defined( 'ABSPATH' ) ) exit;
+```
 
 ---
 

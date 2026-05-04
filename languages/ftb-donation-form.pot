@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-04T10:10:38+00:00\n"
+"POT-Creation-Date: 2026-05-04T12:16:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ftb-donation-form\n"
@@ -153,7 +153,7 @@ msgid "Donateur mag een eigen bedrag invullen"
 msgstr ""
 
 #: admin/class-ftb-donation-form-admin.php:382
-#: public/class-ftb-donation-form-public.php:68
+#: public/class-ftb-donation-form-public.php:112
 #: public/partials/ftb-donation-form-public-display.php:316
 msgid "Doneer nu"
 msgstr ""
@@ -335,7 +335,7 @@ msgid "Bedankbericht"
 msgstr ""
 
 #: admin/partials/ftb-donation-form-admin-display.php:235
-#: public/class-ftb-donation-form-public.php:85
+#: public/class-ftb-donation-form-public.php:129
 msgid "Hartelijk dank voor je donatie!"
 msgstr ""
 
@@ -363,35 +363,41 @@ msgstr[1] ""
 msgid "Zoeken"
 msgstr ""
 
+#. translators: %s: donor full name
+#: includes/class-ftb-mollie-service.php:59
+#, php-format
+msgid "Donatie van %s"
+msgstr ""
+
 #: public/class-ftb-donation-form-public.php:50
-#: public/class-ftb-donation-form-public.php:113
+#: public/class-ftb-donation-form-public.php:165
 msgid "Kies een frequentie."
 msgstr ""
 
 #: public/class-ftb-donation-form-public.php:51
-#: public/class-ftb-donation-form-public.php:127
+#: public/class-ftb-donation-form-public.php:179
 msgid "Kies een bedrag."
 msgstr ""
 
 #. translators: %s: minimum amount, e.g. "1"
 #: public/class-ftb-donation-form-public.php:53
-#: public/class-ftb-donation-form-public.php:122
+#: public/class-ftb-donation-form-public.php:174
 #, php-format
 msgid "Je eigen bedrag moet minimaal €%s zijn."
 msgstr ""
 
 #: public/class-ftb-donation-form-public.php:54
-#: public/class-ftb-donation-form-public.php:132
+#: public/class-ftb-donation-form-public.php:184
 msgid "Vul je volledige naam in."
 msgstr ""
 
 #: public/class-ftb-donation-form-public.php:55
-#: public/class-ftb-donation-form-public.php:137
+#: public/class-ftb-donation-form-public.php:189
 msgid "Vul een geldig e-mailadres in."
 msgstr ""
 
 #: public/class-ftb-donation-form-public.php:56
-#: public/class-ftb-donation-form-public.php:142
+#: public/class-ftb-donation-form-public.php:194
 msgid "Je moet akkoord gaan met de privacyverklaring om te doneren."
 msgstr ""
 
@@ -400,8 +406,16 @@ msgstr ""
 msgid "Controleer de volgende fouten:"
 msgstr ""
 
-#: public/class-ftb-donation-form-public.php:92
+#: public/class-ftb-donation-form-public.php:144
 msgid "Beveiligingscontrole mislukt. Probeer het opnieuw."
+msgstr ""
+
+#: public/class-ftb-donation-form-public.php:257
+msgid "De betalingsservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
+msgstr ""
+
+#: public/class-ftb-donation-form-public.php:258
+msgid "Betaling mislukt"
 msgstr ""
 
 #: public/partials/ftb-donation-form-public-display.php:49

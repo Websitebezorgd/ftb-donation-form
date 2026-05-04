@@ -102,6 +102,10 @@ h1.ftb-admin__title {
     font-style: italic;
 }
 
+.ftb-admin-form__description a:hover {
+    text-decoration: none;
+}
+
 .ftb-admin-form__group {
     padding: var(--space-4);
 }

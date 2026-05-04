@@ -279,10 +279,6 @@ Outstanding before submitting: `readme.txt`, `LICENSE` file, and a cleanly bundl
 `aria-invalid` is now set dynamically on radio inputs when errors appear or clear. Full Narrator testing with the updated behaviour is still outstanding.
 - [ ] Retest frequency and amount radio groups with Windows Narrator after the aria-invalid fix (phase 9)
 
-### Return URL — unverified
-Anyone who visits the donation page with `?ftb_return=1` in the URL sees the thank-you message, even without having paid. Not a security hole (no data is changed or exposed), but a donor could bookmark the URL and later think they've donated without actually paying.
-- [ ] Consider verifying the payment status before showing the thank-you message (requires storing the Mollie payment ID in a cookie or session on the way out)
-
 ### Known bugs — currency handling
 Two related issues with how amounts are processed that are lower priority but worth fixing before going to production:
 

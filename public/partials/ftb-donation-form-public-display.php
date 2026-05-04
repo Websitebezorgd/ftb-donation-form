@@ -105,7 +105,7 @@ $old = static function ($key, $default = '') use ($old_values) {
 
                 <!-- ── Bedrag ─────────────────────────────────────────────── -->
                 <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-describedby="ftb-amount-error">
-                    <legend class="ftb-donation-form__legend"><?php echo $enable_recurring ? esc_html__('Bedrag (verplicht)', 'ftb-donation-form') : esc_html__('Bedrag (eenmalig, verplicht)', 'ftb-donation-form'); ?></legend>
+                    <legend class="ftb-donation-form__legend"><?php echo $enable_recurring ? esc_html__('Bedrag (verplicht)', 'ftb-donation-form') : esc_html__('Eenmalig bedrag (verplicht)', 'ftb-donation-form'); ?></legend>
 
                     <?php if ($show_presets || $allow_custom) : ?>
                     <div class="ftb-donation-form__radio-group ftb-donation-form__radio-group--amounts">

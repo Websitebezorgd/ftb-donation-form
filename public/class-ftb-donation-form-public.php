@@ -65,6 +65,12 @@ class FTB_Donation_Form_Public {
             'methods'             => 'POST',
             'callback'            => [ $this, 'handle_webhook' ],
             'permission_callback' => '__return_true',
+            'args'                => [
+                'id' => [
+                    'type'              => 'string',
+                    'sanitize_callback' => 'sanitize_text_field',
+                ],
+            ],
         ] );
     }
 

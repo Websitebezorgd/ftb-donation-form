@@ -55,6 +55,30 @@ class FTB_Donations_List_Table extends WP_List_Table {
         return sprintf( '<input type="checkbox" name="donation[]" value="%d" />', absint( $item->id ) );
     }
 
+    protected function column_donor_name( $item ) {
+        $edit_url   = add_query_arg( [
+            'page'   => 'ftb-submissions',
+            'action' => 'edit_status',
+            'id'     => $item->id,
+        ], admin_url( 'admin.php' ) );
+
+        $delete_url = wp_nonce_url(
+            add_query_arg( [
+                'page'   => 'ftb-submissions',
+                'action' => 'delete',
+                'id'     => $item->id,
+            ], admin_url( 'admin.php' ) ),
+            'ftb_delete_donation_' . $item->id
+        );
+
+        $actions = [
+            'edit'   => sprintf( '<a href="%s">%s</a>', esc_url( $edit_url ), esc_html__( 'Status wijzigen', 'ftb-donation-form' ) ),
+            'delete' => sprintf( '<a href="%s" class="submitdelete">%s</a>', esc_url( $delete_url ), esc_html__( 'Verwijderen', 'ftb-donation-form' ) ),
+        ];
+
+        return esc_html( $item->donor_name ) . $this->row_actions( $actions );
+    }
+
     protected function get_bulk_actions() {
         return [
             'delete' => __( 'Verwijderen', 'ftb-donation-form' ),

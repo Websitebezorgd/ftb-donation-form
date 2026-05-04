@@ -111,6 +111,26 @@ class FTB_DB {
     }
 
     /**
+     * Update the payment status by local donation ID (used for manual admin edits).
+     *
+     * @param int    $id     Local donation row ID.
+     * @param string $status New status (pending, paid, failed, cancelled).
+     * @return bool
+     */
+    public function update_payment_status_by_id( int $id, string $status ): bool {
+        global $wpdb;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        return (bool) $wpdb->update(
+            $this->table,
+            [ 'payment_status' => sanitize_text_field( $status ) ],
+            [ 'id'             => $id ],
+            [ '%s' ],
+            [ '%d' ]
+        );
+    }
+
+    /**
      * Update the payment status of a donation.
      *
      * @param string $mollie_id Mollie payment ID.

@@ -24,8 +24,10 @@ $list_table->prepare_items();
     <hr class="wp-header-end">
 
     <?php
-    // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+    // phpcs:disable WordPress.Security.NonceVerification.Recommended
     $deleted = isset( $_GET['deleted'] ) ? (int) $_GET['deleted'] : 0;
+    $updated = isset( $_GET['updated'] ) && '1' === $_GET['updated'];
+    // phpcs:enable
     if ( $deleted > 0 ) :
     ?>
     <div class="notice notice-success is-dismissible">
@@ -38,6 +40,12 @@ $list_table->prepare_items();
         );
         ?>
         </p>
+    </div>
+    <?php endif; ?>
+
+    <?php if ( $updated ) : ?>
+    <div class="notice notice-success is-dismissible">
+        <p><?php esc_html_e( 'Status bijgewerkt.', 'ftb-donation-form' ); ?></p>
     </div>
     <?php endif; ?>
 

@@ -523,6 +523,75 @@ class FTB_Donation_Form_Admin {
     }
 
     /**
+     * Handle individual row delete on admin_init — before any output is sent.
+     */
+    public function handle_row_delete() {
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended
+        if ( empty( $_GET['page'] ) || 'ftb-submissions' !== $_GET['page'] ) {
+            return;
+        }
+        if ( empty( $_GET['action'] ) || 'delete' !== $_GET['action'] ) {
+            return;
+        }
+        $id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
+        // phpcs:enable
+
+        if ( ! $id ) {
+            return;
+        }
+
+        if ( ! current_user_can( 'ftb_manage_settings' ) ) {
+            wp_die( esc_html__( 'Je hebt onvoldoende rechten om deze actie uit te voeren.', 'ftb-donation-form' ) );
+        }
+
+        check_admin_referer( 'ftb_delete_donation_' . $id );
+
+        $db      = new FTB_DB();
+        $deleted = $db->delete_donation( $id ) ? 1 : 0;
+
+        wp_safe_redirect( add_query_arg( 'deleted', $deleted, admin_url( 'admin.php?page=ftb-submissions' ) ) );
+        exit;
+    }
+
+    /**
+     * Handle payment status update on admin_init — before any output is sent.
+     */
+    public function handle_status_update() {
+        // phpcs:disable WordPress.Security.NonceVerification.Missing
+        if ( empty( $_POST['page'] ) || 'ftb-submissions' !== $_POST['page'] ) {
+            return;
+        }
+        if ( empty( $_POST['action'] ) || 'update_status' !== $_POST['action'] ) {
+            return;
+        }
+        $id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
+        // phpcs:enable
+
+        if ( ! $id ) {
+            return;
+        }
+
+        if ( ! current_user_can( 'ftb_manage_settings' ) ) {
+            wp_die( esc_html__( 'Je hebt onvoldoende rechten om deze actie uit te voeren.', 'ftb-donation-form' ) );
+        }
+
+        check_admin_referer( 'ftb_update_status_' . $id );
+
+        $allowed  = [ 'pending', 'paid', 'failed', 'cancelled' ];
+        $status   = isset( $_POST['payment_status'] ) ? sanitize_text_field( wp_unslash( $_POST['payment_status'] ) ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+
+        if ( ! in_array( $status, $allowed, true ) ) {
+            wp_die( esc_html__( 'Ongeldige status.', 'ftb-donation-form' ) );
+        }
+
+        $db = new FTB_DB();
+        $db->update_payment_status_by_id( $id, $status );
+
+        wp_safe_redirect( add_query_arg( 'updated', '1', admin_url( 'admin.php?page=ftb-submissions' ) ) );
+        exit;
+    }
+
+    /**
      * Handle CSV export on admin_init — before any output is sent.
      */
     public function handle_csv_export() {
@@ -543,7 +612,7 @@ class FTB_Donation_Form_Admin {
     }
 
     /**
-     * Render the donations submissions page.
+     * Render the donations submissions page (list or edit-status form).
      */
     public function display_submissions_page() {
         if ( ! current_user_can( 'ftb_manage_settings' ) ) {
@@ -551,7 +620,15 @@ class FTB_Donation_Form_Admin {
         }
 
         require_once plugin_dir_path( __FILE__ ) . 'class-ftb-donations-list-table.php';
-        include_once 'partials/ftb-donation-form-submissions-display.php';
+
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        $action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
+
+        if ( 'edit_status' === $action ) {
+            include_once 'partials/ftb-donation-form-edit-status-display.php';
+        } else {
+            include_once 'partials/ftb-donation-form-submissions-display.php';
+        }
     }
 
     private function stream_csv_export() {

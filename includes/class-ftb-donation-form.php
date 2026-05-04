@@ -98,6 +98,8 @@ class FTB_Donation_Form {
         $this->loader->add_action('admin_init', $plugin_admin, 'register_settings');
         $this->loader->add_action('admin_init', $plugin_admin, 'handle_csv_export');
         $this->loader->add_action('admin_init', $plugin_admin, 'handle_bulk_delete');
+        $this->loader->add_action('admin_init', $plugin_admin, 'handle_row_delete');
+        $this->loader->add_action('admin_init', $plugin_admin, 'handle_status_update');
     }
 
     /**

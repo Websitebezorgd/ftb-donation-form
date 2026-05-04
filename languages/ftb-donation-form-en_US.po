@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: For The Better donatieformulier 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ftb-donation-"
 "form\n"
-"POT-Creation-Date: 2026-05-02T12:38:42+00:00\n"
-"PO-Revision-Date: 2026-05-02 15:14+0200\n"
+"POT-Creation-Date: 2026-05-04T09:12:48+00:00\n"
+"PO-Revision-Date: 2026-05-04 11:15+0200\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
 "Language: en_US\n"
@@ -92,7 +92,7 @@ msgstr "Form fields"
 
 #: admin/class-ftb-donation-form-admin.php:205
 #: admin/partials/ftb-donation-form-admin-display.php:196
-#: public/partials/ftb-donation-form-public-display.php:288
+#: public/partials/ftb-donation-form-public-display.php:289
 msgid "Privacyverklaring"
 msgstr "Privacy statement"
 
@@ -132,27 +132,27 @@ msgstr "Enable test mode (use test API key)"
 
 #: admin/class-ftb-donation-form-admin.php:301
 #: admin/class-ftb-donations-list-table.php:36
-#: public/partials/ftb-donation-form-public-display.php:215
+#: public/partials/ftb-donation-form-public-display.php:216
 msgid "Telefoonnummer"
 msgstr "Phone number"
 
 #: admin/class-ftb-donation-form-admin.php:302
-#: public/partials/ftb-donation-form-public-display.php:230
+#: public/partials/ftb-donation-form-public-display.php:231
 msgid "Straat"
 msgstr "Street"
 
 #: admin/class-ftb-donation-form-admin.php:303
-#: public/partials/ftb-donation-form-public-display.php:242
+#: public/partials/ftb-donation-form-public-display.php:243
 msgid "Huisnummer"
 msgstr "House number"
 
 #: admin/class-ftb-donation-form-admin.php:304
-#: public/partials/ftb-donation-form-public-display.php:259
+#: public/partials/ftb-donation-form-public-display.php:260
 msgid "Postcode"
 msgstr "Zip code"
 
 #: admin/class-ftb-donation-form-admin.php:305
-#: public/partials/ftb-donation-form-public-display.php:271
+#: public/partials/ftb-donation-form-public-display.php:272
 msgid "Plaats"
 msgstr "City"
 
@@ -170,7 +170,7 @@ msgstr "Donor may enter their custom amount"
 
 #: admin/class-ftb-donation-form-admin.php:382
 #: public/class-ftb-donation-form-public.php:68
-#: public/partials/ftb-donation-form-public-display.php:315
+#: public/partials/ftb-donation-form-public-display.php:316
 msgid "Doneer nu"
 msgstr "Donate now"
 
@@ -450,12 +450,16 @@ msgid "Jouw donatie"
 msgstr "Your donation"
 
 #: public/partials/ftb-donation-form-public-display.php:50
-#: public/partials/ftb-donation-form-public-display.php:181
+#: public/partials/ftb-donation-form-public-display.php:182
 msgid "Jouw gegevens"
 msgstr "Your details"
 
+#: public/partials/ftb-donation-form-public-display.php:73
+msgid "Stap 1 van 2: Jouw donatie, huidige stap"
+msgstr "Step 1 of 2: Your donation, current step"
+
 #: public/partials/ftb-donation-form-public-display.php:74
-#: public/partials/ftb-donation-form-public-display.php:177
+#: public/partials/ftb-donation-form-public-display.php:178
 msgid "Als iets verplicht is, staat dat erbij."
 msgstr "If something is required, it will be stated."
 
@@ -471,6 +475,10 @@ msgstr "Choose how often you want to donate"
 msgid "Bedrag (verplicht)"
 msgstr "Amount (required)"
 
+#: public/partials/ftb-donation-form-public-display.php:108
+msgid "Bedrag (eenmalig, verplicht)"
+msgstr "Amount (one-time, required)"
+
 #: public/partials/ftb-donation-form-public-display.php:132
 msgid "Anders"
 msgstr "Other"
@@ -480,51 +488,62 @@ msgid "Eigen bedrag"
 msgstr "Custom amount"
 
 #. translators: %s: minimum amount, e.g. "1"
-#: public/partials/ftb-donation-form-public-display.php:148
+#: public/partials/ftb-donation-form-public-display.php:149
 #, php-format
 msgid "Vul een bedrag in (minimaal €%s)"
 msgstr "Enter an amount (minimum €%s)"
 
-#: public/partials/ftb-donation-form-public-display.php:167
+#: public/partials/ftb-donation-form-public-display.php:168
 msgid "Kies een bedrag om te doneren"
 msgstr "Choose an amount to donate"
 
-#: public/partials/ftb-donation-form-public-display.php:171
+#: public/partials/ftb-donation-form-public-display.php:172
 msgid "Volgende"
 msgstr "Next"
 
-#: public/partials/ftb-donation-form-public-display.php:184
+#: public/partials/ftb-donation-form-public-display.php:176
+msgid "Stap 2 van 2: Jouw gegevens, huidige stap"
+msgstr "Step 2 of 2: Your details, current step"
+
+#: public/partials/ftb-donation-form-public-display.php:185
 msgid "Volledige naam (verplicht)"
 msgstr "Full name (required)"
 
-#: public/partials/ftb-donation-form-public-display.php:195
+#: public/partials/ftb-donation-form-public-display.php:196
 msgid "Vul je naam in"
 msgstr "Enter your name"
 
-#: public/partials/ftb-donation-form-public-display.php:199
+#: public/partials/ftb-donation-form-public-display.php:200
 msgid "E-mailadres (verplicht)"
 msgstr "Email address (required)"
 
-#: public/partials/ftb-donation-form-public-display.php:210
+#: public/partials/ftb-donation-form-public-display.php:211
 msgid "Vul een geldig e-mailadres in"
 msgstr "Enter a valid email address"
 
-#: public/partials/ftb-donation-form-public-display.php:291
+#: public/partials/ftb-donation-form-public-display.php:292
 msgid "Lees onze privacyverklaring"
 msgstr "Read our privacy statement"
 
-#: public/partials/ftb-donation-form-public-display.php:293
+#: public/partials/ftb-donation-form-public-display.php:294
 msgid "Privacyverklaring nog niet beschikbaar."
 msgstr "Privacy statement not yet available."
 
-#: public/partials/ftb-donation-form-public-display.php:307
+#: public/partials/ftb-donation-form-public-display.php:308
 msgid "Ik ga akkoord met de privacyverklaring (verplicht)"
 msgstr "I agree to the privacy statement (required)"
 
-#: public/partials/ftb-donation-form-public-display.php:310
+#: public/partials/ftb-donation-form-public-display.php:311
 msgid "Je moet akkoord gaan met de privacyverklaring"
 msgstr "You must agree to the privacy statement"
 
-#: public/partials/ftb-donation-form-public-display.php:314
+#: public/partials/ftb-donation-form-public-display.php:315
 msgid "Vorige"
 msgstr "Previous"
+
+#: public/partials/ftb-donation-form-public-display.php:316
+msgid "Doneer nu eenmalig"
+msgstr "Donate once now"
+
+#~ msgid "Dit is een eenmalige donatie."
+#~ msgstr "This is a one-time donation."

@@ -220,6 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
     customAmountInput.required = isVisible;
 
     if (isVisible) {
+      customAmountInput.setAttribute("aria-invalid", "false");
       setTimeout(() => customAmountInput.focus(), 0);
     } else {
       customAmountInput.value = "";

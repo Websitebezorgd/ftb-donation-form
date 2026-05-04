@@ -33,7 +33,7 @@ This plugin is built from scratch to maintain full overview and control. Each ph
 | 4 | Validation | Client-side (JS) + server-side (PHP) + nonces | ✅ Done |
 | 5 | Admin settings | API key, form options, fields, privacy, post-payment | ✅ Done |
 | 6 | Mollie integration | Payment flow + webhook status updates | 🔄 Ongoing |
-| 7 | Dashboard | Donation records overview with search, filters, pagination, delete, CSV export | ✅ Done |
+| 7 | Dashboard | Donation records overview with search, filters, pagination, delete, CSV export, row actions | ✅ Done |
 | 8 | Translations | i18n + `.pot` file + WPML / TranslatePress compatibility | ✅ Done |
 | 9 | Testing | Accessibility + validation (throughout all phases) | 🔄 Ongoing |
 | 10 | Security | Nonces, sanitization, escaping, capability checks | ✅ Done |
@@ -46,7 +46,7 @@ Phases 1–5, 7, 8, and 10 are complete. Phase 6 (Mollie) is in progress.
 
 The one-time payment flow is fully built and tested locally: the form redirects donors to Mollie's checkout page, and the thank-you message or redirect is shown on return. The webhook endpoint is built and secured but requires a live HTTPS server for full end-to-end testing — Mollie cannot reach a local development environment. Recurring payments (monthly/yearly) are not yet built.
 
-A full code audit (accessibility, security, bugs) has been completed. All high and medium severity issues have been resolved. Known lower-priority issues remain — see the open questions section.
+The dashboard now includes individual row delete and a payment status edit page per donation. A full code audit (accessibility, security, bugs) has been completed. All high and medium severity issues have been resolved. Known lower-priority issues remain — see the open questions section.
 
 **Next up:** Test the webhook flow on a staging server with HTTPS, then build recurring payment support.
 
@@ -83,6 +83,8 @@ A full code audit (accessibility, security, bugs) has been completed. All high a
 - All submitted donations listed with: name, email, phone, address, amount, frequency, status, date
 - Sortable columns, search box, and status filter tabs (all / pending / paid / failed / cancelled)
 - Payment status badges
+- Individual delete per row (nonce-protected)
+- Payment status edit per row (dropdown, nonce-protected)
 - Bulk delete
 - CSV export (UTF-8 with BOM for Excel)
 
@@ -129,7 +131,8 @@ ftb-donation-form/
 │   ├── js/ftb-donation-form-admin.js
 │   └── partials/
 │       ├── ftb-donation-form-admin-display.php
-│       └── ftb-donation-form-submissions-display.php
+│       ├── ftb-donation-form-submissions-display.php
+│       └── ftb-donation-form-edit-status-display.php
 ├── public/
 │   ├── class-ftb-donation-form-public.php
 │   ├── css/ftb-donation-form-public.css
@@ -271,11 +274,6 @@ Outstanding before submitting: `readme.txt`, `LICENSE` file, and a cleanly bundl
 ---
 
 ## Open questions
-
-### Dashboard — edit and delete per row
-Individual delete is straightforward (row action link). Edit is more work — what should be editable?
-The most useful thing would be manually updating the payment status (e.g. marking a bank transfer as paid). Editing donor details is less common and adds significant form complexity.
-- [ ] Is updating payment status enough for edit, or do we need to change donor info too?
 
 ### Fixed amounts — make optional?
 Currently the form always shows three fixed amount buttons.

@@ -19,6 +19,11 @@ if (!defined('ABSPATH')) {
 }
 
 
+// Autoload Composer dependencies (Mollie SDK etc.)
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+    require_once __DIR__ . '/vendor/autoload.php';
+}
+
 // Define plugin constants
 define('FTB_DONATION_FORM_VERSION', '1.0.0');
 define('FTB_DONATION_FORM_PLUGIN_DIR', plugin_dir_path(__FILE__));

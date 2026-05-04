@@ -60,6 +60,50 @@ class FTB_Donation_Form_Public {
         );
     }
 
+    public function register_webhook_route(): void {
+        register_rest_route( 'ftb/v1', '/webhook', [
+            'methods'             => 'POST',
+            'callback'            => [ $this, 'handle_webhook' ],
+            'permission_callback' => '__return_true',
+        ] );
+    }
+
+    /**
+     * Handle a Mollie webhook call.
+     *
+     * Mollie POSTs the payment ID as `id` in the request body. We re-fetch
+     * the payment from Mollie (never trust the raw POST data) and update our
+     * database. Always returns 200 so Mollie does not keep retrying.
+     *
+     * Note: webhooks require a publicly accessible URL. On localhost, Mollie
+     * cannot reach this endpoint — update payment status manually for local testing.
+     */
+    public function handle_webhook( WP_REST_Request $request ): WP_REST_Response {
+        $mollie_id = sanitize_text_field( (string) ( $request->get_param( 'id' ) ?? '' ) );
+
+        if ( empty( $mollie_id ) ) {
+            return new WP_REST_Response( null, 200 );
+        }
+
+        $db       = new FTB_DB();
+        $donation = $db->get_donation_by_mollie_id( $mollie_id );
+
+        if ( ! $donation ) {
+            return new WP_REST_Response( null, 200 );
+        }
+
+        try {
+            $service = new FTB_Mollie_Service();
+            $payment = $service->get_payment( $mollie_id );
+            $db->update_payment_status( $mollie_id, $payment->status );
+        } catch ( \Mollie\Api\Exceptions\ApiException $e ) {
+            // Silently ignore — returning 200 stops Mollie from retrying.
+            // Donations with unresolved errors remain at 'pending' status in the dashboard.
+        }
+
+        return new WP_REST_Response( null, 200 );
+    }
+
     public function register_shortcodes() {
         add_shortcode( 'ftb_donation_form', [ $this, 'render_donation_form' ] );
     }
@@ -84,6 +128,14 @@ class FTB_Donation_Form_Public {
         $post_payment_behavior   = get_option( 'ftb_post_payment_behavior', 'message' );
         $post_payment_message    = get_option( 'ftb_post_payment_message', '' ) ?: __( 'Hartelijk dank voor je donatie!', 'ftb-donation-form' );
         $post_payment_redirect   = get_option( 'ftb_post_payment_redirect_url', '' );
+
+        // Return from Mollie checkout — show the configured thank-you message.
+        if ( isset( $_GET['ftb_return'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            $success = true;
+            ob_start();
+            include 'partials/ftb-donation-form-public-display.php';
+            return ob_get_clean();
+        }
 
         if ( isset( $_POST['ftb_donation_nonce'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- verified on next line
             $nonce = sanitize_text_field( wp_unslash( $_POST['ftb_donation_nonce'] ) );
@@ -158,8 +210,8 @@ class FTB_Donation_Form_Public {
             ];
 
             if ( empty( $errors ) ) {
-                $db = new FTB_DB();
-                $db->insert_donation( [
+                $db          = new FTB_DB();
+                $donation_id = $db->insert_donation( [
                     'donor_name'         => $name,
                     'donor_email'        => $email,
                     'donor_phone'        => $phone,
@@ -171,17 +223,42 @@ class FTB_Donation_Form_Public {
                     'frequency'          => $frequency,
                 ] );
 
-                // TODO Phase 6: initiate Mollie payment and redirect to payment URL.
-                // $service = new FTB_Mollie_Service();
-                // $payment = $service->create_payment( ... );
-                // wp_redirect( $payment->getCheckoutUrl() ); exit;
+                // After a successful payment Mollie sends the donor back here.
+                // For the 'redirect' behavior we send them straight to the configured URL.
+                // For the 'message' behavior we add ?ftb_return=1 so the shortcode shows the thank-you.
+                $return_url = ( 'redirect' === $post_payment_behavior && ! empty( $post_payment_redirect ) )
+                    ? $post_payment_redirect
+                    : add_query_arg( 'ftb_return', '1', get_permalink() );
 
-                if ( 'redirect' === $post_payment_behavior && ! empty( $post_payment_redirect ) ) {
-                    wp_safe_redirect( $post_payment_redirect );
+                try {
+                    $service = new FTB_Mollie_Service();
+                    $payment = $service->create_payment(
+                        (int) $donation_id,
+                        $amount,
+                        $name,
+                        $return_url,
+                        rest_url( 'ftb/v1/webhook' )
+                    );
+
+                    $db->update_mollie_payment_id( (int) $donation_id, $payment->id );
+
+                    $checkout_url  = $payment->getCheckoutUrl();
+                    $checkout_host = wp_parse_url( $checkout_url, PHP_URL_HOST );
+                    add_filter( 'allowed_redirect_hosts', static function ( $hosts ) use ( $checkout_host ) {
+                        if ( $checkout_host ) {
+                            $hosts[] = $checkout_host;
+                        }
+                        return $hosts;
+                    } );
+                    wp_safe_redirect( $checkout_url );
                     exit;
+                } catch ( \Mollie\Api\Exceptions\ApiException $e ) {
+                    wp_die(
+                        esc_html__( 'De betalingsservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.', 'ftb-donation-form' ),
+                        esc_html__( 'Betaling mislukt', 'ftb-donation-form' ),
+                        [ 'back_link' => true, 'response' => 503 ]
+                    );
                 }
-
-                $success = true;
             }
         }
 

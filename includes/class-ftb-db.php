@@ -91,6 +91,26 @@ class FTB_DB {
     }
 
     /**
+     * Store the Mollie payment ID on a donation record after the payment is created.
+     *
+     * @param int    $id        Local donation row ID.
+     * @param string $mollie_id Mollie payment ID (e.g. tr_xxxxx).
+     * @return bool
+     */
+    public function update_mollie_payment_id( int $id, string $mollie_id ): bool {
+        global $wpdb;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        return (bool) $wpdb->update(
+            $this->table,
+            [ 'mollie_payment_id' => sanitize_text_field( $mollie_id ) ],
+            [ 'id'                => $id ],
+            [ '%s' ],
+            [ '%d' ]
+        );
+    }
+
+    /**
      * Update the payment status of a donation.
      *
      * @param string $mollie_id Mollie payment ID.

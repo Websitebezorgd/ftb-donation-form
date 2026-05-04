@@ -104,7 +104,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                 <?php endif; ?>
 
                 <!-- ── Bedrag ─────────────────────────────────────────────── -->
-                <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-describedby="ftb-amount-error">
+                <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio<?php echo ! $show_presets ? ' ftb-donation-form__fieldset--custom-only' : ''; ?>" aria-describedby="ftb-amount-error">
                     <legend class="ftb-donation-form__legend"><?php echo $enable_recurring ? esc_html__('Bedrag (verplicht)', 'ftb-donation-form') : esc_html__('Eenmalig bedrag (verplicht)', 'ftb-donation-form'); ?></legend>
 
                     <?php if ($show_presets || $allow_custom) : ?>

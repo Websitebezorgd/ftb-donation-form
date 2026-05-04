@@ -96,7 +96,7 @@ class FTB_Donation_Form_Public {
             $service = new FTB_Mollie_Service();
             $payment = $service->get_payment( $mollie_id );
             $db->update_payment_status( $mollie_id, $payment->status );
-        } catch ( \Mollie\Api\Exceptions\ApiException $e ) {
+        } catch ( \Mollie\Api\Exceptions\MollieException $e ) {
             // Silently ignore — returning 200 stops Mollie from retrying.
             // Donations with unresolved errors remain at 'pending' status in the dashboard.
         }
@@ -252,7 +252,7 @@ class FTB_Donation_Form_Public {
                     } );
                     wp_safe_redirect( $checkout_url );
                     exit;
-                } catch ( \Mollie\Api\Exceptions\ApiException $e ) {
+                } catch ( \Mollie\Api\Exceptions\MollieException $e ) {
                     wp_die(
                         esc_html__( 'De betalingsservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.', 'ftb-donation-form' ),
                         esc_html__( 'Betaling mislukt', 'ftb-donation-form' ),

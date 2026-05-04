@@ -34,6 +34,16 @@ if ( ! defined( 'ABSPATH' ) ) {
                 </p>
                 <div class="ftb-admin-form__group">
                     <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_mollie' ); ?>
+                    <?php
+                    $transient_key = 'ftb_mollie_key_error_' . get_current_user_id();
+                    if ( get_transient( $transient_key ) ) :
+                        delete_transient( $transient_key );
+                    ?>
+                    <div class="ftb-notice ftb-notice--error" role="alert">
+                        <span class="dashicons dashicons-warning" aria-hidden="true"></span>
+                        <?php esc_html_e( 'Mollie API sleutel is ongeldig. Controleer de sleutel en probeer het opnieuw.', 'ftb-donation-form' ); ?>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </section>
 

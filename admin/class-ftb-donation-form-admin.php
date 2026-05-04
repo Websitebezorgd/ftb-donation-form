@@ -100,7 +100,7 @@ class FTB_Donation_Form_Admin {
         // ── Mollie ────────────────────────────────────────────────────────────
 
         register_setting( 'ftb_donation_form_settings', 'ftb_mollie_api_key', [
-            'sanitize_callback' => 'sanitize_text_field',
+            'sanitize_callback' => [ $this, 'sanitize_mollie_api_key' ],
         ] );
         register_setting( 'ftb_donation_form_settings', 'ftb_mollie_test_mode', [
             'sanitize_callback' => 'absint',
@@ -419,6 +419,25 @@ class FTB_Donation_Form_Admin {
     }
 
     // ── Sanitization callbacks ─────────────────────────────────────────────────
+
+    public function sanitize_mollie_api_key( string $value ): string {
+        $value = sanitize_text_field( $value );
+
+        if ( empty( $value ) ) {
+            return $value;
+        }
+
+        try {
+            $mollie = new \Mollie\Api\MollieApiClient();
+            $mollie->setApiKey( $value );
+            $mollie->methods->allActive();
+        } catch ( \Mollie\Api\Exceptions\MollieException $e ) {
+            // Store per-user so the notice renders with ftb-notice styling in the template.
+            set_transient( 'ftb_mollie_key_error_' . get_current_user_id(), true, 60 );
+        }
+
+        return $value;
+    }
 
     public function sanitize_min_custom_amount( $input ) {
         $value = (float) $input;

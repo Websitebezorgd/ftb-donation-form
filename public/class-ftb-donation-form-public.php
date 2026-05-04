@@ -231,13 +231,26 @@ class FTB_Donation_Form_Public {
                     : add_query_arg( 'ftb_return', '1', get_permalink() );
 
                 try {
-                    $service = new FTB_Mollie_Service();
+                    $service     = new FTB_Mollie_Service();
+                    $webhook_url  = rest_url( 'ftb/v1/webhook' );
+                    $webhook_host = (string) wp_parse_url( $webhook_url, PHP_URL_HOST );
+
+                    // On local dev environments Mollie cannot reach us, so omit the webhook URL.
+                    // On a live site without HTTPS, the webhook URL is included and Mollie will
+                    // reject the payment — SSL is required before going live.
+                    $is_local = in_array( $webhook_host, [ 'localhost', '127.0.0.1', '::1' ], true )
+                        || substr( $webhook_host, -6 ) === '.local';
+
+                    if ( $is_local ) {
+                        $webhook_url = '';
+                    }
+
                     $payment = $service->create_payment(
                         (int) $donation_id,
                         $amount,
                         $name,
                         $return_url,
-                        rest_url( 'ftb/v1/webhook' )
+                        $webhook_url
                     );
 
                     $db->update_mollie_payment_id( (int) $donation_id, $payment->id );
@@ -253,6 +266,10 @@ class FTB_Donation_Form_Public {
                     wp_safe_redirect( $checkout_url );
                     exit;
                 } catch ( \Mollie\Api\Exceptions\MollieException $e ) {
+                    if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                        // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+                        error_log( 'FTB Mollie payment error: ' . $e->getMessage() );
+                    }
                     wp_die(
                         esc_html__( 'De betalingsservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.', 'ftb-donation-form' ),
                         esc_html__( 'Betaling mislukt', 'ftb-donation-form' ),

@@ -50,7 +50,7 @@ class FTB_Mollie_Service {
         string $redirect_url,
         string $webhook_url
     ): Payment {
-        return $this->mollie->payments->create( [
+        $params = [
             'amount'      => [
                 'currency' => 'EUR',
                 'value'    => number_format( $amount, 2, '.', '' ),
@@ -58,11 +58,16 @@ class FTB_Mollie_Service {
             /* translators: %s: donor full name */
             'description' => sprintf( __( 'Donatie van %s', 'ftb-donation-form' ), $donor_name ),
             'redirectUrl' => $redirect_url,
-            'webhookUrl'  => $webhook_url,
             'metadata'    => [
                 'donation_id' => $donation_id,
             ],
-        ] );
+        ];
+
+        if ( ! empty( $webhook_url ) ) {
+            $params['webhookUrl'] = $webhook_url;
+        }
+
+        return $this->mollie->payments->create( $params );
     }
 
     /**

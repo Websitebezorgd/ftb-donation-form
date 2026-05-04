@@ -144,9 +144,20 @@ class FTB_Donation_Form_Public {
         $post_payment_message    = get_option( 'ftb_post_payment_message', '' ) ?: __( 'Hartelijk dank voor je donatie!', 'ftb-donation-form' );
         $post_payment_redirect   = get_option( 'ftb_post_payment_redirect_url', '' );
 
-        // Return from Mollie checkout — show the configured thank-you message.
+        // Return from Mollie checkout — verify the one-time token before showing the thank-you.
         if ( isset( $_GET['ftb_return'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-            $success = true;
+            // phpcs:disable WordPress.Security.NonceVerification.Recommended
+            $return_id    = isset( $_GET['ftb_did'] ) ? absint( $_GET['ftb_did'] ) : 0;
+            $return_token = isset( $_GET['ftb_token'] ) ? sanitize_text_field( wp_unslash( $_GET['ftb_token'] ) ) : '';
+            // phpcs:enable
+            $stored_token = $return_id ? get_transient( 'ftb_return_' . $return_id ) : false;
+
+            if ( $return_id && $return_token && $stored_token && hash_equals( (string) $stored_token, $return_token ) ) {
+                delete_transient( 'ftb_return_' . $return_id );
+                $success = true;
+            }
+            // Invalid or missing token: $success stays false and the form renders normally.
+
             ob_start();
             include 'partials/ftb-donation-form-public-display.php';
             return ob_get_clean();
@@ -240,10 +251,19 @@ class FTB_Donation_Form_Public {
 
                 // After a successful payment Mollie sends the donor back here.
                 // For the 'redirect' behavior we send them straight to the configured URL.
-                // For the 'message' behavior we add ?ftb_return=1 so the shortcode shows the thank-you.
-                $return_url = ( 'redirect' === $post_payment_behavior && ! empty( $post_payment_redirect ) )
-                    ? $post_payment_redirect
-                    : add_query_arg( 'ftb_return', '1', get_permalink() );
+                // For the 'message' behavior we generate a one-time token so the shortcode
+                // can verify this is a genuine return from Mollie, not a bookmarked URL.
+                if ( 'redirect' === $post_payment_behavior && ! empty( $post_payment_redirect ) ) {
+                    $return_url = $post_payment_redirect;
+                } else {
+                    $return_token = wp_generate_password( 32, false );
+                    set_transient( 'ftb_return_' . $donation_id, $return_token, HOUR_IN_SECONDS );
+                    $return_url = add_query_arg( [
+                        'ftb_return' => '1',
+                        'ftb_did'    => $donation_id,
+                        'ftb_token'  => $return_token,
+                    ], get_permalink() );
+                }
 
                 try {
                     $service     = new FTB_Mollie_Service();

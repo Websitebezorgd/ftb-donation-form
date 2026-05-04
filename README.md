@@ -279,7 +279,6 @@ Outstanding before submitting: `readme.txt`, `LICENSE` file, and a cleanly bundl
 `aria-invalid` is now set dynamically on radio inputs when errors appear or clear. Full Narrator testing with the updated behaviour is still outstanding.
 - [ ] Retest frequency and amount radio groups with Windows Narrator after the aria-invalid fix (phase 9)
 
-
 ---
 
 ## Notes

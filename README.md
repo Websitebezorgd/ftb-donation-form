@@ -44,7 +44,7 @@ This plugin is built from scratch to maintain full overview and control. Each ph
 
 Phases 1–5, 7, 8, and 10 are complete. The form collects and stores donations, all admin settings are configurable, submitted donations appear in the WordPress dashboard with search, filters, bulk delete, and CSV export, and the plugin is fully translation-ready with an English translation included.
 
-A full code audit (accessibility, security, bugs, inconsistencies) has been completed and all identified issues resolved. See the open questions section for known remaining topics.
+A full code audit (accessibility, security, bugs) has been completed. All high and medium severity issues have been resolved. Two known lower-priority bugs remain — see the open questions section.
 
 **Next up:** Mollie payment integration — creating payments and handling webhook callbacks to update payment status.
 
@@ -91,6 +91,8 @@ A full code audit (accessibility, security, bugs, inconsistencies) has been comp
 - Submitted amount validated against admin-configured preset values
 - Frequency validated against recurring setting (only `one_time` accepted when recurring is disabled)
 - `post_payment_behavior` validated against allowed values (`message` / `redirect`)
+- All user-submitted text fields capped with `mb_substr()` to match database `varchar` column lengths
+- Thank-you message sanitised as plain text (`sanitize_textarea_field`) — consistent with `esc_html()` output
 
 ---
 
@@ -125,8 +127,11 @@ ftb-donation-form/
 └── languages/
     ├── ftb-donation-form.pot
     ├── ftb-donation-form-en_US.po
-    └── ftb-donation-form-en_US.mo    
+    ├── ftb-donation-form-en_US.mo
+    └── ftb-donation-form-en_US.l10n.php
 ```
+
+> `.distignore` in the plugin root lists files excluded from the WordPress.org distribution zip (dotfiles, `Static/`, `index.html`, `README.md`). Use `wp dist-archive .` to build a clean zip.
 
 ---
 
@@ -152,8 +157,10 @@ Accessibility is a core requirement, not an afterthought:
 - Full keyboard support and visible focus indicators
 - Screen reader support (tested with NVDA and Windows Narrator)
 - Error summary with focus management on validation failure
-- `aria-invalid` on both text inputs and radio groups, updated dynamically by JS
+- `aria-invalid` on radio groups, text inputs, and checkboxes — set on validation error, cleared when the user corrects the field
 - `aria-required`, `aria-current` throughout
+- Custom amount container uses `hidden` attribute (not CSS-only) so screen readers cannot reach a hidden input
+- Admin conditional fields use `hidden` attribute when not visible — inputs inside are inaccessible to screen readers when hidden
 - Step 2 intro paragraph receives focus on navigation so screen readers hear the context before the fields
 - Labels are plain text only; no links or interactive elements embedded in label text (NL Design System)
 - WCAG 2.2 guidelines
@@ -171,9 +178,10 @@ All PHP strings are wrapped in `__()` / `esc_html_e()` / `esc_attr_e()` with the
 
 **Files per language** (in `/languages`):
 ```
-ftb-donation-form.pot        ← template, regenerated with WP-CLI after code changes
-ftb-donation-form-en_US.po   ← human-editable, translated in Poedit
-ftb-donation-form-en_US.mo   ← compiled binary that WordPress reads
+ftb-donation-form.pot             ← template, regenerated with WP-CLI after code changes
+ftb-donation-form-en_US.po        ← human-editable, translated in Poedit
+ftb-donation-form-en_US.mo        ← compiled binary that WordPress reads
+ftb-donation-form-en_US.l10n.php  ← PHP cache used by WordPress 6.5+ for faster loading
 ```
 
 **Adding a new language:**
@@ -183,12 +191,19 @@ ftb-donation-form-en_US.mo   ← compiled binary that WordPress reads
 
 **Updating the `.pot` after code changes:**
 
-Run from the plugin root (uses Local's PHP binary):
+Run from the plugin root in Local's site shell:
 ```
-"C:\Users\rosit\AppData\Roaming\Local\lightning-services\php-8.2.29+0\bin\win64\php.exe" -c "...php.ini-production" -d "extension_dir=...ext" -d "extension=mbstring" C:\tmp\wp-cli.phar i18n make-pot . languages/ftb-donation-form.pot --domain=ftb-donation-form --exclude=Static,index.html --allow-root
+wp i18n make-pot . languages/ftb-donation-form.pot --domain=ftb-donation-form --exclude=vendor
 ```
 
 Then in Poedit: **Catalogue → Update from POT file** to pick up new strings, save to recompile the `.mo`.
+
+After saving in Poedit, recompile the `.l10n.php`:
+```
+wp i18n make-mo languages/ftb-donation-form-en_US.po
+wp i18n make-php languages/ftb-donation-form-en_US.po languages/
+```
+Then manually add `if ( ! defined( 'ABSPATH' ) ) exit;` on line 2 of the regenerated `.l10n.php`.
 
 ---
 
@@ -248,6 +263,14 @@ Currently the form always shows three fixed amount buttons.
 ### Accessibility — Narrator + radio buttons
 `aria-invalid` is now set dynamically on radio inputs when errors appear or clear. Full Narrator testing with the updated behaviour is still outstanding.
 - [ ] Retest frequency and amount radio groups with Windows Narrator after the aria-invalid fix (phase 9)
+
+### Known bugs — currency handling
+Two related issues with how amounts are processed that are lower priority but worth fixing before going to production:
+
+- **Float precision** — amounts are stored and compared as PHP floats. Floating point arithmetic is unreliable for money (e.g. `0.1 + 0.2 !== 0.3`). The correct approach is to store amounts as integers in cents and only format for display.
+- **Decimal input** — the server-side handler replaces `,` with `.` to handle European decimal notation, but `<input type="number">` always submits a dot regardless of locale. The comma replacement is harmless but the assumption is fragile if the input type ever changes.
+
+Both require a database schema change (`amount int` instead of `decimal/float`) and updates to the sanitizer, validator, and display formatting.
 
 ---
 

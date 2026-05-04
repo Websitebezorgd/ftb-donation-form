@@ -46,8 +46,8 @@ $old = static function ($key, $default = '') use ($old_values) {
         ?>
 
         <ol class="ftb-donation-form__steps">
-            <li data-step="1" class="<?php echo $start_on_step === 1 ? 'is-active' : ''; ?>" <?php echo $start_on_step === 1 ? 'aria-current="step"' : ''; ?>><?php esc_html_e('Jouw donatie', 'ftb-donation-form'); ?></li>
-            <li data-step="2" class="<?php echo $start_on_step === 2 ? 'is-active' : ''; ?>" <?php echo $start_on_step === 2 ? 'aria-current="step"' : ''; ?>><?php esc_html_e('Jouw gegevens', 'ftb-donation-form'); ?></li>
+            <li id="ftb-step-label-1" data-step="1" class="<?php echo $start_on_step === 1 ? 'is-active' : ''; ?>" <?php echo $start_on_step === 1 ? 'aria-current="step"' : ''; ?>><?php esc_html_e('Jouw donatie', 'ftb-donation-form'); ?></li>
+            <li id="ftb-step-label-2" data-step="2" class="<?php echo $start_on_step === 2 ? 'is-active' : ''; ?>" <?php echo $start_on_step === 2 ? 'aria-current="step"' : ''; ?>><?php esc_html_e('Jouw gegevens', 'ftb-donation-form'); ?></li>
         </ol>
 
         <div class="ftb-donation-form__error-summary" id="ftb-error-summary" role="alert" tabindex="-1" <?php echo empty($errors) ? 'hidden' : ''; ?>>
@@ -70,8 +70,8 @@ $old = static function ($key, $default = '') use ($old_values) {
             aria-label="<?php esc_attr_e('Donatieformulier', 'ftb-donation-form'); ?>">
             <?php wp_nonce_field('ftb_donation_submit', 'ftb_donation_nonce'); ?>
 
-            <div id="ftb-step-1" class="ftb-donation-form__step is-active" data-step="1">
-                <p class="ftb-donation-form__step-intro"><?php esc_html_e('Als iets verplicht is, staat dat erbij.', 'ftb-donation-form'); ?></p>
+            <div id="ftb-step-1" class="ftb-donation-form__step is-active" data-step="1" role="group" aria-label="<?php esc_attr_e('Stap 1 van 2: Jouw donatie, huidige stap', 'ftb-donation-form'); ?>">
+                <p class="ftb-donation-form__step-intro" tabindex="-1"><?php esc_html_e('Als iets verplicht is, staat dat erbij.', 'ftb-donation-form'); ?></p>
                 <?php if ( $enable_recurring ) : ?>
                 <!-- ── Frequentie ─────────────────────────────────────────── -->
                 <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-describedby="ftb-frequency-error">
@@ -104,8 +104,8 @@ $old = static function ($key, $default = '') use ($old_values) {
                 <?php endif; ?>
 
                 <!-- ── Bedrag ─────────────────────────────────────────────── -->
-                <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio" aria-describedby="ftb-amount-error">
-                    <legend class="ftb-donation-form__legend"><?php esc_html_e('Bedrag (verplicht)', 'ftb-donation-form'); ?></legend>
+                <fieldset class="ftb-donation-form__fieldset ftb-donation-form__fieldset--radio<?php echo ! $show_presets ? ' ftb-donation-form__fieldset--custom-only' : ''; ?>" aria-describedby="ftb-amount-error">
+                    <legend class="ftb-donation-form__legend"><?php echo $enable_recurring ? esc_html__('Bedrag (verplicht)', 'ftb-donation-form') : esc_html__('Eenmalig bedrag (verplicht)', 'ftb-donation-form'); ?></legend>
 
                     <?php if ($show_presets || $allow_custom) : ?>
                     <div class="ftb-donation-form__radio-group ftb-donation-form__radio-group--amounts">
@@ -141,7 +141,8 @@ $old = static function ($key, $default = '') use ($old_values) {
                         <div class="ftb-donation-form__custom-amount<?php echo ( ! $custom_always_visible && $old('amount') !== 'custom' ) ? ' ftb-donation-form__custom-amount--hidden' : ''; ?>"
                             id="ftb-custom-amount-wrapper"
                             role="group"
-                            aria-label="<?php esc_attr_e('Eigen bedrag', 'ftb-donation-form'); ?>">
+                            aria-label="<?php esc_attr_e('Eigen bedrag', 'ftb-donation-form'); ?>"
+                            <?php echo ( ! $custom_always_visible && $old('amount') !== 'custom' ) ? 'hidden' : ''; ?>>
                             <label class="ftb-donation-form__label" for="ftb-custom-amount">
                                 <?php
                                 /* translators: %s: minimum amount, e.g. "1" */
@@ -172,7 +173,7 @@ $old = static function ($key, $default = '') use ($old_values) {
                 </div>
             </div>
 
-            <div id="ftb-step-2" class="ftb-donation-form__step" data-step="2" hidden>
+            <div id="ftb-step-2" class="ftb-donation-form__step" data-step="2" role="group" aria-label="<?php esc_attr_e('Stap 2 van 2: Jouw gegevens, huidige stap', 'ftb-donation-form'); ?>" hidden>
 
                 <p class="ftb-donation-form__step-intro" tabindex="-1"><?php esc_html_e('Als iets verplicht is, staat dat erbij.', 'ftb-donation-form'); ?></p>
 
@@ -312,7 +313,7 @@ $old = static function ($key, $default = '') use ($old_values) {
 
                 <div class="ftb-donation-form__field ftb-donation-form__field--buttons">
                     <button type="button" class="ftb-donation-form__button ftb-donation-form__button--previous" id="ftb-previous-button"><?php esc_html_e('Vorige', 'ftb-donation-form'); ?></button>
-                    <button class="ftb-donation-form__button ftb-donation-form__button--submit" type="submit"><?php esc_html_e( 'Doneer nu', 'ftb-donation-form' ); ?></button>
+                    <button class="ftb-donation-form__button ftb-donation-form__button--submit" type="submit"><?php echo $enable_recurring ? esc_html__( 'Doneer nu', 'ftb-donation-form' ) : esc_html__( 'Doneer nu eenmalig', 'ftb-donation-form' ); ?></button>
                 </div>
             </div>
         </form>

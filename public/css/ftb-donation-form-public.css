@@ -297,6 +297,10 @@
   margin-bottom: var(--space-3);
 }
 
+.ftb-donation-form__fieldset--custom-only legend {
+  margin-bottom: 0;
+}
+
 .ftb-donation-form__radio-label {
   display: inline-flex;
   align-items: center;

@@ -94,16 +94,16 @@ class FTB_Donation_Form_Public {
 
             // Sanitize all inputs
             // phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotValidated
-            $frequency     = sanitize_text_field( wp_unslash( $_POST['ftb_frequency'] ?? '' ) );
+            $frequency     = mb_substr( sanitize_text_field( wp_unslash( $_POST['ftb_frequency'] ?? '' ) ), 0, 20 );
             $amount_raw    = sanitize_text_field( wp_unslash( $_POST['ftb_amount'] ?? '' ) );
             $custom_amount = sanitize_text_field( wp_unslash( $_POST['ftb_custom_amount'] ?? '' ) );
-            $name          = sanitize_text_field( wp_unslash( $_POST['ftb_name'] ?? '' ) );
-            $email         = sanitize_email( wp_unslash( $_POST['ftb_email'] ?? '' ) );
-            $phone         = sanitize_text_field( wp_unslash( $_POST['ftb_phone'] ?? '' ) );
-            $street        = sanitize_text_field( wp_unslash( $_POST['ftb_street'] ?? '' ) );
-            $house_number  = sanitize_text_field( wp_unslash( $_POST['ftb_house_number'] ?? '' ) );
-            $postal_code   = sanitize_text_field( wp_unslash( $_POST['ftb_postal_code'] ?? '' ) );
-            $city          = sanitize_text_field( wp_unslash( $_POST['ftb_city'] ?? '' ) );
+            $name          = mb_substr( sanitize_text_field( wp_unslash( $_POST['ftb_name'] ?? '' ) ), 0, 100 );
+            $email         = mb_substr( sanitize_email( wp_unslash( $_POST['ftb_email'] ?? '' ) ), 0, 100 );
+            $phone         = mb_substr( sanitize_text_field( wp_unslash( $_POST['ftb_phone'] ?? '' ) ), 0, 30 );
+            $street        = mb_substr( sanitize_text_field( wp_unslash( $_POST['ftb_street'] ?? '' ) ), 0, 100 );
+            $house_number  = mb_substr( sanitize_text_field( wp_unslash( $_POST['ftb_house_number'] ?? '' ) ), 0, 20 );
+            $postal_code   = mb_substr( sanitize_text_field( wp_unslash( $_POST['ftb_postal_code'] ?? '' ) ), 0, 20 );
+            $city          = mb_substr( sanitize_text_field( wp_unslash( $_POST['ftb_city'] ?? '' ) ), 0, 100 );
             $gdpr          = isset( $_POST['ftb_gdpr'] ) ? '1' : '0';
             // phpcs:enable
 

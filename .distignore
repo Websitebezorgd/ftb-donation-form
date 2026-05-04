@@ -1,0 +1,8 @@
+.git
+.gitignore
+.nojekyll
+.distignore
+Static/
+index.html
+README.md
+mollie-integration.txt

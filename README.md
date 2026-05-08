@@ -46,11 +46,13 @@ This plugin is built from scratch to maintain full overview and control. Each ph
 
 Phases 1–5, 7, 8, and 10 are complete. Phase 6 (Mollie) is in progress.
 
-The one-time payment flow is fully built and tested locally: the form redirects donors to Mollie's checkout page, and the thank-you message or redirect is shown on return. The webhook endpoint is built and secured but requires a live HTTPS server for full end-to-end testing — Mollie cannot reach a local development environment. Recurring payments (monthly/yearly) are not yet built.
+The one-time payment flow is fully built and tested locally: the form redirects donors to Mollie's checkout page, and the thank-you message or redirect is shown on return. The webhook endpoint is built and secured but requires a live HTTPS server for full end-to-end testing — Mollie cannot reach a local development environment.
+
+Recurring payment support is now built: for monthly/yearly donations the plugin creates a Mollie customer and first payment (which establishes the SEPA mandate). The webhook then creates a Mollie Subscription after the first payment is confirmed paid — Mollie handles subsequent charges automatically and fires the webhook for each one. End-to-end testing of the recurring flow requires a live server with HTTPS and SEPA Direct Debit enabled in the Mollie dashboard.
 
 The dashboard now includes individual row delete and a payment status edit page per donation. A full code audit (accessibility, security, bugs) has been completed. All high and medium severity issues have been resolved. Known lower-priority issues remain — see the open questions section.
 
-**Next up:** Test the webhook flow on a staging server with HTTPS, then build recurring payment support.
+**Next up:** Test the full payment flow (one-time + recurring) on a staging server with HTTPS.
 
 ---
 
@@ -249,8 +251,8 @@ A phase is only complete when:
 5. **API key validation** — the key is tested against Mollie when saved in admin settings
 
 ### Still to do
-6. **Webhook end-to-end test** — requires a live server with HTTPS; Mollie cannot call a local development URL
-7. **Recurring payments** — monthly/yearly donations use Mollie Subscriptions (SEPA Direct Debit); the first payment creates a mandate, subsequent charges happen automatically via the API
+6. **End-to-end test** — requires a live server with HTTPS; Mollie cannot call a local development URL. Covers both one-time and recurring flows.
+7. **Recurring payments** — ✅ Built. Mollie customer created on form submit; first payment uses `sequenceType: first` to establish the SEPA mandate; webhook creates the subscription after the first payment is paid; subsequent subscription charges are matched via `subscriptionId`.
 
 ### Requirements before going live
 - SSL certificate on the hosting (HTTPS required for Mollie webhooks)
@@ -277,9 +279,9 @@ Outstanding before submitting: `readme.txt`, `LICENSE` file, and a cleanly bundl
 
 ## Open questions
 
-### Mollie — recurring payments
-Monthly/yearly donations use Mollie Subscriptions (SEPA Direct Debit). Not yet built.
-- [ ] Build recurring payment flow (requires live Mollie login + SEPA enabled in Mollie dashboard)
+### Mollie — recurring payments end-to-end test
+The recurring payment flow is built but untested end-to-end — requires a live server with HTTPS and SEPA Direct Debit enabled in Mollie.
+- [ ] Test recurring flow on staging: confirm mandate creation, subscription creation, and subsequent charge webhook handling
 
 ### Phase 11 — Email notifications
 Two separate emails, both toggleable in admin settings:

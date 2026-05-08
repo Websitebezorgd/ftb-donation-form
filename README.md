@@ -277,10 +277,6 @@ Outstanding before submitting: `readme.txt`, `LICENSE` file, and a cleanly bundl
 
 ## Open questions
 
-### Bug — recurring payments toggle: SEPA notice not responding
-The SEPA Direct Debit notice in admin settings is rendered by PHP on page load and does not react to the JS toggle. Needs to be wired into the existing `.ftb-conditional` system.
-- [ ] Fix SEPA notice visibility to respond to the recurring payments toggle
-
 ### Mollie — recurring payments
 Monthly/yearly donations use Mollie Subscriptions (SEPA Direct Debit). Not yet built.
 - [ ] Build recurring payment flow (requires live Mollie login + SEPA enabled in Mollie dashboard)

@@ -97,7 +97,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <div class="ftb-conditional<?php echo '1' === $recurring ? ' is-visible' : ''; ?>" data-show-when="ftb_enable_recurring=1">
                             <div class="ftb-notice ftb-notice--info" role="note">
                                 <span class="dashicons dashicons-info" aria-hidden="true"></span>
-                                <?php esc_html_e( 'Zorg dat SEPA-incasso is ingeschakeld in je Mollie-dashboard onder Betaalmethoden.', 'ftb-donation-form' ); ?>
+                                <?php esc_html_e( 'Activeer SEPA-incasso in je Mollie-dashboard: klik linksboven op je organisatienaam → Instellingen → Online betalingen → SEPA-incasso.', 'ftb-donation-form' ); ?>
                             </div>
                         </div>
                     </div>

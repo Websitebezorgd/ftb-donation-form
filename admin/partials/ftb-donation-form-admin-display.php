@@ -206,6 +206,62 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 <?php esc_html_e( 'Je verzamelt persoonsgegevens. Voeg een link naar je privacyverklaring toe om aan de AVG te voldoen.', 'ftb-donation-form' ); ?>
                             </div>
                         </div>
+                        <?php
+                        // Build suggested privacy text based on enabled fields.
+                        $prv_fields  = get_option( 'ftb_form_fields', [] );
+                        $prv_items = [ __( 'naam', 'ftb-donation-form' ), __( 'e-mailadres', 'ftb-donation-form' ) ];
+                        if ( ! empty( $prv_fields['phone'] ) ) {
+                            $prv_items[] = __( 'telefoonnummer', 'ftb-donation-form' );
+                        }
+                        foreach ( [ 'street', 'house_number', 'postal_code', 'city' ] as $f ) {
+                            if ( ! empty( $prv_fields[ $f ] ) ) {
+                                $prv_items[] = __( 'adresgegevens', 'ftb-donation-form' );
+                                break;
+                            }
+                        }
+                        $prv_items[] = __( 'donatiebedrag', 'ftb-donation-form' );
+                        $prv_items[] = __( 'frequentie (eenmalig, maandelijks of jaarlijks)', 'ftb-donation-form' );
+                        $prv_items[] = __( 'datum van de donatie', 'ftb-donation-form' );
+                        $prv_items[] = __( 'betalingsstatus', 'ftb-donation-form' );
+                        $prv_sender    = get_option( 'ftb_email_sender_address', '' );
+                        $prv_heading   = __( 'Donatieformulier', 'ftb-donation-form' );
+                        $prv_intro     = __( 'Via het donatieformulier op onze website verwerken wij persoonsgegevens om donaties te kunnen ontvangen en administreren. De volgende gegevens worden verzameld:', 'ftb-donation-form' );
+                        $prv_mollie    = __( 'Betalingen worden verwerkt via Mollie Payments B.V. Wij delen jouw gegevens uitsluitend met Mollie voor zover dat noodzakelijk is voor de uitvoering van de betaling. Wij verkopen jouw gegevens niet aan derden en delen deze niet voor andere doeleinden, tenzij wij daartoe wettelijk verplicht zijn.', 'ftb-donation-form' );
+                        $prv_grondslag = __( 'Wij verwerken jouw gegevens om de donatie te kunnen uitvoeren en bij te houden. De juridische basis hiervoor is de uitvoering van de overeenkomst en ons gerechtvaardigd belang.', 'ftb-donation-form' );
+                        if ( $prv_sender ) {
+                            /* translators: %s: e-mail address */
+                            $prv_rights = sprintf( __( 'Jouw gegevens worden niet langer bewaard dan noodzakelijk is voor de doeleinden waarvoor ze zijn verzameld, of zolang de wet dit vereist. Op grond van de AVG heb je het recht op inzage, correctie, verwijdering, beperking van de verwerking en overdraagbaarheid van jouw gegevens. Voor vragen of verzoeken kun je contact met ons opnemen via %s.', 'ftb-donation-form' ), $prv_sender );
+                        } else {
+                            $prv_rights = __( 'Jouw gegevens worden niet langer bewaard dan noodzakelijk is voor de doeleinden waarvoor ze zijn verzameld, of zolang de wet dit vereist. Op grond van de AVG heb je het recht op inzage, correctie, verwijdering, beperking van de verwerking en overdraagbaarheid van jouw gegevens.', 'ftb-donation-form' );
+                        }
+                        $prv_copy = $prv_heading . "\n\n"
+                            . $prv_intro . "\n"
+                            . implode( "\n", array_map( fn( $i ) => '- ' . $i, $prv_items ) ) . "\n\n"
+                            . $prv_mollie . "\n\n"
+                            . $prv_grondslag . "\n\n"
+                            . $prv_rights;
+                        ?>
+                        <div id="ftb-privacy-suggestion" class="ftb-admin__suggestion" <?php echo get_option( 'ftb_privacy_url', '' ) ? '' : 'hidden'; ?>>
+                            <h2><?php esc_html_e( 'Tekst voor privacyverklaring', 'ftb-donation-form' ); ?></h2>
+                            <p class="description"><?php esc_html_e( 'Kopieer deze tekst naar je privacyverklaring:', 'ftb-donation-form' ); ?></p>
+                            <p><strong><?php echo esc_html( $prv_heading ); ?></strong></p>
+                            <p><?php echo esc_html( $prv_intro ); ?></p>
+                            <ul>
+                                <?php foreach ( $prv_items as $prv_item ) : ?>
+                                    <li><?php echo esc_html( $prv_item ); ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <p><?php echo esc_html( $prv_mollie ); ?></p>
+                            <p><?php echo esc_html( $prv_grondslag ); ?></p>
+                            <p><?php echo esc_html( $prv_rights ); ?></p>
+                            <textarea id="ftb-privacy-copy-text" style="display:none;" tabindex="-1" aria-hidden="true" readonly><?php echo esc_textarea( $prv_copy ); ?></textarea>
+                            <button
+                                type="button"
+                                id="ftb-copy-privacy-text"
+                                class="button button-small"
+                                data-label-copied="<?php esc_attr_e( 'Gekopieerd ✓', 'ftb-donation-form' ); ?>"
+                            ><?php esc_html_e( 'Kopiëren', 'ftb-donation-form' ); ?></button>
+                        </div>
                     </div>
                 </section>
 

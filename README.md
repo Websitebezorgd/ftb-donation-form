@@ -78,7 +78,7 @@ Recurring payments are also built: the plugin creates a Mollie customer and firs
 - **Frequentie:** enable/disable recurring payments — includes a reminder to activate SEPA Direct Debit in Mollie
 - **Bedragopties:** up to three fixed amounts + custom amount toggle + configurable minimum
 - **Formuliervelden:** optional field toggles (phone, address fields)
-- **Privacyverklaring:** privacy statement URL — includes an AVG/GDPR reminder when left empty
+- **Privacyverklaring:** privacy statement URL — includes an AVG/GDPR reminder when left empty; when a URL is entered, a ready-to-copy privacy statement text is shown (fields + Mollie + AVG rights, with sender email if configured)
 - **Na betaling:** show a thank-you message or redirect to a page
 - **E-mailnotificaties:** admin notification toggle + donor confirmation email with editable subject, body, and live preview
 
@@ -292,3 +292,6 @@ All webhook-dependent features require a live HTTPS server.
 
 ### Accessibility — Narrator + radio buttons
 - [ ] Retest frequency and amount radio groups with Windows Narrator after the `aria-invalid` fix
+
+### Plugin updates on client sites
+How to deliver updates to clients once the plugin is installed. Options to explore: WordPress.org repository, a private update server (e.g. WP Update Server), or a GitHub-based updater hook. To be decided.

@@ -52,6 +52,40 @@
         update();
     }
 
+    function initPrivacySuggestion() {
+        var $urlInput   = $( '#ftb_privacy_url' );
+        var $suggestion = $( '#ftb-privacy-suggestion' );
+        var $copyBtn    = $( '#ftb-copy-privacy-text' );
+
+        if ( ! $suggestion.length ) return;
+
+        function updateVisibility() {
+            $suggestion.prop( 'hidden', ! $urlInput.val().trim() );
+        }
+
+        $urlInput.on( 'input', updateVisibility );
+
+        $copyBtn.on( 'click', function () {
+            var label    = $copyBtn.data( 'labelCopied' );
+            var original = $copyBtn.text();
+            var text     = document.getElementById( 'ftb-privacy-copy-text' ).value;
+
+            function onSuccess() {
+                $copyBtn.text( label );
+                setTimeout( function () { $copyBtn.text( original ); }, 2000 );
+            }
+
+            if ( navigator.clipboard && navigator.clipboard.writeText ) {
+                navigator.clipboard.writeText( text ).then( onSuccess );
+            } else {
+                var $temp = $( '<textarea>' ).val( text ).css( { position: 'fixed', top: 0, left: '-9999px' } ).appendTo( 'body' );
+                $temp[0].select();
+                try { document.execCommand( 'copy' ); onSuccess(); } catch ( e ) {}
+                $temp.remove();
+            }
+        } );
+    }
+
     $(document).ready(function () {
         // Run on page load to reflect saved value
         updateConditionalFields();
@@ -62,6 +96,9 @@
 
         // Email preview — live update as you type
         initEmailPreview( 'ftb_email_donor_subject', 'ftb_email_donor_body', 'ftb_donor_preview_subject', 'ftb_donor_preview_body' );
+
+        // Privacy suggestion — show when URL is filled in
+        initPrivacySuggestion();
     });
 
 }(jQuery));

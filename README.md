@@ -37,6 +37,8 @@ This plugin is built from scratch to maintain full overview and control. Each ph
 | 8 | Translations | i18n + `.pot` file + WPML / TranslatePress compatibility | ✅ Done |
 | 9 | Testing | Accessibility + validation (throughout all phases) | 🔄 Ongoing |
 | 10 | Security | Nonces, sanitization, escaping, capability checks | ✅ Done |
+| 11 | Email notifications | Donor confirmation email + admin notification on new donation, both toggleable | ⏳ Planned |
+| 12 | Branding | Subtle For The Better brand touches in the admin dashboard | ⏳ Planned |
 
 ---
 
@@ -274,6 +276,25 @@ Outstanding before submitting: `readme.txt`, `LICENSE` file, and a cleanly bundl
 ---
 
 ## Open questions
+
+### Bug — recurring payments toggle: SEPA notice not responding
+The SEPA Direct Debit notice in admin settings is rendered by PHP on page load and does not react to the JS toggle. Needs to be wired into the existing `.ftb-conditional` system.
+- [ ] Fix SEPA notice visibility to respond to the recurring payments toggle
+
+### Mollie — recurring payments
+Monthly/yearly donations use Mollie Subscriptions (SEPA Direct Debit). Not yet built.
+- [ ] Build recurring payment flow (requires live Mollie login + SEPA enabled in Mollie dashboard)
+
+### Phase 11 — Email notifications
+Two separate emails, both toggleable in admin settings:
+- **Donor confirmation** — sent to the donor after a successful payment; contains name, amount, frequency, and date
+- **Admin notification** — sent to a configurable address when a new donation comes in
+- Sender address is configurable in admin settings
+- [ ] Build email notification settings + sending logic (triggered by webhook `paid` status)
+
+### Phase 12 — Branding
+Subtle For The Better brand touches in the WordPress admin dashboard — keeping the WordPress look and feel but making the plugin feel like a For The Better product.
+- [ ] Design and implement branding approach
 
 ### Accessibility — Narrator + radio buttons
 `aria-invalid` is now set dynamically on radio inputs when errors appear or clear. Full Narrator testing with the updated behaviour is still outstanding.

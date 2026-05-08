@@ -211,12 +211,12 @@ if ( ! defined( 'ABSPATH' ) ) {
                     </p>
                     <div class="ftb-admin-form__group">
                         <?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_privacy' ); ?>
-                        <?php if ( ! get_option( 'ftb_privacy_url', '' ) ) : ?>
-                        <div class="ftb-notice ftb-notice--error" role="note">
-                            <span class="dashicons dashicons-warning" aria-hidden="true"></span>
-                            <?php esc_html_e( 'Je verzamelt persoonsgegevens. Voeg een link naar je privacyverklaring toe om aan de AVG te voldoen.', 'ftb-donation-form' ); ?>
+                        <div class="ftb-conditional<?php echo ! get_option( 'ftb_privacy_url', '' ) ? ' is-visible' : ''; ?>" data-show-when="ftb_privacy_url=">
+                            <div class="ftb-notice ftb-notice--error" role="note">
+                                <span class="dashicons dashicons-warning" aria-hidden="true"></span>
+                                <?php esc_html_e( 'Je verzamelt persoonsgegevens. Voeg een link naar je privacyverklaring toe om aan de AVG te voldoen.', 'ftb-donation-form' ); ?>
+                            </div>
                         </div>
-                        <?php endif; ?>
                     </div>
                 </section>
 

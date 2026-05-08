@@ -34,8 +34,9 @@
         // Run on page load to reflect saved value
         updateConditionalFields();
 
-        // Re-run whenever any select or checkbox changes
+        // Re-run whenever any select, checkbox, or text/url input changes
         $('select, input[type="checkbox"]').on('change', updateConditionalFields);
+        $('input[type="text"], input[type="url"]').on('input', updateConditionalFields);
     });
 
 }(jQuery));

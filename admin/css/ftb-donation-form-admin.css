@@ -470,6 +470,34 @@ h1.ftb-admin__title {
     margin: var(--space-2) 0 var(--space-6);
 }
 
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media screen and (max-width: 782px) {
+    .ftb-admin-form__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ftb-admin__wrap input.regular-text,
+    .ftb-admin__wrap textarea.large-text {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .ftb-admin__logo {
+        height: 2rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .ftb-admin__logo {
+        display: none;
+    }
+
+    .ftb-amount-inputs {
+        flex-wrap: wrap;
+    }
+}
+
 /* ── Shortcode info box ───────────────────────────────────────────────────── */
 .ftb-admin__shortcode {
     background: var(--color-surface-info);

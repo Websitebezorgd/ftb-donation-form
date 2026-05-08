@@ -12,13 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="wrap ftb-admin__wrap">
 
-    <div class="ftb-admin__header">
-        <h1 class="ftb-admin__title">
-            <span class="dashicons dashicons-heart"></span>
-            <?php esc_html_e( 'Donatieformulier instellingen', 'ftb-donation-form' ); ?>
-        </h1>
-        <span class="ftb-admin__brand" aria-hidden="true">For The Better</span>
-    </div>
+    <?php
+    $page_title = __( 'Donatieformulier instellingen', 'ftb-donation-form' );
+    require __DIR__ . '/ftb-donation-form-admin-header.php';
+    ?>
 
     <?php settings_errors(); ?>
 

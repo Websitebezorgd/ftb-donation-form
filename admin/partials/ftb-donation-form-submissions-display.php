@@ -15,18 +15,11 @@ $list_table->prepare_items();
 ?>
 <div class="wrap ftb-admin__wrap ftb-admin__wrap--wide">
 
-    <div class="ftb-admin__header">
-        <h1 class="ftb-admin__title">
-            <span class="dashicons dashicons-heart"></span>
-            <?php esc_html_e( 'Donaties', 'ftb-donation-form' ); ?>
-        </h1>
-        <div class="ftb-admin__header-end">
-            <a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin.php?page=ftb-submissions&action=export_csv' ), 'ftb_export_csv' ) ); ?>" class="page-title-action">
-                <?php esc_html_e( 'Exporteer CSV', 'ftb-donation-form' ); ?>
-            </a>
-            <span class="ftb-admin__brand" aria-hidden="true">For The Better</span>
-        </div>
-    </div>
+    <?php
+    $page_title  = __( 'Donaties', 'ftb-donation-form' );
+    $page_action = '<a href="' . esc_url( wp_nonce_url( admin_url( 'admin.php?page=ftb-submissions&action=export_csv' ), 'ftb_export_csv' ) ) . '" class="page-title-action">' . esc_html__( 'Exporteer CSV', 'ftb-donation-form' ) . '</a>';
+    require __DIR__ . '/ftb-donation-form-admin-header.php';
+    ?>
     <hr class="wp-header-end">
 
     <?php

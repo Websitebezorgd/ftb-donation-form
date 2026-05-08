@@ -72,6 +72,12 @@
     margin-bottom: var(--space-6);
 }
 
+.ftb-admin__header-start {
+    display: flex;
+    align-items: end;
+    gap: var(--space-3);
+}
+
 h1.ftb-admin__title {
     display: flex;
     align-items: center;
@@ -86,21 +92,13 @@ h1.ftb-admin__title {
     height: var(--space-7);
 }
 
-.ftb-admin__brand {
-    font-size: var(--font-size-sm);
-    font-weight: 700;
-    color: var(--color-brand-blue);
-    letter-spacing: 0.02em;
+.ftb-admin__logo {
+    height: 3rem;
+    width: auto;
 }
 
 .ftb-admin__wrap--wide {
     max-width: none;
-}
-
-.ftb-admin__header-end {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
 }
 
 /* ── Sections ─────────────────────────────────────────────────────────────── */

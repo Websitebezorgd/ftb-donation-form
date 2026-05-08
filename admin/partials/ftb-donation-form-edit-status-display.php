@@ -33,9 +33,12 @@ $statuses = [
     'cancelled' => __( 'Geannuleerd', 'ftb-donation-form' ),
 ];
 ?>
-<div class="wrap">
+<div class="wrap ftb-admin__wrap">
 
-    <h1><?php esc_html_e( 'Status wijzigen', 'ftb-donation-form' ); ?></h1>
+    <?php
+    $page_title = __( 'Status wijzigen', 'ftb-donation-form' );
+    require __DIR__ . '/ftb-donation-form-admin-header.php';
+    ?>
 
     <p>
         <a href="<?php echo esc_url( admin_url( 'admin.php?page=ftb-submissions' ) ); ?>">

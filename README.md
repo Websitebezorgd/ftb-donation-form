@@ -38,13 +38,14 @@ This plugin is built from scratch to maintain full overview and control. Each ph
 | 9 | Testing | Accessibility + validation (throughout all phases) | 🔄 Ongoing |
 | 10 | Security | Nonces, sanitization, escaping, capability checks | ✅ Done |
 | 11 | Email notifications | Donor confirmation email + admin notification on new donation, both toggleable | ✅ Done |
-| 12 | Branding | Subtle For The Better brand touches in the admin dashboard | ⏳ Planned |
+| 12 | Branding | For The Better logo, favicon, and brand colours in the WordPress admin — shared header/footer partials across all admin pages | ✅ Done |
+| 13 | Polish | Admin mobile responsiveness, themeable frontend colour tokens, translation cleanup | ✅ Done |
 
 ---
 
 ## Current status
 
-Phases 1–5, 7, 8, and 10 are complete. Phase 6 (Mollie) is in progress.
+Phases 1–5, 7, 8, 10–13 are complete. Phase 6 (Mollie) is in progress.
 
 The one-time payment flow is fully built and tested locally: the form redirects donors to Mollie's checkout page, and the thank-you message or redirect is shown on return. The webhook endpoint is built and secured but requires a live HTTPS server for full end-to-end testing — Mollie cannot reach a local development environment.
 
@@ -52,7 +53,9 @@ Recurring payment support is now built: for monthly/yearly donations the plugin 
 
 The dashboard now includes individual row delete and a payment status edit page per donation. A full code audit (accessibility, security, bugs) has been completed. All high and medium severity issues have been resolved. Known lower-priority issues remain — see the open questions section.
 
-**Next up:** Test the full payment flow (one-time + recurring) and email notifications on the SiteGround test site.
+All three admin pages share the same header and footer partials. The admin is mobile responsive (two-column grid stacks at ≤ 782px). Frontend form colour tokens are theme-overridable via CSS custom properties on `.ftb-donation-form`.
+
+**Next up:** Test the full payment flow (one-time + recurring) and email notifications on the SiteGround test site. Retest accessibility (Narrator + radio groups).
 
 ---
 
@@ -82,6 +85,12 @@ The dashboard now includes individual row delete and a payment status edit page 
 - **Formuliervelden:** optional field toggles (phone, address fields)
 - **Privacyverklaring:** privacy statement URL — includes an AVG/GDPR reminder when left empty
 - **Na betaling:** show a thank-you message or redirect to a page
+- **E-mailnotificaties:** admin notification toggle + donor confirmation email with editable subject, body, and live preview
+
+### Admin UI
+- Shared header (logo + dashicon) and footer (For The Better credit) across all admin pages via PHP partials
+- Mobile responsive: two-column settings grid stacks to single column at ≤ 782px
+- CSV export button inline with the page title on the donations page
 
 ### Donation dashboard
 - All submitted donations listed with: name, email, phone, address, amount, frequency, status, date
@@ -136,7 +145,9 @@ ftb-donation-form/
 │   └── partials/
 │       ├── ftb-donation-form-admin-display.php
 │       ├── ftb-donation-form-submissions-display.php
-│       └── ftb-donation-form-edit-status-display.php
+│       ├── ftb-donation-form-edit-status-display.php
+│       ├── ftb-donation-form-admin-header.php  ← shared header partial
+│       └── ftb-donation-form-admin-footer.php  ← shared footer partial
 ├── public/
 │   ├── class-ftb-donation-form-public.php
 │   ├── css/ftb-donation-form-public.css
@@ -297,10 +308,6 @@ All webhook-dependent features require a live HTTPS server. Plan to test on the 
 - [ ] Empty body sends details block only (no blank intro line)
 
 > SiteGround uses PHP `mail()` by default. If emails don't arrive, configure SMTP via the SiteGround Email panel or install WP Mail SMTP.
-
-### Phase 12 — Branding
-Subtle For The Better brand touches in the WordPress admin dashboard — keeping the WordPress look and feel but making the plugin feel like a For The Better product.
-- [ ] Design and implement branding approach
 
 ### Accessibility — Narrator + radio buttons
 `aria-invalid` is now set dynamically on radio inputs when errors appear or clear. Full Narrator testing with the updated behaviour is still outstanding.

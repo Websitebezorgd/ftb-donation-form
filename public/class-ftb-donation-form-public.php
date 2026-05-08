@@ -100,20 +100,73 @@ class FTB_Donation_Form_Public {
             return new WP_REST_Response( null, 200 );
         }
 
-        $db       = new FTB_DB();
-        $donation = $db->get_donation_by_mollie_id( $mollie_id );
+        // Fetch the payment from Mollie before touching the DB — never trust raw POST data.
+        try {
+            $service = new FTB_Mollie_Service();
+            $payment = $service->get_payment( $mollie_id );
+        } catch ( \Mollie\Api\Exceptions\MollieException $e ) {
+            return new WP_REST_Response( null, 200 );
+        }
+
+        $db = new FTB_DB();
+
+        // For one-time payments the ID is stored directly. For subscription charges
+        // Mollie sends a new payment ID each time — match via the subscription ID instead.
+        $donation              = $db->get_donation_by_mollie_id( $mollie_id );
+        $is_subscription_charge = false;
+
+        if ( ! $donation && ! empty( $payment->subscriptionId ) ) {
+            $donation               = $db->get_donation_by_subscription_id( $payment->subscriptionId );
+            $is_subscription_charge = true;
+        }
 
         if ( ! $donation ) {
             return new WP_REST_Response( null, 200 );
         }
 
-        try {
-            $service = new FTB_Mollie_Service();
-            $payment = $service->get_payment( $mollie_id );
+        // Update status — by payment ID for one-time/first payments, by row ID for subscription charges.
+        if ( $is_subscription_charge ) {
+            $db->update_payment_status_by_id( (int) $donation->id, $payment->status );
+        } else {
             $db->update_payment_status( $mollie_id, $payment->status );
-        } catch ( \Mollie\Api\Exceptions\MollieException $e ) {
-            // Silently ignore — returning 200 stops Mollie from retrying.
-            // Donations with unresolved errors remain at 'pending' status in the dashboard.
+        }
+
+        // After the first payment of a recurring donation is paid, create the subscription.
+        // Mollie will then handle all future charges automatically.
+        if (
+            'paid' === $payment->status
+            && ! $is_subscription_charge
+            && ! empty( $donation->mollie_customer_id )
+            && empty( $donation->mollie_subscription_id )
+            && in_array( $donation->frequency, [ 'monthly', 'yearly' ], true )
+        ) {
+            $interval   = 'monthly' === $donation->frequency ? '1 month' : '1 year';
+            $start_date = ( new \DateTime() )->modify( 'monthly' === $donation->frequency ? '+1 month' : '+1 year' )->format( 'Y-m-d' );
+            $amount_eur = $donation->amount / 100;
+            /* translators: %s: donor full name */
+            $description = sprintf( __( 'Donatie van %s', 'ftb-donation-form' ), $donation->donor_name );
+
+            $sub_webhook_url  = rest_url( 'ftb/v1/webhook' );
+            $sub_webhook_host = (string) wp_parse_url( $sub_webhook_url, PHP_URL_HOST );
+            $is_local         = in_array( $sub_webhook_host, [ 'localhost', '127.0.0.1', '::1' ], true )
+                || substr( $sub_webhook_host, -6 ) === '.local';
+
+            try {
+                $subscription = $service->create_subscription(
+                    $donation->mollie_customer_id,
+                    $amount_eur,
+                    $interval,
+                    $start_date,
+                    $description,
+                    $is_local ? '' : $sub_webhook_url
+                );
+                $db->update_mollie_subscription_id( (int) $donation->id, $subscription->id );
+            } catch ( \Mollie\Api\Exceptions\MollieException $e ) {
+                if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                    // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+                    error_log( 'FTB Mollie subscription error: ' . $e->getMessage() );
+                }
+            }
         }
 
         return new WP_REST_Response( null, 200 );
@@ -280,12 +333,26 @@ class FTB_Donation_Form_Public {
                         $webhook_url = '';
                     }
 
+                    // For recurring donations, create a Mollie customer first so Mollie can
+                    // store the mandate and attach a subscription after the first payment.
+                    $sequence_type = 'oneoff';
+                    $customer_id   = '';
+
+                    if ( 'one_time' !== $frequency ) {
+                        $customer      = $service->create_customer( $name, $email );
+                        $customer_id   = $customer->id;
+                        $sequence_type = 'first';
+                        $db->update_mollie_customer_id( (int) $donation_id, $customer_id );
+                    }
+
                     $payment = $service->create_payment(
                         (int) $donation_id,
                         $amount,
                         $name,
                         $return_url,
-                        $webhook_url
+                        $webhook_url,
+                        $sequence_type,
+                        $customer_id
                     );
 
                     $db->update_mollie_payment_id( (int) $donation_id, $payment->id );

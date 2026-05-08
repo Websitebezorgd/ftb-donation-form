@@ -208,6 +208,68 @@ class FTB_DB {
     }
 
     /**
+     * Store the Mollie customer ID on a donation record.
+     *
+     * @param int    $id          Local donation row ID.
+     * @param string $customer_id Mollie customer ID (e.g. cst_xxxxx).
+     * @return bool
+     */
+    public function update_mollie_customer_id( int $id, string $customer_id ): bool {
+        global $wpdb;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        return (bool) $wpdb->update(
+            $this->table,
+            [ 'mollie_customer_id' => sanitize_text_field( $customer_id ) ],
+            [ 'id'                 => $id ],
+            [ '%s' ],
+            [ '%d' ]
+        );
+    }
+
+    /**
+     * Store the Mollie subscription ID on a donation record after the subscription is created.
+     *
+     * @param int    $id              Local donation row ID.
+     * @param string $subscription_id Mollie subscription ID (e.g. sub_xxxxx).
+     * @return bool
+     */
+    public function update_mollie_subscription_id( int $id, string $subscription_id ): bool {
+        global $wpdb;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        return (bool) $wpdb->update(
+            $this->table,
+            [ 'mollie_subscription_id' => sanitize_text_field( $subscription_id ) ],
+            [ 'id'                     => $id ],
+            [ '%s' ],
+            [ '%d' ]
+        );
+    }
+
+    /**
+     * Find a donation by its Mollie subscription ID.
+     *
+     * Used by the webhook to match recurring charge notifications back to the
+     * original donation record.
+     *
+     * @param string $subscription_id Mollie subscription ID (e.g. sub_xxxxx).
+     * @return object|null
+     */
+    public function get_donation_by_subscription_id( string $subscription_id ) {
+        global $wpdb;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        return $wpdb->get_row(
+            $wpdb->prepare(
+                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table name from $wpdb->prefix, not user input
+                "SELECT * FROM {$this->table} WHERE mollie_subscription_id = %s LIMIT 1",
+                $subscription_id
+            )
+        );
+    }
+
+    /**
      * Delete a donation by ID.
      *
      * @param int $id Row ID.

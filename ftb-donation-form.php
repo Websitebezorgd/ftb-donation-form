@@ -26,7 +26,7 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 
 // Define plugin constants
 define('FTB_DONATION_FORM_VERSION', '1.0.0');
-define('FTB_DONATION_FORM_DB_VERSION', '1.1');
+define('FTB_DONATION_FORM_DB_VERSION', '1.2');
 define('FTB_DONATION_FORM_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('FTB_DONATION_FORM_PLUGIN_URL', plugin_dir_url(__FILE__));
 
@@ -68,6 +68,8 @@ function ftb_donation_form_activate() {
         amount int NOT NULL DEFAULT 0,
         frequency varchar(20) NOT NULL DEFAULT 'one_time',
         mollie_payment_id varchar(100) NOT NULL DEFAULT '',
+        mollie_customer_id varchar(100) NOT NULL DEFAULT '',
+        mollie_subscription_id varchar(100) NOT NULL DEFAULT '',
         payment_status varchar(20) NOT NULL DEFAULT 'pending',
         created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
         updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -127,6 +129,22 @@ function ftb_donation_form_maybe_migrate_db() {
         $wpdb->query( "UPDATE {$table} SET amount = ROUND(amount * 100)" );
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.SchemaChange
         $wpdb->query( "ALTER TABLE {$table} MODIFY amount INT NOT NULL DEFAULT 0" );
+    }
+
+    // Migration 1.2: add mollie_customer_id and mollie_subscription_id columns.
+    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+    $has_customer_col = $wpdb->get_var( $wpdb->prepare(
+        'SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s AND COLUMN_NAME = %s',
+        DB_NAME,
+        $table,
+        'mollie_customer_id'
+    ) );
+
+    if ( ! $has_customer_col ) {
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.SchemaChange
+        $wpdb->query( "ALTER TABLE {$table} ADD COLUMN mollie_customer_id varchar(100) NOT NULL DEFAULT '' AFTER mollie_payment_id" );
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.SchemaChange
+        $wpdb->query( "ALTER TABLE {$table} ADD COLUMN mollie_subscription_id varchar(100) NOT NULL DEFAULT '' AFTER mollie_customer_id" );
     }
 
     update_option( 'ftb_db_version', FTB_DONATION_FORM_DB_VERSION );

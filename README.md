@@ -17,7 +17,7 @@ Build a professional donation plugin for WordPress with:
 
 ## Development approach
 
-This plugin is built from scratch to maintain full overview and control. Each phase is completed and tested before the next one starts.
+Built from scratch to maintain full overview and control. Each phase is completed and tested before the next one starts.
 
 ---
 
@@ -26,7 +26,7 @@ This plugin is built from scratch to maintain full overview and control. Each ph
 | # | Phase | Description | Status |
 |---|-------|-------------|--------|
 | 1 | Plugin base | Main plugin file, activation hook, DB table, shortcode | ✅ Done |
-| 2 | Static form | Accessible HTML/CSS/JS form + GitHub Pages demo | ✅ Done |
+| 2 | Static form | Accessible HTML/CSS/JS form | ✅ Done |
 | 3 | WordPress integration | Shortcode rendering + asset enqueue | ✅ Done |
 | 4 | Validation | Client-side (JS) + server-side (PHP) + nonces | ✅ Done |
 | 5 | Admin settings | API key, form options, fields, privacy, post-payment | ✅ Done |
@@ -45,13 +45,9 @@ This plugin is built from scratch to maintain full overview and control. Each ph
 
 Phases 1–5, 7, 8, 10–13 are complete. Phase 6 (Mollie) is in progress.
 
-The one-time payment flow is fully built and tested locally: the form redirects donors to Mollie's checkout page, and the thank-you message or redirect is shown on return. The webhook endpoint is built and secured but requires a live HTTPS server for full end-to-end testing — Mollie cannot reach a local development environment.
+The one-time payment flow is fully built and tested locally. The webhook endpoint is built and secured but requires a live HTTPS server for full end-to-end testing — Mollie cannot reach a local development environment.
 
-Recurring payment support is now built: for monthly/yearly donations the plugin creates a Mollie customer and first payment (which establishes the SEPA mandate). The webhook then creates a Mollie Subscription after the first payment is confirmed paid — Mollie handles subsequent charges automatically and fires the webhook for each one. End-to-end testing of the recurring flow requires a live server with HTTPS and SEPA Direct Debit enabled in the Mollie dashboard.
-
-The dashboard now includes individual row delete and a payment status edit page per donation. A full code audit (accessibility, security, bugs) has been completed. All high and medium severity issues have been resolved. Known lower-priority issues remain — see the open questions section.
-
-All three admin pages share the same header and footer partials. The admin is mobile responsive (two-column grid stacks at ≤ 782px). Frontend form colour tokens are theme-overridable via CSS custom properties on `.ftb-donation-form`.
+Recurring payments are also built: the plugin creates a Mollie customer and first payment to establish the SEPA mandate; the webhook then creates a subscription after the first payment is confirmed; Mollie handles subsequent charges automatically.
 
 **Next up:** Test the full payment flow (one-time + recurring) and email notifications on the SiteGround test site. Retest accessibility (Narrator + radio groups).
 
@@ -67,10 +63,11 @@ All three admin pages share the same header and footer partials. The admin is mo
 - GDPR consent checkbox with link to privacy statement
 - Client-side and server-side validation with accessible error summary
 - Full keyboard navigation, screen reader support, WCAG 2.2
+- Colour tokens overridable per site via CSS custom properties on `.ftb-donation-form`
 
 ### Mollie payments
 - One-time payment flow: form redirects donor to Mollie checkout, returns to thank-you or redirect page
-- Webhook endpoint at `/wp-json/ftb/v1/webhook` — Mollie calls this when payment status changes; updates `payment_status` in the database
+- Webhook endpoint at `/wp-json/ftb/v1/webhook` — Mollie calls this when payment status changes
 - API key validated against Mollie on save — shows an error notice if the key is invalid
 - Webhook URL omitted on local dev environments (Mollie requires HTTPS; local sites are HTTP)
 - REST namespace restricted to POST only — no data accessible via GET
@@ -114,12 +111,11 @@ All three admin pages share the same header and footer partials. The admin is mo
 - Frequency validated against recurring setting (only `one_time` accepted when recurring is disabled)
 - `post_payment_behavior` validated against allowed values (`message` / `redirect`)
 - All user-submitted text fields capped with `mb_substr()` to match database `varchar` column lengths
-- Thank-you message sanitised as plain text (`sanitize_textarea_field`) — consistent with `esc_html()` output
 - Mollie API key validated against Mollie on save via `methods->allActive()`
 - Webhook re-fetches payment from Mollie before updating status — never trusts raw POST body
 - Webhook checks donation exists in DB before making any Mollie API call
 - REST namespace `/ftb/v1` restricted to POST — any GET request returns 403
-- Webhook URL only passed to Mollie when HTTPS; omitted on `.local` / `localhost` to prevent Mollie rejecting the payment
+- Webhook URL only passed to Mollie when HTTPS; omitted on `.local` / `localhost`
 
 ---
 
@@ -128,7 +124,6 @@ All three admin pages share the same header and footer partials. The admin is mo
 ```
 ftb-donation-form/
 ├── ftb-donation-form.php          # Main plugin file, activation hook
-├── index.html                     # GitHub Pages demo
 ├── includes/
 │   ├── class-ftb-donation-form.php
 │   ├── class-ftb-donation-form-loader.php
@@ -140,12 +135,15 @@ ftb-donation-form/
 │   ├── class-ftb-donations-list-table.php
 │   ├── css/ftb-donation-form-admin.css
 │   ├── js/ftb-donation-form-admin.js
+│   ├── images/
+│   │   ├── for-the-better-logo.png
+│   │   └── for-the-better-favicon.png
 │   └── partials/
 │       ├── ftb-donation-form-admin-display.php
 │       ├── ftb-donation-form-submissions-display.php
 │       ├── ftb-donation-form-edit-status-display.php
-│       ├── ftb-donation-form-admin-header.php  ← shared header partial
-│       └── ftb-donation-form-admin-footer.php  ← shared footer partial
+│       ├── ftb-donation-form-admin-header.php
+│       └── ftb-donation-form-admin-footer.php
 ├── public/
 │   ├── class-ftb-donation-form-public.php
 │   ├── css/ftb-donation-form-public.css
@@ -159,7 +157,7 @@ ftb-donation-form/
     └── ftb-donation-form-en_US.l10n.php
 ```
 
-> `.distignore` in the plugin root lists files excluded from the WordPress.org distribution zip (dotfiles, `Static/`, `index.html`, `README.md`). Use `wp dist-archive .` to build a clean zip.
+> `.distignore` lists files excluded from the distribution zip (dotfiles, `README.md`). Use `wp dist-archive .` to build a clean zip.
 
 ---
 
@@ -185,54 +183,70 @@ Accessibility is a core requirement, not an afterthought:
 - Full keyboard support and visible focus indicators
 - Screen reader support (tested with NVDA and Windows Narrator)
 - Error summary with focus management on validation failure
-- `aria-invalid` on radio groups, text inputs, and checkboxes — set on validation error, cleared when the user corrects the field
+- `aria-invalid` on radio groups, text inputs, and checkboxes — set on validation error, cleared when corrected
 - `aria-required`, `aria-current` throughout
 - Custom amount container uses `hidden` attribute (not CSS-only) so screen readers cannot reach a hidden input
-- Admin conditional fields use `hidden` attribute when not visible — inputs inside are inaccessible to screen readers when hidden
+- Admin conditional fields use `hidden` attribute when not visible
 - Step 2 intro paragraph receives focus on navigation so screen readers hear the context before the fields
 - Labels are plain text only; no links or interactive elements embedded in label text (NL Design System)
 - WCAG 2.2 guidelines
 
 ---
 
-## Translations (phase 8)
+## Translations
 
-All PHP strings are wrapped in `__()` / `esc_html_e()` / `esc_attr_e()` with the text domain `ftb-donation-form`. JavaScript error messages are passed from PHP via `wp_localize_script` — no separate JS translation file needed.
+All PHP strings use `__()` / `esc_html_e()` / `esc_attr_e()` with the text domain `ftb-donation-form`. JavaScript error messages are passed from PHP via `wp_localize_script`.
 
 **How it works:**
-- Site locale `nl_NL` → no `.mo` file needed → Dutch strings render from code
-- Site locale `en_US` → WordPress loads `ftb-donation-form-en_US.mo` → English shown
-- With WPML or TranslatePress the locale switches automatically — no special handling needed
+- Site locale `nl_NL` → Dutch strings render from code, no translation file needed
+- Site locale `en_US` → WordPress loads `ftb-donation-form-en_US.l10n.php` (or `.mo` as fallback)
+- WPML / TranslatePress: locale switches automatically — no special handling needed
 
-**Files per language** (in `/languages`):
-```
-ftb-donation-form.pot             ← template, regenerated with WP-CLI after code changes
-ftb-donation-form-en_US.po        ← human-editable, translated in Poedit
-ftb-donation-form-en_US.mo        ← compiled binary that WordPress reads
-ftb-donation-form-en_US.l10n.php  ← PHP cache used by WordPress 6.5+ for faster loading
-```
+**Updating translations after code changes:**
 
-**Adding a new language:**
-1. Open Poedit → File → New from POT/PO file → select `languages/ftb-donation-form.pot`
-2. Choose the target language (e.g. `fr_FR`)
-3. Translate all strings and save — Poedit writes the `.po` and `.mo`
-
-**Updating translations after code changes — checklist:**
-
-1. Regenerate `.pot` (run from plugin root in Local's site shell):
+1. Regenerate `.pot` (run from plugin root):
 ```
 wp i18n make-pot . languages/ftb-donation-form.pot --domain=ftb-donation-form --exclude=vendor
 ```
 2. In Poedit: open `ftb-donation-form-en_US.po` → **Catalogue → Update from POT file** → translate new strings → Save
-3. Recompile `.mo` and `.l10n.php`:
-```
-wp i18n make-mo languages/ftb-donation-form-en_US.po
-wp i18n make-php languages/ftb-donation-form-en_US.po languages/
-```
-4. Add ABSPATH check on line 2 of the regenerated `.l10n.php`:
-```php
-if ( ! defined( 'ABSPATH' ) ) exit;
-```
+3. Remove obsolete strings: **Translation → Delete Obsolete Translations** → Save
+
+**Adding a new language:**
+1. Poedit → File → New from POT/PO file → select `languages/ftb-donation-form.pot`
+2. Choose the target language (e.g. `fr_FR`)
+3. Translate all strings and save — Poedit writes the `.po`, `.mo`, and `.l10n.php`
+
+---
+
+## Mollie integration
+
+### Built
+1. **Mollie PHP SDK** — installed via Composer (`mollie/mollie-api-php ^3.10`), autoloaded in `ftb-donation-form.php`
+2. **Create a payment** — on successful form submission, `FTB_Mollie_Service::create_payment()` calls Mollie and redirects the donor to the checkout page; the Mollie payment ID is stored in `wp_ftb_donations`
+3. **Webhook endpoint** — `POST /wp-json/ftb/v1/webhook`; Mollie calls this when status changes; the handler re-fetches the payment from Mollie and updates `payment_status` in the database
+4. **Return URL** — after payment, Mollie sends the donor back; the plugin shows the thank-you message or redirects based on `ftb_post_payment_behavior`
+5. **API key validation** — tested against Mollie on save
+6. **Recurring payments** — Mollie customer created on form submit; first payment uses `sequenceType: first` to establish the SEPA mandate; webhook creates the subscription after the first payment is paid; subsequent charges are matched via `subscriptionId`
+
+### Requirements before going live
+- SSL certificate on the hosting (HTTPS required for Mollie webhooks)
+- Live Mollie API key entered in settings with Test mode disabled
+- SEPA Direct Debit enabled in the Mollie dashboard (for recurring payments)
+
+---
+
+## WordPress plugin repository
+
+Requirements to get accepted on wordpress.org:
+
+1. **License** — `GPL-2.0-or-later` declared in the main plugin header and `LICENSE` file ✅
+2. **Readme.txt** — `readme.txt` in wordpress.org format with `Tested up to`, `Requires at least`, `Stable tag`, and a changelog ✅
+3. **No external calls without disclosure** — Mollie SDK bundled and documented
+4. **No minified JS without source** — source JS files are included
+5. **Translation-ready** — `.pot` file in `/languages`, all strings wrapped ✅
+6. **Sanitize / escape / nonce** — done ✅
+7. **Prefixed everything** — all functions, classes, and options use `ftb_` ✅
+8. **No bundled Composer autoloader with dev dependencies** — only production dependencies in the package
 
 ---
 
@@ -247,71 +261,22 @@ A phase is only complete when:
 
 ---
 
-## Mollie integration (phase 6)
-
-### Built
-1. **Mollie PHP SDK** — installed via Composer (`mollie/mollie-api-php ^3.10`), autoloaded in `ftb-donation-form.php`
-2. **Create a payment** — on successful form submission, `FTB_Mollie_Service::create_payment()` calls Mollie and redirects the donor to the checkout page; the Mollie payment ID is stored in `wp_ftb_donations`
-3. **Webhook endpoint** — `POST /wp-json/ftb/v1/webhook`; Mollie calls this when status changes; the handler re-fetches the payment from Mollie and updates `payment_status` in the database
-4. **Return URL** — after payment, Mollie sends the donor back; the plugin shows the thank-you message or redirects based on the admin setting (`ftb_post_payment_behavior`)
-5. **API key validation** — the key is tested against Mollie when saved in admin settings
-
-### Still to do
-6. **End-to-end test** — requires a live server with HTTPS; Mollie cannot call a local development URL. Covers both one-time and recurring flows.
-7. **Recurring payments** — ✅ Built. Mollie customer created on form submit; first payment uses `sequenceType: first` to establish the SEPA mandate; webhook creates the subscription after the first payment is paid; subsequent subscription charges are matched via `subscriptionId`.
-
-### Requirements before going live
-- SSL certificate on the hosting (HTTPS required for Mollie webhooks)
-- Live Mollie API key entered in settings with Test mode disabled
-
----
-
-## WordPress plugin repository
-
-Requirements to get accepted on wordpress.org:
-
-1. **License** — `GPL-2.0-or-later` declared in the main plugin header and a `LICENSE` file
-2. **Readme.txt** — a separate `readme.txt` in wordpress.org format (different from `README.md`), with `Tested up to`, `Requires at least`, `Stable tag`, and a changelog
-3. **No external calls without disclosure** — bundling the Mollie SDK or documenting the API call is required
-4. **No minified JS without source** — source JS files must be included in the package
-5. **Translation-ready** — a `.pot` file in `/languages` and all strings wrapped in `__()` / `esc_html_e()` (already done)
-6. **Sanitize / escape / nonce** — already done, but reviewers check this strictly
-7. **Prefixed everything** — all functions, classes, and options use `ftb_` (already done)
-8. **No bundled Composer autoloader with dev dependencies** — only production dependencies in the plugin package
-
-Outstanding before submitting: `readme.txt`, `LICENSE` file, and a cleanly bundled Mollie SDK.
-
----
-
-## Open questions
-
-### Mollie — recurring payments end-to-end test
-The recurring payment flow is built but untested end-to-end — requires a live server with HTTPS and SEPA Direct Debit enabled in Mollie.
-- [ ] Test recurring flow on staging: confirm mandate creation, subscription creation, and subsequent charge webhook handling
+## Open questions / what's left
 
 ### Live testing on SiteGround — payments + emails
-All webhook-dependent features require a live HTTPS server. Plan to test on the SiteGround test site.
+All webhook-dependent features require a live HTTPS server.
 
 **Payment flow:**
 - [ ] One-time payment: form → Mollie checkout → webhook → thank-you message/redirect
-- [ ] Recurring payment: customer created, first payment with `sequenceType: first`, webhook creates subscription, subsequent charges fire webhook
+- [ ] Recurring payment: mandate creation, subscription creation, subsequent charge webhook handling
 
 **Email notifications:**
-- [ ] Donor confirmation: enable toggle, submit donation, pay on Mollie, verify email arrives with correct content
-- [ ] Admin notification: verify email arrives at sender address with donor details + form fields
+- [ ] Donor confirmation: verify email arrives with correct content after a paid donation
+- [ ] Admin notification: verify email arrives at sender address with donor details
 - [ ] Sender name shows site title in From header
 - [ ] Empty body sends details block only (no blank intro line)
 
 > SiteGround uses PHP `mail()` by default. If emails don't arrive, configure SMTP via the SiteGround Email panel or install WP Mail SMTP.
 
 ### Accessibility — Narrator + radio buttons
-`aria-invalid` is now set dynamically on radio inputs when errors appear or clear. Full Narrator testing with the updated behaviour is still outstanding.
-- [ ] Retest frequency and amount radio groups with Windows Narrator after the aria-invalid fix (phase 9)
-
----
-
-## Notes
-
-- Focus is on understanding and maintainability, not speed
-- Each phase is tested before the next begins
-- Complex features (like payments) are added only after the basics are solid
+- [ ] Retest frequency and amount radio groups with Windows Narrator after the `aria-invalid` fix

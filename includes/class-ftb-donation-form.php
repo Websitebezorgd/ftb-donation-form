@@ -63,6 +63,7 @@ class FTB_Donation_Form {
         require_once FTB_DONATION_FORM_PLUGIN_DIR . 'includes/class-ftb-donation-form-i18n.php';
         require_once FTB_DONATION_FORM_PLUGIN_DIR . 'includes/class-ftb-db.php';
         require_once FTB_DONATION_FORM_PLUGIN_DIR . 'includes/class-ftb-mollie-service.php';
+        require_once FTB_DONATION_FORM_PLUGIN_DIR . 'includes/class-ftb-email.php';
         require_once FTB_DONATION_FORM_PLUGIN_DIR . 'admin/class-ftb-donation-form-admin.php';
         require_once FTB_DONATION_FORM_PLUGIN_DIR . 'public/class-ftb-donation-form-public.php';
 

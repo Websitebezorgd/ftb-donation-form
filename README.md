@@ -37,7 +37,7 @@ This plugin is built from scratch to maintain full overview and control. Each ph
 | 8 | Translations | i18n + `.pot` file + WPML / TranslatePress compatibility | ✅ Done |
 | 9 | Testing | Accessibility + validation (throughout all phases) | 🔄 Ongoing |
 | 10 | Security | Nonces, sanitization, escaping, capability checks | ✅ Done |
-| 11 | Email notifications | Donor confirmation email + admin notification on new donation, both toggleable | ⏳ Planned |
+| 11 | Email notifications | Donor confirmation email + admin notification on new donation, both toggleable | ✅ Done |
 | 12 | Branding | Subtle For The Better brand touches in the admin dashboard | ⏳ Planned |
 
 ---
@@ -52,7 +52,7 @@ Recurring payment support is now built: for monthly/yearly donations the plugin 
 
 The dashboard now includes individual row delete and a payment status edit page per donation. A full code audit (accessibility, security, bugs) has been completed. All high and medium severity issues have been resolved. Known lower-priority issues remain — see the open questions section.
 
-**Next up:** Test the full payment flow (one-time + recurring) on a staging server with HTTPS.
+**Next up:** Test the full payment flow (one-time + recurring) and email notifications on the SiteGround test site.
 
 ---
 
@@ -283,12 +283,20 @@ Outstanding before submitting: `readme.txt`, `LICENSE` file, and a cleanly bundl
 The recurring payment flow is built but untested end-to-end — requires a live server with HTTPS and SEPA Direct Debit enabled in Mollie.
 - [ ] Test recurring flow on staging: confirm mandate creation, subscription creation, and subsequent charge webhook handling
 
-### Phase 11 — Email notifications
-Two separate emails, both toggleable in admin settings:
-- **Donor confirmation** — sent to the donor after a successful payment; contains name, amount, frequency, and date
-- **Admin notification** — sent to a configurable address when a new donation comes in
-- Sender address is configurable in admin settings
-- [ ] Build email notification settings + sending logic (triggered by webhook `paid` status)
+### Live testing on SiteGround — payments + emails
+All webhook-dependent features require a live HTTPS server. Plan to test on the SiteGround test site.
+
+**Payment flow:**
+- [ ] One-time payment: form → Mollie checkout → webhook → thank-you message/redirect
+- [ ] Recurring payment: customer created, first payment with `sequenceType: first`, webhook creates subscription, subsequent charges fire webhook
+
+**Email notifications:**
+- [ ] Donor confirmation: enable toggle, submit donation, pay on Mollie, verify email arrives with correct content
+- [ ] Admin notification: verify email arrives at sender address with donor details + form fields
+- [ ] Sender name shows site title in From header
+- [ ] Empty body sends details block only (no blank intro line)
+
+> SiteGround uses PHP `mail()` by default. If emails don't arrive, configure SMTP via the SiteGround Email panel or install WP Mail SMTP.
 
 ### Phase 12 — Branding
 Subtle For The Better brand touches in the WordPress admin dashboard — keeping the WordPress look and feel but making the plugin feel like a For The Better product.

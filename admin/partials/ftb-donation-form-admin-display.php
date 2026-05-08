@@ -263,6 +263,106 @@ if ( ! defined( 'ABSPATH' ) ) {
                     </div>
                 </section>
 
+                <?php // ── E-mailnotificaties ───────────────────────────────────── ?>
+                <section class="ftb-admin-form__section">
+                    <h3 class="ftb-admin-form__title">
+                        <?php esc_html_e( 'E-mailnotificaties', 'ftb-donation-form' ); ?>
+                    </h3>
+                    <p class="ftb-admin-form__description">
+                        <?php esc_html_e( 'Stuur automatisch e-mails na een geslaagde betaling.', 'ftb-donation-form' ); ?>
+                    </p>
+                    <div class="ftb-admin-form__group">
+                        <?php
+                        $email_donor    = get_option( 'ftb_email_donor_confirmation', '0' );
+                        $email_admin    = get_option( 'ftb_email_admin_notification', '0' );
+                        $email_from     = get_option( 'ftb_email_sender_address', '' );
+                        $donor_subject  = get_option( 'ftb_email_donor_subject', '' );
+                        $donor_body     = get_option( 'ftb_email_donor_body', '' );
+                        $admin_subject  = get_option( 'ftb_email_admin_subject', '' );
+                        $admin_body     = get_option( 'ftb_email_admin_body', '' );
+                        ?>
+
+                        <div class="ftb-toggle-group">
+                            <input type="hidden" name="ftb_email_donor_confirmation" value="0">
+                            <label class="ftb-toggle" for="ftb_email_donor_confirmation">
+                                <input class="ftb-toggle__input" type="checkbox" id="ftb_email_donor_confirmation" name="ftb_email_donor_confirmation" value="1" <?php checked( '1', $email_donor ); ?>>
+                                <span class="ftb-toggle__slider" aria-hidden="true"></span>
+                                <span><?php esc_html_e( 'Bevestigingsmail naar donateur', 'ftb-donation-form' ); ?></span>
+                            </label>
+                            <div class="ftb-conditional<?php echo '1' === $email_donor ? ' is-visible' : ''; ?>" data-show-when="ftb_email_donor_confirmation=1">
+                                <div class="ftb-admin-form__stacked-field">
+                                    <label class="ftb-admin-form__label" for="ftb_email_donor_subject"><?php esc_html_e( 'Onderwerp', 'ftb-donation-form' ); ?></label>
+                                    <input
+                                        type="text"
+                                        id="ftb_email_donor_subject"
+                                        name="ftb_email_donor_subject"
+                                        value="<?php echo esc_attr( $donor_subject ); ?>"
+                                        class="regular-text"
+                                        placeholder="<?php esc_attr_e( 'Bedankt voor je donatie!', 'ftb-donation-form' ); ?>"
+                                    />
+                                </div>
+                                <div class="ftb-admin-form__stacked-field">
+                                    <label class="ftb-admin-form__label" for="ftb_email_donor_body"><?php esc_html_e( 'Bericht (optioneel)', 'ftb-donation-form' ); ?></label>
+                                    <textarea
+                                        id="ftb_email_donor_body"
+                                        name="ftb_email_donor_body"
+                                        rows="3"
+                                        class="large-text"
+                                        placeholder="<?php esc_attr_e( 'Hartelijk dank voor je steun!', 'ftb-donation-form' ); ?>"
+                                    ><?php echo esc_textarea( $donor_body ); ?></textarea>
+                                    <p class="description"><?php esc_html_e( 'Naam, bedrag, frequentie, datum en de ingevulde formuliervelden worden automatisch toegevoegd.', 'ftb-donation-form' ); ?></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ftb-toggle-group">
+                            <input type="hidden" name="ftb_email_admin_notification" value="0">
+                            <label class="ftb-toggle" for="ftb_email_admin_notification">
+                                <input class="ftb-toggle__input" type="checkbox" id="ftb_email_admin_notification" name="ftb_email_admin_notification" value="1" <?php checked( '1', $email_admin ); ?>>
+                                <span class="ftb-toggle__slider" aria-hidden="true"></span>
+                                <span><?php esc_html_e( 'Melding bij nieuwe donatie', 'ftb-donation-form' ); ?></span>
+                            </label>
+                            <div class="ftb-conditional<?php echo '1' === $email_admin ? ' is-visible' : ''; ?>" data-show-when="ftb_email_admin_notification=1">
+                                <div class="ftb-admin-form__stacked-field">
+                                    <label class="ftb-admin-form__label" for="ftb_email_admin_subject"><?php esc_html_e( 'Onderwerp', 'ftb-donation-form' ); ?></label>
+                                    <input
+                                        type="text"
+                                        id="ftb_email_admin_subject"
+                                        name="ftb_email_admin_subject"
+                                        value="<?php echo esc_attr( $admin_subject ); ?>"
+                                        class="regular-text"
+                                        placeholder="<?php esc_attr_e( 'Je hebt een nieuwe donatie ontvangen', 'ftb-donation-form' ); ?>"
+                                    />
+                                </div>
+                                <div class="ftb-admin-form__stacked-field">
+                                    <label class="ftb-admin-form__label" for="ftb_email_admin_body"><?php esc_html_e( 'Bericht (optioneel)', 'ftb-donation-form' ); ?></label>
+                                    <textarea
+                                        id="ftb_email_admin_body"
+                                        name="ftb_email_admin_body"
+                                        rows="3"
+                                        class="large-text"
+                                        placeholder="<?php esc_attr_e( 'Er is een nieuwe donatie ontvangen.', 'ftb-donation-form' ); ?>"
+                                    ><?php echo esc_textarea( $admin_body ); ?></textarea>
+                                    <p class="description"><?php esc_html_e( 'Naam, e-mail, bedrag, frequentie, datum en de ingevulde formuliervelden worden automatisch toegevoegd.', 'ftb-donation-form' ); ?></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ftb-admin-form__stacked-field ftb-admin-form__stacked-field--bordered">
+                            <label class="ftb-admin-form__label" for="ftb_email_sender_address"><?php esc_html_e( 'E-mailadres afzender', 'ftb-donation-form' ); ?></label>
+                            <input
+                                type="email"
+                                id="ftb_email_sender_address"
+                                name="ftb_email_sender_address"
+                                value="<?php echo esc_attr( $email_from ); ?>"
+                                class="regular-text"
+                                placeholder="info@jouwwebsite.nl"
+                            />
+                        </div>
+
+                    </div>
+                </section>
+
             </div>
 
         </div>

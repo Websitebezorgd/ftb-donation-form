@@ -131,6 +131,12 @@ class FTB_Donation_Form_Public {
             $db->update_payment_status( $mollie_id, $payment->status );
         }
 
+        // Send email notifications on successful payment.
+        if ( 'paid' === $payment->status ) {
+            FTB_Email::send_donor_confirmation( $donation );
+            FTB_Email::send_admin_notification( $donation );
+        }
+
         // After the first payment of a recurring donation is paid, create the subscription.
         // Mollie will then handle all future charges automatically.
         if (

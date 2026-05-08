@@ -216,6 +216,30 @@ class FTB_Donation_Form_Admin {
             [ 'label_for' => 'ftb_privacy_url' ]
         );
 
+        // ── E-mailnotificaties ────────────────────────────────────────────────
+
+        register_setting( 'ftb_donation_form_settings', 'ftb_email_donor_confirmation', [
+            'sanitize_callback' => 'absint',
+        ] );
+        register_setting( 'ftb_donation_form_settings', 'ftb_email_donor_subject', [
+            'sanitize_callback' => 'sanitize_text_field',
+        ] );
+        register_setting( 'ftb_donation_form_settings', 'ftb_email_donor_body', [
+            'sanitize_callback' => 'sanitize_textarea_field',
+        ] );
+        register_setting( 'ftb_donation_form_settings', 'ftb_email_admin_notification', [
+            'sanitize_callback' => 'absint',
+        ] );
+        register_setting( 'ftb_donation_form_settings', 'ftb_email_admin_subject', [
+            'sanitize_callback' => 'sanitize_text_field',
+        ] );
+        register_setting( 'ftb_donation_form_settings', 'ftb_email_admin_body', [
+            'sanitize_callback' => 'sanitize_textarea_field',
+        ] );
+        register_setting( 'ftb_donation_form_settings', 'ftb_email_sender_address', [
+            'sanitize_callback' => 'sanitize_email',
+        ] );
+
         // ── Na betaling ───────────────────────────────────────────────────────
 
         register_setting( 'ftb_donation_form_settings', 'ftb_post_payment_behavior', [

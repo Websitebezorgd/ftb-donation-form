@@ -88,4 +88,6 @@ $statuses = [
         <?php submit_button( __( 'Status opslaan', 'ftb-donation-form' ) ); ?>
     </form>
 
+    <?php require __DIR__ . '/ftb-donation-form-admin-footer.php'; ?>
+
 </div>

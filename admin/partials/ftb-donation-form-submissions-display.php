@@ -13,14 +13,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 $list_table = new FTB_Donations_List_Table();
 $list_table->prepare_items();
 ?>
-<div class="wrap">
+<div class="wrap ftb-admin__wrap ftb-admin__wrap--wide">
 
-    <h1 class="wp-heading-inline">
-        <?php esc_html_e( 'Donaties', 'ftb-donation-form' ); ?>
-    </h1>
-    <a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin.php?page=ftb-submissions&action=export_csv' ), 'ftb_export_csv' ) ); ?>" class="page-title-action">
-        <?php esc_html_e( 'Exporteer CSV', 'ftb-donation-form' ); ?>
-    </a>
+    <div class="ftb-admin__header">
+        <h1 class="ftb-admin__title">
+            <span class="dashicons dashicons-heart"></span>
+            <?php esc_html_e( 'Donaties', 'ftb-donation-form' ); ?>
+        </h1>
+        <div class="ftb-admin__header-end">
+            <a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin.php?page=ftb-submissions&action=export_csv' ), 'ftb_export_csv' ) ); ?>" class="page-title-action">
+                <?php esc_html_e( 'Exporteer CSV', 'ftb-donation-form' ); ?>
+            </a>
+            <span class="ftb-admin__brand" aria-hidden="true">For The Better</span>
+        </div>
+    </div>
     <hr class="wp-header-end">
 
     <?php
@@ -58,5 +64,7 @@ $list_table->prepare_items();
         <?php $list_table->search_box( __( 'Zoeken', 'ftb-donation-form' ), 'ftb-donations-search' ); ?>
         <?php $list_table->display(); ?>
     </form>
+
+    <?php require __DIR__ . '/ftb-donation-form-admin-footer.php'; ?>
 
 </div>

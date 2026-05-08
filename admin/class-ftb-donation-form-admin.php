@@ -15,6 +15,8 @@ class FTB_Donation_Form_Admin {
 
     private $plugin_name;
     private $version;
+    private $settings_hook   = '';
+    private $submissions_hook = '';
 
     public function __construct( $plugin_name, $version ) {
         $this->plugin_name = $plugin_name;
@@ -28,7 +30,7 @@ class FTB_Donation_Form_Admin {
      * Enqueue admin styles only on our plugin page.
      */
     private function is_plugin_page( $hook ) {
-        return in_array( $hook, [ 'toplevel_page_ftb-donation-form', 'ftb-donation-form_page_ftb-submissions' ], true );
+        return in_array( $hook, [ $this->settings_hook, $this->submissions_hook ], true );
     }
 
     public function enqueue_styles( $hook ) {
@@ -63,7 +65,7 @@ class FTB_Donation_Form_Admin {
      * Register the admin menu page.
      */
     public function add_plugin_admin_menu() {
-        add_menu_page(
+        $this->settings_hook = add_menu_page(
             __( 'Donatieformulier instellingen', 'ftb-donation-form' ),
             __( 'Donatieformulier', 'ftb-donation-form' ),
             'ftb_manage_settings',
@@ -82,7 +84,7 @@ class FTB_Donation_Form_Admin {
             [ $this, 'display_plugin_setup_page' ]
         );
 
-        add_submenu_page(
+        $this->submissions_hook = add_submenu_page(
             'ftb-donation-form',
             __( 'Donaties', 'ftb-donation-form' ),
             __( 'Donaties', 'ftb-donation-form' ),

@@ -12,10 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="wrap ftb-admin__wrap">
 
-    <h1 class="ftb-admin__title">
-        <span class="dashicons dashicons-heart"></span>
-        <?php esc_html_e( 'Donatieformulier instellingen', 'ftb-donation-form' ); ?>
-    </h1>
+    <div class="ftb-admin__header">
+        <h1 class="ftb-admin__title">
+            <span class="dashicons dashicons-heart"></span>
+            <?php esc_html_e( 'Donatieformulier instellingen', 'ftb-donation-form' ); ?>
+        </h1>
+        <span class="ftb-admin__brand" aria-hidden="true">For The Better</span>
+    </div>
 
     <?php settings_errors(); ?>
 
@@ -378,5 +381,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
 
     </form>
+
+    <?php require __DIR__ . '/ftb-donation-form-admin-footer.php'; ?>
 
 </div>

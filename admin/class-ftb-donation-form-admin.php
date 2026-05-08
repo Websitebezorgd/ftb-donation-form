@@ -230,12 +230,6 @@ class FTB_Donation_Form_Admin {
         register_setting( 'ftb_donation_form_settings', 'ftb_email_admin_notification', [
             'sanitize_callback' => 'absint',
         ] );
-        register_setting( 'ftb_donation_form_settings', 'ftb_email_admin_subject', [
-            'sanitize_callback' => 'sanitize_text_field',
-        ] );
-        register_setting( 'ftb_donation_form_settings', 'ftb_email_admin_body', [
-            'sanitize_callback' => 'sanitize_textarea_field',
-        ] );
         register_setting( 'ftb_donation_form_settings', 'ftb_email_sender_address', [
             'sanitize_callback' => 'sanitize_email',
         ] );

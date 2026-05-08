@@ -370,6 +370,51 @@ h1.ftb-admin__title {
     border-top: 1px solid var(--color-border);
 }
 
+/* ── Email preview ────────────────────────────────────────────────────────── */
+.ftb-email-preview {
+    margin-top: var(--space-4);
+    background: var(--color-surface-info);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-focus);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4);
+}
+
+.ftb-email-preview__label {
+    margin: 0 0 var(--space-2);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+}
+
+.ftb-email-preview__content {
+    /* inherits padding from parent */
+}
+
+.ftb-email-preview__subject {
+    margin: 0 0 var(--space-3);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--font-size-sm);
+}
+
+.ftb-email-preview__meta {
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin-right: var(--space-1);
+}
+
+.ftb-email-preview__body {
+    margin: 0;
+    font-family: monospace;
+    font-size: var(--font-size-sm);
+    white-space: pre-wrap;
+    word-break: break-word;
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: inherit;
+}
+
 /* ── Submit row ───────────────────────────────────────────────────────────── */
 .ftb-admin-form__submit {
     margin: var(--space-2) 0 var(--space-6);

@@ -197,10 +197,6 @@ if ( ! defined( 'ABSPATH' ) ) {
                     </div>
                 </section>
 
-            </div>
-
-            <div class="ftb-admin-form__col">
-
                 <?php // ── Privacyverklaring ────────────────────────────────── ?>
                 <section class="ftb-admin-form__section">
                     <h3 class="ftb-admin-form__title">
@@ -219,6 +215,10 @@ if ( ! defined( 'ABSPATH' ) ) {
                         </div>
                     </div>
                 </section>
+
+            </div>
+
+            <div class="ftb-admin-form__col">
 
                 <?php // ── Na betaling ──────────────────────────────────────── ?>
                 <section class="ftb-admin-form__section">
@@ -278,9 +278,38 @@ if ( ! defined( 'ABSPATH' ) ) {
                         $email_from     = get_option( 'ftb_email_sender_address', '' );
                         $donor_subject  = get_option( 'ftb_email_donor_subject', '' );
                         $donor_body     = get_option( 'ftb_email_donor_body', '' );
-                        $admin_subject  = get_option( 'ftb_email_admin_subject', '' );
-                        $admin_body     = get_option( 'ftb_email_admin_body', '' );
+                        // Dummy data for the inline email preview
+                        $preview_fields = get_option( 'ftb_form_fields', [] );
+                        $preview_date   = wp_date( get_option( 'date_format' ) );
+                        $preview_optional = [];
+                        if ( ! empty( $preview_fields['phone'] ) )        $preview_optional[] = __( 'Telefoon:', 'ftb-donation-form' ) . ' 06 12345678';
+                        if ( ! empty( $preview_fields['street'] ) )       $preview_optional[] = __( 'Straat:', 'ftb-donation-form' ) . ' Dorpstraat';
+                        if ( ! empty( $preview_fields['house_number'] ) ) $preview_optional[] = __( 'Huisnummer:', 'ftb-donation-form' ) . ' 12';
+                        if ( ! empty( $preview_fields['postal_code'] ) )  $preview_optional[] = __( 'Postcode:', 'ftb-donation-form' ) . ' 1234 AB';
+                        if ( ! empty( $preview_fields['city'] ) )         $preview_optional[] = __( 'Plaats:', 'ftb-donation-form' ) . ' Amsterdam';
+
+                        $preview_recurring = get_option( 'ftb_enable_recurring', '1' );
+                        $preview_frequency = '1' === $preview_recurring
+                            ? [ __( 'Frequentie:', 'ftb-donation-form' ) . ' ' . __( 'Maandelijks', 'ftb-donation-form' ) ]
+                            : [];
+
+                        $dummy_details_donor = implode( "\n", array_merge( [
+                            __( 'Naam:', 'ftb-donation-form' ) . ' Alex de Vries',
+                            __( 'Bedrag:', 'ftb-donation-form' ) . ' €10,00',
+                        ], $preview_frequency, [
+                            __( 'Datum:', 'ftb-donation-form' ) . ' ' . $preview_date,
+                        ], $preview_optional ) );
+
                         ?>
+
+                        <div class="ftb-toggle-group">
+                            <input type="hidden" name="ftb_email_admin_notification" value="0">
+                            <label class="ftb-toggle" for="ftb_email_admin_notification">
+                                <input class="ftb-toggle__input" type="checkbox" id="ftb_email_admin_notification" name="ftb_email_admin_notification" value="1" <?php checked( '1', $email_admin ); ?>>
+                                <span class="ftb-toggle__slider" aria-hidden="true"></span>
+                                <span><?php esc_html_e( 'Melding bij nieuwe donatie', 'ftb-donation-form' ); ?></span>
+                            </label>
+                        </div>
 
                         <div class="ftb-toggle-group">
                             <input type="hidden" name="ftb_email_donor_confirmation" value="0">
@@ -312,38 +341,15 @@ if ( ! defined( 'ABSPATH' ) ) {
                                     ><?php echo esc_textarea( $donor_body ); ?></textarea>
                                     <p class="description"><?php esc_html_e( 'Naam, bedrag, frequentie, datum en de ingevulde formuliervelden worden automatisch toegevoegd.', 'ftb-donation-form' ); ?></p>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="ftb-toggle-group">
-                            <input type="hidden" name="ftb_email_admin_notification" value="0">
-                            <label class="ftb-toggle" for="ftb_email_admin_notification">
-                                <input class="ftb-toggle__input" type="checkbox" id="ftb_email_admin_notification" name="ftb_email_admin_notification" value="1" <?php checked( '1', $email_admin ); ?>>
-                                <span class="ftb-toggle__slider" aria-hidden="true"></span>
-                                <span><?php esc_html_e( 'Melding bij nieuwe donatie', 'ftb-donation-form' ); ?></span>
-                            </label>
-                            <div class="ftb-conditional<?php echo '1' === $email_admin ? ' is-visible' : ''; ?>" data-show-when="ftb_email_admin_notification=1">
-                                <div class="ftb-admin-form__stacked-field">
-                                    <label class="ftb-admin-form__label" for="ftb_email_admin_subject"><?php esc_html_e( 'Onderwerp', 'ftb-donation-form' ); ?></label>
-                                    <input
-                                        type="text"
-                                        id="ftb_email_admin_subject"
-                                        name="ftb_email_admin_subject"
-                                        value="<?php echo esc_attr( $admin_subject ); ?>"
-                                        class="regular-text"
-                                        placeholder="<?php esc_attr_e( 'Je hebt een nieuwe donatie ontvangen', 'ftb-donation-form' ); ?>"
-                                    />
-                                </div>
-                                <div class="ftb-admin-form__stacked-field">
-                                    <label class="ftb-admin-form__label" for="ftb_email_admin_body"><?php esc_html_e( 'Bericht (optioneel)', 'ftb-donation-form' ); ?></label>
-                                    <textarea
-                                        id="ftb_email_admin_body"
-                                        name="ftb_email_admin_body"
-                                        rows="3"
-                                        class="large-text"
-                                        placeholder="<?php esc_attr_e( 'Er is een nieuwe donatie ontvangen.', 'ftb-donation-form' ); ?>"
-                                    ><?php echo esc_textarea( $admin_body ); ?></textarea>
-                                    <p class="description"><?php esc_html_e( 'Naam, e-mail, bedrag, frequentie, datum en de ingevulde formuliervelden worden automatisch toegevoegd.', 'ftb-donation-form' ); ?></p>
+                                <div class="ftb-email-preview">
+                                    <p class="ftb-email-preview__label"><?php esc_html_e( 'Voorbeeld', 'ftb-donation-form' ); ?></p>
+                                    <div class="ftb-email-preview__content">
+                                        <p class="ftb-email-preview__subject">
+                                            <span class="ftb-email-preview__meta"><?php esc_html_e( 'Onderwerp:', 'ftb-donation-form' ); ?></span>
+                                            <span id="ftb_donor_preview_subject"><?php echo esc_html( $donor_subject ?: __( 'Bedankt voor je donatie!', 'ftb-donation-form' ) ); ?></span>
+                                        </p>
+                                        <pre id="ftb_donor_preview_body" class="ftb-email-preview__body" data-details="<?php echo esc_attr( $dummy_details_donor ); ?>"><?php echo esc_html( $donor_body ? $donor_body . "\n\n" . $dummy_details_donor : $dummy_details_donor ); ?></pre>
+                                    </div>
                                 </div>
                             </div>
                         </div>

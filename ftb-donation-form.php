@@ -105,8 +105,6 @@ function ftb_donation_form_activate() {
     add_option( 'ftb_email_donor_subject', '' );
     add_option( 'ftb_email_donor_body', '' );
     add_option( 'ftb_email_admin_notification', '0' );
-    add_option( 'ftb_email_admin_subject', '' );
-    add_option( 'ftb_email_admin_body', '' );
     add_option( 'ftb_email_sender_address', '' );
     add_option( 'ftb_db_version', FTB_DONATION_FORM_DB_VERSION );
 }

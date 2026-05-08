@@ -30,6 +30,28 @@
         });
     }
 
+    function initEmailPreview( subjectInputId, bodyTextareaId, previewSubjectId, previewBodyId ) {
+        var $subjectInput   = $( '#' + subjectInputId );
+        var $bodyTextarea   = $( '#' + bodyTextareaId );
+        var $previewSubject = $( '#' + previewSubjectId );
+        var $previewBody    = $( '#' + previewBodyId );
+
+        if ( ! $previewBody.length ) return;
+
+        var details  = $previewBody.data( 'details' );
+        var fallback = $subjectInput.attr( 'placeholder' ) || '';
+
+        function update() {
+            $previewSubject.text( $subjectInput.val() || fallback );
+            var custom = $.trim( $bodyTextarea.val() );
+            $previewBody.text( custom ? custom + '\n\n' + details : details );
+        }
+
+        $subjectInput.on( 'input', update );
+        $bodyTextarea.on( 'input', update );
+        update();
+    }
+
     $(document).ready(function () {
         // Run on page load to reflect saved value
         updateConditionalFields();
@@ -37,6 +59,9 @@
         // Re-run whenever any select, checkbox, or text/url input changes
         $('select, input[type="checkbox"]').on('change', updateConditionalFields);
         $('input[type="text"], input[type="url"]').on('input', updateConditionalFields);
+
+        // Email preview — live update as you type
+        initEmailPreview( 'ftb_email_donor_subject', 'ftb_email_donor_body', 'ftb_donor_preview_subject', 'ftb_donor_preview_body' );
     });
 
 }(jQuery));

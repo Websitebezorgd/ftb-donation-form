@@ -94,12 +94,12 @@ if ( ! defined( 'ABSPATH' ) ) {
                             <span class="ftb-toggle__slider" aria-hidden="true"></span>
                             <span><?php esc_html_e( 'Terugkerende betalingen inschakelen', 'ftb-donation-form' ); ?></span>
                         </label>
-                        <?php if ( '1' === $recurring ) : ?>
-                        <div class="ftb-notice ftb-notice--info" role="note">
-                            <span class="dashicons dashicons-info" aria-hidden="true"></span>
-                            <?php esc_html_e( 'Zorg dat SEPA-incasso is ingeschakeld in je Mollie-dashboard onder Betaalmethoden.', 'ftb-donation-form' ); ?>
+                        <div class="ftb-conditional<?php echo '1' === $recurring ? ' is-visible' : ''; ?>" data-show-when="ftb_enable_recurring=1">
+                            <div class="ftb-notice ftb-notice--info" role="note">
+                                <span class="dashicons dashicons-info" aria-hidden="true"></span>
+                                <?php esc_html_e( 'Zorg dat SEPA-incasso is ingeschakeld in je Mollie-dashboard onder Betaalmethoden.', 'ftb-donation-form' ); ?>
+                            </div>
                         </div>
-                        <?php endif; ?>
                     </div>
                 </section>
 

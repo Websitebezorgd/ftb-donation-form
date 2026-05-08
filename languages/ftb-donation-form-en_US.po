@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: For The Better donatieformulier 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ftb-donation-"
 "form\n"
-"POT-Creation-Date: 2026-05-08T09:48:15+00:00\n"
-"PO-Revision-Date: 2026-05-08 11:49+0200\n"
+"POT-Creation-Date: 2026-05-08T10:02:53+00:00\n"
+"PO-Revision-Date: 2026-05-08 12:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
 "Language: en_US\n"
@@ -169,7 +169,7 @@ msgid "Donateur mag een eigen bedrag invullen"
 msgstr "Donor may enter their custom amount"
 
 #: admin/class-ftb-donation-form-admin.php:382
-#: public/class-ftb-donation-form-public.php:127
+#: public/class-ftb-donation-form-public.php:180
 #: public/partials/ftb-donation-form-public-display.php:316
 msgid "Doneer nu"
 msgstr "Donate now"
@@ -406,7 +406,7 @@ msgid "Bedankbericht"
 msgstr "Thank you message"
 
 #: admin/partials/ftb-donation-form-admin-display.php:246
-#: public/class-ftb-donation-form-public.php:144
+#: public/class-ftb-donation-form-public.php:197
 msgid "Hartelijk dank voor je donatie!"
 msgstr "Thank you very much for your donation!"
 
@@ -459,40 +459,41 @@ msgid "Zoeken"
 msgstr "Search"
 
 #. translators: %s: donor full name
-#: includes/class-ftb-mollie-service.php:59
+#: includes/class-ftb-mollie-service.php:95
+#: public/class-ftb-donation-form-public.php:147
 #, php-format
 msgid "Donatie van %s"
 msgstr "Donation of %s"
 
 #: public/class-ftb-donation-form-public.php:50
-#: public/class-ftb-donation-form-public.php:191
+#: public/class-ftb-donation-form-public.php:244
 msgid "Kies een frequentie."
 msgstr "Choose a frequency."
 
 #: public/class-ftb-donation-form-public.php:51
-#: public/class-ftb-donation-form-public.php:205
+#: public/class-ftb-donation-form-public.php:258
 msgid "Kies een bedrag."
 msgstr "Choose an amount."
 
 #. translators: %s: minimum amount, e.g. "1"
 #: public/class-ftb-donation-form-public.php:53
-#: public/class-ftb-donation-form-public.php:200
+#: public/class-ftb-donation-form-public.php:253
 #, php-format
 msgid "Je eigen bedrag moet minimaal €%s zijn."
 msgstr "Your custom amount must be at least €%s."
 
 #: public/class-ftb-donation-form-public.php:54
-#: public/class-ftb-donation-form-public.php:210
+#: public/class-ftb-donation-form-public.php:263
 msgid "Vul je volledige naam in."
 msgstr "Enter your full name."
 
 #: public/class-ftb-donation-form-public.php:55
-#: public/class-ftb-donation-form-public.php:215
+#: public/class-ftb-donation-form-public.php:268
 msgid "Vul een geldig e-mailadres in."
 msgstr "Enter a valid email address."
 
 #: public/class-ftb-donation-form-public.php:56
-#: public/class-ftb-donation-form-public.php:220
+#: public/class-ftb-donation-form-public.php:273
 msgid "Je moet akkoord gaan met de privacyverklaring om te doneren."
 msgstr "You must agree to the privacy statement to donate."
 
@@ -501,17 +502,17 @@ msgstr "You must agree to the privacy statement to donate."
 msgid "Controleer de volgende fouten:"
 msgstr "Check the following errors:"
 
-#: public/class-ftb-donation-form-public.php:170
+#: public/class-ftb-donation-form-public.php:223
 msgid "Beveiligingscontrole mislukt. Probeer het opnieuw."
 msgstr "Security check failed. Try again."
 
-#: public/class-ftb-donation-form-public.php:309
+#: public/class-ftb-donation-form-public.php:376
 msgid ""
 "De betalingsservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
 msgstr ""
 "The payment service is temporarily unavailable. Please try again later."
 
-#: public/class-ftb-donation-form-public.php:310
+#: public/class-ftb-donation-form-public.php:377
 msgid "Betaling mislukt"
 msgstr "Payment failed"
 

@@ -10,13 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 ?>
-<div class="wrap ftb-admin__wrap">
-
-    <?php
-    $page_title = __( 'Donatieformulier instellingen', 'ftb-donation-form' );
-    require __DIR__ . '/ftb-donation-form-admin-header.php';
-    ?>
-
     <?php settings_errors(); ?>
 
     <form method="post" action="options.php" class="ftb-admin-form">
@@ -378,7 +371,3 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
 
     </form>
-
-    <?php require __DIR__ . '/ftb-donation-form-admin-footer.php'; ?>
-
-</div>

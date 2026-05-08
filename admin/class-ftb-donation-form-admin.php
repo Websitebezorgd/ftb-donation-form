@@ -500,13 +500,40 @@ class FTB_Donation_Form_Admin {
     }
 
     /**
+     * Render a full admin page: wrap div, shared header, hr, content, shared footer.
+     *
+     * @param string   $title   Page title shown in the header.
+     * @param callable $content Callback that renders the page body.
+     * @param string   $action  Optional escaped HTML for an action button next to the title.
+     * @param bool     $wide    When true, removes the max-width constraint on the wrap.
+     */
+    private function render_admin_page( string $title, callable $content, string $action = '', bool $wide = false ): void {
+        $page_title  = $title;
+        $page_action = $action;
+        $partials    = plugin_dir_path( __FILE__ ) . 'partials/';
+        ?>
+        <div class="wrap ftb-admin__wrap<?php echo $wide ? ' ftb-admin__wrap--wide' : ''; ?>">
+            <?php require $partials . 'ftb-donation-form-admin-header.php'; ?>
+            <hr class="wp-header-end">
+            <?php $content(); ?>
+            <?php require $partials . 'ftb-donation-form-admin-footer.php'; ?>
+        </div>
+        <?php
+    }
+
+    /**
      * Render the settings page.
      */
     public function display_plugin_setup_page() {
         if ( ! current_user_can( 'ftb_manage_settings' ) ) {
             wp_die( esc_html__( 'Je hebt onvoldoende rechten om deze pagina te bekijken.', 'ftb-donation-form' ) );
         }
-        include_once 'partials/ftb-donation-form-admin-display.php';
+        $this->render_admin_page(
+            __( 'Donatieformulier instellingen', 'ftb-donation-form' ),
+            function() {
+                include_once plugin_dir_path( __FILE__ ) . 'partials/ftb-donation-form-admin-display.php';
+            }
+        );
     }
 
     /**
@@ -645,9 +672,28 @@ class FTB_Donation_Form_Admin {
         $action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
 
         if ( 'edit_status' === $action ) {
-            include_once 'partials/ftb-donation-form-edit-status-display.php';
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            $id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
+            if ( ! $id ) {
+                wp_safe_redirect( admin_url( 'admin.php?page=ftb-submissions' ) );
+                exit;
+            }
+            $this->render_admin_page(
+                __( 'Status wijzigen', 'ftb-donation-form' ),
+                function() {
+                    include_once plugin_dir_path( __FILE__ ) . 'partials/ftb-donation-form-edit-status-display.php';
+                }
+            );
         } else {
-            include_once 'partials/ftb-donation-form-submissions-display.php';
+            $csv_action = '<a href="' . esc_url( wp_nonce_url( admin_url( 'admin.php?page=ftb-submissions&action=export_csv' ), 'ftb_export_csv' ) ) . '" class="page-title-action">' . esc_html__( 'Exporteer CSV', 'ftb-donation-form' ) . '</a>';
+            $this->render_admin_page(
+                __( 'Donaties', 'ftb-donation-form' ),
+                function() {
+                    include_once plugin_dir_path( __FILE__ ) . 'partials/ftb-donation-form-submissions-display.php';
+                },
+                $csv_action,
+                true
+            );
         }
     }
 

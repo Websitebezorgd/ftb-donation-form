@@ -14,11 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 $id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
 
-if ( ! $id ) {
-    wp_safe_redirect( admin_url( 'admin.php?page=ftb-submissions' ) );
-    exit;
-}
-
 $db       = new FTB_DB();
 $donation = $db->get_donation( $id );
 
@@ -33,13 +28,6 @@ $statuses = [
     'cancelled' => __( 'Geannuleerd', 'ftb-donation-form' ),
 ];
 ?>
-<div class="wrap ftb-admin__wrap">
-
-    <?php
-    $page_title = __( 'Status wijzigen', 'ftb-donation-form' );
-    require __DIR__ . '/ftb-donation-form-admin-header.php';
-    ?>
-
     <p>
         <a href="<?php echo esc_url( admin_url( 'admin.php?page=ftb-submissions' ) ); ?>">
             &larr; <?php esc_html_e( 'Terug naar donaties', 'ftb-donation-form' ); ?>
@@ -90,7 +78,3 @@ $statuses = [
 
         <?php submit_button( __( 'Status opslaan', 'ftb-donation-form' ) ); ?>
     </form>
-
-    <?php require __DIR__ . '/ftb-donation-form-admin-footer.php'; ?>
-
-</div>

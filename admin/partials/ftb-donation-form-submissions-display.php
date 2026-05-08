@@ -13,14 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 $list_table = new FTB_Donations_List_Table();
 $list_table->prepare_items();
 ?>
-<div class="wrap ftb-admin__wrap ftb-admin__wrap--wide">
-
-    <?php
-    $page_title  = __( 'Donaties', 'ftb-donation-form' );
-    $page_action = '<a href="' . esc_url( wp_nonce_url( admin_url( 'admin.php?page=ftb-submissions&action=export_csv' ), 'ftb_export_csv' ) ) . '" class="page-title-action">' . esc_html__( 'Exporteer CSV', 'ftb-donation-form' ) . '</a>';
-    require __DIR__ . '/ftb-donation-form-admin-header.php';
-    ?>
-    <hr class="wp-header-end">
 
     <?php
     // phpcs:disable WordPress.Security.NonceVerification.Recommended
@@ -57,7 +49,3 @@ $list_table->prepare_items();
         <?php $list_table->search_box( __( 'Zoeken', 'ftb-donation-form' ), 'ftb-donations-search' ); ?>
         <?php $list_table->display(); ?>
     </form>
-
-    <?php require __DIR__ . '/ftb-donation-form-admin-footer.php'; ?>
-
-</div>

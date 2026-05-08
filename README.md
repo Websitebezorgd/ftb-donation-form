@@ -2,8 +2,6 @@
 
 An accessible WordPress donation plugin built with a strong focus on WCAG 2.2, usability, and maintainability.
 
-**Live demo:** [GitHub Pages](https://websitebezorgd.github.io/ftb-donation-form/)
-
 ---
 
 ## Goal
@@ -154,9 +152,6 @@ ftb-donation-form/
 │   ├── js/ftb-donation-form-public.js
 │   └── partials/
 │       └── ftb-donation-form-public-display.php
-├── Static/                        # Assets for GitHub Pages demo
-│   ├── style.css
-│   └── script.js
 └── languages/
     ├── ftb-donation-form.pot
     ├── ftb-donation-form-en_US.po

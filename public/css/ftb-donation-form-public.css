@@ -2,21 +2,13 @@
 
 /* ── Design tokens ────────────────────────────────────────────────────────── */
 .ftb-donation-form {
-  /* Colors — brand */
-  --color-primary: #c42e31;
+  /* Colors — override any of these in your theme CSS on .ftb-donation-form */
+  --color-primary:   #c42e31;
   --color-secondary: #2270b6;
-
-  /* Colors — success */
-  --color-success: #1e8449;
-
-  /* Colors — error */
-  --color-error: #c42e31;
-
-  /* Colors — focus */
-  --color-focus: #251e18;
-
-  /* Colors — link */
-  --color-link: #c42e31;
+  --color-success:   #1e8449;
+  --color-error:     #c42e31;
+  --color-focus:     #251e18;
+  --color-link:      var(--color-primary);
 
   /* Colors — text */
   --color-text: #251e18;

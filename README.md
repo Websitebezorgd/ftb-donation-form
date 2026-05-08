@@ -250,6 +250,18 @@ Requirements to get accepted on wordpress.org:
 
 ---
 
+## Adding a new admin page
+
+1. Add a private property: `private $your_hook = '';`
+2. Register the page in `add_plugin_admin_menu()` and store the return value: `$this->your_hook = add_submenu_page( ... );`
+3. Add the hook to `is_plugin_page()` so CSS/JS load on it
+4. Add a display method that calls `render_admin_page()` with a title and content callback
+5. Create a content-only partial in `admin/partials/` — no wrapper, header, or footer needed
+
+`render_admin_page()` handles the wrap div, shared header, `<hr>`, and shared footer automatically.
+
+---
+
 ## Phase completion rules
 
 A phase is only complete when:

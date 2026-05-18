@@ -131,7 +131,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<span class="ftb-toggle__slider" aria-hidden="true"></span>
 							<span><?php esc_html_e( 'Vaste bedragen tonen', 'ftb-donation-form' ); ?></span>
 						</label>
-						<div class="ftb-conditional<?php echo $show_presets === '1' ? ' is-visible' : ''; ?>" data-show-when="ftb_show_preset_amounts=1">
+						<div class="ftb-conditional<?php echo '1' === $show_presets ? ' is-visible' : ''; ?>" data-show-when="ftb_show_preset_amounts=1">
 							<div class="ftb-admin-form__stacked-field">
 								<label class="ftb-admin-form__label"><?php esc_html_e( 'Vaste bedragen (minimaal €1)', 'ftb-donation-form' ); ?></label>
 								<div class="ftb-amount-inputs">
@@ -164,7 +164,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<span class="ftb-toggle__slider" aria-hidden="true"></span>
 							<span><?php esc_html_e( 'Eigen bedrag toestaan', 'ftb-donation-form' ); ?></span>
 						</label>
-						<div class="ftb-conditional<?php echo $allow_custom === '1' ? ' is-visible' : ''; ?>" data-show-when="ftb_allow_custom_amount=1">
+						<div class="ftb-conditional<?php echo '1' === $allow_custom ? ' is-visible' : ''; ?>" data-show-when="ftb_allow_custom_amount=1">
 							<div class="ftb-admin-form__stacked-field">
 								<label class="ftb-admin-form__label" for="ftb_min_custom_amount"><?php esc_html_e( 'Minimumbedrag eigen bedrag (minimaal €1)', 'ftb-donation-form' ); ?></label>
 								<div class="ftb-amount-inputs">
@@ -299,7 +299,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					$message      = get_option( 'ftb_post_payment_message', 'Hartelijk dank voor je donatie!' );
 					$redirect_url = get_option( 'ftb_post_payment_redirect_url', '' );
 					?>
-					<div class="ftb-conditional<?php echo $behavior === 'message' ? ' is-visible' : ''; ?>" data-show-when="ftb_post_payment_behavior=message">
+					<div class="ftb-conditional<?php echo 'message' === $behavior ? ' is-visible' : ''; ?>" data-show-when="ftb_post_payment_behavior=message">
 						<div class="ftb-admin-form__stacked-field">
 							<label class="ftb-admin-form__label" for="ftb_post_payment_message"><?php esc_html_e( 'Bedankbericht', 'ftb-donation-form' ); ?></label>
 							<textarea
@@ -310,7 +310,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								placeholder="<?php esc_attr_e( 'Hartelijk dank voor je donatie!', 'ftb-donation-form' ); ?>"><?php echo esc_textarea( $message ); ?></textarea>
 						</div>
 					</div>
-					<div class="ftb-conditional<?php echo $behavior === 'redirect' ? ' is-visible' : ''; ?>" data-show-when="ftb_post_payment_behavior=redirect">
+					<div class="ftb-conditional<?php echo 'redirect' === $behavior ? ' is-visible' : ''; ?>" data-show-when="ftb_post_payment_behavior=redirect">
 						<div class="ftb-admin-form__stacked-field">
 							<label class="ftb-admin-form__label" for="ftb_post_payment_redirect_url"><?php esc_html_e( 'Doorstuur-URL', 'ftb-donation-form' ); ?></label>
 							<input
@@ -342,7 +342,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					$email_from    = get_option( 'ftb_email_sender_address', '' );
 					$donor_subject = get_option( 'ftb_email_donor_subject', '' );
 					$donor_body    = get_option( 'ftb_email_donor_body', '' );
-					// Dummy data for the inline email preview
+					// Dummy data for the inline email preview.
 					$preview_fields   = get_option( 'ftb_form_fields', array() );
 					$preview_date     = wp_date( get_option( 'date_format' ) );
 					$preview_optional = array();
@@ -426,7 +426,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<div class="ftb-email-preview__content">
 									<p class="ftb-email-preview__subject">
 										<span class="ftb-email-preview__meta"><?php esc_html_e( 'Onderwerp:', 'ftb-donation-form' ); ?></span>
-										<span id="ftb_donor_preview_subject"><?php echo esc_html( $donor_subject ?: __( 'Bedankt voor je donatie!', 'ftb-donation-form' ) ); ?></span>
+										<span id="ftb_donor_preview_subject"><?php echo esc_html( $donor_subject ? $donor_subject : __( 'Bedankt voor je donatie!', 'ftb-donation-form' ) ); ?></span>
 									</p>
 									<pre id="ftb_donor_preview_body" class="ftb-email-preview__body" data-details="<?php echo esc_attr( $dummy_details_donor ); ?>"><?php echo esc_html( $donor_body ? $donor_body . "\n\n" . $dummy_details_donor : $dummy_details_donor ); ?></pre>
 								</div>
@@ -511,7 +511,7 @@ if ( current_user_can( 'manage_options' ) ) :
 						<span><?php esc_html_e( 'Alleen administrators', 'ftb-donation-form' ); ?></span>
 					</label>
 				</div>
-				<div id="ftb-specific-editors" class="ftb-admin-form__stacked-field"<?php echo 'specific' !== $editor_access_mode ? ' style="display:none;"' : ''; ?>>
+				<div id="ftb-specific-editors" class="ftb-admin-form__stacked-field<?php echo 'specific' !== $editor_access_mode ? ' is-hidden' : ''; ?>">
 					<?php if ( $editor_users ) : ?>
 						<p class="ftb-admin-form__group-label"><?php esc_html_e( 'Selecteer editors met toegang', 'ftb-donation-form' ); ?></p>
 						<div class="ftb-admin-form__field">
@@ -547,7 +547,7 @@ if ( current_user_can( 'manage_options' ) ) :
 			var list = document.getElementById('ftb-specific-editors');
 			radios.forEach(function(r) {
 				r.addEventListener('change', function() {
-					list.style.display = this.value === 'specific' ? '' : 'none';
+					list.classList.toggle('is-hidden', this.value !== 'specific');
 				});
 			});
 		}());

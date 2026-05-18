@@ -11,36 +11,38 @@
  * Requires at least: 5.0
  * Tested up to: 6.9
  * Requires PHP: 7.4
+ *
+ * @package FTB_Donation_Form
  */
 
-// Prevent direct access
+// Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 
-// Autoload Composer dependencies (Mollie SDK etc.)
+// Autoload Composer dependencies (Mollie SDK etc.).
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
 }
 
-// Define plugin constants
+// Define plugin constants.
 define( 'FTB_DONATION_FORM_VERSION', '1.0.0' );
 define( 'FTB_DONATION_FORM_DB_VERSION', '1.2' );
 define( 'FTB_DONATION_FORM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'FTB_DONATION_FORM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
-// Include core files
+// Include core files.
 require_once FTB_DONATION_FORM_PLUGIN_DIR . 'includes/class-ftb-donation-form.php';
 
-// Initialize the plugin
+// Initialize the plugin.
 function ftb_donation_form_init() {
 	$plugin = new FTB_Donation_Form();
 	$plugin->run();
 }
 add_action( 'plugins_loaded', 'ftb_donation_form_init' );
 
-// Activation hook
+// Activation hook.
 register_activation_hook( __FILE__, 'ftb_donation_form_activate' );
 function ftb_donation_form_activate() {
 	$admin = get_role( 'administrator' );
@@ -82,7 +84,7 @@ function ftb_donation_form_activate() {
 	require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 	dbDelta( $sql );
 
-	// Default plugin options
+	// Default plugin options.
 	add_option( 'ftb_mollie_api_key', '' );
 	add_option( 'ftb_mollie_test_mode', '1' );
 	add_option( 'ftb_form_heading', '' );
@@ -166,7 +168,7 @@ function ftb_donation_form_maybe_migrate_db() {
 }
 add_action( 'plugins_loaded', 'ftb_donation_form_maybe_migrate_db', 5 );
 
-// Deactivation hook
+// Deactivation hook.
 register_deactivation_hook( __FILE__, 'ftb_donation_form_deactivate' );
 function ftb_donation_form_deactivate() {
 	$admin = get_role( 'administrator' );

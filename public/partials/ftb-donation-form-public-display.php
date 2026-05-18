@@ -15,11 +15,11 @@
  */
 
 $field_enabled = static function ( $key ) use ( $form_fields ) {
-	return ! empty( $form_fields[ $key ] ) && $form_fields[ $key ] === '1';
+	return ! empty( $form_fields[ $key ] ) && '1' === $form_fields[ $key ];
 };
 
-$old = static function ( $key, $default = '' ) use ( $old_values ) {
-	return $old_values[ $key ] ?? $default;
+$old = static function ( $key, $fallback = '' ) use ( $old_values ) {
+	return $old_values[ $key ] ?? $fallback;
 };
 ?>
 
@@ -47,8 +47,8 @@ $old = static function ( $key, $default = '' ) use ( $old_values ) {
 		?>
 
 		<ol class="ftb-donation-form__steps">
-			<li id="ftb-step-label-1" data-step="1" class="<?php echo $start_on_step === 1 ? 'is-active' : ''; ?>" <?php echo $start_on_step === 1 ? 'aria-current="step"' : ''; ?>><?php esc_html_e( 'Jouw donatie', 'ftb-donation-form' ); ?></li>
-			<li id="ftb-step-label-2" data-step="2" class="<?php echo $start_on_step === 2 ? 'is-active' : ''; ?>" <?php echo $start_on_step === 2 ? 'aria-current="step"' : ''; ?>><?php esc_html_e( 'Jouw gegevens', 'ftb-donation-form' ); ?></li>
+			<li id="ftb-step-label-1" data-step="1" class="<?php echo 1 === $start_on_step ? 'is-active' : ''; ?>" <?php echo 1 === $start_on_step ? 'aria-current="step"' : ''; ?>><?php esc_html_e( 'Jouw donatie', 'ftb-donation-form' ); ?></li>
+			<li id="ftb-step-label-2" data-step="2" class="<?php echo 2 === $start_on_step ? 'is-active' : ''; ?>" <?php echo 2 === $start_on_step ? 'aria-current="step"' : ''; ?>><?php esc_html_e( 'Jouw gegevens', 'ftb-donation-form' ); ?></li>
 		</ol>
 
 		<div class="ftb-donation-form__error-summary" id="ftb-error-summary" role="alert" tabindex="-1" <?php echo empty( $errors ) ? 'hidden' : ''; ?>>
@@ -320,7 +320,7 @@ $old = static function ( $key, $default = '' ) use ( $old_values ) {
 		</form>
 
 		<?php
-	endif; // success
+	endif; // success.
 	?>
 
 </div>

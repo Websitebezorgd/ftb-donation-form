@@ -194,7 +194,8 @@ class FTB_Donation_Form_Public {
 	}
 
 	public function render_donation_form( $atts = array() ) {
-		$default_title = get_option( 'ftb_form_heading', '' ) ?: __( 'Doneer nu', 'ftb-donation-form' );
+		$form_heading  = get_option( 'ftb_form_heading', '' );
+		$default_title = $form_heading ? $form_heading : __( 'Doneer nu', 'ftb-donation-form' );
 		$atts          = shortcode_atts( array( 'title' => $default_title ), $atts, 'ftb_donation_form' );
 		$title         = sanitize_text_field( $atts['title'] );
 
@@ -202,7 +203,7 @@ class FTB_Donation_Form_Public {
 		$old_values = array();
 		$success    = false;
 
-		// Read admin settings (needed by both processing and template)
+		// Read admin settings (needed by both processing and template).
 		$form_fields           = get_option( 'ftb_form_fields', array() );
 		$amount_options        = array_values( array_filter( (array) get_option( 'ftb_amount_options', array( '5', '10', '25' ) ) ) );
 		$show_presets          = (bool) get_option( 'ftb_show_preset_amounts', '1' );
@@ -211,7 +212,8 @@ class FTB_Donation_Form_Public {
 		$enable_recurring      = (bool) get_option( 'ftb_enable_recurring', '1' );
 		$privacy_url           = get_option( 'ftb_privacy_url', '' );
 		$post_payment_behavior = get_option( 'ftb_post_payment_behavior', 'message' );
-		$post_payment_message  = get_option( 'ftb_post_payment_message', '' ) ?: __( 'Hartelijk dank voor je donatie!', 'ftb-donation-form' );
+		$saved_message         = get_option( 'ftb_post_payment_message', '' );
+		$post_payment_message  = $saved_message ? $saved_message : __( 'Hartelijk dank voor je donatie!', 'ftb-donation-form' );
 		$post_payment_redirect = get_option( 'ftb_post_payment_redirect_url', '' );
 
 		// Return from Mollie checkout — verify the one-time token before showing the thank-you.
@@ -240,7 +242,7 @@ class FTB_Donation_Form_Public {
 				wp_die( esc_html__( 'Beveiligingscontrole mislukt. Probeer het opnieuw.', 'ftb-donation-form' ) );
 			}
 
-			// Sanitize all inputs
+			// Sanitize all inputs.
             // phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			$frequency     = mb_substr( sanitize_text_field( wp_unslash( $_POST['ftb_frequency'] ?? '' ) ), 0, 20 );
 			$amount_raw    = sanitize_text_field( wp_unslash( $_POST['ftb_amount'] ?? '' ) );
@@ -255,15 +257,15 @@ class FTB_Donation_Form_Public {
 			$gdpr          = isset( $_POST['ftb_gdpr'] ) ? '1' : '0';
             // phpcs:enable
 
-			// Validate frequency
+			// Validate frequency.
 			$allowed_frequencies = $enable_recurring ? array( 'one_time', 'monthly', 'yearly' ) : array( 'one_time' );
 			if ( ! in_array( $frequency, $allowed_frequencies, true ) ) {
 				$errors['frequency'] = __( 'Kies een frequentie.', 'ftb-donation-form' );
 			}
 
-			// Validate amount
+			// Validate amount.
 			$amount = 0.0;
-			if ( $amount_raw === 'custom' && $allow_custom ) {
+			if ( 'custom' === $amount_raw && $allow_custom ) {
 				$amount = (float) str_replace( ',', '.', $custom_amount );
 				if ( $amount < $min_custom_amount ) {
 					/* translators: %s: minimum amount, e.g. "1" */
@@ -275,22 +277,22 @@ class FTB_Donation_Form_Public {
 				$errors['amount'] = __( 'Kies een bedrag.', 'ftb-donation-form' );
 			}
 
-			// Validate name
+			// Validate name.
 			if ( empty( $name ) ) {
 				$errors['name'] = __( 'Vul je volledige naam in.', 'ftb-donation-form' );
 			}
 
-			// Validate email
+			// Validate email.
 			if ( empty( $email ) || ! is_email( $email ) ) {
 				$errors['email'] = __( 'Vul een geldig e-mailadres in.', 'ftb-donation-form' );
 			}
 
-			// Validate GDPR consent
-			if ( $gdpr !== '1' ) {
+			// Validate GDPR consent.
+			if ( '1' !== $gdpr ) {
 				$errors['gdpr'] = __( 'Je moet akkoord gaan met de privacyverklaring om te doneren.', 'ftb-donation-form' );
 			}
 
-			// Preserve submitted values for re-rendering the form on error
+			// Preserve submitted values for re-rendering the form on error.
 			$old_values = array(
 				'frequency'     => $frequency,
 				'amount'        => $amount_raw,

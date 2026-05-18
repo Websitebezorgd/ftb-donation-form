@@ -27,9 +27,10 @@ class FTB_Email {
 			return;
 		}
 
-		$to      = $donation->donor_email;
-		$subject = get_option( 'ftb_email_donor_subject', '' ) ?: __( 'Bedankt voor je donatie!', 'ftb-donation-form' );
-		$body    = self::build_body(
+		$to          = $donation->donor_email;
+		$raw_subject = get_option( 'ftb_email_donor_subject', '' );
+		$subject     = $raw_subject ? $raw_subject : __( 'Bedankt voor je donatie!', 'ftb-donation-form' );
+		$body        = self::build_body(
 			get_option( 'ftb_email_donor_body', '' ),
 			self::details_block( $donation, false )
 		);
@@ -47,8 +48,10 @@ class FTB_Email {
 			return;
 		}
 
-		$to      = get_option( 'ftb_email_sender_address', '' ) ?: get_bloginfo( 'admin_email' );
-		$subject = get_option( 'ftb_email_admin_subject', '' ) ?: __( 'Je hebt een nieuwe donatie ontvangen', 'ftb-donation-form' );
+		$raw_to  = get_option( 'ftb_email_sender_address', '' );
+		$to      = $raw_to ? $raw_to : get_bloginfo( 'admin_email' );
+		$raw_sub = get_option( 'ftb_email_admin_subject', '' );
+		$subject = $raw_sub ? $raw_sub : __( 'Je hebt een nieuwe donatie ontvangen', 'ftb-donation-form' );
 		$body    = self::build_body(
 			get_option( 'ftb_email_admin_body', '' ),
 			self::details_block( $donation, true )
@@ -63,8 +66,9 @@ class FTB_Email {
 	 * @return array
 	 */
 	private static function get_headers(): array {
-		$name  = get_bloginfo( 'name' );
-		$email = get_option( 'ftb_email_sender_address', '' ) ?: get_bloginfo( 'admin_email' );
+		$name      = get_bloginfo( 'name' );
+		$raw_email = get_option( 'ftb_email_sender_address', '' );
+		$email     = $raw_email ? $raw_email : get_bloginfo( 'admin_email' );
 
 		return array( 'From: ' . $name . ' <' . $email . '>' );
 	}

@@ -12,10 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-$id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
+$donation_id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
 
 $db       = new FTB_DB();
-$donation = $db->get_donation( $id );
+$donation = $db->get_donation( $donation_id );
 
 if ( ! $donation ) {
 	wp_die( esc_html__( 'Donatie niet gevonden.', 'ftb-donation-form' ) );

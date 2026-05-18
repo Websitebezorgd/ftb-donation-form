@@ -618,10 +618,10 @@ class FTB_Donation_Form_Admin {
 		}
 		check_admin_referer( 'ftb_save_managers' );
 
-		$old_mode     = get_option( 'ftb_editor_access_mode', 'all' );
-		$allowed      = array( 'all', 'specific', 'admin_only' );
-		$raw_mode     = isset( $_POST['ftb_editor_access_mode'] ) ? sanitize_key( wp_unslash( $_POST['ftb_editor_access_mode'] ) ) : '';
-		$new_mode     = in_array( $raw_mode, $allowed, true ) ? $raw_mode : 'all';
+		$old_mode = get_option( 'ftb_editor_access_mode', 'all' );
+		$allowed  = array( 'all', 'specific', 'admin_only' );
+		$raw_mode = isset( $_POST['ftb_editor_access_mode'] ) ? sanitize_key( wp_unslash( $_POST['ftb_editor_access_mode'] ) ) : '';
+		$new_mode = in_array( $raw_mode, $allowed, true ) ? $raw_mode : 'all';
 
 		$editor = get_role( 'editor' );
 

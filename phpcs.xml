@@ -30,6 +30,8 @@
         <exclude name="Generic.Commenting.DocComment.MissingShort"/>
         <!-- Mollie API gebruikt camelCase properties — niet onze code -->
         <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase"/>
+        <!-- i18n class name uses lowercase abbreviation — intentional -->
+        <exclude name="PEAR.NamingConventions.ValidClassName.Invalid"/>
     </rule>
 
     <!-- ftb_manage_settings is een geregistreerde custom capability -->

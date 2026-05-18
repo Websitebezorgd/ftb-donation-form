@@ -22,7 +22,7 @@ class FTB_Mollie_Service {
 	private MollieApiClient $mollie;
 
 	/**
-	 * @throws ApiException if the API key is empty or invalid.
+	 * @throws ApiException If the API key is empty or invalid.
 	 */
 	public function __construct() {
 		$api_key = (string) get_option( 'ftb_mollie_api_key', '' );

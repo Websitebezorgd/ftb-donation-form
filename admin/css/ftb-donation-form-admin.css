@@ -252,8 +252,17 @@ h1.ftb-admin__title {
 	display: block;
 }
 
+.is-hidden {
+	display: none;
+}
+
 .ftb-row-hidden {
 	display: none !important;
+}
+
+/* ── Specific editors section ─────────────────────────────────────────────── */
+#ftb-specific-editors {
+	margin-top: var(--space-6);
 }
 
 /* ── Toggle groups (toggle + its conditional field) ──────────────────────── */

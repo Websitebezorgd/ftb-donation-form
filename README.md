@@ -49,7 +49,7 @@ The one-time payment flow is fully built and tested locally. The webhook endpoin
 
 Recurring payments are also built: the plugin creates a Mollie customer and first payment to establish the SEPA mandate; the webhook then creates a subscription after the first payment is confirmed; Mollie handles subsequent charges automatically.
 
-**Next up:** Test the full payment flow (one-time + recurring) and email notifications on the SiteGround test site. Retest accessibility (Narrator + radio groups).
+**Next up:** Test the full payment flow (one-time + recurring) and email notifications on the test site. Retest accessibility (Narrator + radio groups).
 
 ---
 
@@ -64,6 +64,7 @@ Recurring payments are also built: the plugin creates a Mollie customer and firs
 - Client-side and server-side validation with accessible error summary
 - Full keyboard navigation, screen reader support, WCAG 2.2
 - Colour tokens overridable per site via CSS custom properties on `.ftb-donation-form`
+- Adapts to container width — works inside Elementor columns and any page builder
 
 ### Mollie payments
 - One-time payment flow: form redirects donor to Mollie checkout, returns to thank-you or redirect page
@@ -71,6 +72,7 @@ Recurring payments are also built: the plugin creates a Mollie customer and firs
 - API key validated against Mollie on save — shows an error notice if the key is invalid
 - Webhook URL omitted on local dev environments (Mollie requires HTTPS; local sites are HTTP)
 - REST namespace restricted to POST only — no data accessible via GET
+- Missing API key shows an inline error in the form instead of breaking the page (Elementor compatible)
 
 ### Admin settings
 - **Mollie:** API key + test mode toggle
@@ -157,7 +159,7 @@ ftb-donation-form/
     └── ftb-donation-form-en_US.l10n.php
 ```
 
-> `.distignore` lists files excluded from the distribution zip (dotfiles, `README.md`). Use `wp dist-archive .` to build a clean zip.
+> `.distignore` lists files excluded from the distribution zip (dotfiles, `README.md`). Use the GitHub Actions release workflow to build a clean zip — see `.github/workflows/release.yml`.
 
 ---
 

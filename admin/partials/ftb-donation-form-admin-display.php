@@ -236,7 +236,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					$prv_items[]   = __( 'donatiebedrag', 'ftb-donation-form' );
 					$prv_items[]   = __( 'frequentie (eenmalig, maandelijks of jaarlijks)', 'ftb-donation-form' );
 					$prv_items[]   = __( 'datum van de donatie', 'ftb-donation-form' );
-					$prv_items[]   = __( 'betalingsstatus', 'ftb-donation-form' );
+					$prv_items[]   = __( 'betaalstatus', 'ftb-donation-form' );
 					$prv_sender    = get_option( 'ftb_email_sender_address', '' );
 					$prv_heading   = __( 'Donatieformulier', 'ftb-donation-form' );
 					$prv_intro     = __( 'Via het donatieformulier op onze website verwerken wij persoonsgegevens om donaties te kunnen ontvangen en administreren. De volgende gegevens worden verzameld:', 'ftb-donation-form' );

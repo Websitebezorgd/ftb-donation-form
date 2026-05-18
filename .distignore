@@ -8,3 +8,4 @@ phpstan.neon
 phpstan-bootstrap.php
 README.md
 HANDLEIDING.md
+HANDLEIDING.html

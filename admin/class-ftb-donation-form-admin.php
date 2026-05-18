@@ -341,6 +341,7 @@ class FTB_Donation_Form_Admin {
 			'ftb_section_post_payment',
 			array( 'label_for' => 'ftb_post_payment_behavior' )
 		);
+
 	}
 
 	// ── Section descriptions ───────────────────────────────────────────────────

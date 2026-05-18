@@ -53,10 +53,16 @@ class FTB_Donations_List_Table extends WP_List_Table {
 		);
 	}
 
+	/**
+	 * @param object $item Donation row.
+	 */
 	protected function column_cb( $item ) {
 		return sprintf( '<input type="checkbox" name="donation[]" value="%d" />', absint( $item->id ) );
 	}
 
+	/**
+	 * @param object $item Donation row.
+	 */
 	protected function column_donor_name( $item ) {
 		$edit_url = add_query_arg(
 			array(
@@ -93,6 +99,10 @@ class FTB_Donations_List_Table extends WP_List_Table {
 		);
 	}
 
+	/**
+	 * @param object $item        Donation row.
+	 * @param string $column_name Column identifier.
+	 */
 	protected function column_default( $item, $column_name ) {
 		switch ( $column_name ) {
 			case 'donor_name':
@@ -122,6 +132,9 @@ class FTB_Donations_List_Table extends WP_List_Table {
 		}
 	}
 
+	/**
+	 * @param object $item Donation row.
+	 */
 	private function render_address( $item ) {
 		$street = trim( $item->donor_street . ' ' . $item->donor_house_number );
 		$city   = trim( $item->donor_postal_code . ' ' . $item->donor_city );

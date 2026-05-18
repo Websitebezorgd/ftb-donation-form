@@ -1,0 +1,20 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+    level: 5
+    paths:
+        - ftb-donation-form.php
+        - admin
+        - includes
+        - public
+    excludePaths:
+        - vendor
+        # Template files use variables injected via include — not standalone PHP
+        - admin/partials
+        - public/partials
+    bootstrapFiles:
+        - phpstan-bootstrap.php
+    parallel:
+        maximumNumberOfProcesses: 1
+    treatPhpDocTypesAsCertain: false

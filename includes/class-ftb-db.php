@@ -161,7 +161,7 @@ class FTB_DB {
 	 *   @type string $orderby  Column to order by. Default 'created_at'.
 	 *   @type string $order    ASC or DESC. Default 'DESC'.
 	 * }
-	 * @return array
+	 * @return object[]
 	 */
 	public function get_donations( array $args = array() ): array {
 		global $wpdb;
@@ -290,7 +290,7 @@ class FTB_DB {
 	 * Fetch all donations matching filters (no pagination — used for CSV export).
 	 *
 	 * @param array $args Same filter keys as get_donations(), minus pagination.
-	 * @return array
+	 * @return object[]
 	 */
 	public function get_all_donations( array $args = array() ): array {
 		global $wpdb;

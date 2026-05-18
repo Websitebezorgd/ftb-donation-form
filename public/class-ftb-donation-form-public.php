@@ -13,11 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 class FTB_Donation_Form_Public {
 
 	private $plugin_name;
-	private $version;
 
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
+		unset( $version ); // Version unused: filemtime() used for cache-busting instead.
 	}
 
 	public function enqueue_styles() {

@@ -16,13 +16,12 @@ class FTB_Donation_Form_Admin {
 
 
 	private $plugin_name;
-	private $version;
 	private $settings_hook    = '';
 	private $submissions_hook = '';
 
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
+		unset( $version ); // Version unused: filemtime() used for cache-busting instead.
 		add_filter(
 			'option_page_capability_ftb_donation_form_settings',
 			function () {
@@ -419,7 +418,7 @@ class FTB_Donation_Form_Admin {
 
 		echo '<div class="ftb-admin-form__field"><div class="ftb-amount-inputs">';
 		for ( $i = 0; $i < 3; $i++ ) {
-			$value = isset( $amounts[ $i ] ) ? $amounts[ $i ] : ( $defaults[ $i ] ?? '' );
+			$value = isset( $amounts[ $i ] ) ? $amounts[ $i ] : $defaults[ $i ];
 			printf(
 				'<div class="ftb-amount-input">
                     <span class="ftb-amount-input__prefix" aria-hidden="true">€</span>

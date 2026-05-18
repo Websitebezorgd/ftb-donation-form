@@ -460,16 +460,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php
 if ( current_user_can( 'manage_options' ) ) :
-	$managers_saved     = isset( $_GET['managers_saved'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-	$editor_access_mode = get_option( 'ftb_editor_access_mode', 'all' );
-	$designated_ids     = array_map( 'absint', (array) get_option( 'ftb_designated_managers', array() ) );
-	$editor_users       = get_users(
+	$editor_users = get_users(
 		array(
 			'role'    => 'editor',
 			'orderby' => 'display_name',
 		)
 	);
-	?>
+	if ( $editor_users ) :
+		$managers_saved     = isset( $_GET['managers_saved'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$editor_access_mode = get_option( 'ftb_editor_access_mode', 'all' );
+		$designated_ids     = array_map( 'absint', (array) get_option( 'ftb_designated_managers', array() ) );
+		?>
 	<h2 class="ftb-admin-form__section-heading"><?php esc_html_e( 'Toegang', 'ftb-donation-form' ); ?></h2>
 
 	<?php if ( $managers_saved ) : ?>
@@ -552,4 +553,5 @@ if ( current_user_can( 'manage_options' ) ) :
 			});
 		}());
 	</script>
-<?php endif; ?>
+	<?php endif; // $editor_users. ?>
+<?php endif; // manage_options. ?>

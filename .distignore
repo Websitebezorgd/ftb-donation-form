@@ -4,4 +4,6 @@
 .editorconfig
 .vscode
 phpcs.xml
+phpstan.neon
+phpstan-bootstrap.php
 README.md

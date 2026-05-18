@@ -211,6 +211,8 @@ wp i18n make-pot . languages/ftb-donation-form.pot --domain=ftb-donation-form --
 2. In Poedit: open `ftb-donation-form-en_US.po` → **Catalogue → Update from POT file** → translate new strings → Save
 3. Remove obsolete strings: **Translation → Delete Obsolete Translations** → Save
 
+Poedit 3.x automatically writes the `.po`, `.mo`, and `.l10n.php` (including the ABSPATH guard) on save — no extra commands needed.
+
 **Adding a new language:**
 1. Poedit → File → New from POT/PO file → select `languages/ftb-donation-form.pot`
 2. Choose the target language (e.g. `fr_FR`)

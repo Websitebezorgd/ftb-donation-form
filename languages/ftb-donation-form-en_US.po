@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: For The Better donatieformulier 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ftb-donation-"
 "form\n"
-"POT-Creation-Date: 2026-05-08T15:32:09+00:00\n"
-"PO-Revision-Date: 2026-05-08 17:35+0200\n"
+"POT-Creation-Date: 2026-05-18T13:20:24+00:00\n"
+"PO-Revision-Date: 2026-05-18 15:24+0200\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
 "Language: en_US\n"
@@ -42,76 +42,76 @@ msgstr ""
 msgid "For The Better"
 msgstr "For The Better"
 
-#: admin/class-ftb-donation-form-admin.php:69
-#: admin/class-ftb-donation-form-admin.php:532
+#: admin/class-ftb-donation-form-admin.php:73
+#: admin/class-ftb-donation-form-admin.php:601
 msgid "Donatieformulier instellingen"
 msgstr "Donationform settings"
 
-#: admin/class-ftb-donation-form-admin.php:70
-#: admin/partials/ftb-donation-form-admin-display.php:223
-#: public/partials/ftb-donation-form-public-display.php:70
+#: admin/class-ftb-donation-form-admin.php:74
+#: admin/partials/ftb-donation-form-admin-display.php:241
+#: public/partials/ftb-donation-form-public-display.php:71
 msgid "Donatieformulier"
 msgstr "Donationform"
 
-#: admin/class-ftb-donation-form-admin.php:80
-#: admin/class-ftb-donation-form-admin.php:81
+#: admin/class-ftb-donation-form-admin.php:84
+#: admin/class-ftb-donation-form-admin.php:85
 msgid "Instellingen"
 msgstr "Settings"
 
-#: admin/class-ftb-donation-form-admin.php:89
-#: admin/class-ftb-donation-form-admin.php:90
-#: admin/class-ftb-donation-form-admin.php:690
+#: admin/class-ftb-donation-form-admin.php:93
+#: admin/class-ftb-donation-form-admin.php:94
+#: admin/class-ftb-donation-form-admin.php:832
 msgid "Donaties"
 msgstr "Donations"
 
-#: admin/class-ftb-donation-form-admin.php:113
-#: admin/partials/ftb-donation-form-admin-display.php:23
+#: admin/class-ftb-donation-form-admin.php:125
+#: admin/partials/ftb-donation-form-admin-display.php:26
 msgid "Mollie instellingen"
 msgstr "Mollie settings"
 
-#: admin/class-ftb-donation-form-admin.php:120
+#: admin/class-ftb-donation-form-admin.php:132
 msgid "API sleutel"
 msgstr "API key"
 
-#: admin/class-ftb-donation-form-admin.php:129
+#: admin/class-ftb-donation-form-admin.php:141
 msgid "Testmodus"
 msgstr "Test mode"
 
-#: admin/class-ftb-donation-form-admin.php:143
-#: admin/partials/ftb-donation-form-admin-display.php:64
+#: admin/class-ftb-donation-form-admin.php:159
+#: admin/partials/ftb-donation-form-admin-display.php:71
 msgid "Titel"
 msgstr "Title"
 
-#: admin/class-ftb-donation-form-admin.php:150
+#: admin/class-ftb-donation-form-admin.php:166
 msgid "Titel formulier"
 msgstr "Title form"
 
-#: admin/class-ftb-donation-form-admin.php:165
-#: admin/partials/ftb-donation-form-admin-display.php:183
+#: admin/class-ftb-donation-form-admin.php:185
+#: admin/partials/ftb-donation-form-admin-display.php:195
 msgid "Formuliervelden"
 msgstr "Form fields"
 
-#: admin/class-ftb-donation-form-admin.php:207
-#: admin/partials/ftb-donation-form-admin-display.php:196
-#: public/partials/ftb-donation-form-public-display.php:289
+#: admin/class-ftb-donation-form-admin.php:251
+#: admin/partials/ftb-donation-form-admin-display.php:210
+#: public/partials/ftb-donation-form-public-display.php:290
 msgid "Privacyverklaring"
 msgstr "Privacy statement"
 
-#: admin/class-ftb-donation-form-admin.php:214
+#: admin/class-ftb-donation-form-admin.php:258
 msgid "Link naar privacyverklaring"
 msgstr "Link to privacy statement"
 
-#: admin/class-ftb-donation-form-admin.php:255
-#: admin/partials/ftb-donation-form-admin-display.php:271
+#: admin/class-ftb-donation-form-admin.php:331
+#: admin/partials/ftb-donation-form-admin-display.php:290
 msgid "Na betaling"
 msgstr "After payment"
 
-#: admin/class-ftb-donation-form-admin.php:262
+#: admin/class-ftb-donation-form-admin.php:338
 msgid "Actie na betaling"
 msgstr "Action after payment"
 
-#: admin/class-ftb-donation-form-admin.php:275
-#: admin/partials/ftb-donation-form-admin-display.php:186
+#: admin/class-ftb-donation-form-admin.php:349
+#: admin/partials/ftb-donation-form-admin-display.php:198
 msgid ""
 "Naam en e-mailadres zijn altijd verplicht. Vink de overige velden aan die je "
 "wilt tonen."
@@ -119,7 +119,7 @@ msgstr ""
 "Name and email address are always required. Check the other fields you want "
 "to show."
 
-#: admin/class-ftb-donation-form-admin.php:279
+#: admin/class-ftb-donation-form-admin.php:353
 msgid ""
 "Voer drie vaste bedragen in die de donateur kan kiezen. De donateur kan ook "
 "een eigen bedrag invullen als deze optie is ingeschakeld."
@@ -127,182 +127,183 @@ msgstr ""
 "Enter three fixed amounts that the donor can choose. The donor can also "
 "enter their own amount if this option is enabled."
 
-#: admin/class-ftb-donation-form-admin.php:312
+#: admin/class-ftb-donation-form-admin.php:384
 msgid "Testmodus inschakelen (gebruik test API sleutel)"
 msgstr "Enable test mode (use test API key)"
 
-#: admin/class-ftb-donation-form-admin.php:321
-#: admin/class-ftb-donations-list-table.php:36
-#: public/partials/ftb-donation-form-public-display.php:216
+#: admin/class-ftb-donation-form-admin.php:393
+#: admin/class-ftb-donations-list-table.php:38
+#: public/partials/ftb-donation-form-public-display.php:217
 msgid "Telefoonnummer"
 msgstr "Phone number"
 
-#: admin/class-ftb-donation-form-admin.php:322
-#: public/partials/ftb-donation-form-public-display.php:231
+#: admin/class-ftb-donation-form-admin.php:394
+#: public/partials/ftb-donation-form-public-display.php:232
 msgid "Straat"
 msgstr "Street"
 
-#: admin/class-ftb-donation-form-admin.php:323
-#: public/partials/ftb-donation-form-public-display.php:243
+#: admin/class-ftb-donation-form-admin.php:395
+#: public/partials/ftb-donation-form-public-display.php:244
 msgid "Huisnummer"
 msgstr "House number"
 
-#: admin/class-ftb-donation-form-admin.php:324
-#: public/partials/ftb-donation-form-public-display.php:260
+#: admin/class-ftb-donation-form-admin.php:396
+#: public/partials/ftb-donation-form-public-display.php:261
 msgid "Postcode"
 msgstr "Zip code"
 
-#: admin/class-ftb-donation-form-admin.php:325
-#: public/partials/ftb-donation-form-public-display.php:272
+#: admin/class-ftb-donation-form-admin.php:397
+#: public/partials/ftb-donation-form-public-display.php:273
 msgid "Plaats"
 msgstr "City"
 
-#: admin/class-ftb-donation-form-admin.php:328
+#: admin/class-ftb-donation-form-admin.php:400
 msgid "Optionele velden"
 msgstr "Optional fields"
 
-#: admin/class-ftb-donation-form-admin.php:367
+#: admin/class-ftb-donation-form-admin.php:439
 msgid "Bedragoptie"
 msgstr "Amount option"
 
-#: admin/class-ftb-donation-form-admin.php:386
+#: admin/class-ftb-donation-form-admin.php:457
 msgid "Donateur mag een eigen bedrag invullen"
 msgstr "Donor may enter their custom amount"
 
-#: admin/class-ftb-donation-form-admin.php:402
-#: public/class-ftb-donation-form-public.php:186
-#: public/partials/ftb-donation-form-public-display.php:316
+#: admin/class-ftb-donation-form-admin.php:473
+#: public/class-ftb-donation-form-public.php:197
+#: public/partials/ftb-donation-form-public-display.php:317
 msgid "Doneer nu"
 msgstr "Donate now"
 
-#: admin/class-ftb-donation-form-admin.php:404
+#: admin/class-ftb-donation-form-admin.php:474
 msgid "Laat leeg om de standaardtekst \"Doneer nu\" te gebruiken."
 msgstr "Leave blank to use the default text \"Donate now\"."
 
-#: admin/class-ftb-donation-form-admin.php:431
+#: admin/class-ftb-donation-form-admin.php:500
 msgid "Toon een bedankbericht"
 msgstr "Show a thank-you message"
 
-#: admin/class-ftb-donation-form-admin.php:434
+#: admin/class-ftb-donation-form-admin.php:503
 msgid "Doorsturen naar een pagina"
 msgstr "Forward to a page"
 
-#: admin/class-ftb-donation-form-admin.php:494
+#: admin/class-ftb-donation-form-admin.php:563
 msgid ""
 "Je moet minimaal één bedragoptie inschakelen. Vaste bedragen zijn hersteld."
 msgstr ""
 "You must enable at least one amount option. Fixed amounts have been restored."
 
-#: admin/class-ftb-donation-form-admin.php:529
-#: admin/class-ftb-donation-form-admin.php:666
+#: admin/class-ftb-donation-form-admin.php:598
+#: admin/class-ftb-donation-form-admin.php:808
 msgid "Je hebt onvoldoende rechten om deze pagina te bekijken."
 msgstr "You do not have sufficient rights to view this page."
 
-#: admin/class-ftb-donation-form-admin.php:554
-#: admin/class-ftb-donation-form-admin.php:591
-#: admin/class-ftb-donation-form-admin.php:622
-#: admin/class-ftb-donation-form-admin.php:653
+#: admin/class-ftb-donation-form-admin.php:616
+#: admin/class-ftb-donation-form-admin.php:696
+#: admin/class-ftb-donation-form-admin.php:733
+#: admin/class-ftb-donation-form-admin.php:764
+#: admin/class-ftb-donation-form-admin.php:795
 msgid "Je hebt onvoldoende rechten om deze actie uit te voeren."
 msgstr "You do not have sufficient rights to perform this action."
 
-#: admin/class-ftb-donation-form-admin.php:631
+#: admin/class-ftb-donation-form-admin.php:773
 msgid "Ongeldige status."
 msgstr "Invalid status."
 
-#: admin/class-ftb-donation-form-admin.php:682
-#: admin/class-ftb-donations-list-table.php:75
+#: admin/class-ftb-donation-form-admin.php:824
+#: admin/class-ftb-donations-list-table.php:89
 msgid "Status wijzigen"
 msgstr "Change status"
 
-#: admin/class-ftb-donation-form-admin.php:688
+#: admin/class-ftb-donation-form-admin.php:830
 msgid "Exporteer CSV"
 msgstr "Export CSV"
 
-#: admin/class-ftb-donations-list-table.php:34
+#: admin/class-ftb-donations-list-table.php:36
 #: admin/partials/ftb-donation-form-edit-status-display.php:39
 msgid "Naam"
 msgstr "Name"
 
-#: admin/class-ftb-donations-list-table.php:35
+#: admin/class-ftb-donations-list-table.php:37
 #: admin/partials/ftb-donation-form-edit-status-display.php:43
 msgid "E-mailadres"
 msgstr "Emailadress"
 
-#: admin/class-ftb-donations-list-table.php:37
+#: admin/class-ftb-donations-list-table.php:39
 msgid "Adres"
 msgstr "Adress"
 
-#: admin/class-ftb-donations-list-table.php:38
+#: admin/class-ftb-donations-list-table.php:40
 #: admin/partials/ftb-donation-form-edit-status-display.php:47
 msgid "Bedrag"
 msgstr "Amount"
 
-#: admin/class-ftb-donations-list-table.php:39
-#: admin/partials/ftb-donation-form-admin-display.php:77
+#: admin/class-ftb-donations-list-table.php:41
+#: admin/partials/ftb-donation-form-admin-display.php:86
 msgid "Frequentie"
 msgstr "Frequency"
 
-#: admin/class-ftb-donations-list-table.php:40
+#: admin/class-ftb-donations-list-table.php:42
 msgid "Status"
 msgstr "Status"
 
-#: admin/class-ftb-donations-list-table.php:41
+#: admin/class-ftb-donations-list-table.php:43
 msgid "Datum"
 msgstr "Date"
 
-#: admin/class-ftb-donations-list-table.php:76
-#: admin/class-ftb-donations-list-table.php:84
+#: admin/class-ftb-donations-list-table.php:90
+#: admin/class-ftb-donations-list-table.php:98
 msgid "Verwijderen"
 msgstr "Delete"
 
-#: admin/class-ftb-donations-list-table.php:102
-#: includes/class-ftb-email.php:134
-#: public/partials/ftb-donation-form-public-display.php:83
+#: admin/class-ftb-donations-list-table.php:120
+#: includes/class-ftb-email.php:140
+#: public/partials/ftb-donation-form-public-display.php:84
 msgid "Eenmalig"
 msgstr "One-time"
 
-#: admin/class-ftb-donations-list-table.php:103
-#: admin/partials/ftb-donation-form-admin-display.php:338
-#: includes/class-ftb-email.php:135
-#: public/partials/ftb-donation-form-public-display.php:84
+#: admin/class-ftb-donations-list-table.php:121
+#: admin/partials/ftb-donation-form-admin-display.php:367
+#: includes/class-ftb-email.php:141
+#: public/partials/ftb-donation-form-public-display.php:85
 msgid "Maandelijks"
 msgstr "Monthly"
 
-#: admin/class-ftb-donations-list-table.php:104
-#: includes/class-ftb-email.php:136
-#: public/partials/ftb-donation-form-public-display.php:85
+#: admin/class-ftb-donations-list-table.php:122
+#: includes/class-ftb-email.php:142
+#: public/partials/ftb-donation-form-public-display.php:86
 msgid "Jaarlijks"
 msgstr "Yearly"
 
-#: admin/class-ftb-donations-list-table.php:131
-#: admin/class-ftb-donations-list-table.php:182
+#: admin/class-ftb-donations-list-table.php:152
+#: admin/class-ftb-donations-list-table.php:205
 #: admin/partials/ftb-donation-form-edit-status-display.php:25
 msgid "In afwachting"
 msgstr "Pending"
 
-#: admin/class-ftb-donations-list-table.php:132
-#: admin/class-ftb-donations-list-table.php:183
+#: admin/class-ftb-donations-list-table.php:153
+#: admin/class-ftb-donations-list-table.php:206
 #: admin/partials/ftb-donation-form-edit-status-display.php:26
 msgid "Betaald"
 msgstr "Paid"
 
-#: admin/class-ftb-donations-list-table.php:133
-#: admin/class-ftb-donations-list-table.php:184
+#: admin/class-ftb-donations-list-table.php:154
+#: admin/class-ftb-donations-list-table.php:207
 #: admin/partials/ftb-donation-form-edit-status-display.php:27
 msgid "Mislukt"
 msgstr "Failed"
 
-#: admin/class-ftb-donations-list-table.php:134
-#: admin/class-ftb-donations-list-table.php:185
+#: admin/class-ftb-donations-list-table.php:155
+#: admin/class-ftb-donations-list-table.php:208
 #: admin/partials/ftb-donation-form-edit-status-display.php:28
 msgid "Geannuleerd"
 msgstr "Cancelled"
 
-#: admin/class-ftb-donations-list-table.php:193
+#: admin/class-ftb-donations-list-table.php:216
 msgid "Alle"
 msgstr "All"
 
-#: admin/partials/ftb-donation-form-admin-display.php:26
+#: admin/partials/ftb-donation-form-admin-display.php:29
 msgid ""
 "Vind je API sleutel in je Mollie dashboard onder Ontwikkelaars → API-"
 "sleutels. Gebruik de live sleutel voor echte betalingen."
@@ -310,43 +311,43 @@ msgstr ""
 "Find your API key in your Mollie dashboard under Developers → API keys. Use "
 "the live key for real payments."
 
-#: admin/partials/ftb-donation-form-admin-display.php:27
+#: admin/partials/ftb-donation-form-admin-display.php:30
 msgid "Inloggen bij Mollie"
 msgstr "Log in to Mollie"
 
-#: admin/partials/ftb-donation-form-admin-display.php:38
+#: admin/partials/ftb-donation-form-admin-display.php:41
 msgid ""
 "Mollie API sleutel is ongeldig. Controleer de sleutel en probeer het opnieuw."
 msgstr "Mollie API key is invalid. Check the key and try again."
 
-#: admin/partials/ftb-donation-form-admin-display.php:45
+#: admin/partials/ftb-donation-form-admin-display.php:48
 msgid "Shortcode"
 msgstr "Shortcode"
 
-#: admin/partials/ftb-donation-form-admin-display.php:47
+#: admin/partials/ftb-donation-form-admin-display.php:50
 msgid "Plaats het donatieformulier op een pagina met deze shortcode:"
 msgstr "Add the donation form on a page with this shortcode:"
 
-#: admin/partials/ftb-donation-form-admin-display.php:55
+#: admin/partials/ftb-donation-form-admin-display.php:60
 msgid "Formulier instellingen"
 msgstr "Form settings"
 
-#: admin/partials/ftb-donation-form-admin-display.php:67
+#: admin/partials/ftb-donation-form-admin-display.php:74
 msgid "Pas de titel van het formulier aan."
 msgstr "Change the title of the form."
 
-#: admin/partials/ftb-donation-form-admin-display.php:80
+#: admin/partials/ftb-donation-form-admin-display.php:89
 msgid ""
 "Kies of donateurs alleen eenmalig kunnen doneren, of ook maandelijks en "
 "jaarlijks."
 msgstr ""
 "Choose whether donors can only donate once, or also monthly and annually."
 
-#: admin/partials/ftb-donation-form-admin-display.php:88
+#: admin/partials/ftb-donation-form-admin-display.php:97
 msgid "Terugkerende betalingen inschakelen"
 msgstr "Enable recurring payments"
 
-#: admin/partials/ftb-donation-form-admin-display.php:93
+#: admin/partials/ftb-donation-form-admin-display.php:102
 msgid ""
 "Zorg dat SEPA-incasso is ingeschakeld in je Mollie-dashboard. Activeer via "
 "je organisatienaam linksboven in het dashboard → Instellingen → Online "
@@ -356,11 +357,11 @@ msgstr ""
 "via your organization name in the top left of the dashboard → Settings → "
 "Online payments → SEPA Direct Debit."
 
-#: admin/partials/ftb-donation-form-admin-display.php:102
+#: admin/partials/ftb-donation-form-admin-display.php:113
 msgid "Bedragopties"
 msgstr "Amount options"
 
-#: admin/partials/ftb-donation-form-admin-display.php:105
+#: admin/partials/ftb-donation-form-admin-display.php:116
 msgid ""
 "Kies welke bedragopties beschikbaar zijn. Je moet minimaal één optie "
 "inschakelen."
@@ -368,29 +369,29 @@ msgstr ""
 "Choose which amount options are available. You must enable at least one "
 "option."
 
-#: admin/partials/ftb-donation-form-admin-display.php:121
+#: admin/partials/ftb-donation-form-admin-display.php:132
 msgid "Vaste bedragen tonen"
 msgstr "Show fixed amounts"
 
-#: admin/partials/ftb-donation-form-admin-display.php:125
+#: admin/partials/ftb-donation-form-admin-display.php:136
 msgid "Vaste bedragen (minimaal €1)"
 msgstr "Fixed amounts (minimum €1)"
 
 #. translators: %d: amount option number
-#: admin/partials/ftb-donation-form-admin-display.php:140
+#: admin/partials/ftb-donation-form-admin-display.php:152
 #, php-format
 msgid "Bedragoptie %d"
 msgstr "Amount option %d"
 
-#: admin/partials/ftb-donation-form-admin-display.php:154
+#: admin/partials/ftb-donation-form-admin-display.php:165
 msgid "Eigen bedrag toestaan"
 msgstr "Allow custom amount"
 
-#: admin/partials/ftb-donation-form-admin-display.php:158
+#: admin/partials/ftb-donation-form-admin-display.php:169
 msgid "Minimumbedrag eigen bedrag (minimaal €1)"
 msgstr "Minimum custom amount (minimum €1)"
 
-#: admin/partials/ftb-donation-form-admin-display.php:199
+#: admin/partials/ftb-donation-form-admin-display.php:213
 msgid ""
 "Voeg de link in naar je privacyverklaring. Deze link wordt boven het "
 "toestemmingsveld in het formulier getoond."
@@ -398,7 +399,7 @@ msgstr ""
 "Insert the link to your privacy statement. This link is displayed above the "
 "consent field in the form."
 
-#: admin/partials/ftb-donation-form-admin-display.php:206
+#: admin/partials/ftb-donation-form-admin-display.php:220
 msgid ""
 "Je verzamelt persoonsgegevens. Voeg een link naar je privacyverklaring toe "
 "om aan de AVG te voldoen."
@@ -406,39 +407,39 @@ msgstr ""
 "You collect personal data. Include a link to your privacy statement to "
 "comply with the GDPR."
 
-#: admin/partials/ftb-donation-form-admin-display.php:212
+#: admin/partials/ftb-donation-form-admin-display.php:226
 msgid "naam"
 msgstr "name"
 
-#: admin/partials/ftb-donation-form-admin-display.php:212
+#: admin/partials/ftb-donation-form-admin-display.php:226
 msgid "e-mailadres"
 msgstr "emailadress"
 
-#: admin/partials/ftb-donation-form-admin-display.php:214
+#: admin/partials/ftb-donation-form-admin-display.php:228
 msgid "telefoonnummer"
 msgstr "phone number"
 
-#: admin/partials/ftb-donation-form-admin-display.php:218
+#: admin/partials/ftb-donation-form-admin-display.php:232
 msgid "adresgegevens"
 msgstr "address details"
 
-#: admin/partials/ftb-donation-form-admin-display.php:213
+#: admin/partials/ftb-donation-form-admin-display.php:236
 msgid "donatiebedrag"
 msgstr "donation amount"
 
-#: admin/partials/ftb-donation-form-admin-display.php:214
+#: admin/partials/ftb-donation-form-admin-display.php:237
 msgid "frequentie (eenmalig, maandelijks of jaarlijks)"
 msgstr "frequency (one-time, monthly or yearly)"
 
-#: admin/partials/ftb-donation-form-admin-display.php:215
+#: admin/partials/ftb-donation-form-admin-display.php:238
 msgid "datum van de donatie"
 msgstr "date of donation"
 
-#: admin/partials/ftb-donation-form-admin-display.php:216
+#: admin/partials/ftb-donation-form-admin-display.php:239
 msgid "betalingsstatus"
 msgstr "payment status"
 
-#: admin/partials/ftb-donation-form-admin-display.php:224
+#: admin/partials/ftb-donation-form-admin-display.php:242
 msgid ""
 "Via het donatieformulier op onze website verwerken wij persoonsgegevens om "
 "donaties te kunnen ontvangen en administreren. De volgende gegevens worden "
@@ -447,7 +448,7 @@ msgstr ""
 "Through the donation form on our website, we process personal data to "
 "receive and administer donations. The following data is collected:"
 
-#: admin/partials/ftb-donation-form-admin-display.php:225
+#: admin/partials/ftb-donation-form-admin-display.php:243
 msgid ""
 "Betalingen worden verwerkt via Mollie Payments B.V. Wij delen jouw gegevens "
 "uitsluitend met Mollie voor zover dat noodzakelijk is voor de uitvoering van "
@@ -459,7 +460,7 @@ msgstr ""
 "not sell your data to third parties or share it for other purposes, unless "
 "we are legally obliged to do so."
 
-#: admin/partials/ftb-donation-form-admin-display.php:226
+#: admin/partials/ftb-donation-form-admin-display.php:244
 msgid ""
 "Wij verwerken jouw gegevens om de donatie te kunnen uitvoeren en bij te "
 "houden. De juridische basis hiervoor is de uitvoering van de overeenkomst en "
@@ -469,7 +470,7 @@ msgstr ""
 "this is the performance of the contract and our legitimate interest."
 
 #. translators: %s: e-mail address
-#: admin/partials/ftb-donation-form-admin-display.php:229
+#: admin/partials/ftb-donation-form-admin-display.php:247
 #, php-format
 msgid ""
 "Jouw gegevens worden niet langer bewaard dan noodzakelijk is voor de "
@@ -484,7 +485,7 @@ msgstr ""
 "processing, and portability of your data. For questions or requests, you can "
 "contact us via %s."
 
-#: admin/partials/ftb-donation-form-admin-display.php:231
+#: admin/partials/ftb-donation-form-admin-display.php:249
 msgid ""
 "Jouw gegevens worden niet langer bewaard dan noodzakelijk is voor de "
 "doeleinden waarvoor ze zijn verzameld, of zolang de wet dit vereist. Op "
@@ -496,119 +497,119 @@ msgstr ""
 "you have the right to access, correction, deletion, restriction of "
 "processing, and portability of your data."
 
-#: admin/partials/ftb-donation-form-admin-display.php:241
+#: admin/partials/ftb-donation-form-admin-display.php:259
 msgid "Tekst voor privacyverklaring"
 msgstr "Text for privacy statement"
 
-#: admin/partials/ftb-donation-form-admin-display.php:242
+#: admin/partials/ftb-donation-form-admin-display.php:260
 msgid "Kopieer deze tekst naar je privacyverklaring:"
 msgstr "Copy this text to your privacy statement:"
 
-#: admin/partials/ftb-donation-form-admin-display.php:258
+#: admin/partials/ftb-donation-form-admin-display.php:276
 msgid "Gekopieerd ✓"
 msgstr "Copied ✓"
 
-#: admin/partials/ftb-donation-form-admin-display.php:259
+#: admin/partials/ftb-donation-form-admin-display.php:276
 msgid "Kopiëren"
 msgstr "Copy"
 
-#: admin/partials/ftb-donation-form-admin-display.php:274
+#: admin/partials/ftb-donation-form-admin-display.php:293
 msgid "Kies wat er gebeurt nadat de donateur succesvol heeft betaald."
 msgstr "Choose what happens after the donor has successfully paid."
 
-#: admin/partials/ftb-donation-form-admin-display.php:285
+#: admin/partials/ftb-donation-form-admin-display.php:304
 msgid "Bedankbericht"
 msgstr "Thank you message"
 
-#: admin/partials/ftb-donation-form-admin-display.php:291
-#: public/class-ftb-donation-form-public.php:203
+#: admin/partials/ftb-donation-form-admin-display.php:310
+#: public/class-ftb-donation-form-public.php:215
 msgid "Hartelijk dank voor je donatie!"
 msgstr "Thank you very much for your donation!"
 
-#: admin/partials/ftb-donation-form-admin-display.php:297
+#: admin/partials/ftb-donation-form-admin-display.php:315
 msgid "Doorstuur-URL"
 msgstr "Forwarding URL"
 
-#: admin/partials/ftb-donation-form-admin-display.php:314
+#: admin/partials/ftb-donation-form-admin-display.php:333
 msgid "E-mailnotificaties"
 msgstr "Email notifications"
 
-#: admin/partials/ftb-donation-form-admin-display.php:317
+#: admin/partials/ftb-donation-form-admin-display.php:336
 msgid "Stuur automatisch e-mails na een geslaagde betaling."
 msgstr "Send automatic emails after a successful payment."
 
-#: admin/partials/ftb-donation-form-admin-display.php:330
-#: includes/class-ftb-email.php:114
+#: admin/partials/ftb-donation-form-admin-display.php:350
+#: includes/class-ftb-email.php:120
 msgid "Telefoon:"
 msgstr "Phone number:"
 
-#: admin/partials/ftb-donation-form-admin-display.php:331
-#: includes/class-ftb-email.php:117
+#: admin/partials/ftb-donation-form-admin-display.php:353
+#: includes/class-ftb-email.php:123
 msgid "Straat:"
 msgstr "Street:"
 
-#: admin/partials/ftb-donation-form-admin-display.php:332
-#: includes/class-ftb-email.php:120
+#: admin/partials/ftb-donation-form-admin-display.php:356
+#: includes/class-ftb-email.php:126
 msgid "Huisnummer:"
 msgstr "House number:"
 
-#: admin/partials/ftb-donation-form-admin-display.php:333
-#: includes/class-ftb-email.php:123
+#: admin/partials/ftb-donation-form-admin-display.php:359
+#: includes/class-ftb-email.php:129
 msgid "Postcode:"
 msgstr "Zip code:"
 
-#: admin/partials/ftb-donation-form-admin-display.php:334
-#: includes/class-ftb-email.php:126
+#: admin/partials/ftb-donation-form-admin-display.php:362
+#: includes/class-ftb-email.php:132
 msgid "Plaats:"
 msgstr "City:"
 
-#: admin/partials/ftb-donation-form-admin-display.php:338
-#: includes/class-ftb-email.php:110
+#: admin/partials/ftb-donation-form-admin-display.php:367
+#: includes/class-ftb-email.php:116
 msgid "Frequentie:"
 msgstr "Frequency:"
 
-#: admin/partials/ftb-donation-form-admin-display.php:342
-#: includes/class-ftb-email.php:103
+#: admin/partials/ftb-donation-form-admin-display.php:374
+#: includes/class-ftb-email.php:109
 msgid "Naam:"
 msgstr "Name:"
 
-#: admin/partials/ftb-donation-form-admin-display.php:343
-#: includes/class-ftb-email.php:109
+#: admin/partials/ftb-donation-form-admin-display.php:375
+#: includes/class-ftb-email.php:115
 msgid "Bedrag:"
 msgstr "Amount:"
 
-#: admin/partials/ftb-donation-form-admin-display.php:345
-#: includes/class-ftb-email.php:111
+#: admin/partials/ftb-donation-form-admin-display.php:379
+#: includes/class-ftb-email.php:117
 msgid "Datum:"
 msgstr "Date:"
 
-#: admin/partials/ftb-donation-form-admin-display.php:355
+#: admin/partials/ftb-donation-form-admin-display.php:392
 msgid "Melding bij nieuwe donatie"
 msgstr "Notification regarding new donation"
 
-#: admin/partials/ftb-donation-form-admin-display.php:364
+#: admin/partials/ftb-donation-form-admin-display.php:401
 msgid "Bevestigingsmail naar donateur"
 msgstr "Confirmation email to donor"
 
-#: admin/partials/ftb-donation-form-admin-display.php:368
+#: admin/partials/ftb-donation-form-admin-display.php:405
 msgid "Onderwerp"
 msgstr "Subject"
 
-#: admin/partials/ftb-donation-form-admin-display.php:375
-#: admin/partials/ftb-donation-form-admin-display.php:394
-#: includes/class-ftb-email.php:29
+#: admin/partials/ftb-donation-form-admin-display.php:412
+#: admin/partials/ftb-donation-form-admin-display.php:429
+#: includes/class-ftb-email.php:32
 msgid "Bedankt voor je donatie!"
 msgstr "Thank you for your donation!"
 
-#: admin/partials/ftb-donation-form-admin-display.php:379
+#: admin/partials/ftb-donation-form-admin-display.php:415
 msgid "Bericht (optioneel)"
 msgstr "Message (optional)"
 
-#: admin/partials/ftb-donation-form-admin-display.php:385
+#: admin/partials/ftb-donation-form-admin-display.php:421
 msgid "Hartelijk dank voor je steun!"
 msgstr "Thank you very much for your support!"
 
-#: admin/partials/ftb-donation-form-admin-display.php:387
+#: admin/partials/ftb-donation-form-admin-display.php:422
 msgid ""
 "Naam, bedrag, frequentie, datum en de ingevulde formuliervelden worden "
 "automatisch toegevoegd."
@@ -616,21 +617,65 @@ msgstr ""
 "Name, amount, frequency, date, and the completed form fields are added "
 "automatically."
 
-#: admin/partials/ftb-donation-form-admin-display.php:390
+#: admin/partials/ftb-donation-form-admin-display.php:425
 msgid "Voorbeeld"
 msgstr "Preview"
 
-#: admin/partials/ftb-donation-form-admin-display.php:393
+#: admin/partials/ftb-donation-form-admin-display.php:428
 msgid "Onderwerp:"
 msgstr "Subject:"
 
-#: admin/partials/ftb-donation-form-admin-display.php:403
+#: admin/partials/ftb-donation-form-admin-display.php:438
 msgid "E-mailadres afzender"
 msgstr "Sender's email address"
 
-#: admin/partials/ftb-donation-form-admin-display.php:422
+#: admin/partials/ftb-donation-form-admin-display.php:456
 msgid "Instellingen opslaan"
 msgstr "Save settings"
+
+#: admin/partials/ftb-donation-form-admin-display.php:474
+msgid "Toegang"
+msgstr "Access"
+
+#: admin/partials/ftb-donation-form-admin-display.php:478
+msgid "Toegang opgeslagen."
+msgstr "Access saved."
+
+#: admin/partials/ftb-donation-form-admin-display.php:487
+msgid "Formulierbeheerders"
+msgstr "Form managers"
+
+#: admin/partials/ftb-donation-form-admin-display.php:489
+msgid ""
+"Bepaal welke redacteuren toegang hebben tot de plugin-instellingen en "
+"donaties. Beheerders hebben altijd toegang."
+msgstr ""
+"Determine which editors have access to the plugin settings and donations. "
+"Administrators always have access."
+
+#: admin/partials/ftb-donation-form-admin-display.php:496
+msgid "Alle redacteuren"
+msgstr "All editors"
+
+#: admin/partials/ftb-donation-form-admin-display.php:504
+msgid "Specifieke redacteuren"
+msgstr "Specific editors"
+
+#: admin/partials/ftb-donation-form-admin-display.php:512
+msgid "Alleen beheerders"
+msgstr "Administrators only"
+
+#: admin/partials/ftb-donation-form-admin-display.php:517
+msgid "Selecteer redacteuren met toegang"
+msgstr "Select editors with access"
+
+#: admin/partials/ftb-donation-form-admin-display.php:535
+msgid "Geen redacteuren gevonden."
+msgstr "No editors found."
+
+#: admin/partials/ftb-donation-form-admin-display.php:542
+msgid "Toegang opslaan"
+msgstr "Save access"
 
 #: admin/partials/ftb-donation-form-admin-footer.php:15
 msgid "Een plugin van"
@@ -672,168 +717,168 @@ msgstr "Status updated."
 msgid "Zoeken"
 msgstr "Search"
 
-#: includes/class-ftb-email.php:49
+#: includes/class-ftb-email.php:54
 msgid "Je hebt een nieuwe donatie ontvangen"
 msgstr "You have received a new donation"
 
-#: includes/class-ftb-email.php:106
+#: includes/class-ftb-email.php:112
 msgid "E-mail:"
 msgstr "Emailadress:"
 
 #. translators: %s: donor full name
-#: includes/class-ftb-mollie-service.php:95
-#: public/class-ftb-donation-form-public.php:153
+#: includes/class-ftb-mollie-service.php:99
+#: public/class-ftb-donation-form-public.php:163
 #, php-format
 msgid "Donatie van %s"
 msgstr "Donation of %s"
 
-#: public/class-ftb-donation-form-public.php:50
-#: public/class-ftb-donation-form-public.php:250
+#: public/class-ftb-donation-form-public.php:51
+#: public/class-ftb-donation-form-public.php:262
 msgid "Kies een frequentie."
 msgstr "Choose a frequency."
 
-#: public/class-ftb-donation-form-public.php:51
-#: public/class-ftb-donation-form-public.php:264
+#: public/class-ftb-donation-form-public.php:52
+#: public/class-ftb-donation-form-public.php:276
 msgid "Kies een bedrag."
 msgstr "Choose an amount."
 
 #. translators: %s: minimum amount, e.g. "1"
-#: public/class-ftb-donation-form-public.php:53
-#: public/class-ftb-donation-form-public.php:259
+#: public/class-ftb-donation-form-public.php:54
+#: public/class-ftb-donation-form-public.php:271
 #, php-format
 msgid "Je eigen bedrag moet minimaal €%s zijn."
 msgstr "Your custom amount must be at least €%s."
 
-#: public/class-ftb-donation-form-public.php:54
-#: public/class-ftb-donation-form-public.php:269
+#: public/class-ftb-donation-form-public.php:55
+#: public/class-ftb-donation-form-public.php:281
 msgid "Vul je volledige naam in."
 msgstr "Enter your full name."
 
-#: public/class-ftb-donation-form-public.php:55
-#: public/class-ftb-donation-form-public.php:274
+#: public/class-ftb-donation-form-public.php:56
+#: public/class-ftb-donation-form-public.php:286
 msgid "Vul een geldig e-mailadres in."
 msgstr "Enter a valid email address."
 
-#: public/class-ftb-donation-form-public.php:56
-#: public/class-ftb-donation-form-public.php:279
+#: public/class-ftb-donation-form-public.php:57
+#: public/class-ftb-donation-form-public.php:291
 msgid "Je moet akkoord gaan met de privacyverklaring om te doneren."
 msgstr "You must agree to the privacy statement to donate."
 
-#: public/class-ftb-donation-form-public.php:57
-#: public/partials/ftb-donation-form-public-display.php:55
+#: public/class-ftb-donation-form-public.php:58
+#: public/partials/ftb-donation-form-public-display.php:56
 msgid "Controleer de volgende fouten:"
 msgstr "Check the following errors:"
 
-#: public/class-ftb-donation-form-public.php:229
+#: public/class-ftb-donation-form-public.php:241
 msgid "Beveiligingscontrole mislukt. Probeer het opnieuw."
 msgstr "Security check failed. Try again."
 
-#: public/class-ftb-donation-form-public.php:382
+#: public/class-ftb-donation-form-public.php:402
 msgid ""
 "De betalingsservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
 msgstr ""
 "The payment service is temporarily unavailable. Please try again later."
 
-#: public/class-ftb-donation-form-public.php:383
+#: public/class-ftb-donation-form-public.php:403
 msgid "Betaling mislukt"
 msgstr "Payment failed"
 
-#: public/partials/ftb-donation-form-public-display.php:49
+#: public/partials/ftb-donation-form-public-display.php:50
 msgid "Jouw donatie"
 msgstr "Your donation"
 
-#: public/partials/ftb-donation-form-public-display.php:50
-#: public/partials/ftb-donation-form-public-display.php:182
+#: public/partials/ftb-donation-form-public-display.php:51
+#: public/partials/ftb-donation-form-public-display.php:183
 msgid "Jouw gegevens"
 msgstr "Your details"
 
-#: public/partials/ftb-donation-form-public-display.php:73
+#: public/partials/ftb-donation-form-public-display.php:74
 msgid "Stap 1 van 2: Jouw donatie, huidige stap"
 msgstr "Step 1 of 2: Your donation, current step"
 
-#: public/partials/ftb-donation-form-public-display.php:74
-#: public/partials/ftb-donation-form-public-display.php:178
+#: public/partials/ftb-donation-form-public-display.php:75
+#: public/partials/ftb-donation-form-public-display.php:179
 msgid "Als iets verplicht is, staat dat erbij."
 msgstr "If something is required, it will be stated."
 
-#: public/partials/ftb-donation-form-public-display.php:78
+#: public/partials/ftb-donation-form-public-display.php:79
 msgid "Frequentie (verplicht)"
 msgstr "Frequency (required)"
 
-#: public/partials/ftb-donation-form-public-display.php:100
+#: public/partials/ftb-donation-form-public-display.php:101
 msgid "Kies hoe vaak je wilt doneren"
 msgstr "Choose how often you want to donate"
 
-#: public/partials/ftb-donation-form-public-display.php:108
+#: public/partials/ftb-donation-form-public-display.php:109
 msgid "Bedrag (verplicht)"
 msgstr "Amount (required)"
 
-#: public/partials/ftb-donation-form-public-display.php:108
+#: public/partials/ftb-donation-form-public-display.php:109
 msgid "Eenmalig bedrag (verplicht)"
 msgstr "One-time amount (required)"
 
-#: public/partials/ftb-donation-form-public-display.php:132
+#: public/partials/ftb-donation-form-public-display.php:133
 msgid "Anders"
 msgstr "Other"
 
-#: public/partials/ftb-donation-form-public-display.php:144
+#: public/partials/ftb-donation-form-public-display.php:145
 msgid "Eigen bedrag"
 msgstr "Custom amount"
 
 #. translators: %s: minimum amount, e.g. "1"
-#: public/partials/ftb-donation-form-public-display.php:149
+#: public/partials/ftb-donation-form-public-display.php:150
 #, php-format
 msgid "Vul een bedrag in (minimaal €%s)"
 msgstr "Enter an amount (minimum €%s)"
 
-#: public/partials/ftb-donation-form-public-display.php:168
+#: public/partials/ftb-donation-form-public-display.php:169
 msgid "Kies een bedrag om te doneren"
 msgstr "Choose an amount to donate"
 
-#: public/partials/ftb-donation-form-public-display.php:172
+#: public/partials/ftb-donation-form-public-display.php:173
 msgid "Volgende"
 msgstr "Next"
 
-#: public/partials/ftb-donation-form-public-display.php:176
+#: public/partials/ftb-donation-form-public-display.php:177
 msgid "Stap 2 van 2: Jouw gegevens, huidige stap"
 msgstr "Step 2 of 2: Your details, current step"
 
-#: public/partials/ftb-donation-form-public-display.php:185
+#: public/partials/ftb-donation-form-public-display.php:186
 msgid "Volledige naam (verplicht)"
 msgstr "Full name (required)"
 
-#: public/partials/ftb-donation-form-public-display.php:196
+#: public/partials/ftb-donation-form-public-display.php:197
 msgid "Vul je naam in"
 msgstr "Enter your name"
 
-#: public/partials/ftb-donation-form-public-display.php:200
+#: public/partials/ftb-donation-form-public-display.php:201
 msgid "E-mailadres (verplicht)"
 msgstr "Email address (required)"
 
-#: public/partials/ftb-donation-form-public-display.php:211
+#: public/partials/ftb-donation-form-public-display.php:212
 msgid "Vul een geldig e-mailadres in"
 msgstr "Enter a valid email address"
 
-#: public/partials/ftb-donation-form-public-display.php:292
+#: public/partials/ftb-donation-form-public-display.php:293
 msgid "Lees onze privacyverklaring"
 msgstr "Read our privacy statement"
 
-#: public/partials/ftb-donation-form-public-display.php:294
+#: public/partials/ftb-donation-form-public-display.php:295
 msgid "Privacyverklaring nog niet beschikbaar."
 msgstr "Privacy statement not yet available."
 
-#: public/partials/ftb-donation-form-public-display.php:308
+#: public/partials/ftb-donation-form-public-display.php:309
 msgid "Ik ga akkoord met de privacyverklaring (verplicht)"
 msgstr "I agree to the privacy statement (required)"
 
-#: public/partials/ftb-donation-form-public-display.php:311
+#: public/partials/ftb-donation-form-public-display.php:312
 msgid "Je moet akkoord gaan met de privacyverklaring"
 msgstr "You must agree to the privacy statement"
 
-#: public/partials/ftb-donation-form-public-display.php:315
+#: public/partials/ftb-donation-form-public-display.php:316
 msgid "Vorige"
 msgstr "Previous"
 
-#: public/partials/ftb-donation-form-public-display.php:316
+#: public/partials/ftb-donation-form-public-display.php:317
 msgid "Doneer nu eenmalig"
 msgstr "Donate once now"

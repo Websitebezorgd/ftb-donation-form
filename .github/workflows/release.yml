@@ -7,9 +7,6 @@ on:
         description: 'Versienummer (bijv. 1.0.1)'
         required: true
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -26,8 +23,10 @@ jobs:
           zip -r ftb-donation-form.zip ftb-donation-form/
 
       - name: Release aanmaken
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ github.event.inputs.version }}
-          name: v${{ github.event.inputs.version }}
-          files: /tmp/ftb-donation-form.zip
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "v${{ github.event.inputs.version }}" \
+            /tmp/ftb-donation-form.zip \
+            --title "v${{ github.event.inputs.version }}" \
+            --generate-notes

@@ -1,0 +1,30 @@
+name: Release plugin
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Versienummer (bijv. 1.0.1)'
+        required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Plugin zip aanmaken
+        run: |
+          mkdir -p /tmp/ftb-donation-form
+          rsync -av --exclude-from='.distignore' --exclude='.git' . /tmp/ftb-donation-form/
+          cd /tmp
+          zip -r ftb-donation-form.zip ftb-donation-form/
+
+      - name: Release aanmaken
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.event.inputs.version }}
+          name: v${{ github.event.inputs.version }}
+          files: /tmp/ftb-donation-form.zip

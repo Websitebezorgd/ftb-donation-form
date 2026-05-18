@@ -342,7 +342,7 @@ class FTB_Donation_Form_Public {
 				if ( ! get_option( 'ftb_mollie_api_key' ) ) {
 					$errors['payment'] = is_user_logged_in()
 						? __( 'Mollie is tijdelijk niet beschikbaar. Controleer of er een API sleutel is ingevuld.', 'ftb-donation-form' )
-						: __( 'De betalingsservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.', 'ftb-donation-form' );
+						: __( 'De betaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.', 'ftb-donation-form' );
 				}
 
 				if ( empty( $errors ) ) try {
@@ -402,7 +402,7 @@ class FTB_Donation_Form_Public {
                         // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 						error_log( 'FTB Mollie payment error: ' . $e->getMessage() );
 					}
-					$errors['payment'] = __( 'De betalingsservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.', 'ftb-donation-form' );
+					$errors['payment'] = __( 'De betaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.', 'ftb-donation-form' );
 				}
 			}
 		}

@@ -56,16 +56,22 @@ Een op maat gebouwde WordPress-plugin voor donatieformulieren, specifiek voor Fo
 
 ## Plugin uploaden
 
-Maak een schone zip zonder ontwikkelbestanden (phpcs, PHPStan, README etc.):
+Een nieuwe versie van de plugin wordt automatisch gebuild via GitHub Actions. Dit zorgt voor een schone zip zonder ontwikkelbestanden, én met de Mollie PHP SDK erin.
 
-```bash
-# Vanuit de plugin-map
-wp dist-archive .
-```
+### Stappen
 
-Dit genereert `ftb-donation-form.zip` in de bovenliggende map. Bestanden in `.distignore` worden automatisch weggelaten.
+1. Zorg dat alle wijzigingen naar GitHub zijn gepusht
+2. Ga naar de GitHub-repository → tabblad **Actions** → workflow **Build & Release Plugin**
+3. Klik op **Run workflow** → voer het versienummer in (bijv. `1.0.1`) → klik **Run workflow**
+4. Na een minuut of twee staat de release klaar onder **Releases** (rechterkant van de repository-startpagina)
+5. Download `ftb-donation-form.zip` uit de release
 
-> **Handmatig:** zip de map `ftb-donation-form/` en sla de zip op. Verwijder van tevoren handmatig: `.git`, `phpcs.xml`, `phpstan.neon`, `phpstan-bootstrap.php`, `README.md`, `.distignore`, `.editorconfig`, `.vscode`.
+### Installeren op een WordPress-site
+
+1. Ga naar **WP-admin → Plugins → Plugin toevoegen → Plugin uploaden**
+2. Selecteer de gedownloade zip → **Nu installeren** → **Plugin activeren**
+
+> Bij een update van een bestaande installatie: deactiveer de plugin eerst, verwijder hem, en installeer de nieuwe versie. Donaties en instellingen worden niet verwijderd bij deactiveren — alleen bij volledig verwijderen via het dashboard.
 
 ---
 

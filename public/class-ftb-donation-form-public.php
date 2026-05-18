@@ -340,7 +340,9 @@ class FTB_Donation_Form_Public {
 				}
 
 				if ( ! get_option( 'ftb_mollie_api_key' ) ) {
-					$errors['payment'] = __( 'De betalingsservice is tijdelijk niet beschikbaar. Controleer of er een API sleutel is ingevuld of probeer het later opnieuw.', 'ftb-donation-form' );
+					$errors['payment'] = is_user_logged_in()
+						? __( 'De betalingsservice is tijdelijk niet beschikbaar. Controleer of er een API sleutel is ingevuld.', 'ftb-donation-form' )
+						: __( 'De betalingsservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.', 'ftb-donation-form' );
 				}
 
 				if ( empty( $errors ) ) try {

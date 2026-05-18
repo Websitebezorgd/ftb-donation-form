@@ -15,6 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Composer dependencies installeren
+        run: composer install --no-dev --optimize-autoloader
+
       - name: Plugin zip aanmaken
         run: |
           mkdir -p /tmp/ftb-donation-form

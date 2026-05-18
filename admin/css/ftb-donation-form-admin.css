@@ -3,559 +3,559 @@
 /* ── Design tokens ────────────────────────────────────────────────────────── */
 .ftb-admin__wrap {
 
-    /* Colors — brand */
-    --color-brand-red:         #C42E31;
-    --color-brand-blue:        #2270B6;
+	/* Colors — brand */
+	--color-brand-red:         #C42E31;
+	--color-brand-blue:        #2270B6;
 
-    /* Colors — WP admin UI */
-    --color-focus:             #2271b1;
-    --color-border:            #c3c4c7;
-    --color-border-input:      #8c8f94;
-    --color-surface:           #ffffff;
-    --color-surface-muted:     #f6f7f7;
-    --color-surface-info:      #f0f6fc;
-    --color-text-muted:        #646970;
+	/* Colors — WP admin UI */
+	--color-focus:             #2271b1;
+	--color-border:            #c3c4c7;
+	--color-border-input:      #8c8f94;
+	--color-surface:           #ffffff;
+	--color-surface-muted:     #f6f7f7;
+	--color-surface-info:      #f0f6fc;
+	--color-text-muted:        #646970;
 
-    /* Typography */
-    --font-size-sm:            0.875rem;
-    --font-size-base:          1rem;
+	/* Typography */
+	--font-size-sm:            0.875rem;
+	--font-size-base:          1rem;
 
-    /* Spacing (4px grid) */
-    --space-1:                 0.25rem;
-    --space-2:                 0.5rem;
-    --space-3:                 0.75rem;
-    --space-4:                 1rem;
-    --space-5:                 1.25rem;
-    --space-6:                 1.5rem;
-    --space-7:                 1.75rem;
+	/* Spacing (4px grid) */
+	--space-1:                 0.25rem;
+	--space-2:                 0.5rem;
+	--space-3:                 0.75rem;
+	--space-4:                 1rem;
+	--space-5:                 1.25rem;
+	--space-6:                 1.5rem;
+	--space-7:                 1.75rem;
 
-    /* Border radius */
-    --radius-sm:               0.25rem;
+	/* Border radius */
+	--radius-sm:               0.25rem;
 
-    /* Sizing */
-    --input-height:            2rem;
+	/* Sizing */
+	--input-height:            2rem;
 }
 
 /* ── Wrap ─────────────────────────────────────────────────────────────────── */
 .ftb-admin__wrap {
-    max-width: 72rem;
+	max-width: 72rem;
 }
 
 /* ── Two-column grid (shared by top row and form settings) ────────────────── */
 .ftb-admin-form__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 var(--space-6);
-    align-items: stretch;
-    margin-bottom: var(--space-5);
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0 var(--space-6);
+	align-items: stretch;
+	margin-bottom: var(--space-5);
 }
 
 .ftb-admin-form__col {
-    min-width: 0;
+	min-width: 0;
 }
 
 /* ── Section heading between grids ───────────────────────────────────────── */
 .ftb-admin-form__section-heading {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin: var(--space-4) 0 var(--space-4);
-    padding-bottom: var(--space-2);
-    border-bottom: 1px solid var(--color-border);
+	font-size: 1.125rem;
+	font-weight: 600;
+	margin: var(--space-4) 0 var(--space-4);
+	padding-bottom: var(--space-2);
+	border-bottom: 1px solid var(--color-border);
 }
 
 
 /* ── Header (title + brand mark) ─────────────────────────────────────────── */
 .ftb-admin__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: var(--space-6);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: var(--space-6);
 }
 
 .ftb-admin__header-start {
-    display: flex;
-    align-items: end;
-    gap: var(--space-3);
+	display: flex;
+	align-items: end;
+	gap: var(--space-3);
 }
 
 h1.ftb-admin__title {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    margin-bottom: 0;
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	margin-bottom: 0;
 }
 
 .ftb-admin__title .dashicons {
-    color: var(--color-brand-red);
-    font-size: var(--space-7);
-    width: var(--space-7);
-    height: var(--space-7);
+	color: var(--color-brand-red);
+	font-size: var(--space-7);
+	width: var(--space-7);
+	height: var(--space-7);
 }
 
 .ftb-admin__logo {
-    height: 3rem;
-    width: auto;
+	height: 3rem;
+	width: auto;
 }
 
 .ftb-admin__wrap--wide {
-    max-width: none;
+	max-width: none;
 }
 
 /* ── Sections ─────────────────────────────────────────────────────────────── */
 .ftb-admin-form__section {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    margin-bottom: var(--space-5);
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-sm);
+	margin-bottom: var(--space-5);
 }
 
 .ftb-admin-form__title {
-    font-size: var(--font-size-sm);
-    font-weight: 600;
-    margin: 0;
-    padding: var(--space-3) var(--space-4);
-    border-bottom: 1px solid var(--color-border);
-    background: var(--color-surface-muted);
-    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+	font-size: var(--font-size-sm);
+	font-weight: 600;
+	margin: 0;
+	padding: var(--space-3) var(--space-4);
+	border-bottom: 1px solid var(--color-border);
+	background: var(--color-surface-muted);
+	border-radius: var(--radius-sm) var(--radius-sm) 0 0;
 }
 
 .ftb-admin-form__description {
-    margin: var(--space-3) var(--space-4) 0;
-    color: var(--color-text-muted);
-    font-style: italic;
+	margin: var(--space-3) var(--space-4) 0;
+	color: var(--color-text-muted);
+	font-style: italic;
 }
 
 .ftb-admin-form__description a:hover {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 .ftb-admin-form__group {
-    padding: var(--space-4);
+	padding: var(--space-4);
 }
 
 /* ── WP form-table overrides ──────────────────────────────────────────────── */
 .ftb-admin-form__group table.form-table {
-    margin: 0;
+	margin: 0;
 }
 
 .ftb-admin-form__group table.form-table th {
-    padding: var(--space-2) var(--space-4) var(--space-2) 0;
-    width: 12.5rem;
-    font-weight: 600;
+	padding: var(--space-2) var(--space-4) var(--space-2) 0;
+	width: 12.5rem;
+	font-weight: 600;
 }
 
 .ftb-admin-form__group table.form-table td {
-    padding: var(--space-2) 0;
+	padding: var(--space-2) 0;
 }
 
 /* ── Checkbox list (formuliervelden) ──────────────────────────────────────── */
 .ftb-admin-form__group--checkboxes table.form-table th {
-    display: none;
+	display: none;
 }
 
 .ftb-admin-form__group--checkboxes table.form-table td {
-    padding-left: 0;
+	padding-left: 0;
 }
 
 .ftb-checkbox-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
-    gap: var(--space-2);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+	gap: var(--space-2);
 }
 
 .ftb-checkbox-list li label {
-    display: flex;
-    align-items: center;
-    gap: var(--space-1);
-    cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: var(--space-1);
+	cursor: pointer;
 }
 
 .ftb-checkbox-list input[type="checkbox"] {
-    margin: 0;
-    flex-shrink: 0;
+	margin: 0;
+	flex-shrink: 0;
 }
 
 /* ── Group label (checkbox groups without a single input to associate) ─────── */
 .ftb-admin-form__group-label {
-    margin: 0 0 var(--space-2);
-    font-weight: 600;
-    font-size: var(--font-size-base);
+	margin: 0 0 var(--space-2);
+	font-weight: 600;
+	font-size: var(--font-size-base);
 }
 
 /* ── Field content wrapper (consistent spacing in every section) ──────────── */
 .ftb-admin-form__field {
-    padding-top: var(--space-2);
-    margin-bottom: var(--space-3);
+	padding-top: var(--space-2);
+	margin-bottom: var(--space-3);
 }
 
 /* ── Amount inputs (bedragopties) ─────────────────────────────────────────── */
 .ftb-amount-inputs {
-    display: flex;
-    gap: var(--space-3);
-    align-items: center;
+	display: flex;
+	gap: var(--space-3);
+	align-items: center;
 }
 
 .ftb-amount-input {
-    display: flex;
-    align-items: center;
-    border: 1px solid var(--color-border-input);
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    background: var(--color-surface);
+	display: flex;
+	align-items: center;
+	border: 1px solid var(--color-border-input);
+	border-radius: var(--radius-sm);
+	overflow: hidden;
+	background: var(--color-surface);
 }
 
 .ftb-amount-input__prefix {
-    padding: 0 var(--space-2);
-    background: var(--color-surface-muted);
-    border-right: 1px solid var(--color-border-input);
-    color: var(--color-text-muted);
-    font-size: var(--font-size-sm);
-    line-height: var(--input-height);
-    user-select: none;
+	padding: 0 var(--space-2);
+	background: var(--color-surface-muted);
+	border-right: 1px solid var(--color-border-input);
+	color: var(--color-text-muted);
+	font-size: var(--font-size-sm);
+	line-height: var(--input-height);
+	user-select: none;
 }
 
 .ftb-amount-input input[type="number"] {
-    border: none;
-    box-shadow: none;
-    width: 4rem;
-    padding: 0 var(--space-1);
-    height: var(--input-height);
-    line-height: var(--input-height);
-    text-align: right;
+	border: none;
+	box-shadow: none;
+	width: 4rem;
+	padding: 0 var(--space-1);
+	height: var(--input-height);
+	line-height: var(--input-height);
+	text-align: right;
 }
 
 .ftb-amount-input input[type="number"]:focus {
-    outline: 2px solid var(--color-focus);
-    outline-offset: -2px;
+	outline: 2px solid var(--color-focus);
+	outline-offset: -2px;
 }
 
 /* ── Stacked label + field (conditional fields) ───────────────────────────── */
 .ftb-admin-form__stacked-field {
-    margin-top: var(--space-3);
+	margin-top: var(--space-3);
 }
 
 .ftb-admin-form__label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: var(--space-2);
+	display: block;
+	font-weight: 600;
+	margin-bottom: var(--space-2);
 }
 
 /* ── Conditional fields (shown/hidden via JS) ─────────────────────────────── */
 .ftb-conditional {
-    display: none;
+	display: none;
 }
 
 .ftb-conditional.is-visible {
-    display: block;
+	display: block;
 }
 
 .ftb-row-hidden {
-    display: none !important;
+	display: none !important;
 }
 
 /* ── Toggle groups (toggle + its conditional field) ──────────────────────── */
 .ftb-toggle-group + .ftb-toggle-group {
-    margin-top: var(--space-5);
+	margin-top: var(--space-5);
 }
 
 /* ── Toggle switch ────────────────────────────────────────────────────────── */
 .ftb-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-3);
-    cursor: pointer;
-    position: relative;
-    user-select: none;
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-3);
+	cursor: pointer;
+	position: relative;
+	user-select: none;
 }
 
 .ftb-toggle__input {
-    position: absolute;
-    opacity: 0;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+	position: absolute;
+	opacity: 0;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
 }
 
 .ftb-toggle__slider {
-    display: inline-block;
-    flex-shrink: 0;
-    width: 2.5rem;
-    height: 1.375rem;
-    background: var(--color-border);
-    border-radius: 999px;
-    transition: background 0.2s;
+	display: inline-block;
+	flex-shrink: 0;
+	width: 2.5rem;
+	height: 1.375rem;
+	background: var(--color-border);
+	border-radius: 999px;
+	transition: background 0.2s;
 }
 
 .ftb-toggle__slider::after {
-    content: '';
-    display: block;
-    width: 1rem;
-    height: 1rem;
-    background: #fff;
-    border-radius: 50%;
-    margin-top: 0.1875rem;
-    margin-left: 0.1875rem;
-    transition: transform 0.2s;
+	content: '';
+	display: block;
+	width: 1rem;
+	height: 1rem;
+	background: #fff;
+	border-radius: 50%;
+	margin-top: 0.1875rem;
+	margin-left: 0.1875rem;
+	transition: transform 0.2s;
 }
 
 .ftb-toggle__input:checked + .ftb-toggle__slider {
-    background: var(--color-focus);
+	background: var(--color-focus);
 }
 
 .ftb-toggle__input:checked + .ftb-toggle__slider::after {
-    transform: translateX(1.125rem);
+	transform: translateX(1.125rem);
 }
 
 .ftb-toggle__input:focus-visible + .ftb-toggle__slider {
-    outline: 2px solid var(--color-focus);
-    outline-offset: 2px;
+	outline: 2px solid var(--color-focus);
+	outline-offset: 2px;
 }
 
 /* ── Inline notices ───────────────────────────────────────────────────────── */
 .ftb-notice {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-2);
-    margin-top: var(--space-3);
-    padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius-sm);
-    font-size: var(--font-size-sm);
-    line-height: 1.5;
+	display: flex;
+	align-items: flex-start;
+	gap: var(--space-2);
+	margin-top: var(--space-3);
+	padding: var(--space-3) var(--space-4);
+	border-radius: var(--radius-sm);
+	font-size: var(--font-size-sm);
+	line-height: 1.5;
 }
 
 .ftb-notice .dashicons {
-    flex-shrink: 0;
-    margin-top: 0.125rem;
-    font-size: 1rem;
-    width: 1rem;
-    height: 1rem;
+	flex-shrink: 0;
+	margin-top: 0.125rem;
+	font-size: 1rem;
+	width: 1rem;
+	height: 1rem;
 }
 
 .ftb-notice--info {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-left: 4px solid var(--color-focus);
-    color: inherit;
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-left: 4px solid var(--color-focus);
+	color: inherit;
 }
 
 .ftb-notice--info .dashicons {
-    color: var(--color-focus);
+	color: var(--color-focus);
 }
 
 .ftb-notice--error {
-    background: #fff1f2;
-    border: 1px solid #fca5a5;
-    color: #7f1d1d;
+	background: #fff1f2;
+	border: 1px solid #fca5a5;
+	color: #7f1d1d;
 }
 
 .ftb-notice--error .dashicons {
-    color: #dc2626;
+	color: #dc2626;
 }
 
 /* ── Donation status badges ───────────────────────────────────────────────── */
 .ftb-status {
-    display: inline-block;
-    padding: 0.125rem var(--space-2);
-    border-radius: 999px;
-    font-size: var(--font-size-sm);
-    font-weight: 600;
-    line-height: 1.5;
+	display: inline-block;
+	padding: 0.125rem var(--space-2);
+	border-radius: 999px;
+	font-size: var(--font-size-sm);
+	font-weight: 600;
+	line-height: 1.5;
 }
 
 .ftb-status--pending {
-    background: #fef9c3;
-    color: #713f12;
+	background: #fef9c3;
+	color: #713f12;
 }
 
 .ftb-status--paid {
-    background: #dcfce7;
-    color: #14532d;
+	background: #dcfce7;
+	color: #14532d;
 }
 
 .ftb-status--failed {
-    background: #fee2e2;
-    color: #7f1d1d;
+	background: #fee2e2;
+	color: #7f1d1d;
 }
 
 .ftb-status--cancelled {
-    background: #f3f4f6;
-    color: #374151;
+	background: #f3f4f6;
+	color: #374151;
 }
 
 /* ── Bordered stacked field (separator between toggles and sender fields) ─── */
 .ftb-admin-form__stacked-field--bordered {
-    margin-top: var(--space-5);
-    padding-top: var(--space-5);
-    border-top: 1px solid var(--color-border);
+	margin-top: var(--space-5);
+	padding-top: var(--space-5);
+	border-top: 1px solid var(--color-border);
 }
 
 /* ── Email preview ────────────────────────────────────────────────────────── */
 .ftb-email-preview {
-    margin-top: var(--space-4);
-    background: var(--color-surface-info);
-    border: 1px solid var(--color-border);
-    border-left: 4px solid var(--color-focus);
-    border-radius: var(--radius-sm);
-    padding: var(--space-4);
+	margin-top: var(--space-4);
+	background: var(--color-surface-info);
+	border: 1px solid var(--color-border);
+	border-left: 4px solid var(--color-focus);
+	border-radius: var(--radius-sm);
+	padding: var(--space-4);
 }
 
 .ftb-email-preview__label {
-    margin: 0 0 var(--space-2);
-    font-size: var(--font-size-sm);
-    font-weight: 600;
+	margin: 0 0 var(--space-2);
+	font-size: var(--font-size-sm);
+	font-weight: 600;
 }
 
 .ftb-email-preview__content {
-    /* inherits padding from parent */
+	/* inherits padding from parent */
 }
 
 .ftb-email-preview__subject {
-    margin: 0 0 var(--space-3);
-    padding-bottom: var(--space-3);
-    border-bottom: 1px solid var(--color-border);
-    font-size: var(--font-size-sm);
+	margin: 0 0 var(--space-3);
+	padding-bottom: var(--space-3);
+	border-bottom: 1px solid var(--color-border);
+	font-size: var(--font-size-sm);
 }
 
 .ftb-email-preview__meta {
-    font-weight: 600;
-    color: var(--color-text-muted);
-    margin-right: var(--space-1);
+	font-weight: 600;
+	color: var(--color-text-muted);
+	margin-right: var(--space-1);
 }
 
 .ftb-email-preview__body {
-    margin: 0;
-    font-family: monospace;
-    font-size: var(--font-size-sm);
-    white-space: pre-wrap;
-    word-break: break-word;
-    background: transparent;
-    border: none;
-    padding: 0;
-    color: inherit;
+	margin: 0;
+	font-family: monospace;
+	font-size: var(--font-size-sm);
+	white-space: pre-wrap;
+	word-break: break-word;
+	background: transparent;
+	border: none;
+	padding: 0;
+	color: inherit;
 }
 
 /* ── Footer credit ────────────────────────────────────────────────────────── */
 .ftb-admin__footer {
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid #c3c4c7;
-    font-size: 0.875rem;
-    color: #646970;
-    text-align: center;
+	margin-top: 2rem;
+	padding-top: 1rem;
+	border-top: 1px solid #c3c4c7;
+	font-size: 0.875rem;
+	color: #646970;
+	text-align: center;
 }
 
 .ftb-admin__footer a {
-    color: #2270B6;
-    font-weight: 600;
-    text-decoration: none;
+	color: #2270B6;
+	font-weight: 600;
+	text-decoration: none;
 }
 
 .ftb-admin__footer a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 .ftb-admin__footer-icon {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 0.25rem;
-    margin-top: -0.125rem;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 0.25rem;
+	margin-top: -0.125rem;
 }
 
 /* ── Privacy statement suggestion box ────────────────────────────────────── */
 .ftb-admin__suggestion {
-    background: var(--color-surface-info);
-    border: 1px solid var(--color-border);
-    border-left: 4px solid var(--color-focus);
-    border-radius: var(--radius-sm);
-    padding: var(--space-4);
-    margin-top: var(--space-4);
+	background: var(--color-surface-info);
+	border: 1px solid var(--color-border);
+	border-left: 4px solid var(--color-focus);
+	border-radius: var(--radius-sm);
+	padding: var(--space-4);
+	margin-top: var(--space-4);
 }
 
 .ftb-admin__suggestion h2 {
-    margin: 0 0 var(--space-2);
-    font-size: var(--font-size-sm);
+	margin: 0 0 var(--space-2);
+	font-size: var(--font-size-sm);
 }
 
 .ftb-admin__suggestion p {
-    margin: 0 0 var(--space-2);
-    font-size: var(--font-size-sm);
+	margin: 0 0 var(--space-2);
+	font-size: var(--font-size-sm);
 }
 
 .ftb-admin__suggestion ul {
-    margin: 0 0 var(--space-2);
-    padding-left: var(--space-5);
-    list-style: disc;
-    font-size: var(--font-size-sm);
+	margin: 0 0 var(--space-2);
+	padding-left: var(--space-5);
+	list-style: disc;
+	font-size: var(--font-size-sm);
 }
 
 .ftb-admin__suggestion li {
-    margin-bottom: var(--space-1);
+	margin-bottom: var(--space-1);
 }
 
 .ftb-admin__suggestion .button {
-    margin-top: var(--space-2);
+	margin-top: var(--space-2);
 }
 
 /* ── Submit row ───────────────────────────────────────────────────────────── */
 .ftb-admin-form__submit {
-    margin: var(--space-2) 0 var(--space-6);
+	margin: var(--space-2) 0 var(--space-6);
 }
 
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 @media screen and (max-width: 782px) {
-    .ftb-admin-form__grid {
-        grid-template-columns: 1fr;
-    }
+	.ftb-admin-form__grid {
+		grid-template-columns: 1fr;
+	}
 
-    .ftb-checkbox-list {
-        grid-template-columns: 1fr;
-    }
+	.ftb-checkbox-list {
+		grid-template-columns: 1fr;
+	}
 
-    .ftb-admin__wrap input.regular-text,
-    .ftb-admin__wrap textarea.large-text {
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
+	.ftb-admin__wrap input.regular-text,
+	.ftb-admin__wrap textarea.large-text {
+		width: 100%;
+		max-width: 100%;
+		box-sizing: border-box;
+	}
 
-    .ftb-admin__logo {
-        height: 2rem;
-    }
+	.ftb-admin__logo {
+		height: 2rem;
+	}
 }
 
 @media screen and (max-width: 480px) {
-    .ftb-admin__logo {
-        display: none;
-    }
+	.ftb-admin__logo {
+		display: none;
+	}
 
-    .ftb-amount-inputs {
-        flex-wrap: wrap;
-    }
+	.ftb-amount-inputs {
+		flex-wrap: wrap;
+	}
 }
 
 /* ── Shortcode info box ───────────────────────────────────────────────────── */
 .ftb-admin__shortcode {
-    background: var(--color-surface-info);
-    border: 1px solid var(--color-border);
-    border-left: 4px solid var(--color-focus);
-    border-radius: var(--radius-sm);
-    padding: var(--space-4);
-    margin-bottom: var(--space-5);
+	background: var(--color-surface-info);
+	border: 1px solid var(--color-border);
+	border-left: 4px solid var(--color-focus);
+	border-radius: var(--radius-sm);
+	padding: var(--space-4);
+	margin-bottom: var(--space-5);
 }
 
 .ftb-admin__shortcode h2 {
-    margin: 0 0 var(--space-2);
-    font-size: var(--font-size-sm);
+	margin: 0 0 var(--space-2);
+	font-size: var(--font-size-sm);
 }
 
 .ftb-admin__shortcode code {
-    font-size: var(--font-size-sm);
-    background: var(--color-surface);
-    padding: var(--space-1) var(--space-2);
-    border: 1px solid var(--color-border);
-    border-radius: 3px; /* kept as px — not above 3px */
+	font-size: var(--font-size-sm);
+	background: var(--color-surface);
+	padding: var(--space-1) var(--space-2);
+	border: 1px solid var(--color-border);
+	border-radius: 3px; /* kept as px — not above 3px */
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<ruleset name="FTB Donation Form">
+    <description>PHPCS ruleset for the FTB Donation Form plugin.</description>
+
+    <!-- Scan these files -->
+    <file>.</file>
+    <exclude-pattern>/vendor/*</exclude-pattern>
+    <exclude-pattern>*.js</exclude-pattern>
+    <exclude-pattern>*.css</exclude-pattern>
+    <exclude-pattern>/languages/*</exclude-pattern>
+
+    <!-- Show sniff codes and use colour -->
+    <arg value="sp"/>
+    <arg name="colors"/>
+
+    <!-- Use the full WordPress ruleset -->
+    <rule ref="WordPress">
+        <!-- Plugin uses class-based filenames, not WordPress default -->
+        <exclude name="WordPress.Files.FileName"/>
+        <!-- Docblocks vereist voor intern gebruik: te veel ruis -->
+        <exclude name="Squiz.Commenting.FileComment.Missing"/>
+        <exclude name="Squiz.Commenting.FileComment.SpacingAfterOpen"/>
+        <exclude name="Squiz.Commenting.ClassComment.Missing"/>
+        <exclude name="Squiz.Commenting.VariableComment.Missing"/>
+        <exclude name="Squiz.Commenting.FunctionComment.Missing"/>
+        <exclude name="Squiz.Commenting.FunctionComment.MissingParamTag"/>
+        <exclude name="Squiz.Commenting.FunctionComment.WrongStyle"/>
+        <exclude name="Squiz.Commenting.FunctionComment.EmptyThrows"/>
+        <exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
+        <exclude name="Generic.Commenting.DocComment.MissingShort"/>
+        <!-- Mollie API gebruikt camelCase properties — niet onze code -->
+        <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase"/>
+    </rule>
+
+    <!-- ftb_manage_settings is een geregistreerde custom capability -->
+    <rule ref="WordPress.WP.Capabilities">
+        <properties>
+            <property name="custom_capabilities" type="array">
+                <element value="ftb_manage_settings"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Enforce the correct text domain -->
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array">
+                <element value="ftb-donation-form"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Minimum supported WordPress version -->
+    <config name="minimum_supported_wp_version" value="5.0"/>
+</ruleset>

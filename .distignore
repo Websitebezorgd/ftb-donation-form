@@ -1,5 +1,7 @@
 .git
 .gitignore
 .distignore
+.editorconfig
 .vscode
+phpcs.xml
 README.md

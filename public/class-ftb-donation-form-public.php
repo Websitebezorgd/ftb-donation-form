@@ -114,7 +114,7 @@ class FTB_Donation_Form_Public {
 		try {
 			$service = new FTB_Mollie_Service();
 			$payment = $service->get_payment( $mollie_id );
-		} catch ( \Mollie\Api\Exceptions\MollieException $e ) {
+		} catch ( \Exception $e ) {
 			return new WP_REST_Response( null, 200 );
 		}
 
@@ -177,7 +177,7 @@ class FTB_Donation_Form_Public {
 					$is_local ? '' : $sub_webhook_url
 				);
 				$db->update_mollie_subscription_id( (int) $donation->id, $subscription->id );
-			} catch ( \Mollie\Api\Exceptions\MollieException $e ) {
+			} catch ( \Exception $e ) {
 				if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
                     // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 					error_log( 'FTB Mollie subscription error: ' . $e->getMessage() );
@@ -340,17 +340,10 @@ class FTB_Donation_Form_Public {
 				}
 
 				if ( ! get_option( 'ftb_mollie_api_key' ) ) {
-					wp_die(
-						esc_html__( 'De betalingsservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.', 'ftb-donation-form' ),
-						esc_html__( 'Betaling mislukt', 'ftb-donation-form' ),
-						array(
-							'back_link' => true,
-							'response'  => 503,
-						)
-					);
+					$errors['payment'] = __( 'De betalingsservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.', 'ftb-donation-form' );
 				}
 
-				try {
+				if ( empty( $errors ) ) try {
 					$service      = new FTB_Mollie_Service();
 					$webhook_url  = rest_url( 'ftb/v1/webhook' );
 					$webhook_host = (string) wp_parse_url( $webhook_url, PHP_URL_HOST );
@@ -402,19 +395,12 @@ class FTB_Donation_Form_Public {
 					);
 					wp_safe_redirect( $checkout_url );
 					exit;
-				} catch ( \Mollie\Api\Exceptions\MollieException $e ) {
+				} catch ( \Exception $e ) {
 					if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
                         // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 						error_log( 'FTB Mollie payment error: ' . $e->getMessage() );
 					}
-					wp_die(
-						esc_html__( 'De betalingsservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.', 'ftb-donation-form' ),
-						esc_html__( 'Betaling mislukt', 'ftb-donation-form' ),
-						array(
-							'back_link' => true,
-							'response'  => 503,
-						)
-					);
+					$errors['payment'] = __( 'De betalingsservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.', 'ftb-donation-form' );
 				}
 			}
 		}

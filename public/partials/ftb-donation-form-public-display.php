@@ -290,7 +290,7 @@ $old = static function ( $key, $fallback = '' ) use ( $old_values ) {
 					<legend class="ftb-donation-form__legend"><?php esc_html_e( 'Privacyverklaring', 'ftb-donation-form' ); ?></legend>
 
 					<?php if ( $privacy_url ) : ?>
-						<a class="ftb-donation-form__privacy-link" href="<?php echo esc_url( $privacy_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Lees onze privacyverklaring', 'ftb-donation-form' ); ?></a>
+						<a class="ftb-donation-form__privacy-link" href="<?php echo esc_url( $privacy_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Lees onze privacyverklaring', 'ftb-donation-form' ); ?><span class="screen-reader-text"> <?php esc_html_e( '(opent in nieuw tabblad)', 'ftb-donation-form' ); ?></span></a>
 					<?php else : ?>
 						<p class="ftb-donation-form__privacy-missing"><?php esc_html_e( 'Privacyverklaring nog niet beschikbaar.', 'ftb-donation-form' ); ?></p>
 					<?php endif; ?>

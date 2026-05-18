@@ -193,10 +193,8 @@ class FTB_Donation_Form_Public {
 	}
 
 	public function render_donation_form( $atts = array() ) {
-		$form_heading  = get_option( 'ftb_form_heading', '' );
-		$default_title = $form_heading ? $form_heading : __( 'Doneer nu', 'ftb-donation-form' );
-		$atts          = shortcode_atts( array( 'title' => $default_title ), $atts, 'ftb_donation_form' );
-		$title         = sanitize_text_field( $atts['title'] );
+		$form_heading = get_option( 'ftb_form_heading', '' );
+		$title        = $form_heading ? $form_heading : __( 'Doneer nu', 'ftb-donation-form' );
 
 		$errors     = array();
 		$old_values = array();

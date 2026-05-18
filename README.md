@@ -167,12 +167,6 @@ ftb-donation-form/
 [ftb_donation_form]
 ```
 
-Optionally override the title:
-
-```
-[ftb_donation_form title="Steun ons"]
-```
-
 ---
 
 ## Accessibility

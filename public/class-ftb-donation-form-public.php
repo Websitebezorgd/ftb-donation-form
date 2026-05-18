@@ -339,6 +339,17 @@ class FTB_Donation_Form_Public {
 					);
 				}
 
+				if ( ! get_option( 'ftb_mollie_api_key' ) ) {
+					wp_die(
+						esc_html__( 'De betalingsservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.', 'ftb-donation-form' ),
+						esc_html__( 'Betaling mislukt', 'ftb-donation-form' ),
+						array(
+							'back_link' => true,
+							'response'  => 503,
+						)
+					);
+				}
+
 				try {
 					$service      = new FTB_Mollie_Service();
 					$webhook_url  = rest_url( 'ftb/v1/webhook' );

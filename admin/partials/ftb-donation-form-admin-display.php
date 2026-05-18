@@ -455,13 +455,6 @@ if (! defined('ABSPATH')) {
             </p>
             <div class="ftb-admin-form__group">
                 <div class="ftb-toggle-group">
-                    <label class="ftb-toggle" for="ftb_editor_access_mode_admin_only">
-                        <input class="ftb-toggle__input" type="radio" id="ftb_editor_access_mode_admin_only" name="ftb_editor_access_mode" value="admin_only" <?php checked($editor_access_mode, 'admin_only'); ?>>
-                        <span class="ftb-toggle__slider" aria-hidden="true"></span>
-                        <span><?php esc_html_e('Alleen administrators', 'ftb-donation-form'); ?></span>
-                    </label>
-                </div>
-                <div class="ftb-toggle-group">
                     <label class="ftb-toggle" for="ftb_editor_access_mode_all">
                         <input class="ftb-toggle__input" type="radio" id="ftb_editor_access_mode_all" name="ftb_editor_access_mode" value="all" <?php checked($editor_access_mode, 'all'); ?>>
                         <span class="ftb-toggle__slider" aria-hidden="true"></span>
@@ -474,29 +467,36 @@ if (! defined('ABSPATH')) {
                         <span class="ftb-toggle__slider" aria-hidden="true"></span>
                         <span><?php esc_html_e('Specifieke editors', 'ftb-donation-form'); ?></span>
                     </label>
-                    <div id="ftb-specific-editors" class="ftb-admin-form__stacked-field"<?php echo 'specific' !== $editor_access_mode ? ' style="display:none;"' : ''; ?>>
-                        <?php if ($editor_users) : ?>
-                            <p class="ftb-admin-form__group-label"><?php esc_html_e('Selecteer editors met toegang', 'ftb-donation-form'); ?></p>
-                            <div class="ftb-admin-form__field">
-                                <ul class="ftb-checkbox-list">
-                                    <?php foreach ($editor_users as $u) : ?>
-                                        <li>
-                                            <label>
-                                                <input
-                                                    type="checkbox"
-                                                    name="ftb_designated_managers[]"
-                                                    value="<?php echo absint($u->ID); ?>"
-                                                    <?php checked(in_array($u->ID, $designated_ids, true)); ?>>
-                                                <?php echo esc_html($u->display_name); ?>
-                                            </label>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            </div>
-                        <?php else : ?>
-                            <p class="description"><?php esc_html_e('Geen editors gevonden.', 'ftb-donation-form'); ?></p>
-                        <?php endif; ?>
-                    </div>
+                </div>
+                <div class="ftb-toggle-group">
+                    <label class="ftb-toggle" for="ftb_editor_access_mode_admin_only">
+                        <input class="ftb-toggle__input" type="radio" id="ftb_editor_access_mode_admin_only" name="ftb_editor_access_mode" value="admin_only" <?php checked($editor_access_mode, 'admin_only'); ?>>
+                        <span class="ftb-toggle__slider" aria-hidden="true"></span>
+                        <span><?php esc_html_e('Alleen administrators', 'ftb-donation-form'); ?></span>
+                    </label>
+                </div>
+                <div id="ftb-specific-editors" class="ftb-admin-form__stacked-field"<?php echo 'specific' !== $editor_access_mode ? ' style="display:none;"' : ''; ?>>
+                    <?php if ($editor_users) : ?>
+                        <p class="ftb-admin-form__group-label"><?php esc_html_e('Selecteer editors met toegang', 'ftb-donation-form'); ?></p>
+                        <div class="ftb-admin-form__field">
+                            <ul class="ftb-checkbox-list">
+                                <?php foreach ($editor_users as $u) : ?>
+                                    <li>
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                name="ftb_designated_managers[]"
+                                                value="<?php echo absint($u->ID); ?>"
+                                                <?php checked(in_array($u->ID, $designated_ids, true)); ?>>
+                                            <?php echo esc_html($u->display_name); ?>
+                                        </label>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php else : ?>
+                        <p class="description"><?php esc_html_e('Geen editors gevonden.', 'ftb-donation-form'); ?></p>
+                    <?php endif; ?>
                 </div>
             </div>
         </section>

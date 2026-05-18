@@ -208,10 +208,18 @@ All PHP strings use `__()` / `esc_html_e()` / `esc_attr_e()` with the text domai
 ```
 wp i18n make-pot . languages/ftb-donation-form.pot --domain=ftb-donation-form --exclude=vendor
 ```
-2. In Poedit: open `ftb-donation-form-en_US.po` → **Catalogue → Update from POT file** → translate new strings → Save
-3. Remove obsolete strings: **Translation → Delete Obsolete Translations** → Save
-
-Poedit 3.x automatically writes the `.po`, `.mo`, and `.l10n.php` (including the ABSPATH guard) on save — no extra commands needed.
+2. In Poedit: open `ftb-donation-form-en_US.po` → **Catalogus → Bijwerken vanuit POT-bestand** → translate new strings → Save
+3. Remove obsolete strings: **Vertalingen → Verouderde vertalingen verwijderen** → Save
+4. Regenerate `.l10n.php` (Poedit does not always update this file on save):
+```
+wp i18n make-php languages/ftb-donation-form-en_US.po
+```
+5. Open the generated `languages/ftb-donation-form-en_US.l10n.php` and add the ABSPATH guard directly after `<?php`:
+```php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+```
 
 **Adding a new language:**
 1. Poedit → File → New from POT/PO file → select `languages/ftb-donation-form.pot`

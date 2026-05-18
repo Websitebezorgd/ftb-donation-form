@@ -511,6 +511,10 @@ h1.ftb-admin__title {
         grid-template-columns: 1fr;
     }
 
+    .ftb-checkbox-list {
+        grid-template-columns: 1fr;
+    }
+
     .ftb-admin__wrap input.regular-text,
     .ftb-admin__wrap textarea.large-text {
         width: 100%;

@@ -43,13 +43,14 @@ add_action('plugins_loaded', 'ftb_donation_form_init');
 // Activation hook
 register_activation_hook(__FILE__, 'ftb_donation_form_activate');
 function ftb_donation_form_activate() {
-    $editor = get_role( 'editor' );
-    if ( $editor ) {
-        $editor->add_cap( 'ftb_manage_settings' );
-    }
     $admin = get_role( 'administrator' );
     if ( $admin ) {
         $admin->add_cap( 'ftb_manage_settings' );
+    }
+    // Default: all editors have access.
+    $editor = get_role( 'editor' );
+    if ( $editor ) {
+        $editor->add_cap( 'ftb_manage_settings' );
     }
     global $wpdb;
 
@@ -107,6 +108,8 @@ function ftb_donation_form_activate() {
     add_option( 'ftb_email_admin_notification', '0' );
     add_option( 'ftb_email_sender_address', '' );
     add_option( 'ftb_db_version', FTB_DONATION_FORM_DB_VERSION );
+    add_option( 'ftb_editor_access_mode', 'all' );
+    add_option( 'ftb_designated_managers', [] );
 }
 
 // DB migration — runs on every page load but exits early once the version matches.
@@ -159,12 +162,18 @@ add_action( 'plugins_loaded', 'ftb_donation_form_maybe_migrate_db', 5 );
 // Deactivation hook
 register_deactivation_hook(__FILE__, 'ftb_donation_form_deactivate');
 function ftb_donation_form_deactivate() {
+    $admin = get_role( 'administrator' );
+    if ( $admin ) {
+        $admin->remove_cap( 'ftb_manage_settings' );
+    }
     $editor = get_role( 'editor' );
     if ( $editor ) {
         $editor->remove_cap( 'ftb_manage_settings' );
     }
-    $admin = get_role( 'administrator' );
-    if ( $admin ) {
-        $admin->remove_cap( 'ftb_manage_settings' );
+    foreach ( (array) get_option( 'ftb_designated_managers', [] ) as $user_id ) {
+        $user = get_user_by( 'id', absint( $user_id ) );
+        if ( $user ) {
+            $user->remove_cap( 'ftb_manage_settings' );
+        }
     }
 }

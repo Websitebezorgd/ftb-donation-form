@@ -203,3 +203,9 @@ De volgende functionaliteit werkt alleen op een server met HTTPS — Mollie kan 
 - [ ] Terugkerende betaling: mandaat aanmaken, abonnement aanmaken, vervolgbetalingen verwerken
 - [ ] Bevestigingsmail naar donateur na geslaagde betaling
 - [ ] Beheerdersmelding bij nieuwe donatie
+
+---
+
+## Voor ontwikkelaars
+
+Meer technische details, open vragen en nog te nemen beslissingen staan in `README.md` in de plugin-map.

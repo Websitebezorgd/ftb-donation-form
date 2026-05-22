@@ -2,43 +2,51 @@
 
 /* ── Design tokens ────────────────────────────────────────────────────────── */
 .ftb-admin__wrap {
+	max-width: 72rem;
 
 	/* Colors — brand */
-	--color-brand-red:         #C42E31;
-	--color-brand-blue:        #2270B6;
+	--color-brand-red:      #C42E31;
+	--color-brand-blue:     #2270B6;
 
 	/* Colors — WP admin UI */
-	--color-focus:             #2271b1;
-	--color-border:            #c3c4c7;
-	--color-border-input:      #8c8f94;
-	--color-surface:           #ffffff;
-	--color-surface-muted:     #f6f7f7;
-	--color-surface-info:      #f0f6fc;
-	--color-text-muted:        #646970;
+	--color-focus:          #3858e9;
+	--color-border:         #c3c4c7;
+	--color-border-input:   #8c8f94;
+	--color-surface:        #ffffff;
+	--color-surface-muted:  #f6f7f7;
+	--color-text-muted:     #646970;
+
+	/* Colors — status / notice */
+	--color-success-bg:     #eff9f1;
+	--color-success-accent: #4ab866;
+	--color-success-text:   #166534;
+	--color-warning-bg:     #fef8ee;
+	--color-warning-accent: #f0b849;
+	--color-warning-text:   #713f12;
+	--color-error-bg:       #fcf0f0;
+	--color-error-accent:   #cc1818;
+	--color-error-text:     #7f1d1d;
+	--color-neutral-bg:     #f3f4f6;
+	--color-neutral-text:   #374151;
 
 	/* Typography */
-	--font-size-sm:            0.875rem;
-	--font-size-base:          1rem;
+	--font-size-sm:         0.875rem;
+	--font-size-base:       1rem;
 
 	/* Spacing (4px grid) */
-	--space-1:                 0.25rem;
-	--space-2:                 0.5rem;
-	--space-3:                 0.75rem;
-	--space-4:                 1rem;
-	--space-5:                 1.25rem;
-	--space-6:                 1.5rem;
-	--space-7:                 1.75rem;
+	--space-1:              0.25rem;
+	--space-2:              0.5rem;
+	--space-3:              0.75rem;
+	--space-4:              1rem;
+	--space-5:              1.25rem;
+	--space-6:              1.5rem;
+	--space-7:              1.75rem;
 
 	/* Border radius */
-	--radius-sm:               0.25rem;
+	--radius-sm:            0.5rem;
 
 	/* Sizing */
-	--input-height:            2rem;
-}
-
-/* ── Wrap ─────────────────────────────────────────────────────────────────── */
-.ftb-admin__wrap {
-	max-width: 72rem;
+	--input-height:         2.5rem;
 }
 
 /* ── Two-column grid (shared by top row and form settings) ────────────────── */
@@ -58,11 +66,10 @@
 .ftb-admin-form__section-heading {
 	font-size: 1.125rem;
 	font-weight: 600;
-	margin: var(--space-4) 0 var(--space-4);
+	margin: var(--space-4) 0;
 	padding-bottom: var(--space-2);
 	border-bottom: 1px solid var(--color-border);
 }
-
 
 /* ── Header (title + brand mark) ─────────────────────────────────────────── */
 .ftb-admin__header {
@@ -115,14 +122,14 @@ h1.ftb-admin__title {
 	margin: 0;
 	padding: var(--space-3) var(--space-4);
 	border-bottom: 1px solid var(--color-border);
-	background: var(--color-surface-muted);
+	background: var(--color-surface);
 	border-radius: var(--radius-sm) var(--radius-sm) 0 0;
 }
 
 .ftb-admin-form__description {
 	margin: var(--space-3) var(--space-4) 0;
 	color: var(--color-text-muted);
-	font-style: italic;
+	font-size: var(--font-size-sm);
 }
 
 .ftb-admin-form__description a:hover {
@@ -178,14 +185,14 @@ h1.ftb-admin__title {
 	flex-shrink: 0;
 }
 
-/* ── Group label (checkbox groups without a single input to associate) ─────── */
+/* ── Group label ──────────────────────────────────────────────────────────── */
 .ftb-admin-form__group-label {
 	margin: 0 0 var(--space-2);
 	font-weight: 600;
 	font-size: var(--font-size-base);
 }
 
-/* ── Field content wrapper (consistent spacing in every section) ──────────── */
+/* ── Field content wrapper ────────────────────────────────────────────────── */
 .ftb-admin-form__field {
 	padding-top: var(--space-2);
 	margin-bottom: var(--space-3);
@@ -202,7 +209,7 @@ h1.ftb-admin__title {
 	display: flex;
 	align-items: center;
 	border: 1px solid var(--color-border-input);
-	border-radius: var(--radius-sm);
+	border-radius: 2px;
 	overflow: hidden;
 	background: var(--color-surface);
 }
@@ -232,7 +239,7 @@ h1.ftb-admin__title {
 	outline-offset: -2px;
 }
 
-/* ── Stacked label + field (conditional fields) ───────────────────────────── */
+/* ── Stacked label + field ────────────────────────────────────────────────── */
 .ftb-admin-form__stacked-field {
 	margin-top: var(--space-3);
 }
@@ -243,7 +250,14 @@ h1.ftb-admin__title {
 	margin-bottom: var(--space-2);
 }
 
-/* ── Conditional fields (shown/hidden via JS) ─────────────────────────────── */
+/* ── Bordered stacked field ───────────────────────────────────────────────── */
+.ftb-admin-form__stacked-field--bordered {
+	margin-top: var(--space-5);
+	padding-top: var(--space-5);
+	border-top: 1px solid var(--color-border);
+}
+
+/* ── Conditional fields ───────────────────────────────────────────────────── */
 .ftb-conditional {
 	display: none;
 }
@@ -265,7 +279,7 @@ h1.ftb-admin__title {
 	margin-top: var(--space-6);
 }
 
-/* ── Toggle groups (toggle + its conditional field) ──────────────────────── */
+/* ── Toggle groups ────────────────────────────────────────────────────────── */
 .ftb-toggle-group + .ftb-toggle-group {
 	margin-top: var(--space-5);
 }
@@ -331,7 +345,7 @@ h1.ftb-admin__title {
 	gap: var(--space-2);
 	margin-top: var(--space-3);
 	padding: var(--space-3) var(--space-4);
-	border-radius: var(--radius-sm);
+	border-left: 4px solid transparent;
 	font-size: var(--font-size-sm);
 	line-height: 1.5;
 }
@@ -346,8 +360,11 @@ h1.ftb-admin__title {
 
 .ftb-notice--info {
 	background: var(--color-surface);
-	border: 1px solid var(--color-border);
-	border-left: 4px solid var(--color-focus);
+	border-left-color: var(--color-focus);
+	border-top: 1px solid var(--color-border);
+	border-right: 1px solid var(--color-border);
+	border-bottom: 1px solid var(--color-border);
+	border-radius: var(--radius-sm);
 	color: inherit;
 }
 
@@ -355,14 +372,34 @@ h1.ftb-admin__title {
 	color: var(--color-focus);
 }
 
+.ftb-notice--warning {
+	background: var(--color-warning-bg);
+	border-left-color: var(--color-warning-accent);
+	color: inherit;
+}
+
+.ftb-notice--warning .dashicons {
+	color: var(--color-warning-accent);
+}
+
+.ftb-notice--success {
+	background: var(--color-success-bg);
+	border-left-color: var(--color-success-accent);
+	color: inherit;
+}
+
+.ftb-notice--success .dashicons {
+	color: var(--color-success-accent);
+}
+
 .ftb-notice--error {
-	background: #fff1f2;
-	border: 1px solid #fca5a5;
-	color: #7f1d1d;
+	background: var(--color-error-bg);
+	border-left-color: var(--color-error-accent);
+	color: var(--color-error-text);
 }
 
 .ftb-notice--error .dashicons {
-	color: #dc2626;
+	color: var(--color-error-accent);
 }
 
 /* ── Donation status badges ───────────────────────────────────────────────── */
@@ -376,36 +413,29 @@ h1.ftb-admin__title {
 }
 
 .ftb-status--pending {
-	background: #fef9c3;
-	color: #713f12;
+	background: var(--color-warning-bg);
+	color: var(--color-warning-text);
 }
 
 .ftb-status--paid {
-	background: #dcfce7;
-	color: #14532d;
+	background: var(--color-success-bg);
+	color: var(--color-success-text);
 }
 
 .ftb-status--failed {
-	background: #fee2e2;
-	color: #7f1d1d;
+	background: var(--color-error-bg);
+	color: var(--color-error-text);
 }
 
 .ftb-status--cancelled {
-	background: #f3f4f6;
-	color: #374151;
-}
-
-/* ── Bordered stacked field (separator between toggles and sender fields) ─── */
-.ftb-admin-form__stacked-field--bordered {
-	margin-top: var(--space-5);
-	padding-top: var(--space-5);
-	border-top: 1px solid var(--color-border);
+	background: var(--color-neutral-bg);
+	color: var(--color-neutral-text);
 }
 
 /* ── Email preview ────────────────────────────────────────────────────────── */
 .ftb-email-preview {
 	margin-top: var(--space-4);
-	background: var(--color-surface-info);
+	background: var(--color-surface);
 	border: 1px solid var(--color-border);
 	border-left: 4px solid var(--color-focus);
 	border-radius: var(--radius-sm);
@@ -416,10 +446,6 @@ h1.ftb-admin__title {
 	margin: 0 0 var(--space-2);
 	font-size: var(--font-size-sm);
 	font-weight: 600;
-}
-
-.ftb-email-preview__content {
-	/* inherits padding from parent */
 }
 
 .ftb-email-preview__subject {
@@ -447,36 +473,9 @@ h1.ftb-admin__title {
 	color: inherit;
 }
 
-/* ── Footer credit ────────────────────────────────────────────────────────── */
-.ftb-admin__footer {
-	margin-top: 2rem;
-	padding-top: 1rem;
-	border-top: 1px solid #c3c4c7;
-	font-size: 0.875rem;
-	color: #646970;
-	text-align: center;
-}
-
-.ftb-admin__footer a {
-	color: #2270B6;
-	font-weight: 600;
-	text-decoration: none;
-}
-
-.ftb-admin__footer a:hover {
-	text-decoration: underline;
-}
-
-.ftb-admin__footer-icon {
-	display: inline-block;
-	vertical-align: middle;
-	margin-right: 0.25rem;
-	margin-top: -0.125rem;
-}
-
 /* ── Privacy statement suggestion box ────────────────────────────────────── */
 .ftb-admin__suggestion {
-	background: var(--color-surface-info);
+	background: var(--color-surface);
 	border: 1px solid var(--color-border);
 	border-left: 4px solid var(--color-focus);
 	border-radius: var(--radius-sm);
@@ -509,9 +508,57 @@ h1.ftb-admin__title {
 	margin-top: var(--space-2);
 }
 
+/* ── Shortcode info box ───────────────────────────────────────────────────── */
+.ftb-admin__shortcode {
+	background: var(--color-surface);
+	border-left: 4px solid var(--color-focus);
+	padding: var(--space-4);
+	margin-bottom: var(--space-5);
+}
+
+.ftb-admin__shortcode h2 {
+	margin: 0 0 var(--space-2);
+	font-size: var(--font-size-sm);
+}
+
+.ftb-admin__shortcode code {
+	font-size: var(--font-size-sm);
+	background: var(--color-surface);
+	padding: var(--space-1) var(--space-2);
+	border: 1px solid var(--color-border);
+	border-radius: 3px;
+}
+
 /* ── Submit row ───────────────────────────────────────────────────────────── */
 .ftb-admin-form__submit {
 	margin: var(--space-2) 0 var(--space-6);
+}
+
+/* ── Footer credit ────────────────────────────────────────────────────────── */
+.ftb-admin__footer {
+	margin-top: var(--space-6);
+	padding-top: var(--space-4);
+	border-top: 1px solid var(--color-border);
+	font-size: var(--font-size-sm);
+	color: var(--color-text-muted);
+	text-align: center;
+}
+
+.ftb-admin__footer a {
+	color: var(--color-brand-blue);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.ftb-admin__footer a:hover {
+	text-decoration: underline;
+}
+
+.ftb-admin__footer-icon {
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: var(--space-1);
+	margin-top: -0.125rem;
 }
 
 /* ── Responsive ───────────────────────────────────────────────────────────── */
@@ -544,27 +591,4 @@ h1.ftb-admin__title {
 	.ftb-amount-inputs {
 		flex-wrap: wrap;
 	}
-}
-
-/* ── Shortcode info box ───────────────────────────────────────────────────── */
-.ftb-admin__shortcode {
-	background: var(--color-surface-info);
-	border: 1px solid var(--color-border);
-	border-left: 4px solid var(--color-focus);
-	border-radius: var(--radius-sm);
-	padding: var(--space-4);
-	margin-bottom: var(--space-5);
-}
-
-.ftb-admin__shortcode h2 {
-	margin: 0 0 var(--space-2);
-	font-size: var(--font-size-sm);
-}
-
-.ftb-admin__shortcode code {
-	font-size: var(--font-size-sm);
-	background: var(--color-surface);
-	padding: var(--space-1) var(--space-2);
-	border: 1px solid var(--color-border);
-	border-radius: 3px; /* kept as px — not above 3px */
 }

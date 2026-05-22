@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</section>
 
-		<div class="ftb-admin__shortcode">
+		<div class="ftb-admin__shortcode ftb-admin__info-box">
 			<h2><?php esc_html_e( 'Shortcode', 'ftb-donation-form' ); ?></h2>
 			<p>
 				<?php esc_html_e( 'Plaats het donatieformulier op een pagina met deze shortcode:', 'ftb-donation-form' ); ?>
@@ -97,8 +97,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<span><?php esc_html_e( 'Terugkerende betalingen inschakelen', 'ftb-donation-form' ); ?></span>
 					</label>
 					<div class="ftb-conditional<?php echo '1' === $recurring ? ' is-visible' : ''; ?>" data-show-when="ftb_enable_recurring=1">
-						<div class="ftb-notice ftb-notice--info" role="note">
-							<span class="dashicons dashicons-info" aria-hidden="true"></span>
+						<div class="ftb-notice ftb-notice--warning" role="note">
+							<span class="dashicons dashicons-warning" aria-hidden="true"></span>
 							<?php esc_html_e( 'Zorg dat SEPA-incasso is ingeschakeld in je Mollie-dashboard. Activeer via je organisatienaam linksboven in het dashboard → Instellingen → Online betalingen → SEPA-incasso.', 'ftb-donation-form' ); ?>
 						</div>
 					</div>
@@ -255,7 +255,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						. $prv_grondslag . "\n\n"
 						. $prv_rights;
 					?>
-					<div id="ftb-privacy-suggestion" class="ftb-admin__suggestion" <?php echo get_option( 'ftb_privacy_url', '' ) ? '' : 'hidden'; ?>>
+					<div id="ftb-privacy-suggestion" class="ftb-admin__suggestion ftb-admin__info-box" <?php echo get_option( 'ftb_privacy_url', '' ) ? '' : 'hidden'; ?>>
 						<h2><?php esc_html_e( 'Tekst voor privacyverklaring', 'ftb-donation-form' ); ?></h2>
 						<p class="description"><?php esc_html_e( 'Kopieer deze tekst naar je privacyverklaring:', 'ftb-donation-form' ); ?></p>
 						<p><strong><?php echo esc_html( $prv_heading ); ?></strong></p>
@@ -421,7 +421,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									placeholder="<?php esc_attr_e( 'Hartelijk dank voor je steun!', 'ftb-donation-form' ); ?>"><?php echo esc_textarea( $donor_body ); ?></textarea>
 								<p class="description"><?php esc_html_e( 'Naam, bedrag, frequentie, datum en de ingevulde formuliervelden worden automatisch toegevoegd.', 'ftb-donation-form' ); ?></p>
 							</div>
-							<div class="ftb-email-preview">
+							<div class="ftb-email-preview ftb-admin__info-box">
 								<p class="ftb-email-preview__label"><?php esc_html_e( 'Voorbeeld', 'ftb-donation-form' ); ?></p>
 								<div class="ftb-email-preview__content">
 									<p class="ftb-email-preview__subject">

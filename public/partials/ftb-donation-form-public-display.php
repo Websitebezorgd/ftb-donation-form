@@ -35,6 +35,12 @@ $old = static function ( $key, $fallback = '' ) use ( $old_values ) {
 
 		<h2 id="ftb-donation-title" class="ftb-donation-form__title"><?php echo esc_html( $title ); ?></h2>
 
+		<?php if ( $payment_message ) : ?>
+			<div class="ftb-donation-form__payment-message" role="alert">
+				<?php echo esc_html( $payment_message ); ?>
+			</div>
+		<?php endif; ?>
+
 		<?php
 		$step2_fields  = array( 'name', 'email', 'gdpr', 'phone', 'street', 'house_number', 'postal_code', 'city' );
 		$start_on_step = 1;

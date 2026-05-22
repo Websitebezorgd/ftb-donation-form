@@ -203,9 +203,10 @@ class FTB_Donation_Form_Public {
 		$form_heading = get_option( 'ftb_form_heading', '' );
 		$title        = $form_heading ? $form_heading : __( 'Doneer nu', 'ftb-donation-form' );
 
-		$errors     = array();
-		$old_values = array();
-		$success    = false;
+		$errors          = array();
+		$old_values      = array();
+		$success         = false;
+		$payment_message = '';
 
 		// Read admin settings (needed by both processing and template).
 		$form_fields           = get_option( 'ftb_form_fields', array() );
@@ -232,9 +233,36 @@ class FTB_Donation_Form_Public {
 				delete_transient( 'ftb_return_' . $return_id );
 				$db                = new FTB_DB();
 				$returned_donation = $db->get_donation( $return_id );
-				$success           = $returned_donation && 'paid' === $returned_donation->payment_status;
+				if ( $returned_donation ) {
+					$status = $returned_donation->payment_status;
+
+					// If status is still pending, the webhook may not have arrived yet.
+					// Re-fetch directly from Mollie to get the real-time status.
+					if ( 'pending' === $status && ! empty( $returned_donation->mollie_payment_id ) ) {
+						try {
+							$mollie_service = new FTB_Mollie_Service( get_option( 'ftb_mollie_api_key', '' ) );
+							$payment        = $mollie_service->get_payment( $returned_donation->mollie_payment_id );
+							$status_map     = array( 'open' => 'pending', 'canceled' => 'cancelled' );
+							$status         = $status_map[ $payment->status ] ?? $payment->status;
+							if ( $status !== $returned_donation->payment_status ) {
+								$db->update_payment_status( $returned_donation->mollie_payment_id, $status );
+							}
+						} catch ( \Throwable $e ) {
+							// Mollie not reachable (e.g. no API key) — fall back to database status.
+						}
+					}
+
+					if ( 'paid' === $status ) {
+						$success = true;
+					} elseif ( 'cancelled' === $status ) {
+						$payment_message = __( 'Je hebt de betaling geannuleerd. Je kunt het opnieuw proberen.', 'ftb-donation-form' );
+					} elseif ( 'failed' === $status ) {
+						$payment_message = __( 'De betaling is mislukt. Probeer het opnieuw of kies een andere betaalmethode.', 'ftb-donation-form' );
+					} elseif ( 'expired' === $status ) {
+						$payment_message = __( 'De betaalsessie is verlopen. Probeer het opnieuw.', 'ftb-donation-form' );
+					}
+				}
 			}
-			// Invalid or missing token, or payment not paid: $success stays false and the form renders normally.
 
 			ob_start();
 			include 'partials/ftb-donation-form-public-display.php';

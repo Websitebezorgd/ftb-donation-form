@@ -203,10 +203,11 @@ class FTB_Donation_Form_Public {
 		$form_heading = get_option( 'ftb_form_heading', '' );
 		$title        = $form_heading ? $form_heading : __( 'Doneer nu', 'ftb-donation-form' );
 
-		$errors          = array();
-		$old_values      = array();
-		$success         = false;
-		$payment_message = '';
+		$errors                = array();
+		$old_values            = array();
+		$success               = false;
+		$payment_message       = '';
+		$payment_message_class = '';
 
 		// Read admin settings (needed by both processing and template).
 		$form_fields           = get_option( 'ftb_form_fields', array() );
@@ -255,11 +256,14 @@ class FTB_Donation_Form_Public {
 					if ( 'paid' === $status ) {
 						$success = true;
 					} elseif ( 'cancelled' === $status ) {
-						$payment_message = __( 'Je hebt de betaling geannuleerd. Je kunt het opnieuw proberen.', 'ftb-donation-form' );
+						$payment_message       = __( 'Je hebt de betaling geannuleerd. Je kunt het opnieuw proberen.', 'ftb-donation-form' );
+						$payment_message_class = 'ftb-donation-form__payment-message--cancelled';
 					} elseif ( 'failed' === $status ) {
-						$payment_message = __( 'De betaling is mislukt. Probeer het opnieuw of kies een andere betaalmethode.', 'ftb-donation-form' );
+						$payment_message       = __( 'De betaling is mislukt. Probeer het opnieuw of kies een andere betaalmethode.', 'ftb-donation-form' );
+						$payment_message_class = 'ftb-donation-form__payment-message--failed';
 					} elseif ( 'expired' === $status ) {
-						$payment_message = __( 'De betaalsessie is verlopen. Probeer het opnieuw.', 'ftb-donation-form' );
+						$payment_message       = __( 'De betaalsessie is verlopen. Probeer het opnieuw.', 'ftb-donation-form' );
+						$payment_message_class = 'ftb-donation-form__payment-message--expired';
 					}
 				}
 			}

@@ -36,7 +36,7 @@ $old = static function ( $key, $fallback = '' ) use ( $old_values ) {
 		<h2 id="ftb-donation-title" class="ftb-donation-form__title"><?php echo esc_html( $title ); ?></h2>
 
 		<?php if ( $payment_message ) : ?>
-			<div class="ftb-donation-form__payment-message" role="alert">
+			<div class="ftb-donation-form__payment-message <?php echo esc_attr( $payment_message_class ); ?>" role="alert">
 				<?php echo esc_html( $payment_message ); ?>
 			</div>
 		<?php endif; ?>

@@ -45,11 +45,11 @@ Built from scratch to maintain full overview and control. Each phase is complete
 
 Phases 1–5, 7, 8, 10–13 are complete. Phase 6 (Mollie) is in progress.
 
-The one-time payment flow is fully built and tested locally. The webhook endpoint is built and secured but requires a live HTTPS server for full end-to-end testing — Mollie cannot reach a local development environment.
+The one-time payment flow is fully built and tested on the live test site. Email notifications (donor confirmation + admin notification) are confirmed working. The webhook endpoint is built and secured; full webhook testing requires a live HTTPS server.
 
 Recurring payments are also built: the plugin creates a Mollie customer and first payment to establish the SEPA mandate; the webhook then creates a subscription after the first payment is confirmed; Mollie handles subsequent charges automatically.
 
-**Next up:** Test the full payment flow (one-time + recurring) and email notifications on the test site. Retest accessibility (Narrator + radio groups).
+**Next up:** Test the full payment flow (one-time + recurring) on SiteGround. Retest accessibility (Narrator + radio groups).
 
 ---
 
@@ -69,6 +69,9 @@ Recurring payments are also built: the plugin creates a Mollie customer and firs
 ### Mollie payments
 - One-time payment flow: form redirects donor to Mollie checkout, returns to thank-you or redirect page
 - Webhook endpoint at `/wp-json/ftb/v1/webhook` — Mollie calls this when payment status changes
+- On return from Mollie, payment status is re-fetched directly from the API if the webhook has not yet arrived (handles local dev and race conditions)
+- Cancelled, failed, or expired payments show a status-specific message on the form instead of silently showing the form again
+- Mollie statuses mapped to internal values: `open` → `pending`, `canceled` → `cancelled`; `expired` fully supported
 - API key validated against Mollie on save — shows an error notice if the key is invalid
 - Webhook URL omitted on local dev environments (Mollie requires HTTPS; local sites are HTTP)
 - REST namespace restricted to POST only — no data accessible via GET
@@ -91,8 +94,8 @@ Recurring payments are also built: the plugin creates a Mollie customer and firs
 
 ### Donation dashboard
 - All submitted donations listed with: name, email, phone, address, amount, frequency, status, date
-- Sortable columns, search box, and status filter tabs (all / pending / paid / failed / cancelled)
-- Payment status badges
+- Sortable columns, search box, and status filter tabs (all / pending / paid / failed / cancelled / expired)
+- Payment status badges with per-status colours
 - Individual delete per row (nonce-protected)
 - Payment status edit per row (dropdown, nonce-protected)
 - Bulk delete
@@ -289,12 +292,10 @@ All webhook-dependent features require a live HTTPS server.
 - [ ] Recurring payment: mandate creation, subscription creation, subsequent charge webhook handling
 
 **Email notifications:**
-- [ ] Donor confirmation: verify email arrives with correct content after a paid donation
-- [ ] Admin notification: verify email arrives at sender address with donor details
+- [x] Donor confirmation: confirmed working on test site
+- [x] Admin notification: confirmed working on test site
 - [ ] Sender name shows site title in From header
 - [ ] Empty body sends details block only (no blank intro line)
-
-> SiteGround uses PHP `mail()` by default. If emails don't arrive, configure SMTP via the SiteGround Email panel or install WP Mail SMTP.
 
 ### Accessibility — Narrator + radio buttons
 - [ ] Retest frequency and amount radio groups with Windows Narrator after the `aria-invalid` fix

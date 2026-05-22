@@ -270,8 +270,8 @@
 	border: none;
 }
 
-.ftb-donation-form__legend {
-	font-size: var(--font-size-base);
+.ftb-donation-form .ftb-donation-form__legend {
+	font-size: var(--font-size-label);
 	font-weight: bold;
 	color: var(--color-text);
 	margin-bottom: var(--space-2);
@@ -298,7 +298,7 @@
 
 .ftb-donation-form__fieldset--personal .ftb-donation-form__legend {
 	margin-bottom: var(--space-4);
-	font-size: var(--font-size-lg);
+	font-size: var(--font-size-label);
 }
 
 .ftb-donation-form__fieldset--radio legend {

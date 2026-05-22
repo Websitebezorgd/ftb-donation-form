@@ -767,7 +767,7 @@ class FTB_Donation_Form_Admin {
 
 		check_admin_referer( 'ftb_update_status_' . $id );
 
-		$allowed = array( 'pending', 'paid', 'failed', 'cancelled' );
+		$allowed = array( 'pending', 'paid', 'failed', 'cancelled', 'expired' );
 		$status  = isset( $_POST['payment_status'] ) ? sanitize_text_field( wp_unslash( $_POST['payment_status'] ) ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 
 		if ( ! in_array( $status, $allowed, true ) ) {

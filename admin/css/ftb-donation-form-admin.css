@@ -436,6 +436,12 @@ h1.ftb-admin__title {
 	border: 2px solid currentColor;
 }
 
+.ftb-status--expired {
+	background: var(--color-neutral-bg);
+	color: var(--color-neutral-text);
+	border: 2px solid currentColor;
+}
+
 /* ── Email preview ────────────────────────────────────────────────────────── */
 .ftb-email-preview {
 	margin-top: var(--space-4);

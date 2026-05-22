@@ -153,6 +153,7 @@ class FTB_Donations_List_Table extends WP_List_Table {
 			'paid'      => __( 'Betaald', 'ftb-donation-form' ),
 			'failed'    => __( 'Mislukt', 'ftb-donation-form' ),
 			'cancelled' => __( 'Geannuleerd', 'ftb-donation-form' ),
+			'expired'   => __( 'Verlopen', 'ftb-donation-form' ),
 		);
 		$label  = esc_html( $labels[ $status ] ?? $status );
 		return '<span class="ftb-status ftb-status--' . esc_attr( $status ) . '">' . $label . '</span>';
@@ -206,6 +207,7 @@ class FTB_Donations_List_Table extends WP_List_Table {
 			'paid'      => __( 'Betaald', 'ftb-donation-form' ),
 			'failed'    => __( 'Mislukt', 'ftb-donation-form' ),
 			'cancelled' => __( 'Geannuleerd', 'ftb-donation-form' ),
+			'expired'   => __( 'Verlopen', 'ftb-donation-form' ),
 		);
 
 		$views        = array();

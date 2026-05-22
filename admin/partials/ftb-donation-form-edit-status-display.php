@@ -26,6 +26,7 @@ $statuses = array(
 	'paid'      => __( 'Betaald', 'ftb-donation-form' ),
 	'failed'    => __( 'Mislukt', 'ftb-donation-form' ),
 	'cancelled' => __( 'Geannuleerd', 'ftb-donation-form' ),
+	'expired'   => __( 'Verlopen', 'ftb-donation-form' ),
 );
 ?>
 	<p>

@@ -134,15 +134,21 @@ class FTB_Donation_Form_Public {
 			return new WP_REST_Response( null, 200 );
 		}
 
+		// Map Mollie status to internal status (Mollie uses 'canceled', plugin uses 'cancelled').
+		$status_map = array(
+			'canceled' => 'cancelled',
+		);
+		$status = $status_map[ $payment->status ] ?? $payment->status;
+
 		// Update status — by payment ID for one-time/first payments, by row ID for subscription charges.
 		if ( $is_subscription_charge ) {
-			$db->update_payment_status_by_id( (int) $donation->id, $payment->status );
+			$db->update_payment_status_by_id( (int) $donation->id, $status );
 		} else {
-			$db->update_payment_status( $mollie_id, $payment->status );
+			$db->update_payment_status( $mollie_id, $status );
 		}
 
 		// Send email notifications on successful payment.
-		if ( 'paid' === $payment->status ) {
+		if ( 'paid' === $status ) {
 			FTB_Email::send_donor_confirmation( $donation );
 			FTB_Email::send_admin_notification( $donation );
 		}
@@ -150,7 +156,7 @@ class FTB_Donation_Form_Public {
 		// After the first payment of a recurring donation is paid, create the subscription.
 		// Mollie will then handle all future charges automatically.
 		if (
-			'paid' === $payment->status
+			'paid' === $status
 			&& ! $is_subscription_charge
 			&& ! empty( $donation->mollie_customer_id )
 			&& empty( $donation->mollie_subscription_id )
@@ -223,9 +229,11 @@ class FTB_Donation_Form_Public {
 
 			if ( $return_id && $return_token && $stored_token && hash_equals( (string) $stored_token, $return_token ) ) {
 				delete_transient( 'ftb_return_' . $return_id );
-				$success = true;
+				$db                = new FTB_DB();
+				$returned_donation = $db->get_donation( $return_id );
+				$success           = $returned_donation && 'paid' === $returned_donation->payment_status;
 			}
-			// Invalid or missing token: $success stays false and the form renders normally.
+			// Invalid or missing token, or payment not paid: $success stays false and the form renders normally.
 
 			ob_start();
 			include 'partials/ftb-donation-form-public-display.php';

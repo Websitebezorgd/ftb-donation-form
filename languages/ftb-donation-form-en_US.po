@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: For The Better donatieformulier 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ftb-donation-"
 "form\n"
-"POT-Creation-Date: 2026-05-22T13:05:20+00:00\n"
-"PO-Revision-Date: 2026-05-22 15:05+0200\n"
+"POT-Creation-Date: 2026-05-22T14:05:27+00:00\n"
+"PO-Revision-Date: 2026-05-22 16:06+0200\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
 "Language: en_US\n"
@@ -170,7 +170,7 @@ msgid "Donateur mag een eigen bedrag invullen"
 msgstr "Donor may enter their custom amount"
 
 #: admin/class-ftb-donation-form-admin.php:474
-#: public/class-ftb-donation-form-public.php:197
+#: public/class-ftb-donation-form-public.php:203
 #: public/partials/ftb-donation-form-public-display.php:317
 msgid "Doneer nu"
 msgstr "Donate now"
@@ -220,12 +220,12 @@ msgid "Exporteer CSV"
 msgstr "Export CSV"
 
 #: admin/class-ftb-donations-list-table.php:36
-#: admin/partials/ftb-donation-form-edit-status-display.php:39
+#: admin/partials/ftb-donation-form-edit-status-display.php:40
 msgid "Naam"
 msgstr "Name"
 
 #: admin/class-ftb-donations-list-table.php:37
-#: admin/partials/ftb-donation-form-edit-status-display.php:43
+#: admin/partials/ftb-donation-form-edit-status-display.php:44
 msgid "E-mailadres"
 msgstr "Emailadress"
 
@@ -234,7 +234,7 @@ msgid "Adres"
 msgstr "Adress"
 
 #: admin/class-ftb-donations-list-table.php:40
-#: admin/partials/ftb-donation-form-edit-status-display.php:47
+#: admin/partials/ftb-donation-form-edit-status-display.php:48
 msgid "Bedrag"
 msgstr "Amount"
 
@@ -276,30 +276,36 @@ msgid "Jaarlijks"
 msgstr "Yearly"
 
 #: admin/class-ftb-donations-list-table.php:152
-#: admin/class-ftb-donations-list-table.php:205
+#: admin/class-ftb-donations-list-table.php:206
 #: admin/partials/ftb-donation-form-edit-status-display.php:25
 msgid "In afwachting"
 msgstr "Pending"
 
 #: admin/class-ftb-donations-list-table.php:153
-#: admin/class-ftb-donations-list-table.php:206
+#: admin/class-ftb-donations-list-table.php:207
 #: admin/partials/ftb-donation-form-edit-status-display.php:26
 msgid "Betaald"
 msgstr "Paid"
 
 #: admin/class-ftb-donations-list-table.php:154
-#: admin/class-ftb-donations-list-table.php:207
+#: admin/class-ftb-donations-list-table.php:208
 #: admin/partials/ftb-donation-form-edit-status-display.php:27
 msgid "Mislukt"
 msgstr "Failed"
 
 #: admin/class-ftb-donations-list-table.php:155
-#: admin/class-ftb-donations-list-table.php:208
+#: admin/class-ftb-donations-list-table.php:209
 #: admin/partials/ftb-donation-form-edit-status-display.php:28
 msgid "Geannuleerd"
 msgstr "Cancelled"
 
-#: admin/class-ftb-donations-list-table.php:216
+#: admin/class-ftb-donations-list-table.php:156
+#: admin/class-ftb-donations-list-table.php:210
+#: admin/partials/ftb-donation-form-edit-status-display.php:29
+msgid "Verlopen"
+msgstr "Expired"
+
+#: admin/class-ftb-donations-list-table.php:218
 msgid "Alle"
 msgstr "All"
 
@@ -522,7 +528,7 @@ msgid "Bedankbericht"
 msgstr "Thank you message"
 
 #: admin/partials/ftb-donation-form-admin-display.php:310
-#: public/class-ftb-donation-form-public.php:213
+#: public/class-ftb-donation-form-public.php:219
 msgid "Hartelijk dank voor je donatie!"
 msgstr "Thank you very much for your donation!"
 
@@ -685,19 +691,19 @@ msgstr "A plugin by"
 msgid "Donatie niet gevonden."
 msgstr "Donation not found."
 
-#: admin/partials/ftb-donation-form-edit-status-display.php:33
+#: admin/partials/ftb-donation-form-edit-status-display.php:34
 msgid "Terug naar donaties"
 msgstr "Back to donations"
 
-#: admin/partials/ftb-donation-form-edit-status-display.php:51
+#: admin/partials/ftb-donation-form-edit-status-display.php:52
 msgid "Huidige status"
 msgstr "Current satus"
 
-#: admin/partials/ftb-donation-form-edit-status-display.php:65
+#: admin/partials/ftb-donation-form-edit-status-display.php:66
 msgid "Nieuwe status"
 msgstr "New status"
 
-#: admin/partials/ftb-donation-form-edit-status-display.php:79
+#: admin/partials/ftb-donation-form-edit-status-display.php:80
 msgid "Status opslaan"
 msgstr "Save status"
 
@@ -727,40 +733,40 @@ msgstr "Emailadress:"
 
 #. translators: %s: donor full name
 #: includes/class-ftb-mollie-service.php:99
-#: public/class-ftb-donation-form-public.php:163
+#: public/class-ftb-donation-form-public.php:169
 #, php-format
 msgid "Donatie van %s"
 msgstr "Donation of %s"
 
 #: public/class-ftb-donation-form-public.php:51
-#: public/class-ftb-donation-form-public.php:260
+#: public/class-ftb-donation-form-public.php:268
 msgid "Kies een frequentie."
 msgstr "Choose a frequency."
 
 #: public/class-ftb-donation-form-public.php:52
-#: public/class-ftb-donation-form-public.php:274
+#: public/class-ftb-donation-form-public.php:282
 msgid "Kies een bedrag."
 msgstr "Choose an amount."
 
 #. translators: %s: minimum amount, e.g. "1"
 #: public/class-ftb-donation-form-public.php:54
-#: public/class-ftb-donation-form-public.php:269
+#: public/class-ftb-donation-form-public.php:277
 #, php-format
 msgid "Je eigen bedrag moet minimaal €%s zijn."
 msgstr "Your custom amount must be at least €%s."
 
 #: public/class-ftb-donation-form-public.php:55
-#: public/class-ftb-donation-form-public.php:279
+#: public/class-ftb-donation-form-public.php:287
 msgid "Vul je volledige naam in."
 msgstr "Enter your full name."
 
 #: public/class-ftb-donation-form-public.php:56
-#: public/class-ftb-donation-form-public.php:284
+#: public/class-ftb-donation-form-public.php:292
 msgid "Vul een geldig e-mailadres in."
 msgstr "Enter a valid email address."
 
 #: public/class-ftb-donation-form-public.php:57
-#: public/class-ftb-donation-form-public.php:289
+#: public/class-ftb-donation-form-public.php:297
 msgid "Je moet akkoord gaan met de privacyverklaring om te doneren."
 msgstr "You must agree to the privacy statement to donate."
 
@@ -769,19 +775,19 @@ msgstr "You must agree to the privacy statement to donate."
 msgid "Controleer de volgende fouten:"
 msgstr "Check the following errors:"
 
-#: public/class-ftb-donation-form-public.php:239
+#: public/class-ftb-donation-form-public.php:247
 msgid "Beveiligingscontrole mislukt. Probeer het opnieuw."
 msgstr "Security check failed. Try again."
 
-#: public/class-ftb-donation-form-public.php:344
+#: public/class-ftb-donation-form-public.php:352
 msgid ""
 "Mollie is tijdelijk niet beschikbaar. Controleer of er een API sleutel is "
 "ingevuld."
 msgstr ""
 "Mollie is temporarily unavailable. Check if an API key has been entered."
 
-#: public/class-ftb-donation-form-public.php:345
-#: public/class-ftb-donation-form-public.php:405
+#: public/class-ftb-donation-form-public.php:353
+#: public/class-ftb-donation-form-public.php:413
 msgid ""
 "De betaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
 msgstr ""

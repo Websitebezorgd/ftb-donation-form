@@ -134,8 +134,9 @@ class FTB_Donation_Form_Public {
 			return new WP_REST_Response( null, 200 );
 		}
 
-		// Map Mollie status to internal status (Mollie uses 'canceled', plugin uses 'cancelled').
+		// Map Mollie statuses to internal statuses.
 		$status_map = array(
+			'open'     => 'pending',
 			'canceled' => 'cancelled',
 		);
 		$status = $status_map[ $payment->status ] ?? $payment->status;

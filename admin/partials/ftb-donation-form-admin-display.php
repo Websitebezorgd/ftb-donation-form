@@ -132,8 +132,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<span><?php esc_html_e( 'Vaste bedragen tonen', 'ftb-donation-form' ); ?></span>
 						</label>
 						<div class="ftb-conditional<?php echo '1' === $show_presets ? ' is-visible' : ''; ?>" data-show-when="ftb_show_preset_amounts=1">
-							<div class="ftb-admin-form__stacked-field">
-								<label class="ftb-admin-form__label"><?php esc_html_e( 'Vaste bedragen (minimaal €1)', 'ftb-donation-form' ); ?></label>
+							<fieldset class="ftb-admin-form__stacked-field">
+								<legend class="ftb-admin-form__label"><?php esc_html_e( 'Vaste bedragen (minimaal €1)', 'ftb-donation-form' ); ?></legend>
 								<div class="ftb-amount-inputs">
 									<?php
 									for ( $i = 0; $i < 3; $i++ ) :
@@ -153,7 +153,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 										</div>
 									<?php endfor; ?>
 								</div>
-							</div>
+							</fieldset>
 						</div>
 					</div>
 
@@ -268,7 +268,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<p><?php echo esc_html( $prv_mollie ); ?></p>
 						<p><?php echo esc_html( $prv_grondslag ); ?></p>
 						<p><?php echo esc_html( $prv_rights ); ?></p>
-						<textarea id="ftb-privacy-copy-text" style="display:none;" tabindex="-1" aria-hidden="true" readonly><?php echo esc_textarea( $prv_copy ); ?></textarea>
+						<textarea id="ftb-privacy-copy-text" style="display:none;" tabindex="-1" aria-hidden="true" aria-label="<?php esc_attr_e( 'Privacyverklaring tekst', 'ftb-donation-form' ); ?>" readonly><?php echo esc_textarea( $prv_copy ); ?></textarea>
 						<button
 							type="button"
 							id="ftb-copy-privacy-text"

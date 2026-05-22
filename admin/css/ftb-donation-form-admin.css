@@ -247,6 +247,13 @@ h1.ftb-admin__title {
 	margin-top: var(--space-3);
 }
 
+fieldset.ftb-admin-form__stacked-field {
+	border: none;
+	padding: 0;
+	margin-left: 0;
+	margin-right: 0;
+}
+
 .ftb-admin-form__label {
 	display: block;
 	font-weight: 600;

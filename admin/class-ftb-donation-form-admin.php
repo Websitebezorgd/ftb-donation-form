@@ -521,7 +521,7 @@ class FTB_Donation_Form_Admin {
 			$mollie = new \Mollie\Api\MollieApiClient();
 			$mollie->setApiKey( $value );
 			$mollie->methods->allActive();
-		} catch ( \Mollie\Api\Exceptions\MollieException $e ) {
+		} catch ( \Throwable $e ) {
 			// Store per-user so the notice renders with ftb-notice styling in the template.
 			set_transient( 'ftb_mollie_key_error_' . get_current_user_id(), true, 60 );
 		}

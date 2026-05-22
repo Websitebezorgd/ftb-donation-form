@@ -415,6 +415,7 @@ h1.ftb-admin__title {
 .ftb-status--pending {
 	background: var(--color-warning-bg);
 	color: var(--color-warning-text);
+	border: 1px solid var(--color-warning-accent);
 }
 
 .ftb-status--paid {

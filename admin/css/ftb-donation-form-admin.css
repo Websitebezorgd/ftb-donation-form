@@ -415,25 +415,25 @@ h1.ftb-admin__title {
 .ftb-status--pending {
 	background: var(--color-warning-bg);
 	color: var(--color-warning-text);
-	border: 1px solid var(--color-warning-accent);
+	border: 2px solid var(--color-warning-accent);
 }
 
 .ftb-status--paid {
 	background: var(--color-success-bg);
 	color: var(--color-success-text);
-	border: 1px solid var(--color-success-accent);
+	border: 2px solid var(--color-success-accent);
 }
 
 .ftb-status--failed {
 	background: var(--color-error-bg);
 	color: var(--color-error-text);
-	border: 1px solid var(--color-error-accent);
+	border: 2px solid var(--color-error-accent);
 }
 
 .ftb-status--cancelled {
 	background: var(--color-neutral-bg);
 	color: var(--color-neutral-text);
-	border: 1px solid currentColor;
+	border: 2px solid currentColor;
 }
 
 /* ── Email preview ────────────────────────────────────────────────────────── */

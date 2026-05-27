@@ -38,13 +38,13 @@ Built from scratch to maintain full overview and control. Each phase is complete
 | 11 | Email notifications | Donor confirmation email + admin notification on new donation, both toggleable | ✅ Done |
 | 12 | Branding | For The Better logo, favicon, and brand colours in the WordPress admin — shared header/footer partials across all admin pages | ✅ Done |
 | 13 | Polish | Admin mobile responsiveness, themeable frontend colour tokens, translation cleanup | ✅ Done |
-| 14 | Style variants | Layout variants (Card / Flat / Minimal) + primary colour picker selectable in admin with live preview; PHP outputs the chosen class and colour token on the shortcode. When Elementor is active, global colours are shown as swatches; colour token uses `var(--e-global-color-primary, #c42e31)` as automatic fallback | ⏳ Planned |
+| 14 | Style variants | Layout variants (Card / Flat / Minimal) + primary colour picker selectable in admin with live preview; PHP outputs the chosen class and colour token on the shortcode. When Elementor is active, global colours are shown as swatches; colour token uses `var(--e-global-color-primary, #c42e31)` as automatic fallback | ✅ Done |
 
 ---
 
 ## Current status
 
-Phases 1–5, 7, 8, 10–13 are complete. Phase 6 (Mollie) is in progress.
+Phases 1–5, 7, 8, 10–14 are complete. Phase 6 (Mollie) is in progress.
 
 The one-time payment flow is fully built and tested on the live test site. Email notifications (donor confirmation + admin notification) are confirmed working. The webhook endpoint is built and secured; full webhook testing requires a live HTTPS server.
 
@@ -64,7 +64,7 @@ Recurring payments are also built: the plugin creates a Mollie customer and firs
 - GDPR consent checkbox with link to privacy statement
 - Client-side and server-side validation with accessible error summary
 - Full keyboard navigation, screen reader support, WCAG 2.2
-- Colour tokens overridable per site via CSS custom properties on `.ftb-donation-form`
+- Colour tokens overridable per site via CSS custom properties on `.ftb-donation-form`; style variant classes (`--style-card`, `--style-flat`, `--style-minimal`) applied automatically based on admin setting
 - Adapts to container width — works inside Elementor columns and any page builder
 
 ### Mollie payments
@@ -87,6 +87,7 @@ Recurring payments are also built: the plugin creates a Mollie customer and firs
 - **Privacyverklaring:** privacy statement URL — includes an AVG/GDPR reminder when left empty; when a URL is entered, a ready-to-copy privacy statement text is shown (fields + Mollie + AVG rights, with sender email if configured)
 - **Na betaling:** show a thank-you message or redirect to a page
 - **E-mailnotificaties:** admin notification toggle + donor confirmation email with editable subject, body, and live preview
+- **Stijl:** layout variant (Card / Flat / Minimal) + primary colour picker with live preview; Elementor global colours shown as swatches when Elementor is active
 
 ### Admin UI
 - Shared header (logo + dashicon) and footer (For The Better credit) across all admin pages via PHP partials
@@ -307,5 +308,3 @@ How to deliver updates to clients once the plugin is installed. Options to explo
 ### Uninstall behaviour
 `uninstall.php` currently deletes all plugin data (donations table + all options + user capabilities) whenever the plugin is removed via Dashboard → Plugins. Whether this is the right default — or whether users should be able to choose what gets deleted — still needs to be decided.
 
-### Frontend form styling
-The CSS of the donation form on the frontend needs to be reviewed and adjusted. The form adapts to container width but the visual styling may need further work to match the site design.

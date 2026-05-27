@@ -103,6 +103,37 @@
 		);
 	}
 
+	function initStylePicker() {
+		var $colorInput = $( '#ftb_form_primary_color' );
+		var $preview    = $( '#ftb-style-preview' );
+		var $resetBtn   = $( '#ftb-reset-color' );
+		var defaultColor = '#c42e31';
+
+		if ( ! $colorInput.length || ! $preview.length ) {
+			return;
+		}
+
+		function applyColor( color ) {
+			$colorInput.val( color );
+			$preview[0].style.setProperty( '--ftb-preview-color', color );
+		}
+
+		// Kleurpicker — update preview live
+		$colorInput.on( 'input', function () {
+			$preview[0].style.setProperty( '--ftb-preview-color', $( this ).val() );
+		} );
+
+		// Reset-knop — terug naar standaardkleur
+		$resetBtn.on( 'click', function () {
+			applyColor( defaultColor );
+		} );
+
+		// Elementor-swatches — klik vult kleurpicker en preview
+		$( document ).on( 'click', '.ftb-color-swatch', function () {
+			applyColor( $( this ).data( 'color' ) );
+		} );
+	}
+
 	$( document ).ready(
 		function () {
 			// Run on page load to reflect saved value
@@ -117,6 +148,9 @@
 
 			// Privacy suggestion — show when URL is filled in
 			initPrivacySuggestion();
+
+			// Stijlkiezer — live preview
+			initStylePicker();
 		}
 	);
 

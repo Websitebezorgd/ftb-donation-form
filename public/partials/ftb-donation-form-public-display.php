@@ -21,9 +21,24 @@ $field_enabled = static function ( $key ) use ( $form_fields ) {
 $old = static function ( $key, $fallback = '' ) use ( $old_values ) {
 	return $old_values[ $key ] ?? $fallback;
 };
+
+// ── Stijl ─────────────────────────────────────────────────────────────────
+$ftb_style        = get_option( 'ftb_form_style', 'card' );
+$ftb_style        = in_array( $ftb_style, array( 'card', 'flat', 'minimal' ), true ) ? $ftb_style : 'card';
+$ftb_color        = get_option( 'ftb_form_primary_color', '' );
+$ftb_inline_style = '';
+
+if ( $ftb_color ) {
+	// Klant heeft een kleur ingesteld — gebruik die.
+	$ftb_inline_style = '--color-primary:' . esc_attr( $ftb_color ) . ';';
+} elseif ( defined( 'ELEMENTOR_VERSION' ) ) {
+	// Geen kleur ingesteld, Elementor actief — volg automatisch de global primary color.
+	$ftb_inline_style = '--color-primary:var(--e-global-color-primary,#c42e31);';
+}
+// Geen kleur en geen Elementor — CSS token #c42e31 uit de stylesheet geldt.
 ?>
 
-<div class="ftb-donation-form" aria-describedby="ftb-donation-title">
+<div class="ftb-donation-form ftb-donation-form--style-<?php echo esc_attr( $ftb_style ); ?>"<?php echo $ftb_inline_style ? ' style="' . $ftb_inline_style . '"' : ''; ?> aria-describedby="ftb-donation-title">
 
 	<?php if ( $success ) : ?>
 

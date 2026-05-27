@@ -576,6 +576,242 @@ fieldset.ftb-admin__radio-group {
 	margin-top: -0.125rem;
 }
 
+/* ── Stijlkiezer ─────────────────────────────────────────────────────────── */
+.ftb-style-picker {
+	display: flex;
+	gap: var(--space-3);
+	margin-bottom: var(--space-4);
+}
+
+.ftb-style-picker__option {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--space-2);
+	cursor: pointer;
+	flex: 1;
+}
+
+/* Radiobutton visueel verbergen maar toegankelijk houden */
+.ftb-style-picker__option input[type="radio"] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+.ftb-style-picker__preview {
+	width: 100%;
+	padding: var(--space-3);
+	border: 2px solid var(--color-border);
+	border-radius: var(--radius-sm);
+	background: var(--color-surface-muted);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+	transition: border-color 0.2s;
+}
+
+.ftb-style-picker__option input[type="radio"]:checked + .ftb-style-picker__preview {
+	border-color: var(--color-focus);
+	background: var(--color-info-bg);
+}
+
+.ftb-style-picker__option input[type="radio"]:focus-visible + .ftb-style-picker__preview {
+	outline: 3px solid var(--color-focus);
+	outline-offset: 2px;
+}
+
+/* Mini-mockup elementen */
+.ftb-style-picker__mock-title {
+	display: block;
+	height: 0.5rem;
+	background: var(--color-border);
+	border-radius: 2px;
+	width: 60%;
+	margin: 0 auto;
+}
+
+.ftb-style-picker__mock-amounts {
+	display: flex;
+	gap: var(--space-1);
+}
+
+.ftb-style-picker__mock-amounts span {
+	flex: 1;
+	height: 0.875rem;
+	background: var(--color-border);
+	border-radius: 2px;
+}
+
+.ftb-style-picker__mock-amounts span.is-active {
+	background: var(--color-focus);
+}
+
+.ftb-style-picker__mock-button {
+	display: block;
+	height: 0.875rem;
+	background: var(--color-border);
+	border-radius: 2px;
+}
+
+/* Variant-specifieke stijlen in de mockup */
+.ftb-style-picker__preview--card {
+	box-shadow: 0 2px 6px #00385a20;
+}
+
+.ftb-style-picker__preview--flat {
+	box-shadow: none;
+	border-radius: 0;
+}
+
+.ftb-style-picker__preview--minimal {
+	background: transparent;
+	box-shadow: none;
+	border-radius: 0;
+	border-style: dashed;
+}
+
+.ftb-style-picker__label {
+	font-size: var(--font-size-sm);
+	font-weight: 600;
+	color: var(--color-text-muted);
+}
+
+.ftb-style-picker__option input[type="radio"]:checked ~ .ftb-style-picker__label {
+	color: var(--color-focus);
+}
+
+/* ── Kleurpicker ──────────────────────────────────────────────────────────── */
+.ftb-color-picker-row {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	margin-bottom: var(--space-2);
+}
+
+.ftb-color-picker-row input[type="color"] {
+	width: 2.5rem;
+	height: 2.5rem;
+	padding: 2px;
+	border: 1px solid var(--color-border-input);
+	border-radius: var(--radius-sm);
+	cursor: pointer;
+	background: none;
+}
+
+/* ── Elementor swatches ───────────────────────────────────────────────────── */
+.ftb-color-swatches {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-2);
+	margin-top: var(--space-2);
+}
+
+.ftb-color-swatch {
+	width: 1.75rem;
+	height: 1.75rem;
+	border: 2px solid transparent;
+	border-radius: 50%;
+	cursor: pointer;
+	padding: 0;
+	transition: border-color 0.15s, transform 0.15s;
+}
+
+.ftb-color-swatch:hover {
+	border-color: var(--color-focus);
+	transform: scale(1.15);
+}
+
+.ftb-color-swatch:focus-visible {
+	outline: 3px solid var(--color-focus);
+	outline-offset: 2px;
+}
+
+/* ── Live preview ─────────────────────────────────────────────────────────── */
+.ftb-style-preview-wrap {
+	background: repeating-linear-gradient(
+		45deg,
+		#f0f0f0,
+		#f0f0f0 5px,
+		#fafafa 5px,
+		#fafafa 10px
+	);
+	padding: var(--space-6);
+	border-radius: var(--radius-sm);
+	border: 1px solid var(--color-border);
+}
+
+.ftb-style-preview {
+	padding: var(--space-5);
+	border-radius: 0.5rem;
+	background: rgba(255, 255, 255, 0.92);
+	box-shadow: 0 2px 0.75rem #00385a30;
+	transition: background 0.2s, box-shadow 0.2s, border-radius 0.2s, padding 0.2s;
+	max-width: 16rem;
+	margin: 0 auto;
+}
+
+/* Variant-stijlen via :has() — geen JS nodig */
+.ftb-admin-form__group:has(#ftb_form_style_flat:checked) .ftb-style-preview {
+	background: #ffffff;
+	box-shadow: none;
+	border-radius: 0;
+}
+
+.ftb-admin-form__group:has(#ftb_form_style_minimal:checked) .ftb-style-preview {
+	background: transparent;
+	box-shadow: none;
+	border-radius: 0;
+	padding: var(--space-3) 0;
+}
+
+.ftb-style-preview__title {
+	font-size: var(--font-size-sm);
+	font-weight: 600;
+	text-align: center;
+	margin-bottom: var(--space-3);
+	color: #1a1a1a;
+}
+
+.ftb-style-preview__amounts {
+	display: flex;
+	gap: var(--space-2);
+	margin-bottom: var(--space-3);
+}
+
+.ftb-style-preview__amounts span {
+	flex: 1;
+	text-align: center;
+	padding: var(--space-1) 0;
+	font-size: var(--font-size-sm);
+	border: 2px solid var(--color-border);
+	border-radius: 2px;
+	color: #1a1a1a;
+}
+
+.ftb-style-preview__amounts span.is-active {
+	background: var(--ftb-preview-color, #c42e31);
+	border-color: var(--ftb-preview-color, #c42e31);
+	color: #ffffff;
+	font-weight: bold;
+}
+
+.ftb-style-preview__button {
+	text-align: center;
+	padding: var(--space-2) var(--space-4);
+	background: var(--ftb-preview-color, #c42e31);
+	color: #ffffff;
+	border-radius: 2px;
+	font-size: var(--font-size-sm);
+	font-weight: bold;
+}
+
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 @media screen and (max-width: 782px) {
 	.ftb-admin-form__grid {

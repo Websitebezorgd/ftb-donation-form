@@ -448,6 +448,103 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 			</section>
 
+			<?php
+			// ── Stijl ─────────────────────────────────────────────────────────
+			$form_style         = get_option( 'ftb_form_style', 'card' );
+			$form_primary_color = get_option( 'ftb_form_primary_color', '' );
+			$preview_color      = $form_primary_color ?: '#c42e31';
+			$style_options      = array(
+				'card'    => __( 'Card', 'ftb-donation-form' ),
+				'flat'    => __( 'Flat', 'ftb-donation-form' ),
+				'minimal' => __( 'Minimal', 'ftb-donation-form' ),
+			);
+			?>
+			<section class="ftb-admin-form__section">
+				<h3 class="ftb-admin-form__title">
+					<?php esc_html_e( 'Stijl', 'ftb-donation-form' ); ?>
+				</h3>
+				<p class="ftb-admin-form__description">
+					<?php esc_html_e( 'Kies hoe het formulier eruitziet op de pagina.', 'ftb-donation-form' ); ?>
+				</p>
+				<div class="ftb-admin-form__group">
+
+					<fieldset class="ftb-admin__radio-group ftb-style-picker">
+						<legend class="ftb-admin-form__label"><?php esc_html_e( 'Variant', 'ftb-donation-form' ); ?></legend>
+						<?php foreach ( $style_options as $val => $label ) : ?>
+						<label class="ftb-style-picker__option" for="ftb_form_style_<?php echo esc_attr( $val ); ?>">
+							<input
+								type="radio"
+								id="ftb_form_style_<?php echo esc_attr( $val ); ?>"
+								name="ftb_form_style"
+								value="<?php echo esc_attr( $val ); ?>"
+								<?php checked( $form_style, $val ); ?>>
+							<span class="ftb-style-picker__preview ftb-style-picker__preview--<?php echo esc_attr( $val ); ?>" aria-hidden="true">
+								<span class="ftb-style-picker__mock-title"></span>
+								<span class="ftb-style-picker__mock-amounts">
+									<span></span><span class="is-active"></span><span></span>
+								</span>
+								<span class="ftb-style-picker__mock-button"></span>
+							</span>
+							<span class="ftb-style-picker__label"><?php echo esc_html( $label ); ?></span>
+						</label>
+						<?php endforeach; ?>
+					</fieldset>
+
+					<div class="ftb-admin-form__stacked-field">
+						<label class="ftb-admin-form__label" for="ftb_form_primary_color">
+							<?php esc_html_e( 'Primaire kleur', 'ftb-donation-form' ); ?>
+						</label>
+						<div class="ftb-color-picker-row">
+							<input
+								type="color"
+								id="ftb_form_primary_color"
+								name="ftb_form_primary_color"
+								value="<?php echo esc_attr( $preview_color ); ?>" />
+							<button type="button" id="ftb-reset-color" class="button button-small">
+								<?php esc_html_e( 'Standaard', 'ftb-donation-form' ); ?>
+							</button>
+						</div>
+						<?php
+						if ( defined( 'ELEMENTOR_VERSION' ) && class_exists( '\Elementor\Plugin' ) ) :
+							$kit           = \Elementor\Plugin::$instance->kits_manager->get_active_kit();
+							$global_colors = $kit ? $kit->get_meta( 'system_colors' ) : array();
+							if ( $global_colors ) :
+						?>
+						<p class="description" style="margin-top:var(--space-3);"><?php esc_html_e( 'Elementor globale kleuren:', 'ftb-donation-form' ); ?></p>
+						<div class="ftb-color-swatches">
+							<?php foreach ( $global_colors as $ec ) : ?>
+							<button
+								type="button"
+								class="ftb-color-swatch"
+								style="background:<?php echo esc_attr( $ec['color'] ); ?>;"
+								data-color="<?php echo esc_attr( $ec['color'] ); ?>"
+								aria-label="<?php echo esc_attr( $ec['title'] ); ?>"
+								title="<?php echo esc_attr( $ec['title'] ); ?>">
+							</button>
+							<?php endforeach; ?>
+						</div>
+						<?php endif; endif; ?>
+					</div>
+
+					<div class="ftb-admin-form__stacked-field">
+						<p class="ftb-admin-form__label"><?php esc_html_e( 'Voorbeeld', 'ftb-donation-form' ); ?></p>
+						<div class="ftb-style-preview-wrap">
+							<div
+								id="ftb-style-preview"
+								class="ftb-style-preview ftb-style-preview--<?php echo esc_attr( $form_style ); ?>"
+								style="--ftb-preview-color:<?php echo esc_attr( $preview_color ); ?>;">
+								<div class="ftb-style-preview__title"><?php esc_html_e( 'Doneren', 'ftb-donation-form' ); ?></div>
+								<div class="ftb-style-preview__amounts">
+									<span>€5</span><span class="is-active">€10</span><span>€25</span>
+								</div>
+								<div class="ftb-style-preview__button"><?php esc_html_e( 'Volgende stap →', 'ftb-donation-form' ); ?></div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</section>
+
 		</div>
 
 	</div>

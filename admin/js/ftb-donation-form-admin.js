@@ -104,9 +104,9 @@
 	}
 
 	function initStylePicker() {
-		var $colorInput = $( '#ftb_form_primary_color' );
-		var $preview    = $( '#ftb-style-preview' );
-		var $resetBtn   = $( '#ftb-reset-color' );
+		var $colorInput  = $( '#ftb_form_primary_color' );
+		var $preview     = $( '#ftb-style-preview' );
+		var $resetBtn    = $( '#ftb-reset-color' );
 		var defaultColor = '#c42e31';
 
 		if ( ! $colorInput.length || ! $preview.length ) {

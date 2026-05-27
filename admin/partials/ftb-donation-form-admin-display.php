@@ -500,14 +500,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 								id="ftb_form_primary_color"
 								name="ftb_form_primary_color"
 								value="<?php echo esc_attr( $preview_color ); ?>" />
-							<button type="button" id="ftb-reset-color" class="button button-small">
+<button type="button" id="ftb-reset-color" class="button button-small">
 								<?php esc_html_e( 'Standaard', 'ftb-donation-form' ); ?>
 							</button>
 						</div>
 						<?php
 						if ( defined( 'ELEMENTOR_VERSION' ) && class_exists( '\Elementor\Plugin' ) ) :
 							$kit           = \Elementor\Plugin::$instance->kits_manager->get_active_kit();
-							$global_colors = $kit ? $kit->get_meta( 'system_colors' ) : array();
+							$kit_settings  = $kit ? get_post_meta( $kit->get_id(), '_elementor_page_settings', true ) : array();
+							$global_colors = array_merge(
+								isset( $kit_settings['system_colors'] ) ? (array) $kit_settings['system_colors'] : array(),
+								isset( $kit_settings['custom_colors'] ) ? (array) $kit_settings['custom_colors'] : array()
+							);
 							if ( $global_colors ) :
 						?>
 						<p class="description" style="margin-top:var(--space-3);"><?php esc_html_e( 'Elementor globale kleuren:', 'ftb-donation-form' ); ?></p>
@@ -527,7 +531,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 
 					<div class="ftb-admin-form__stacked-field">
-						<p class="ftb-admin-form__label"><?php esc_html_e( 'Voorbeeld', 'ftb-donation-form' ); ?></p>
+						<p class="ftb-email-preview__label"><?php esc_html_e( 'Voorbeeld', 'ftb-donation-form' ); ?></p>
 						<div class="ftb-style-preview-wrap">
 							<div
 								id="ftb-style-preview"

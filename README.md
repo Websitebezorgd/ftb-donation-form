@@ -38,6 +38,7 @@ Built from scratch to maintain full overview and control. Each phase is complete
 | 11 | Email notifications | Donor confirmation email + admin notification on new donation, both toggleable | ✅ Done |
 | 12 | Branding | For The Better logo, favicon, and brand colours in the WordPress admin — shared header/footer partials across all admin pages | ✅ Done |
 | 13 | Polish | Admin mobile responsiveness, themeable frontend colour tokens, translation cleanup | ✅ Done |
+| 14 | Style variants | Layout variants (Card / Flat / Minimal) + primary colour picker selectable in admin with live preview; PHP outputs the chosen class and colour token on the shortcode. When Elementor is active, global colours are shown as swatches; colour token uses `var(--e-global-color-primary, #c42e31)` as automatic fallback | ⏳ Planned |
 
 ---
 

@@ -342,6 +342,26 @@ class FTB_Donation_Form_Admin {
 			array( 'label_for' => 'ftb_post_payment_behavior' )
 		);
 
+		// ── Stijl ─────────────────────────────────────────────────────────────
+
+		register_setting(
+			'ftb_donation_form_settings',
+			'ftb_form_style',
+			array(
+				'sanitize_callback' => function ( $value ) {
+					return in_array( $value, array( 'card', 'flat', 'minimal' ), true ) ? $value : 'card';
+				},
+			)
+		);
+
+		register_setting(
+			'ftb_donation_form_settings',
+			'ftb_form_primary_color',
+			array(
+				'sanitize_callback' => 'sanitize_hex_color',
+			)
+		);
+
 	}
 
 	// ── Section descriptions ───────────────────────────────────────────────────

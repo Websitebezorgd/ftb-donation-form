@@ -801,7 +801,7 @@ fieldset.ftb-admin__radio-group {
 .ftb-style-preview__amounts span.is-active {
 	background: var(--ftb-preview-color, #c42e31);
 	border-color: var(--ftb-preview-color, #c42e31);
-	color: #ffffff;
+	color: var(--ftb-preview-on-color, #ffffff);
 	font-weight: bold;
 }
 
@@ -809,7 +809,7 @@ fieldset.ftb-admin__radio-group {
 	text-align: center;
 	padding: var(--space-2) var(--space-4);
 	background: var(--ftb-preview-color, #c42e31);
-	color: #ffffff;
+	color: var(--ftb-preview-on-color, #ffffff);
 	border-radius: 2px;
 	font-size: var(--font-size-sm);
 	font-weight: bold;

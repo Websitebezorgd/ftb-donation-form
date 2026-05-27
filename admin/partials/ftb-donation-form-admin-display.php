@@ -454,9 +454,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$form_primary_color = get_option( 'ftb_form_primary_color', '' );
 			$preview_color      = $form_primary_color ?: '#c42e31';
 			$style_options      = array(
-				'card'    => __( 'Card', 'ftb-donation-form' ),
-				'flat'    => __( 'Flat', 'ftb-donation-form' ),
-				'minimal' => __( 'Minimal', 'ftb-donation-form' ),
+				'card'    => __( 'Kaart', 'ftb-donation-form' ),
+				'flat'    => __( 'Vlak', 'ftb-donation-form' ),
+				'minimal' => __( 'Minimaal', 'ftb-donation-form' ),
 			);
 			?>
 			<section class="ftb-admin-form__section">

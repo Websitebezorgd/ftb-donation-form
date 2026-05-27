@@ -113,14 +113,23 @@
 			return;
 		}
 
+		// Bereken of witte of donkere tekst beter leesbaar is op de gegeven kleur.
+		function onColor( hex ) {
+			var r = parseInt( hex.slice( 1, 3 ), 16 );
+			var g = parseInt( hex.slice( 3, 5 ), 16 );
+			var b = parseInt( hex.slice( 5, 7 ), 16 );
+			return ( 0.299 * r + 0.587 * g + 0.114 * b ) > 128 ? '#1a1a1a' : '#ffffff';
+		}
+
 		function applyColor( color ) {
 			$colorInput.val( color );
 			$preview[0].style.setProperty( '--ftb-preview-color', color );
+			$preview[0].style.setProperty( '--ftb-preview-on-color', onColor( color ) );
 		}
 
 		// Kleurpicker — update preview live
 		$colorInput.on( 'input', function () {
-			$preview[0].style.setProperty( '--ftb-preview-color', $( this ).val() );
+			applyColor( $( this ).val() );
 		} );
 
 		// Reset-knop — terug naar standaardkleur
@@ -132,6 +141,9 @@
 		$( document ).on( 'click', '.ftb-color-swatch', function () {
 			applyColor( $( this ).data( 'color' ) );
 		} );
+
+		// Initieel instellen op basis van de opgeslagen kleur.
+		applyColor( $colorInput.val() || defaultColor );
 	}
 
 	$( document ).ready(

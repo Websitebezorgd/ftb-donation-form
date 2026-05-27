@@ -14,15 +14,16 @@
 	--color-info-text:      #1e3a5f;
 	--color-neutral-border: #6b7280;
 	--color-neutral-text:   #374151;
+	--color-on-primary: #ffffff; /* tekst op primaire achtergrond — PHP overschrijft dit indien nodig */
 	--color-focus:     #251e18;
-	--color-link:      var(--color-primary);
+	--color-link:      color-mix(in srgb, var(--color-primary) 65%, #000);
 
 	/* Colors — text */
 	--color-text: #251e18;
 
 	/* Colors — border */
-	--color-border: #dce3e8;
-	--color-border-hover: #b0bec5;
+	--color-border:       color-mix(in srgb, var(--color-primary) 20%, #e8e8e8);
+	--color-border-hover: color-mix(in srgb, var(--color-primary) 45%, #e8e8e8);
 
 	/* Colors — surface */
 	--color-bg:    rgba(255, 255, 255, 0.92);
@@ -256,19 +257,19 @@
 	font-size: var(--font-size-sm);
 	font-weight: bold;
 	color: var(--color-text);
-	background: var(--color-border);
+	background: var(--color-white);
 }
 
 .ftb-donation-form__steps li[aria-current="step"]::before {
 	background: var(--color-primary);
 	border-color: var(--color-primary);
-	color: var(--color-white);
+	color: var(--color-on-primary);
 }
 
 .ftb-donation-form__steps li.is-active::before {
 	background: var(--color-primary);
 	border-color: var(--color-primary);
-	color: var(--color-white);
+	color: var(--color-on-primary);
 }
 
 .ftb-donation-form__steps li h2,
@@ -382,9 +383,9 @@
 /* Selected state */
 .ftb-donation-form__radio:checked + .ftb-donation-form__radio-label {
 	border-color: var(--color-primary);
-	background-color: var(--color-primary);
+	background-color: color-mix(in srgb, var(--color-primary) 12%, #fff);
 	font-weight: bold;
-	color: var(--color-white);
+	color: var(--color-text);
 }
 
 /* Focus indicator — WCAG 2.2 Focus Appearance */
@@ -659,7 +660,7 @@
 /* Visuele standaarden — nul specificiteit, thema overschrijft altijd */
 :where(.ftb-donation-form__button) {
 	background: var(--color-primary);
-	color: var(--color-white);
+	color: var(--color-on-primary);
 	border: none;
 	border-radius: var(--radius-sm);
 	font-size: var(--font-size-lg);
@@ -697,7 +698,7 @@
 
 :where(.ftb-donation-form__button--previous:hover) {
 	background: var(--color-primary);
-	color: var(--color-white);
+	color: var(--color-on-primary);
 }
 
 .ftb-donation-form__button--submit {

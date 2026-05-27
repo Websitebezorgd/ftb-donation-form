@@ -27,15 +27,26 @@ $ftb_style        = get_option( 'ftb_form_style', 'card' );
 $ftb_style        = in_array( $ftb_style, array( 'card', 'flat', 'minimal' ), true ) ? $ftb_style : 'card';
 $ftb_color        = get_option( 'ftb_form_primary_color', '' );
 $ftb_inline_style = '';
+$ftb_on_primary   = '#ffffff'; // veilige standaard; wordt hieronder overschreven als kleur bekend is
 
 if ( $ftb_color ) {
-	// Klant heeft een kleur ingesteld — gebruik die.
-	$ftb_inline_style = '--color-primary:' . esc_attr( $ftb_color ) . ';';
+	// Bereken of witte of donkere tekst beter contrast heeft op de primaire kleur.
+	$hex = ltrim( $ftb_color, '#' );
+	if ( 3 === strlen( $hex ) ) {
+		$hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+	}
+	if ( 6 === strlen( $hex ) ) {
+		$r              = hexdec( substr( $hex, 0, 2 ) );
+		$g              = hexdec( substr( $hex, 2, 2 ) );
+		$b              = hexdec( substr( $hex, 4, 2 ) );
+		$ftb_on_primary = ( 0.299 * $r + 0.587 * $g + 0.114 * $b ) > 128 ? '#1a1a1a' : '#ffffff';
+	}
+	$ftb_inline_style = '--color-primary:' . esc_attr( $ftb_color ) . ';--color-on-primary:' . $ftb_on_primary . ';';
 } elseif ( defined( 'ELEMENTOR_VERSION' ) ) {
 	// Geen kleur ingesteld, Elementor actief — volg automatisch de global primary color.
 	$ftb_inline_style = '--color-primary:var(--e-global-color-primary,#c42e31);';
 }
-// Geen kleur en geen Elementor — CSS token #c42e31 uit de stylesheet geldt.
+// Geen kleur en geen Elementor — CSS tokens uit de stylesheet gelden.
 ?>
 
 <div class="ftb-donation-form ftb-donation-form--style-<?php echo esc_attr( $ftb_style ); ?>"<?php echo $ftb_inline_style ? ' style="' . $ftb_inline_style . '"' : ''; ?> aria-describedby="ftb-donation-title">

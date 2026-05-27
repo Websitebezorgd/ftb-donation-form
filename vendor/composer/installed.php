@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => 'dev-frontend-form-styles',
-        'version' => 'dev-frontend-form-styles',
-        'reference' => '1f8c25be6c10b97ca93e4d089a98ec57492d0ef6',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '6ca479f21a64c2141209a1a21ee36e0e4afc1e9f',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'dev-frontend-form-styles',
-            'version' => 'dev-frontend-form-styles',
-            'reference' => '1f8c25be6c10b97ca93e4d089a98ec57492d0ef6',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '6ca479f21a64c2141209a1a21ee36e0e4afc1e9f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

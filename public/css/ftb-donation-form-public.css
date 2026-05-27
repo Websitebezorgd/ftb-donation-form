@@ -363,8 +363,7 @@
 
 .ftb-donation-form__radio-label:hover {
 	border-color: var(--color-primary);
-	background-color: var(--color-primary);
-	color: var(--color-white);
+	color: var(--color-text);
 }
 
 /* Hide native radio visually but keep it accessible */
@@ -382,8 +381,8 @@
 
 /* Selected state */
 .ftb-donation-form__radio:checked + .ftb-donation-form__radio-label {
-	border-color: var(--color-secondary);
-	background-color: var(--color-secondary);
+	border-color: var(--color-primary);
+	background-color: var(--color-primary);
 	font-weight: bold;
 	color: var(--color-white);
 }
@@ -451,7 +450,7 @@
 .ftb-donation-form__input--amount:focus-visible {
 	outline: 3px solid var(--color-focus);
 	outline-offset: 3px;
-	border-color: var(--color-focus);
+	border-color: var(--color-primary);
 }
 
 /* ── Field ────────────────────────────────────────────────────────────────── */
@@ -517,7 +516,7 @@
 .ftb-donation-form__input:focus-visible {
 	outline: 3px solid var(--color-focus);
 	outline-offset: 2px;
-	border-color: var(--color-focus);
+	border-color: var(--color-primary);
 }
 
 /* Error state: red border + icon, not color alone (WCAG 1.4.1) */
@@ -668,7 +667,7 @@
 
 :where(.ftb-donation-form__button:hover),
 :where(.ftb-donation-form__button:active) {
-	background: var(--color-secondary);
+	background: color-mix(in srgb, var(--color-primary) 80%, #000);
 }
 
 /* Focus — altijd van toepassing (toegankelijkheid) */

@@ -160,6 +160,29 @@ class FTB_Mollie_Service {
 	}
 
 	/**
+	 * Check whether SEPA Direct Debit recurring payments are available.
+	 *
+	 * Queries Mollie for payment methods that support sequenceType=recurring.
+	 * directdebit only appears when the merchant has SEPA Direct Debit enabled
+	 * in their Mollie dashboard (both test and live mode).
+	 *
+	 * @return bool
+	 */
+	public function is_recurring_available(): bool {
+		try {
+			$methods = $this->mollie->methods->allActive( array( 'sequenceType' => 'recurring' ) );
+			foreach ( $methods as $method ) {
+				if ( 'directdebit' === $method->id ) {
+					return true;
+				}
+			}
+			return false;
+		} catch ( ApiException $e ) {
+			return false;
+		}
+	}
+
+	/**
 	 * Fetch a payment from Mollie by its ID.
 	 *
 	 * Used by the webhook handler to verify and read the actual status.

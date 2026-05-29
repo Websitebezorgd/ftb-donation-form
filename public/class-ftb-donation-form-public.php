@@ -381,7 +381,7 @@ class FTB_Donation_Form_Public {
 				}
 
 				if ( ! get_option( 'ftb_mollie_api_key' ) ) {
-					$errors['payment'] = is_user_logged_in()
+					$errors['payment'] = current_user_can( 'ftb_manage_settings' )
 						? __( 'Mollie is tijdelijk niet beschikbaar. Controleer of er een API sleutel is ingevuld.', 'ftb-donation-form' )
 						: __( 'De betaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.', 'ftb-donation-form' );
 				}
@@ -407,37 +407,45 @@ class FTB_Donation_Form_Public {
 					$customer_id   = '';
 
 					if ( 'one_time' !== $frequency ) {
-						$customer      = $service->create_customer( $name, $email );
-						$customer_id   = $customer->id;
-						$sequence_type = 'first';
-						$db->update_mollie_customer_id( (int) $donation_id, $customer_id );
+						if ( ! $service->is_recurring_available() ) {
+							$errors['payment'] = current_user_can( 'ftb_manage_settings' )
+								? __( 'SEPA-incasso is niet ingeschakeld in Mollie. Activeer SEPA-incasso in je Mollie-dashboard om terugkerende betalingen mogelijk te maken.', 'ftb-donation-form' )
+								: __( 'Terugkerende betalingen zijn momenteel niet beschikbaar. Kies een eenmalige donatie.', 'ftb-donation-form' );
+						} else {
+							$customer      = $service->create_customer( $name, $email );
+							$customer_id   = $customer->id;
+							$sequence_type = 'first';
+							$db->update_mollie_customer_id( (int) $donation_id, $customer_id );
+						}
 					}
 
-					$payment = $service->create_payment(
-						(int) $donation_id,
-						$amount,
-						$name,
-						$return_url,
-						$webhook_url,
-						$sequence_type,
-						$customer_id
-					);
+					if ( empty( $errors ) ) {
+						$payment = $service->create_payment(
+							(int) $donation_id,
+							$amount,
+							$name,
+							$return_url,
+							$webhook_url,
+							$sequence_type,
+							$customer_id
+						);
 
-					$db->update_mollie_payment_id( (int) $donation_id, $payment->id );
+						$db->update_mollie_payment_id( (int) $donation_id, $payment->id );
 
-					$checkout_url  = $payment->getCheckoutUrl();
-					$checkout_host = wp_parse_url( $checkout_url, PHP_URL_HOST );
-					add_filter(
-						'allowed_redirect_hosts',
-						static function ( $hosts ) use ( $checkout_host ) {
-							if ( $checkout_host ) {
-								$hosts[] = $checkout_host;
+						$checkout_url  = $payment->getCheckoutUrl();
+						$checkout_host = wp_parse_url( $checkout_url, PHP_URL_HOST );
+						add_filter(
+							'allowed_redirect_hosts',
+							static function ( $hosts ) use ( $checkout_host ) {
+								if ( $checkout_host ) {
+									$hosts[] = $checkout_host;
+								}
+								return $hosts;
 							}
-							return $hosts;
-						}
-					);
-					wp_safe_redirect( $checkout_url );
-					exit;
+						);
+						wp_safe_redirect( $checkout_url );
+						exit;
+					}
 				} catch ( \Exception $e ) {
 					if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
                         // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log

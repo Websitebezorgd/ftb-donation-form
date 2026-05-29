@@ -856,8 +856,16 @@ msgid ""
 msgstr ""
 "Mollie is temporarily unavailable. Check if an API key has been entered."
 
+#: public/class-ftb-donation-form-public.php:411
+msgid "SEPA-incasso is niet ingeschakeld in Mollie. Activeer SEPA-incasso in je Mollie-dashboard om terugkerende betalingen mogelijk te maken."
+msgstr "SEPA Direct Debit is not enabled in Mollie. Enable SEPA Direct Debit in your Mollie dashboard to allow recurring payments."
+
+#: public/class-ftb-donation-form-public.php:413
+msgid "Terugkerende betalingen zijn momenteel niet beschikbaar. Kies een eenmalige donatie."
+msgstr "Recurring payments are currently unavailable. Please choose a one-time donation."
+
 #: public/class-ftb-donation-form-public.php:386
-#: public/class-ftb-donation-form-public.php:446
+#: public/class-ftb-donation-form-public.php:447
 msgid ""
 "De betaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
 msgstr ""

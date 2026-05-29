@@ -766,6 +766,14 @@ msgstr ""
 
 #: public/class-ftb-donation-form-public.php:386
 #: public/class-ftb-donation-form-public.php:446
+msgid "SEPA-incasso is niet ingeschakeld in Mollie. Activeer SEPA-incasso in je Mollie-dashboard om terugkerende betalingen mogelijk te maken."
+msgstr ""
+
+#: public/class-ftb-donation-form-public.php:413
+msgid "Terugkerende betalingen zijn momenteel niet beschikbaar. Kies een eenmalige donatie."
+msgstr ""
+
+#: public/class-ftb-donation-form-public.php:447
 msgid "De betaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
 msgstr ""
 

@@ -496,7 +496,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</label>
 						<div class="ftb-color-picker-row">
 							<input
-								type="color"
+								type="text"
+								class="ftb-color-picker"
 								id="ftb_form_primary_color"
 								name="ftb_form_primary_color"
 								value="<?php echo esc_attr( $preview_color ); ?>" />

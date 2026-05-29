@@ -41,10 +41,11 @@ class FTB_Donation_Form_Admin {
 		if ( ! $this->is_plugin_page( $hook ) ) {
 			return;
 		}
+		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style(
 			$this->plugin_name,
 			plugin_dir_url( __FILE__ ) . 'css/ftb-donation-form-admin.css',
-			array(),
+			array( 'wp-color-picker' ),
 			filemtime( plugin_dir_path( __FILE__ ) . 'css/ftb-donation-form-admin.css' )
 		);
 	}
@@ -59,7 +60,7 @@ class FTB_Donation_Form_Admin {
 		wp_enqueue_script(
 			$this->plugin_name,
 			plugin_dir_url( __FILE__ ) . 'js/ftb-donation-form-admin.js',
-			array( 'jquery' ),
+			array( 'jquery', 'wp-color-picker' ),
 			filemtime( plugin_dir_path( __FILE__ ) . 'js/ftb-donation-form-admin.js' ),
 			true
 		);

@@ -63,6 +63,19 @@
 	--shadow: 0 2px 0.75rem #00385a30;
 }
 
+/* ── Block: Donation Form ─────────────────────────────────────────────────── */
+.ftb-donation-form {
+	width: 100%;
+	margin: 0;
+	padding: var(--space-8);
+	background: var(--color-bg);
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow);
+	font-family: inherit;
+	font-size: 1rem;
+	font-weight: 400;
+}
+
 /* ── Stijlvarianten ───────────────────────────────────────────────────────── */
 /* Card is de standaard — tokens al ingesteld hierboven                        */
 
@@ -77,19 +90,6 @@
 	--shadow:    none;
 	--radius-md: 0;
 	padding:     0;
-}
-
-/* ── Block: Donation Form ─────────────────────────────────────────────────── */
-.ftb-donation-form {
-	width: 100%;
-	margin: 0;
-	padding: var(--space-8);
-	background: var(--color-bg);
-	border-radius: var(--radius-md);
-	box-shadow: var(--shadow);
-	font-family: inherit;
-	font-size: 1rem;
-	font-weight: 400;
 }
 
 /* ── Title ────────────────────────────────────────────────────────────────── */

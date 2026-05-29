@@ -290,17 +290,18 @@ A phase is only complete when:
 All webhook-dependent features require a live HTTPS server.
 
 **Payment flow:**
-- [ ] One-time payment: form → Mollie checkout → webhook → thank-you message/redirect
-- [ ] Recurring payment: mandate creation, subscription creation, subsequent charge webhook handling
+- [x] One-time payment: form → Mollie checkout → webhook → thank-you message/redirect
+- [x] Recurring payment: mandate creation, subscription creation, subsequent charge webhook handling
 
 **Email notifications:**
-- [x] Donor confirmation: confirmed working on test site
-- [x] Admin notification: confirmed working on test site
-- [ ] Sender name shows site title in From header
-- [ ] Empty body sends details block only (no blank intro line)
+- [x] Donor confirmation: confirmed working on SiteGround test site
+- [x] Admin notification: confirmed working on SiteGround test site
+- [x] Sender name shows site title in From header
+- [x] Empty body sends details block only (no blank intro line)
 
 ### Accessibility — Narrator + radio buttons
-- [ ] Retest frequency and amount radio groups with Windows Narrator after the `aria-invalid` fix
+- [x] Frequency and amount radio groups work correctly with Windows Narrator
+- [x] Step indicator announced correctly — `aria-current="step"` on the `<li>` is sufficient; aria-live caused double announcements so was not added
 
 ### Plugin updates on client sites
 How to deliver updates to clients once the plugin is installed. Options to explore: WordPress.org repository, a private update server (e.g. WP Update Server), or a GitHub-based updater hook. To be decided.

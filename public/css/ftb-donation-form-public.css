@@ -727,7 +727,14 @@
 
 	.ftb-donation-form__field--buttons,
 	.ftb-donation-form__field--row {
-	flex-direction: column;
+		flex-direction: column;
+	}
+
+	.ftb-donation-form__field--street,
+	.ftb-donation-form__field--house-number,
+	.ftb-donation-form__field--postal-code,
+	.ftb-donation-form__field--city {
+		width: 100%;
 	}
 
 	.ftb-donation-form__button {

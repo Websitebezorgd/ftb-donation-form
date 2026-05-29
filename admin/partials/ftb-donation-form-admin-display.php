@@ -501,9 +501,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 								id="ftb_form_primary_color"
 								name="ftb_form_primary_color"
 								value="<?php echo esc_attr( $preview_color ); ?>" />
-<button type="button" id="ftb-reset-color" class="button button-small">
-								<?php esc_html_e( 'Standaard', 'ftb-donation-form' ); ?>
-							</button>
 						</div>
 						<?php
 						if ( defined( 'ELEMENTOR_VERSION' ) && class_exists( '\Elementor\Plugin' ) ) :

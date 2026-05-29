@@ -113,7 +113,7 @@
             },
             "time": "2026-05-06T16:15:18+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Mollie\\Api\\": "src/"

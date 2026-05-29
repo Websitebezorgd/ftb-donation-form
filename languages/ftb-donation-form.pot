@@ -589,6 +589,10 @@ msgid "Standaard"
 msgstr ""
 
 #: admin/partials/ftb-donation-form-admin-display.php:517
+msgid "Thema kleuren:"
+msgstr ""
+
+#: admin/partials/ftb-donation-form-admin-display.php:528
 msgid "Elementor globale kleuren:"
 msgstr ""
 

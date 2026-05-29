@@ -503,29 +503,41 @@ if ( ! defined( 'ABSPATH' ) ) {
 								value="<?php echo esc_attr( $preview_color ); ?>" />
 						</div>
 						<?php
-						if ( defined( 'ELEMENTOR_VERSION' ) && class_exists( '\Elementor\Plugin' ) ) :
+						$elementor_active = defined( 'ELEMENTOR_VERSION' ) && class_exists( '\Elementor\Plugin' );
+						if ( $elementor_active ) :
 							$kit           = \Elementor\Plugin::$instance->kits_manager->get_active_kit();
 							$kit_settings  = $kit ? get_post_meta( $kit->get_id(), '_elementor_page_settings', true ) : array();
-							$global_colors = array_merge(
+							$swatch_colors = array_merge(
 								isset( $kit_settings['system_colors'] ) ? (array) $kit_settings['system_colors'] : array(),
 								isset( $kit_settings['custom_colors'] ) ? (array) $kit_settings['custom_colors'] : array()
 							);
-							if ( $global_colors ) :
+							$swatch_label  = __( 'Elementor globale kleuren:', 'ftb-donation-form' );
+							$swatch_key    = 'title';
+						else :
+							$theme_palette = function_exists( 'wp_get_global_settings' ) ? wp_get_global_settings( array( 'color', 'palette' ) ) : array();
+							$swatch_colors = array_merge(
+								isset( $theme_palette['theme'] ) ? (array) $theme_palette['theme'] : array(),
+								isset( $theme_palette['custom'] ) ? (array) $theme_palette['custom'] : array()
+							);
+							$swatch_label  = __( 'Thema kleuren:', 'ftb-donation-form' );
+							$swatch_key    = 'name';
+						endif;
+						if ( $swatch_colors ) :
 						?>
-						<p class="description" style="margin-top:var(--space-3);"><?php esc_html_e( 'Elementor globale kleuren:', 'ftb-donation-form' ); ?></p>
+						<p class="description" style="margin-top:var(--space-3);"><?php echo esc_html( $swatch_label ); ?></p>
 						<div class="ftb-color-swatches">
-							<?php foreach ( $global_colors as $ec ) : ?>
+							<?php foreach ( $swatch_colors as $sc ) : ?>
 							<button
 								type="button"
 								class="ftb-color-swatch"
-								style="background:<?php echo esc_attr( $ec['color'] ); ?>;"
-								data-color="<?php echo esc_attr( $ec['color'] ); ?>"
-								aria-label="<?php echo esc_attr( $ec['title'] ); ?>"
-								title="<?php echo esc_attr( $ec['title'] ); ?>">
+								style="background:<?php echo esc_attr( $sc['color'] ); ?>;"
+								data-color="<?php echo esc_attr( $sc['color'] ); ?>"
+								aria-label="<?php echo esc_attr( $sc[ $swatch_key ] ); ?>"
+								title="<?php echo esc_attr( $sc[ $swatch_key ] ); ?>">
 							</button>
 							<?php endforeach; ?>
 						</div>
-						<?php endif; endif; ?>
+						<?php endif; ?>
 					</div>
 
 					<div class="ftb-admin-form__stacked-field">

@@ -303,6 +303,12 @@ All webhook-dependent features require a live HTTPS server.
 - [x] Frequency and amount radio groups work correctly with Windows Narrator
 - [x] Step indicator announced correctly — `aria-current="step"` on the `<li>` is sufficient; aria-live caused double announcements so was not added
 
+### Accessibility — admin dashboard
+Found via WAVE + Narrator:
+- [x] **Lege link (WAVE)** — Iris color picker drag-handles verborgen via `aria-hidden`, `tabindex="-1"` en `role="presentation"` na `wpColorPicker()` init
+- [ ] **Switchers (Narrator)** — toggle-checkboxen worden aangekondigd als "selectievakje"; oplossing: `role="switch"` toevoegen aan `<input class="ftb-toggle__input" type="checkbox">`
+- [ ] **Dropdown (Narrator)** — onduidelijk wat Narrator precies zegt; nog nader te onderzoeken
+
 ### Plugin updates on client sites
 How to deliver updates to clients once the plugin is installed. Options to explore: WordPress.org repository, a private update server (e.g. WP Update Server), or a GitHub-based updater hook. To be decided.
 

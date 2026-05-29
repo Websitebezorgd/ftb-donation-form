@@ -145,6 +145,14 @@
             },
         });
 
+        // Iris generates empty <a> drag handles — hide them from screen readers.
+        $colorInput
+            .closest(".wp-picker-container")
+            .find(".iris-square-value, .iris-strip-value")
+            .attr("aria-hidden", "true")
+            .attr("tabindex", "-1")
+            .attr("role", "presentation");
+
         $(document).on("click", ".ftb-color-swatch", function () {
             var color = $(this).data("color");
             $colorInput.wpColorPicker("color", color);

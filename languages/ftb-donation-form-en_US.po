@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: For The Better donatieformulier 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ftb-donation-"
 "form\n"
-"POT-Creation-Date: 2026-05-29T13:06:43+00:00\n"
-"PO-Revision-Date: 2026-05-29 15:08+0200\n"
+"POT-Creation-Date: 2026-05-29T14:33:54+00:00\n"
+"PO-Revision-Date: 2026-05-29 16:34+0200\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
 "Language: en_US\n"
@@ -785,34 +785,34 @@ msgid "Donatie van %s"
 msgstr "Donation of %s"
 
 #: public/class-ftb-donation-form-public.php:51
-#: public/class-ftb-donation-form-public.php:301
+#: public/class-ftb-donation-form-public.php:308
 msgid "Kies een frequentie."
 msgstr "Choose a frequency."
 
 #: public/class-ftb-donation-form-public.php:52
-#: public/class-ftb-donation-form-public.php:315
+#: public/class-ftb-donation-form-public.php:322
 msgid "Kies een bedrag."
 msgstr "Choose an amount."
 
 #. translators: %s: minimum amount, e.g. "1"
 #: public/class-ftb-donation-form-public.php:54
-#: public/class-ftb-donation-form-public.php:310
+#: public/class-ftb-donation-form-public.php:317
 #, php-format
 msgid "Je eigen bedrag moet minimaal €%s zijn."
 msgstr "Your custom amount must be at least €%s."
 
 #: public/class-ftb-donation-form-public.php:55
-#: public/class-ftb-donation-form-public.php:320
+#: public/class-ftb-donation-form-public.php:327
 msgid "Vul je volledige naam in."
 msgstr "Enter your full name."
 
 #: public/class-ftb-donation-form-public.php:56
-#: public/class-ftb-donation-form-public.php:325
+#: public/class-ftb-donation-form-public.php:332
 msgid "Vul een geldig e-mailadres in."
 msgstr "Enter a valid email address."
 
 #: public/class-ftb-donation-form-public.php:57
-#: public/class-ftb-donation-form-public.php:330
+#: public/class-ftb-donation-form-public.php:337
 msgid "Je moet akkoord gaan met de privacyverklaring om te doneren."
 msgstr "You must agree to the privacy statement to donate."
 
@@ -821,38 +821,46 @@ msgstr "You must agree to the privacy statement to donate."
 msgid "Controleer de volgende fouten:"
 msgstr "Check the following errors:"
 
-#: public/class-ftb-donation-form-public.php:259
+#: public/class-ftb-donation-form-public.php:263
 msgid "Je hebt de betaling geannuleerd. Je kunt het opnieuw proberen."
 msgstr "You have cancelled the payment. You can try again."
 
-#: public/class-ftb-donation-form-public.php:262
+#: public/class-ftb-donation-form-public.php:266
 msgid ""
 "De betaling is mislukt. Probeer het opnieuw of kies een andere betaalmethode."
 msgstr "The payment failed. Please try again or choose another payment method."
 
-#: public/class-ftb-donation-form-public.php:265
+#: public/class-ftb-donation-form-public.php:269
 msgid "De betaalsessie is verlopen. Probeer het opnieuw."
 msgstr "The payment session has expired. Please try again."
 
-#: public/class-ftb-donation-form-public.php:280
+#: public/class-ftb-donation-form-public.php:272
+msgid ""
+"Je betaling is in behandeling. Je ontvangt een bevestiging zodra de betaling "
+"is verwerkt."
+msgstr ""
+"Your payment is being processed. You will receive a confirmation once the "
+"payment has been completed."
+
+#: public/class-ftb-donation-form-public.php:287
 msgid "Beveiligingscontrole mislukt. Probeer het opnieuw."
 msgstr "Security check failed. Try again."
 
-#: public/class-ftb-donation-form-public.php:385
+#: public/class-ftb-donation-form-public.php:387
 msgid ""
 "Mollie is tijdelijk niet beschikbaar. Controleer of er een API sleutel is "
 "ingevuld."
 msgstr ""
 "Mollie is temporarily unavailable. Check if an API key has been entered."
 
-#: public/class-ftb-donation-form-public.php:386
-#: public/class-ftb-donation-form-public.php:454
+#: public/class-ftb-donation-form-public.php:388
+#: public/class-ftb-donation-form-public.php:456
 msgid ""
 "De betaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
 msgstr ""
 "The payment service is temporarily unavailable. Please try again later."
 
-#: public/class-ftb-donation-form-public.php:412
+#: public/class-ftb-donation-form-public.php:414
 msgid ""
 "SEPA-incasso is niet ingeschakeld in Mollie. Activeer SEPA-incasso in je "
 "Mollie-dashboard om terugkerende betalingen mogelijk te maken."
@@ -860,7 +868,7 @@ msgstr ""
 "SEPA Direct Debit is not enabled in Mollie. Enable SEPA Direct Debit in your "
 "Mollie dashboard to allow recurring payments."
 
-#: public/class-ftb-donation-form-public.php:413
+#: public/class-ftb-donation-form-public.php:415
 msgid ""
 "Terugkerende betalingen zijn momenteel niet beschikbaar. Kies een eenmalige "
 "donatie."

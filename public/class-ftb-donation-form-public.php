@@ -254,6 +254,10 @@ class FTB_Donation_Form_Public {
 					}
 
 					if ( 'paid' === $status ) {
+						if ( 'redirect' === $post_payment_behavior && ! empty( $post_payment_redirect ) ) {
+							wp_safe_redirect( $post_payment_redirect );
+							exit;
+						}
 						$success = true;
 					} elseif ( 'cancelled' === $status ) {
 						$payment_message       = __( 'Je hebt de betaling geannuleerd. Je kunt het opnieuw proberen.', 'ftb-donation-form' );
@@ -264,6 +268,9 @@ class FTB_Donation_Form_Public {
 					} elseif ( 'expired' === $status ) {
 						$payment_message       = __( 'De betaalsessie is verlopen. Probeer het opnieuw.', 'ftb-donation-form' );
 						$payment_message_class = 'ftb-donation-form__payment-message--expired';
+					} elseif ( 'pending' === $status ) {
+						$payment_message       = __( 'Je betaling is in behandeling. Je ontvangt een bevestiging zodra de betaling is verwerkt.', 'ftb-donation-form' );
+						$payment_message_class = 'ftb-donation-form__payment-message--pending';
 					}
 				}
 			}
@@ -361,24 +368,19 @@ class FTB_Donation_Form_Public {
 					)
 				);
 
-				// After a successful payment Mollie sends the donor back here.
-				// For the 'redirect' behavior we send them straight to the configured URL.
-				// For the 'message' behavior we generate a one-time token so the shortcode
-				// can verify this is a genuine return from Mollie, not a bookmarked URL.
-				if ( 'redirect' === $post_payment_behavior && ! empty( $post_payment_redirect ) ) {
-					$return_url = $post_payment_redirect;
-				} else {
-					$return_token = wp_generate_password( 32, false );
-					set_transient( 'ftb_return_' . $donation_id, $return_token, HOUR_IN_SECONDS );
-					$return_url = add_query_arg(
-						array(
-							'ftb_return' => '1',
-							'ftb_did'    => $donation_id,
-							'ftb_token'  => $return_token,
-						),
-						get_permalink()
-					);
-				}
+				// Always return to the form so we can check the payment status first.
+				// If paid and redirect behavior is configured, we redirect from there.
+				// This prevents cancelled/failed payments from landing on the success page.
+				$return_token = wp_generate_password( 32, false );
+				set_transient( 'ftb_return_' . $donation_id, $return_token, HOUR_IN_SECONDS );
+				$return_url = add_query_arg(
+					array(
+						'ftb_return' => '1',
+						'ftb_did'    => $donation_id,
+						'ftb_token'  => $return_token,
+					),
+					get_permalink()
+				);
 
 				if ( ! get_option( 'ftb_mollie_api_key' ) ) {
 					$errors['payment'] = current_user_can( 'ftb_manage_settings' )

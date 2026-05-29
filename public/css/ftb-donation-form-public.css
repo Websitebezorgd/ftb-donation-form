@@ -126,6 +126,11 @@
 	color: var(--color-info-text);
 }
 
+.ftb-donation-form__payment-message--pending {
+	border-color: var(--color-info-border);
+	color: var(--color-info-text);
+}
+
 /* ── Success message ──────────────────────────────────────────────────────── */
 .ftb-donation-form__success {
 	padding: var(--space-4);

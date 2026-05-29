@@ -181,5 +181,26 @@
 
         // Stijlkiezer — live preview
         initStylePicker();
+
+        // API key — toggle password visibility
+        $(".ftb-toggle-password").on("click", function () {
+            var $btn = $(this);
+            var $input = $("#" + $btn.attr("aria-controls"));
+            var $icon = $btn.find(".dashicons");
+            var isHidden = $input.attr("type") === "password";
+
+            $input.attr("type", isHidden ? "text" : "password");
+            $icon
+                .toggleClass("dashicons-visibility", !isHidden)
+                .toggleClass("dashicons-hidden", isHidden);
+            $btn
+                .attr("aria-pressed", isHidden ? "true" : "false")
+                .attr(
+                    "aria-label",
+                    isHidden
+                        ? ftbAdmin.hideApiKey
+                        : ftbAdmin.showApiKey,
+                );
+        });
     });
 })(jQuery);

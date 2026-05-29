@@ -64,6 +64,14 @@ class FTB_Donation_Form_Admin {
 			filemtime( plugin_dir_path( __FILE__ ) . 'js/ftb-donation-form-admin.js' ),
 			true
 		);
+		wp_localize_script(
+			$this->plugin_name,
+			'ftbAdmin',
+			array(
+				'showApiKey' => __( 'API sleutel tonen', 'ftb-donation-form' ),
+				'hideApiKey' => __( 'API sleutel verbergen', 'ftb-donation-form' ),
+			)
+		);
 	}
 
 	/**
@@ -371,23 +379,29 @@ class FTB_Donation_Form_Admin {
 		echo '<p>' . esc_html__( 'Naam en e-mailadres zijn altijd verplicht. Vink de overige velden aan die je wilt tonen.', 'ftb-donation-form' ) . '</p>';
 	}
 
-	public function section_amounts_description() {
-		echo '<p>' . esc_html__( 'Voer drie vaste bedragen in die de donateur kan kiezen. De donateur kan ook een eigen bedrag invullen als deze optie is ingeschakeld.', 'ftb-donation-form' ) . '</p>';
-	}
-
 	// ── Field renderers ────────────────────────────────────────────────────────
 
 	public function field_mollie_api_key() {
 		$value = get_option( 'ftb_mollie_api_key', '' );
 		?>
 		<div class="ftb-admin-form__field">
-			<input
-				type="password"
-				id="ftb_mollie_api_key"
-				name="ftb_mollie_api_key"
-				value="<?php echo esc_attr( $value ); ?>"
-				class="regular-text"
-				autocomplete="new-password" />
+			<div class="ftb-password-wrap">
+				<input
+					type="password"
+					id="ftb_mollie_api_key"
+					name="ftb_mollie_api_key"
+					value="<?php echo esc_attr( $value ); ?>"
+					class="regular-text"
+					autocomplete="new-password" />
+				<button
+					type="button"
+					class="ftb-toggle-password"
+					aria-controls="ftb_mollie_api_key"
+					aria-label="<?php esc_attr_e( 'API sleutel tonen', 'ftb-donation-form' ); ?>"
+					aria-pressed="false">
+					<span class="dashicons dashicons-visibility" aria-hidden="true"></span>
+				</button>
+			</div>
 		</div>
 		<?php
 	}
@@ -432,54 +446,6 @@ class FTB_Donation_Form_Admin {
 			);
 		}
 		echo '</ul></div>';
-	}
-
-	public function field_amount_options() {
-		$amounts  = array_values( (array) get_option( 'ftb_amount_options', array( '5', '10', '25' ) ) );
-		$defaults = array( '5', '10', '25' );
-
-		echo '<div class="ftb-admin-form__field"><div class="ftb-amount-inputs">';
-		for ( $i = 0; $i < 3; $i++ ) {
-			$value = isset( $amounts[ $i ] ) ? $amounts[ $i ] : $defaults[ $i ];
-			printf(
-				'<div class="ftb-amount-input">
-                    <span class="ftb-amount-input__prefix" aria-hidden="true">€</span>
-                    <input
-                        type="number"
-                        name="ftb_amount_options[%d]"
-                        id="ftb_amount_options_%d"
-                        value="%s"
-                        min="1"
-                        step="1"
-                        class="small-text"
-                        aria-label="%s %d"
-                    />
-                </div>',
-				absint( $i ),
-				absint( $i ),
-				esc_attr( $value ),
-				esc_attr__( 'Bedragoptie', 'ftb-donation-form' ),
-				absint( $i + 1 )
-			);
-		}
-		echo '</div></div>';
-	}
-
-	public function field_allow_custom_amount() {
-		$value = get_option( 'ftb_allow_custom_amount', '1' );
-		?>
-		<div class="ftb-admin-form__field">
-			<label for="ftb_allow_custom_amount">
-				<input
-					type="checkbox"
-					id="ftb_allow_custom_amount"
-					name="ftb_allow_custom_amount"
-					value="1"
-					<?php checked( '1', $value ); ?> />
-				<?php esc_html_e( 'Donateur mag een eigen bedrag invullen', 'ftb-donation-form' ); ?>
-			</label>
-		</div>
-		<?php
 	}
 
 	public function field_form_heading() {

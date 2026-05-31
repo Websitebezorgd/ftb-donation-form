@@ -655,9 +655,7 @@
 
 /* Layout — altijd van toepassing */
 .ftb-donation-form__button {
-	width: 100%;
 	padding: var(--space-4) var(--space-7);
-	font-weight: bold;
 	cursor: pointer;
 	transition: background-color var(--transition);
 }

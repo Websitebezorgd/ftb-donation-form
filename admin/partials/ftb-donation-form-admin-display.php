@@ -92,7 +92,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php $recurring = get_option( 'ftb_enable_recurring', '1' ); ?>
 					<input type="hidden" name="ftb_enable_recurring" value="0">
 					<label class="ftb-toggle" for="ftb_enable_recurring">
-						<input class="ftb-toggle__input" type="checkbox" id="ftb_enable_recurring" name="ftb_enable_recurring" value="1" <?php checked( '1', $recurring ); ?>>
+						<input class="ftb-toggle__input" type="checkbox" role="switch" id="ftb_enable_recurring" name="ftb_enable_recurring" value="1" <?php checked( '1', $recurring ); ?>>
 						<span class="ftb-toggle__slider" aria-hidden="true"></span>
 						<span><?php esc_html_e( 'Terugkerende betalingen inschakelen', 'ftb-donation-form' ); ?></span>
 					</label>
@@ -127,7 +127,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="ftb-toggle-group">
 						<input type="hidden" name="ftb_show_preset_amounts" value="0">
 						<label class="ftb-toggle" for="ftb_show_preset_amounts">
-							<input class="ftb-toggle__input" type="checkbox" id="ftb_show_preset_amounts" name="ftb_show_preset_amounts" value="1" <?php checked( '1', $show_presets ); ?>>
+							<input class="ftb-toggle__input" type="checkbox" role="switch" id="ftb_show_preset_amounts" name="ftb_show_preset_amounts" value="1" <?php checked( '1', $show_presets ); ?>>
 							<span class="ftb-toggle__slider" aria-hidden="true"></span>
 							<span><?php esc_html_e( 'Vaste bedragen tonen', 'ftb-donation-form' ); ?></span>
 						</label>
@@ -160,7 +160,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="ftb-toggle-group">
 						<input type="hidden" name="ftb_allow_custom_amount" value="0">
 						<label class="ftb-toggle" for="ftb_allow_custom_amount">
-							<input class="ftb-toggle__input" type="checkbox" id="ftb_allow_custom_amount" name="ftb_allow_custom_amount" value="1" <?php checked( '1', $allow_custom ); ?>>
+							<input class="ftb-toggle__input" type="checkbox" role="switch" id="ftb_allow_custom_amount" name="ftb_allow_custom_amount" value="1" <?php checked( '1', $allow_custom ); ?>>
 							<span class="ftb-toggle__slider" aria-hidden="true"></span>
 							<span><?php esc_html_e( 'Eigen bedrag toestaan', 'ftb-donation-form' ); ?></span>
 						</label>
@@ -387,7 +387,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="ftb-toggle-group">
 						<input type="hidden" name="ftb_email_admin_notification" value="0">
 						<label class="ftb-toggle" for="ftb_email_admin_notification">
-							<input class="ftb-toggle__input" type="checkbox" id="ftb_email_admin_notification" name="ftb_email_admin_notification" value="1" <?php checked( '1', $email_admin ); ?>>
+							<input class="ftb-toggle__input" type="checkbox" role="switch" id="ftb_email_admin_notification" name="ftb_email_admin_notification" value="1" <?php checked( '1', $email_admin ); ?>>
 							<span class="ftb-toggle__slider" aria-hidden="true"></span>
 							<span><?php esc_html_e( 'Melding bij nieuwe donatie', 'ftb-donation-form' ); ?></span>
 						</label>
@@ -396,7 +396,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="ftb-toggle-group">
 						<input type="hidden" name="ftb_email_donor_confirmation" value="0">
 						<label class="ftb-toggle" for="ftb_email_donor_confirmation">
-							<input class="ftb-toggle__input" type="checkbox" id="ftb_email_donor_confirmation" name="ftb_email_donor_confirmation" value="1" <?php checked( '1', $email_donor ); ?>>
+							<input class="ftb-toggle__input" type="checkbox" role="switch" id="ftb_email_donor_confirmation" name="ftb_email_donor_confirmation" value="1" <?php checked( '1', $email_donor ); ?>>
 							<span class="ftb-toggle__slider" aria-hidden="true"></span>
 							<span><?php esc_html_e( 'Bevestigingsmail naar donateur', 'ftb-donation-form' ); ?></span>
 						</label>

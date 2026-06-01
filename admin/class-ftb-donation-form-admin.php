@@ -28,6 +28,7 @@ class FTB_Donation_Form_Admin {
 				return 'ftb_manage_settings';
 			}
 		);
+	}
 
 	/**
 	 * Enqueue admin styles only on our plugin page.

@@ -24,14 +24,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<legend class="screen-reader-text"><?php esc_html_e( 'Gegevens bij verwijdering', 'ftb-donation-form' ); ?></legend>
 						<label>
 							<input type="radio" name="ftb_delete_data" value="0" checked>
-							<strong><?php esc_html_e( 'Donaties en instellingen bewaren', 'ftb-donation-form' ); ?></strong>
-							<p class="description"><?php esc_html_e( 'De pluginbestanden worden verwijderd, maar alle donaties en instellingen blijven in de database bewaard. Je kunt de plugin opnieuw installeren zonder gegevens te verliezen.', 'ftb-donation-form' ); ?></p>
+							<?php esc_html_e( 'Instellingen en gegevens van donateurs bewaren', 'ftb-donation-form' ); ?>
 						</label>
 						<br><br>
 						<label>
 							<input type="radio" name="ftb_delete_data" value="1">
-							<strong><?php esc_html_e( 'Alle donaties en instellingen verwijderen', 'ftb-donation-form' ); ?></strong>
-							<p class="description"><?php esc_html_e( 'De donatiestabel en alle instellingen worden permanent verwijderd. Dit kan niet ongedaan worden gemaakt.', 'ftb-donation-form' ); ?></p>
+							<?php esc_html_e( 'Alle instellingen en gegevens verwijderen', 'ftb-donation-form' ); ?>
 						</label>
 					</fieldset>
 				</td>

@@ -2,9 +2,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-/**
- * @var string $return_url  The WordPress plugin-deletion URL to redirect to after choice.
- */
 ?>
 <div class="wrap">
 	<h1><?php esc_html_e( 'Plugin verwijderen', 'ftb-donation-form' ); ?></h1>
@@ -15,7 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<form method="post">
 		<?php wp_nonce_field( 'ftb_uninstall_confirm', 'ftb_uninstall_nonce' ); ?>
-		<input type="hidden" name="ftb_return_url" value="<?php echo esc_attr( $return_url ); ?>">
 
 		<table class="form-table" role="presentation">
 			<tr>
@@ -37,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</table>
 
 		<p>
-			<?php submit_button( __( 'Verwijder plugin', 'ftb-donation-form' ), 'primary', 'submit', false ); ?>
+			<?php submit_button( __( 'Verwijder plugin', 'ftb-donation-form' ), 'delete', 'submit', false ); ?>
 			&nbsp;
 			<a href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>" class="button"><?php esc_html_e( 'Annuleren', 'ftb-donation-form' ); ?></a>
 		</p>

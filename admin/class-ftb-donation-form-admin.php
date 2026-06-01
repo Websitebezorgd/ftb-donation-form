@@ -28,6 +28,21 @@ class FTB_Donation_Form_Admin {
 				return 'ftb_manage_settings';
 			}
 		);
+		add_filter(
+			'plugin_action_links_ftb-donation-form/ftb-donation-form.php',
+			array( $this, 'add_uninstall_action_link' )
+		);
+	}
+
+	public function add_uninstall_action_link( array $links ): array {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return $links;
+		}
+		$url             = admin_url( 'admin.php?page=ftb-donation-form-uninstall' );
+		$links['delete'] = '<a href="' . esc_url( $url ) . '" style="color:#b32d2e;">'
+			. esc_html__( 'Verwijder plugin', 'ftb-donation-form' )
+			. '</a>';
+		return $links;
 	}
 
 	/**
@@ -147,12 +162,27 @@ class FTB_Donation_Form_Admin {
 			$delete_data = isset( $_POST['ftb_delete_data'] ) && '1' === $_POST['ftb_delete_data'] ? '1' : '0';
 			update_option( 'ftb_delete_data_on_uninstall', $delete_data );
 
-			$return_url = isset( $_POST['ftb_return_url'] ) ? esc_url_raw( wp_unslash( $_POST['ftb_return_url'] ) ) : admin_url( 'plugins.php' );
-			wp_safe_redirect( $return_url );
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			require_once ABSPATH . 'wp-admin/includes/template.php';
+			require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+
+			$plugin_file = 'ftb-donation-form/ftb-donation-form.php';
+			$url         = wp_nonce_url( admin_url( 'plugins.php' ), 'bulk-plugins' );
+
+			if ( false === request_filesystem_credentials( $url, '', false, WP_PLUGIN_DIR, null, true ) ) {
+				return;
+			}
+
+			if ( ! WP_Filesystem() ) {
+				return;
+			}
+
+			delete_plugins( array( $plugin_file ) );
+			wp_safe_redirect( admin_url( 'plugins.php?plugin_deleted=1' ) );
 			exit;
 		}
 
-		$return_url = isset( $_GET['return_url'] ) ? esc_url_raw( wp_unslash( $_GET['return_url'] ) ) : admin_url( 'plugins.php' );
 		include plugin_dir_path( __FILE__ ) . 'partials/ftb-donation-form-admin-uninstall.php';
 	}
 

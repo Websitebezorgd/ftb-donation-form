@@ -54,6 +54,20 @@ class FTB_Donation_Form_Admin {
 	 * Enqueue admin scripts only on our plugin page.
 	 */
 	public function enqueue_scripts( $hook ) {
+		if ( 'plugins.php' === $hook ) {
+			$uninstall_url = admin_url( 'admin.php?page=ftb-donation-form-uninstall' );
+			wp_add_inline_script(
+				'jquery',
+				'jQuery(function($){
+					var $row = $("[data-slug=\'ftb-donation-form\']");
+					var $del = $row.find(".delete a");
+					if(!$del.length) return;
+					var orig = $del.attr("href");
+					$del.attr("href", ' . wp_json_encode( $uninstall_url ) . ' + "&return_url=" + encodeURIComponent(orig));
+				});'
+			);
+		}
+
 		if ( ! $this->is_plugin_page( $hook ) ) {
 			return;
 		}
@@ -105,6 +119,41 @@ class FTB_Donation_Form_Admin {
 			'ftb-submissions',
 			array( $this, 'display_submissions_page' )
 		);
+
+		// Hidden page — uninstall confirmation (not shown in menu).
+		add_submenu_page(
+			null,
+			__( 'Plugin verwijderen', 'ftb-donation-form' ),
+			'',
+			'manage_options',
+			'ftb-donation-form-uninstall',
+			array( $this, 'display_uninstall_page' )
+		);
+	}
+
+	/**
+	 * Uninstall confirmation page — shown when the admin clicks "Delete" for this plugin.
+	 */
+	public function display_uninstall_page() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'Je hebt onvoldoende rechten om deze pagina te bekijken.', 'ftb-donation-form' ) );
+		}
+
+		if ( isset( $_POST['ftb_uninstall_nonce'] ) ) {
+			if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ftb_uninstall_nonce'] ) ), 'ftb_uninstall_confirm' ) ) {
+				wp_die( esc_html__( 'Beveiligingscontrole mislukt. Probeer het opnieuw.', 'ftb-donation-form' ) );
+			}
+
+			$delete_data = isset( $_POST['ftb_delete_data'] ) && '1' === $_POST['ftb_delete_data'] ? '1' : '0';
+			update_option( 'ftb_delete_data_on_uninstall', $delete_data );
+
+			$return_url = isset( $_POST['ftb_return_url'] ) ? esc_url_raw( wp_unslash( $_POST['ftb_return_url'] ) ) : admin_url( 'plugins.php' );
+			wp_safe_redirect( $return_url );
+			exit;
+		}
+
+		$return_url = isset( $_GET['return_url'] ) ? esc_url_raw( wp_unslash( $_GET['return_url'] ) ) : admin_url( 'plugins.php' );
+		include plugin_dir_path( __FILE__ ) . 'partials/ftb-donation-form-admin-uninstall.php';
 	}
 
 	/**
@@ -368,6 +417,14 @@ class FTB_Donation_Form_Admin {
 			'ftb_form_primary_color',
 			array(
 				'sanitize_callback' => 'sanitize_hex_color',
+			)
+		);
+
+		register_setting(
+			'ftb_donation_form_settings',
+			'ftb_delete_data_on_uninstall',
+			array(
+				'sanitize_callback' => 'absint',
 			)
 		);
 

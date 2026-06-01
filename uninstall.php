@@ -11,45 +11,41 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 global $wpdb;
 
+// Drop donations table.
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}ftb_donations" );
+
+// Remove designated manager user meta before deleting the option.
 $designated_ids = (array) get_option( 'ftb_designated_managers', array() );
 
-if ( '1' === get_option( 'ftb_delete_data_on_uninstall', '0' ) ) {
+$options = array(
+	'ftb_mollie_api_key',
+	'ftb_mollie_test_mode',
+	'ftb_form_heading',
+	'ftb_enable_recurring',
+	'ftb_form_fields',
+	'ftb_amount_options',
+	'ftb_show_preset_amounts',
+	'ftb_allow_custom_amount',
+	'ftb_min_custom_amount',
+	'ftb_post_payment_behavior',
+	'ftb_post_payment_redirect_url',
+	'ftb_post_payment_message',
+	'ftb_privacy_url',
+	'ftb_email_donor_confirmation',
+	'ftb_email_donor_subject',
+	'ftb_email_donor_body',
+	'ftb_email_admin_notification',
+	'ftb_email_sender_address',
+	'ftb_db_version',
+	'ftb_editor_access_mode',
+	'ftb_designated_managers',
+);
 
-	// Drop donations table.
-	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}ftb_donations" );
-
-	$options = array(
-		'ftb_mollie_api_key',
-		'ftb_mollie_test_mode',
-		'ftb_form_heading',
-		'ftb_enable_recurring',
-		'ftb_form_fields',
-		'ftb_amount_options',
-		'ftb_show_preset_amounts',
-		'ftb_allow_custom_amount',
-		'ftb_min_custom_amount',
-		'ftb_post_payment_behavior',
-		'ftb_post_payment_redirect_url',
-		'ftb_post_payment_message',
-		'ftb_privacy_url',
-		'ftb_email_donor_confirmation',
-		'ftb_email_donor_subject',
-		'ftb_email_donor_body',
-		'ftb_email_admin_notification',
-		'ftb_email_sender_address',
-		'ftb_db_version',
-		'ftb_editor_access_mode',
-		'ftb_designated_managers',
-		'ftb_delete_data_on_uninstall',
-	);
-
-	foreach ( $options as $option ) {
-		delete_option( $option );
-	}
+foreach ( $options as $option ) {
+	delete_option( $option );
 }
 
-// Always remove capabilities on uninstall.
 $admin = get_role( 'administrator' );
 if ( $admin ) {
 	$admin->remove_cap( 'ftb_manage_settings' );

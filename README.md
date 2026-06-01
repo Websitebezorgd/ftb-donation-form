@@ -314,6 +314,5 @@ How to deliver updates to clients once the plugin is installed. Options to explo
 
 ### Uninstall behaviour
 - [x] Deactivation preserves all data (only removes capabilities)
-- [x] Deletion shows a confirmation page with two choices: keep data or delete everything
-- The confirmation page is intercepted via JS on plugins.php while the plugin is active. `uninstall.php` reads the saved choice and acts accordingly.
+- [ ] Deletion: user should get a choice (keep or delete data). Several approaches tried but all ran into WordPress limitations — to be revisited.
 

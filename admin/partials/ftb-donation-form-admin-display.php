@@ -565,11 +565,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="ftb-admin-form__submit">
 		<?php submit_button( __( 'Instellingen opslaan', 'ftb-donation-form' ), 'primary', 'submit', false ); ?>
-		<?php if ( current_user_can( 'manage_options' ) ) : ?>
-			<a href="<?php echo esc_url( admin_url( 'admin.php?page=ftb-donation-form-uninstall' ) ); ?>" class="button button-link-delete" style="margin-left:1rem;">
-				<?php esc_html_e( 'Verwijder plugin', 'ftb-donation-form' ); ?>
-			</a>
-		<?php endif; ?>
 	</div>
 
 </form>

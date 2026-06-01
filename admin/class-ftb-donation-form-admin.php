@@ -106,51 +106,6 @@ if ( ! $this->is_plugin_page( $hook ) ) {
 			array( $this, 'display_submissions_page' )
 		);
 
-		// Hidden page — uninstall confirmation (not shown in menu).
-		add_submenu_page(
-			null,
-			__( 'Plugin verwijderen', 'ftb-donation-form' ),
-			'',
-			'manage_options',
-			'ftb-donation-form-uninstall',
-			array( $this, 'display_uninstall_page' )
-		);
-	}
-
-	/**
-	 * Uninstall confirmation page — shown when the admin clicks "Delete" for this plugin.
-	 */
-	public function handle_uninstall() {
-		if ( ! isset( $_POST['ftb_uninstall_nonce'] ) ) {
-			return;
-		}
-		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'Je hebt onvoldoende rechten om deze actie uit te voeren.', 'ftb-donation-form' ) );
-		}
-		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ftb_uninstall_nonce'] ) ), 'ftb_uninstall_confirm' ) ) {
-			wp_die( esc_html__( 'Beveiligingscontrole mislukt. Probeer het opnieuw.', 'ftb-donation-form' ) );
-		}
-
-		$delete_data = ( isset( $_POST['ftb_delete_data'] ) && '1' === $_POST['ftb_delete_data'] ) ? '1' : '0';
-		update_option( 'ftb_delete_data_on_uninstall', $delete_data );
-
-		// Deactivate first so the delete link becomes available.
-		deactivate_plugins( 'ftb-donation-form/ftb-donation-form.php' );
-
-		// Redirect to the WordPress deletion confirmation page.
-		$delete_url = wp_nonce_url(
-			admin_url( 'plugins.php?action=delete-selected&checked[]=ftb-donation-form/ftb-donation-form.php' ),
-			'bulk-plugins'
-		);
-		wp_safe_redirect( $delete_url );
-		exit;
-	}
-
-	public function display_uninstall_page() {
-		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'Je hebt onvoldoende rechten om deze pagina te bekijken.', 'ftb-donation-form' ) );
-		}
-		include plugin_dir_path( __FILE__ ) . 'partials/ftb-donation-form-admin-uninstall.php';
 	}
 
 	/**
@@ -414,14 +369,6 @@ if ( ! $this->is_plugin_page( $hook ) ) {
 			'ftb_form_primary_color',
 			array(
 				'sanitize_callback' => 'sanitize_hex_color',
-			)
-		);
-
-		register_setting(
-			'ftb_donation_form_settings',
-			'ftb_delete_data_on_uninstall',
-			array(
-				'sanitize_callback' => 'absint',
 			)
 		);
 

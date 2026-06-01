@@ -54,21 +54,7 @@ class FTB_Donation_Form_Admin {
 	 * Enqueue admin scripts only on our plugin page.
 	 */
 	public function enqueue_scripts( $hook ) {
-		if ( 'plugins.php' === $hook ) {
-			$uninstall_url = admin_url( 'admin.php?page=ftb-donation-form-uninstall' );
-			wp_add_inline_script(
-				'jquery',
-				'jQuery(function($){
-					var $row = $("[data-slug=\'ftb-donation-form\']");
-					var $del = $row.find(".delete a");
-					if(!$del.length) return;
-					var orig = $del.attr("href");
-					$del.attr("href", ' . wp_json_encode( $uninstall_url ) . ' + "&return_url=" + encodeURIComponent(orig));
-				});'
-			);
-		}
-
-		if ( ! $this->is_plugin_page( $hook ) ) {
+if ( ! $this->is_plugin_page( $hook ) ) {
 			return;
 		}
 		wp_enqueue_script(
@@ -148,20 +134,15 @@ class FTB_Donation_Form_Admin {
 		$delete_data = ( isset( $_POST['ftb_delete_data'] ) && '1' === $_POST['ftb_delete_data'] ) ? '1' : '0';
 		update_option( 'ftb_delete_data_on_uninstall', $delete_data );
 
-		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		require_once ABSPATH . 'wp-admin/includes/file.php';
-		require_once ABSPATH . 'wp-admin/includes/template.php';
-		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+		// Deactivate first so the delete link becomes available.
+		deactivate_plugins( 'ftb-donation-form/ftb-donation-form.php' );
 
-		if ( false === request_filesystem_credentials( '', '', false, WP_PLUGIN_DIR, null, true ) ) {
-			return;
-		}
-		if ( ! WP_Filesystem() ) {
-			return;
-		}
-
-		delete_plugins( array( 'ftb-donation-form/ftb-donation-form.php' ) );
-		wp_safe_redirect( admin_url( 'plugins.php' ) );
+		// Redirect to the WordPress deletion confirmation page.
+		$delete_url = wp_nonce_url(
+			admin_url( 'plugins.php?action=delete-selected&checked[]=ftb-donation-form/ftb-donation-form.php' ),
+			'bulk-plugins'
+		);
+		wp_safe_redirect( $delete_url );
 		exit;
 	}
 

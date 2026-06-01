@@ -54,7 +54,57 @@ class FTB_Donation_Form_Admin {
 	 * Enqueue admin scripts only on our plugin page.
 	 */
 	public function enqueue_scripts( $hook ) {
-if ( ! $this->is_plugin_page( $hook ) ) {
+		if ( 'plugins.php' === $hook && current_user_can( 'manage_options' ) ) {
+			wp_add_inline_script(
+				'jquery',
+				'jQuery(function($){
+					var $row = $("[data-slug=\'ftb-donation-form\']");
+					var $link = $row.find("span.deactivate a");
+					if(!$link.length) return;
+					var deactivateUrl = $link.attr("href");
+					var l10n = ' . wp_json_encode(
+						array(
+							'title'       => __( 'Plugin deactiveren', 'ftb-donation-form' ),
+							'question'    => __( 'Wat moet er met de donaties en instellingen gebeuren als je de plugin later verwijdert?', 'ftb-donation-form' ),
+							'keep'        => __( 'Bewaar alle donaties en instellingen', 'ftb-donation-form' ),
+							'delete'      => __( 'Verwijder alle donaties en instellingen', 'ftb-donation-form' ),
+							'confirm'     => __( 'Deactiveer', 'ftb-donation-form' ),
+							'cancel'      => __( 'Annuleren', 'ftb-donation-form' ),
+							'nonce'       => wp_create_nonce( 'ftb_save_uninstall_choice' ),
+						)
+					) . ';
+					var modal = \'<div id="ftb-deactivate-modal" style="display:none;position:fixed;inset:0;z-index:100000;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;">\' +
+						\'<div style="background:#fff;border-radius:4px;padding:24px;max-width:420px;width:90%;box-shadow:0 4px 24px rgba(0,0,0,.2);">\' +
+						\'<h2 style="margin:0 0 12px;font-size:1.1rem;">\' + l10n.title + \'</h2>\' +
+						\'<p style="margin:0 0 16px;color:#444;">\' + l10n.question + \'</p>\' +
+						\'<label style="display:flex;gap:8px;align-items:center;margin-bottom:10px;cursor:pointer;">\' +
+						\'<input type="radio" name="ftb_choice" value="0" checked> \' + l10n.keep + \'</label>\' +
+						\'<label style="display:flex;gap:8px;align-items:center;margin-bottom:20px;cursor:pointer;">\' +
+						\'<input type="radio" name="ftb_choice" value="1"> \' + l10n.delete + \'</label>\' +
+						\'<div style="display:flex;gap:8px;justify-content:flex-end;">\' +
+						\'<button id="ftb-modal-cancel" class="button">\' + l10n.cancel + \'</button>\' +
+						\'<button id="ftb-modal-confirm" class="button button-primary">\' + l10n.confirm + \'</button>\' +
+						\'</div></div></div>\';
+					$("body").append(modal);
+					var $modal = $("#ftb-deactivate-modal");
+					$link.on("click", function(e){
+						e.preventDefault();
+						$modal.show();
+					});
+					$(document).on("click","#ftb-modal-cancel",function(){
+						$modal.hide();
+					});
+					$(document).on("click","#ftb-modal-confirm",function(){
+						var choice = $modal.find("input[name=ftb_choice]:checked").val();
+						$.post(ajaxurl,{action:"ftb_save_uninstall_choice",choice:choice,nonce:l10n.nonce},function(){
+							window.location.href = deactivateUrl;
+						});
+					});
+				});'
+			);
+		}
+
+		if ( ! $this->is_plugin_page( $hook ) ) {
 			return;
 		}
 		wp_enqueue_script(
@@ -868,5 +918,18 @@ if ( ! $this->is_plugin_page( $hook ) ) {
 		}
 
 		fclose( $output ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
+	}
+
+	public function ajax_save_uninstall_choice(): void {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( '', 403 );
+		}
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'ftb_save_uninstall_choice' ) ) {
+			wp_send_json_error( '', 403 );
+		}
+		$choice = isset( $_POST['choice'] ) && '1' === $_POST['choice'] ? '1' : '0';
+		update_option( 'ftb_delete_data_on_uninstall', $choice );
+		wp_send_json_success();
 	}
 }

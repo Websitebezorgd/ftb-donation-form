@@ -11,12 +11,34 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 global $wpdb;
 
+$designated_ids = (array) get_option( 'ftb_designated_managers', array() );
+
+// Always remove capabilities on uninstall.
+$admin = get_role( 'administrator' );
+if ( $admin ) {
+	$admin->remove_cap( 'ftb_manage_settings' );
+}
+
+$editor = get_role( 'editor' );
+if ( $editor ) {
+	$editor->remove_cap( 'ftb_manage_settings' );
+}
+
+foreach ( $designated_ids as $user_id ) {
+	$user = get_user_by( 'id', absint( $user_id ) );
+	if ( $user ) {
+		$user->remove_cap( 'ftb_manage_settings' );
+	}
+}
+
+// Only delete data if the user chose to do so during deactivation.
+if ( '1' !== get_option( 'ftb_delete_data_on_uninstall', '0' ) ) {
+	return;
+}
+
 // Drop donations table.
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}ftb_donations" );
-
-// Remove designated manager user meta before deleting the option.
-$designated_ids = (array) get_option( 'ftb_designated_managers', array() );
 
 $options = array(
 	'ftb_mollie_api_key',
@@ -40,25 +62,9 @@ $options = array(
 	'ftb_db_version',
 	'ftb_editor_access_mode',
 	'ftb_designated_managers',
+	'ftb_delete_data_on_uninstall',
 );
 
 foreach ( $options as $option ) {
 	delete_option( $option );
-}
-
-$admin = get_role( 'administrator' );
-if ( $admin ) {
-	$admin->remove_cap( 'ftb_manage_settings' );
-}
-
-$editor = get_role( 'editor' );
-if ( $editor ) {
-	$editor->remove_cap( 'ftb_manage_settings' );
-}
-
-foreach ( $designated_ids as $user_id ) {
-	$user = get_user_by( 'id', absint( $user_id ) );
-	if ( $user ) {
-		$user->remove_cap( 'ftb_manage_settings' );
-	}
 }

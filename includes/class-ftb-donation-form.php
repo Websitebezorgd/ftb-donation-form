@@ -102,6 +102,7 @@ class FTB_Donation_Form {
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'handle_row_delete' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'handle_status_update' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'handle_save_managers' );
+		$this->loader->add_action( 'wp_ajax_ftb_save_uninstall_choice', $plugin_admin, 'ajax_save_uninstall_choice' );
 	}
 
 	/**

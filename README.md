@@ -313,5 +313,7 @@ Found via WAVE + Narrator:
 How to deliver updates to clients once the plugin is installed. Options to explore: WordPress.org repository, a private update server (e.g. WP Update Server), or a GitHub-based updater hook. To be decided.
 
 ### Uninstall behaviour
-`uninstall.php` currently deletes all plugin data (donations table + all options + user capabilities) whenever the plugin is removed via Dashboard → Plugins. Updates never trigger this — data is always preserved on update. Whether to keep this default or offer a choice still needs to be decided.
+- [x] Deactivation preserves all data (only removes capabilities)
+- [x] Deletion shows a confirmation page with two choices: keep data or delete everything
+- The confirmation page is intercepted via JS on plugins.php while the plugin is active. `uninstall.php` reads the saved choice and acts accordingly.
 

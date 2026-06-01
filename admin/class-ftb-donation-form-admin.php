@@ -28,22 +28,6 @@ class FTB_Donation_Form_Admin {
 				return 'ftb_manage_settings';
 			}
 		);
-		add_filter(
-			'plugin_action_links_ftb-donation-form/ftb-donation-form.php',
-			array( $this, 'add_uninstall_action_link' )
-		);
-	}
-
-	public function add_uninstall_action_link( array $links ): array {
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return $links;
-		}
-		$url             = admin_url( 'admin.php?page=ftb-donation-form-uninstall' );
-		$links['delete'] = '<a href="' . esc_url( $url ) . '" style="color:#b32d2e;">'
-			. esc_html__( 'Verwijder plugin', 'ftb-donation-form' )
-			. '</a>';
-		return $links;
-	}
 
 	/**
 	 * Enqueue admin styles only on our plugin page.
@@ -149,40 +133,41 @@ class FTB_Donation_Form_Admin {
 	/**
 	 * Uninstall confirmation page — shown when the admin clicks "Delete" for this plugin.
 	 */
+	public function handle_uninstall() {
+		if ( ! isset( $_POST['ftb_uninstall_nonce'] ) ) {
+			return;
+		}
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'Je hebt onvoldoende rechten om deze actie uit te voeren.', 'ftb-donation-form' ) );
+		}
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ftb_uninstall_nonce'] ) ), 'ftb_uninstall_confirm' ) ) {
+			wp_die( esc_html__( 'Beveiligingscontrole mislukt. Probeer het opnieuw.', 'ftb-donation-form' ) );
+		}
+
+		$delete_data = ( isset( $_POST['ftb_delete_data'] ) && '1' === $_POST['ftb_delete_data'] ) ? '1' : '0';
+		update_option( 'ftb_delete_data_on_uninstall', $delete_data );
+
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/template.php';
+		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+
+		if ( false === request_filesystem_credentials( '', '', false, WP_PLUGIN_DIR, null, true ) ) {
+			return;
+		}
+		if ( ! WP_Filesystem() ) {
+			return;
+		}
+
+		delete_plugins( array( 'ftb-donation-form/ftb-donation-form.php' ) );
+		wp_safe_redirect( admin_url( 'plugins.php' ) );
+		exit;
+	}
+
 	public function display_uninstall_page() {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( esc_html__( 'Je hebt onvoldoende rechten om deze pagina te bekijken.', 'ftb-donation-form' ) );
 		}
-
-		if ( isset( $_POST['ftb_uninstall_nonce'] ) ) {
-			if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ftb_uninstall_nonce'] ) ), 'ftb_uninstall_confirm' ) ) {
-				wp_die( esc_html__( 'Beveiligingscontrole mislukt. Probeer het opnieuw.', 'ftb-donation-form' ) );
-			}
-
-			$delete_data = isset( $_POST['ftb_delete_data'] ) && '1' === $_POST['ftb_delete_data'] ? '1' : '0';
-			update_option( 'ftb_delete_data_on_uninstall', $delete_data );
-
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-			require_once ABSPATH . 'wp-admin/includes/file.php';
-			require_once ABSPATH . 'wp-admin/includes/template.php';
-			require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-
-			$plugin_file = 'ftb-donation-form/ftb-donation-form.php';
-			$url         = wp_nonce_url( admin_url( 'plugins.php' ), 'bulk-plugins' );
-
-			if ( false === request_filesystem_credentials( $url, '', false, WP_PLUGIN_DIR, null, true ) ) {
-				return;
-			}
-
-			if ( ! WP_Filesystem() ) {
-				return;
-			}
-
-			delete_plugins( array( $plugin_file ) );
-			wp_safe_redirect( admin_url( 'plugins.php?plugin_deleted=1' ) );
-			exit;
-		}
-
 		include plugin_dir_path( __FILE__ ) . 'partials/ftb-donation-form-admin-uninstall.php';
 	}
 

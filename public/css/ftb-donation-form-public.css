@@ -388,7 +388,7 @@
 /* Selected state */
 .ftb-donation-form__radio:checked + .ftb-donation-form__radio-label {
 	border-color: var(--color-primary);
-	background-color: color-mix(in srgb, var(--color-primary) 12%, #fff);
+	background-color: color-mix(in srgb, var(--color-primary) 12%, var(--color-white));
 	font-weight: bold;
 	color: var(--color-text);
 }
@@ -433,23 +433,28 @@
 }
 
 .ftb-donation-form__input-wrapper {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: var(--space-3);
+	display: inline-flex;
+	align-items: stretch;
 }
 
 .ftb-donation-form__currency-prefix {
+	display: flex;
+	align-items: center;
+	padding: var(--space-2) var(--space-3);
+	border: 2px solid var(--color-border);
+	border-right: none;
+	border-radius: var(--radius-sm) 0 0 var(--radius-sm);
 	font-size: var(--font-size-base);
-	font-weight: bold;
-	color: var(--color-text);
+	font-weight: 600;
+	background-color: color-mix(in srgb, var(--color-primary) 12%, var(--color-white));
+	user-select: none;
 }
 
 .ftb-donation-form__input--amount {
 	width: 6rem;
 	padding: var(--space-2) var(--space-3);
 	border: 2px solid var(--color-border);
-	border-radius: var(--radius-sm);
+	border-radius: 0 var(--radius-sm) var(--radius-sm) 0 !important;
 	font-size: var(--font-size-base);
 }
 

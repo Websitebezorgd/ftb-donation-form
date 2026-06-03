@@ -435,6 +435,9 @@
 .ftb-donation-form__input-wrapper {
 	display: inline-flex;
 	align-items: stretch;
+	background-color: color-mix(in srgb, var(--color-primary) 12%, var(--color-white));
+	width: max-content;
+	border-radius: var(--radius-sm);
 }
 
 .ftb-donation-form__currency-prefix {
@@ -446,7 +449,7 @@
 	border-radius: var(--radius-sm) 0 0 var(--radius-sm);
 	font-size: var(--font-size-base);
 	font-weight: 600;
-	background-color: color-mix(in srgb, var(--color-primary) 12%, var(--color-white));
+	
 	user-select: none;
 }
 

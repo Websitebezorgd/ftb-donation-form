@@ -28,6 +28,12 @@ class FTB_Donation_Form_Admin {
 				return 'ftb_manage_settings';
 			}
 		);
+		add_filter(
+			'option_page_capability_ftb_donation_form_danger_settings',
+			function () {
+				return 'manage_options';
+			}
+		);
 	}
 
 	/**
@@ -372,10 +378,10 @@ class FTB_Donation_Form_Admin {
 			)
 		);
 
-		// ── Bij verwijderen ───────────────────────────────────────────────────
+		// ── Bij verwijderen (eigen groep: alleen beheerders zien dit formulier) ──
 
 		register_setting(
-			'ftb_donation_form_settings',
+			'ftb_donation_form_danger_settings',
 			'ftb_delete_data_on_uninstall',
 			array(
 				'sanitize_callback' => 'absint',
@@ -894,11 +900,8 @@ class FTB_Donation_Form_Admin {
 					name="ftb_delete_data_on_uninstall"
 					value="1"
 					<?php checked( '1', $value ); ?> />
-				<?php esc_html_e( 'Verwijder alle donaties en instellingen wanneer de plugin wordt verwijderd', 'ftb-donation-form' ); ?>
+				<?php esc_html_e( 'Verwijder alle donaties en instellingen definitief bij het verwijderen van de plugin', 'ftb-donation-form' ); ?>
 			</label>
-			<p class="description">
-				<?php esc_html_e( 'Dit geldt voor elke manier waarop de plugin wordt verwijderd (via dit scherm, wp-cli, of een beheerdashboard) — niet alleen via de knop hierboven.', 'ftb-donation-form' ); ?>
-			</p>
 		</div>
 		<?php
 	}

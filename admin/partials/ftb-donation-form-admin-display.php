@@ -559,6 +559,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 			</section>
 
+			<section class="ftb-admin-form__section">
+				<h3 class="ftb-admin-form__title">
+					<?php esc_html_e( 'Bij verwijderen van de plugin', 'ftb-donation-form' ); ?>
+				</h3>
+				<p class="ftb-admin-form__description">
+					<?php esc_html_e( 'Standaard blijven al je donaties en instellingen bewaard als de plugin ooit wordt verwijderd. Vink dit aan als je wilt dat alles definitief wordt gewist.', 'ftb-donation-form' ); ?>
+				</p>
+				<div class="ftb-admin-form__group">
+					<?php $this->field_delete_data_on_uninstall(); ?>
+				</div>
+			</section>
+
 		</div>
 
 	</div>

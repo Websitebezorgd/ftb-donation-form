@@ -241,7 +241,7 @@ class FTB_Donation_Form_Public {
 					// Re-fetch directly from Mollie to get the real-time status.
 					if ( 'pending' === $status && ! empty( $returned_donation->mollie_payment_id ) ) {
 						try {
-							$mollie_service = new FTB_Mollie_Service( get_option( 'ftb_mollie_api_key', '' ) );
+							$mollie_service = new FTB_Mollie_Service();
 							$payment        = $mollie_service->get_payment( $returned_donation->mollie_payment_id );
 							$status_map     = array( 'open' => 'pending', 'canceled' => 'cancelled' );
 							$status         = $status_map[ $payment->status ] ?? $payment->status;

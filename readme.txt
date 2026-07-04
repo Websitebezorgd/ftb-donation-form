@@ -1,8 +1,8 @@
 === For The Better donatieformulier ===
 Contributors: forthebetter
 Tags: donation, mollie, fundraising, wcag, recurring
-Requires at least: 5.0
-Tested up to: 6.9
+Requires at least: 5.9
+Tested up to: 7.0
 Stable tag: 1.0.0
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -34,7 +34,7 @@ FTB Donation Form is a WordPress plugin for collecting one-time and recurring do
 == Requirements ==
 
 * PHP 7.4 or higher
-* WordPress 5.0 or higher
+* WordPress 5.9 or higher
 * A Mollie account with an API key
 
 == Changelog ==

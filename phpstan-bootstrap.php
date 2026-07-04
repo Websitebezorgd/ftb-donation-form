@@ -10,7 +10,7 @@ if ( ! defined( 'FTB_DONATION_FORM_PLUGIN_DIR' ) ) {
 	define( 'FTB_DONATION_FORM_PLUGIN_DIR', __DIR__ . '/' );
 }
 if ( ! defined( 'FTB_DONATION_FORM_PLUGIN_URL' ) ) {
-	define( 'FTB_DONATION_FORM_PLUGIN_URL', 'http://localhost/' );
+	define( 'FTB_DONATION_FORM_PLUGIN_URL', 'https://example.test/' );
 }
 if ( ! defined( 'DB_NAME' ) ) {
 	define( 'DB_NAME', 'wordpress' );

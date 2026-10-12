@@ -2,7 +2,7 @@
 Contributors: forthebetter
 Tags: donation, mollie, fundraising, wcag, recurring
 Requires at least: 5.9
-Tested up to: 7.0
+Tested up to: 7.1
 Stable tag: 1.0.0
 Requires PHP: 7.4
 License: GPLv2 or later

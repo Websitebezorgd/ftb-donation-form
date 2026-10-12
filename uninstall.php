@@ -31,7 +31,7 @@ foreach ( $designated_ids as $user_id ) {
 	}
 }
 
-// Only delete data if the user chose to do so during deactivation.
+// Only delete data if an administrator enabled this in the plugin settings.
 if ( '1' !== get_option( 'ftb_delete_data_on_uninstall', '0' ) ) {
 	return;
 }

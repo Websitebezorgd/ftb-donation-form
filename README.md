@@ -314,5 +314,5 @@ How to deliver updates to clients once the plugin is installed. Options to explo
 
 ### Uninstall behaviour
 - [x] Deactivation preserves all data (only removes capabilities)
-- [ ] Deletion: user should get a choice (keep or delete data). Several approaches tried but all ran into WordPress limitations — to be revisited.
+- [x] Deletion: data is kept by default. Administrators can opt in via the **Delete all data on uninstall** toggle under *Access and management* in the settings (option `ftb_delete_data_on_uninstall`); `uninstall.php` only drops the table and options when it is `1`. A warning is shown while the toggle is on.
 

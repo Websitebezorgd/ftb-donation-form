@@ -71,7 +71,7 @@ Een nieuwe versie van de plugin wordt automatisch gebuild via GitHub Actions. Di
 1. Ga naar **WP-admin → Plugins → Plugin toevoegen → Plugin uploaden**
 2. Selecteer de gedownloade zip → **Nu installeren** → **Plugin activeren**
 
-> Bij een update van een bestaande installatie: deactiveer de plugin eerst, verwijder hem, en installeer de nieuwe versie. Donaties en instellingen worden niet verwijderd bij deactiveren — alleen bij volledig verwijderen via het dashboard.
+> Bij een update van een bestaande installatie: deactiveer de plugin eerst, verwijder hem, en installeer de nieuwe versie. Donaties en instellingen blijven bewaard, **tenzij** de optie *Alle gegevens wissen bij verwijderen* aan staat (zie [Toegang en beheer](#toegang-en-beheer)). Controleer dit vóór je de plugin verwijdert.
 
 ---
 
@@ -148,9 +148,11 @@ Klik op de knop **Exporteer CSV** rechtsboven op de donatiespagina. Het bestand 
 
 ---
 
-## Toegangsbeheer
+## Toegang en beheer
 
-Ga naar **WP-admin → Donatieformulier → Instellingen** (sectie Toegang, onderaan).
+Ga naar **WP-admin → Donatieformulier → Instellingen** (sectie Toegang en beheer, onderaan). Deze sectie is alleen zichtbaar voor beheerders.
+
+### Formulierbeheerders
 
 > Dit blok is alleen zichtbaar als er gebruikers met de redacteursrol aanwezig zijn op de site. Beheerders hebben altijd toegang.
 
@@ -159,6 +161,12 @@ Ga naar **WP-admin → Donatieformulier → Instellingen** (sectie Toegang, onde
 | Alle redacteuren | Alle gebruikers met de redacteursrol hebben toegang |
 | Specifieke redacteuren | Alleen aangevinkte redacteuren hebben toegang (zichtbaar bij 2+ redacteuren) |
 | Alleen beheerders | Geen redacteuren hebben toegang |
+
+### Bij verwijderen van de plugin
+
+Standaard blijven alle donaties en instellingen bewaard als de plugin wordt verwijderd. Deactiveren wist nooit gegevens.
+
+Zet de schakelaar **Alle gegevens wissen bij verwijderen** aan als alles definitief gewist moet worden zodra de plugin wordt verwijderd (via het dashboard, wp-cli of een extern beheerdashboard). Er verschijnt dan een rode waarschuwing. Dit kan niet ongedaan worden gemaakt — exporteer eerst de donaties als je ze wilt bewaren.
 
 ---
 
@@ -175,6 +183,8 @@ Plaats het formulier op een pagina met:
 ## Vertalingen bijwerken
 
 Na aanpassingen in de PHP-bronbestanden:
+
+> De `wp`-commando's draai je in Local via rechtsklik op de site → **Open site shell**. Die opent in `app\public`; ga eerst naar de plugin-map met `cd wp-content\plugins\ftb-donation-form`.
 
 1. Regenereer `.pot` (vanuit de plugin-map):
 ```

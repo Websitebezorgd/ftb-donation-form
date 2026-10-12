@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-03T13:27:16+00:00\n"
+"POT-Creation-Date: 2026-10-12T13:38:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ftb-donation-form\n"
@@ -34,192 +34,176 @@ msgstr ""
 msgid "For The Better"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:67
-msgid "Plugin deactiveren"
-msgstr ""
-
-#: admin/class-ftb-donation-form-admin.php:68
-msgid "Wat moet er met de donaties en instellingen gebeuren als je de plugin later verwijdert?"
-msgstr ""
-
-#: admin/class-ftb-donation-form-admin.php:69
-msgid "Bewaar alle donaties en instellingen"
-msgstr ""
-
-#: admin/class-ftb-donation-form-admin.php:70
-msgid "Verwijder alle donaties en instellingen"
-msgstr ""
-
-#: admin/class-ftb-donation-form-admin.php:71
-msgid "Deactiveer"
-msgstr ""
-
-#: admin/class-ftb-donation-form-admin.php:72
-msgid "Annuleren"
-msgstr ""
-
-#: admin/class-ftb-donation-form-admin.php:121
-#: admin/class-ftb-donation-form-admin.php:451
+#: admin/class-ftb-donation-form-admin.php:77
+#: admin/class-ftb-donation-form-admin.php:416
 msgid "API sleutel tonen"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:122
+#: admin/class-ftb-donation-form-admin.php:78
 msgid "API sleutel verbergen"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:132
-#: admin/class-ftb-donation-form-admin.php:640
+#: admin/class-ftb-donation-form-admin.php:88
+#: admin/class-ftb-donation-form-admin.php:605
 msgid "Donatieformulier instellingen"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:133
+#: admin/class-ftb-donation-form-admin.php:89
 #: admin/partials/ftb-donation-form-admin-display.php:241
 #: public/partials/ftb-donation-form-public-display.php:103
 msgid "Donatieformulier"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:143
-#: admin/class-ftb-donation-form-admin.php:144
+#: admin/class-ftb-donation-form-admin.php:99
+#: admin/class-ftb-donation-form-admin.php:100
 msgid "Instellingen"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:152
-#: admin/class-ftb-donation-form-admin.php:153
-#: admin/class-ftb-donation-form-admin.php:871
+#: admin/class-ftb-donation-form-admin.php:108
+#: admin/class-ftb-donation-form-admin.php:109
+#: admin/class-ftb-donation-form-admin.php:836
 msgid "Donaties"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:185
+#: admin/class-ftb-donation-form-admin.php:141
 #: admin/partials/ftb-donation-form-admin-display.php:26
 msgid "Mollie instellingen"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:192
+#: admin/class-ftb-donation-form-admin.php:148
 msgid "API sleutel"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:201
+#: admin/class-ftb-donation-form-admin.php:157
 msgid "Testmodus"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:219
+#: admin/class-ftb-donation-form-admin.php:175
 #: admin/partials/ftb-donation-form-admin-display.php:71
 msgid "Titel"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:226
+#: admin/class-ftb-donation-form-admin.php:182
 msgid "Titel formulier"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:245
+#: admin/class-ftb-donation-form-admin.php:201
 #: admin/partials/ftb-donation-form-admin-display.php:195
 msgid "Formuliervelden"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:311
+#: admin/class-ftb-donation-form-admin.php:267
 #: admin/partials/ftb-donation-form-admin-display.php:210
 #: public/partials/ftb-donation-form-public-display.php:322
 msgid "Privacyverklaring"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:318
+#: admin/class-ftb-donation-form-admin.php:274
 msgid "Link naar privacyverklaring"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:391
+#: admin/class-ftb-donation-form-admin.php:347
 #: admin/partials/ftb-donation-form-admin-display.php:290
 msgid "Na betaling"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:398
+#: admin/class-ftb-donation-form-admin.php:354
 msgid "Actie na betaling"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:430
+#: admin/class-ftb-donation-form-admin.php:395
 #: admin/partials/ftb-donation-form-admin-display.php:198
 msgid "Naam en e-mailadres zijn altijd verplicht. Vink de overige velden aan die je wilt tonen."
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:471
+#: admin/class-ftb-donation-form-admin.php:436
 msgid "Testmodus inschakelen (gebruik test API sleutel)"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:480
+#: admin/class-ftb-donation-form-admin.php:445
 #: admin/class-ftb-donations-list-table.php:38
 #: public/partials/ftb-donation-form-public-display.php:249
 msgid "Telefoonnummer"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:481
+#: admin/class-ftb-donation-form-admin.php:446
 #: public/partials/ftb-donation-form-public-display.php:264
 msgid "Straat"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:482
+#: admin/class-ftb-donation-form-admin.php:447
 #: public/partials/ftb-donation-form-public-display.php:276
 msgid "Huisnummer"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:483
+#: admin/class-ftb-donation-form-admin.php:448
 #: public/partials/ftb-donation-form-public-display.php:293
 msgid "Postcode"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:484
+#: admin/class-ftb-donation-form-admin.php:449
 #: public/partials/ftb-donation-form-public-display.php:305
 msgid "Plaats"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:487
+#: admin/class-ftb-donation-form-admin.php:452
 msgid "Optionele velden"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:512
+#: admin/class-ftb-donation-form-admin.php:477
 #: public/class-ftb-donation-form-public.php:204
 #: public/partials/ftb-donation-form-public-display.php:349
 msgid "Doneer nu"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:513
+#: admin/class-ftb-donation-form-admin.php:478
 msgid "Laat leeg om de standaardtekst \"Doneer nu\" te gebruiken."
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:539
+#: admin/class-ftb-donation-form-admin.php:504
 msgid "Toon een bedankbericht"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:542
+#: admin/class-ftb-donation-form-admin.php:507
 msgid "Doorsturen naar een pagina"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:602
+#: admin/class-ftb-donation-form-admin.php:567
 msgid "Je moet minimaal één bedragoptie inschakelen. Vaste bedragen zijn hersteld."
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:637
-#: admin/class-ftb-donation-form-admin.php:847
+#: admin/class-ftb-donation-form-admin.php:602
+#: admin/class-ftb-donation-form-admin.php:812
 msgid "Je hebt onvoldoende rechten om deze pagina te bekijken."
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:655
-#: admin/class-ftb-donation-form-admin.php:735
-#: admin/class-ftb-donation-form-admin.php:772
-#: admin/class-ftb-donation-form-admin.php:803
-#: admin/class-ftb-donation-form-admin.php:834
+#: admin/class-ftb-donation-form-admin.php:620
+#: admin/class-ftb-donation-form-admin.php:700
+#: admin/class-ftb-donation-form-admin.php:737
+#: admin/class-ftb-donation-form-admin.php:768
+#: admin/class-ftb-donation-form-admin.php:799
 msgid "Je hebt onvoldoende rechten om deze actie uit te voeren."
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:812
+#: admin/class-ftb-donation-form-admin.php:777
 msgid "Ongeldige status."
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:863
+#: admin/class-ftb-donation-form-admin.php:828
 #: admin/class-ftb-donations-list-table.php:89
 msgid "Status wijzigen"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:869
+#: admin/class-ftb-donation-form-admin.php:834
 msgid "Exporteer CSV"
+msgstr ""
+
+#: admin/class-ftb-donation-form-admin.php:899
+msgid "Alle gegevens wissen bij verwijderen"
+msgstr ""
+
+#: admin/class-ftb-donation-form-admin.php:904
+msgid "Let op: zodra de plugin wordt verwijderd, worden alle donaties en instellingen definitief gewist. Dit kan niet ongedaan worden gemaakt. Exporteer eerst je donaties als je ze wilt bewaren."
 msgstr ""
 
 #: admin/class-ftb-donations-list-table.php:36
@@ -625,48 +609,60 @@ msgstr ""
 msgid "Instellingen opslaan"
 msgstr ""
 
-#: admin/partials/ftb-donation-form-admin-display.php:585
-msgid "Toegang"
+#: admin/partials/ftb-donation-form-admin-display.php:581
+msgid "Toegang en beheer"
 msgstr ""
 
-#: admin/partials/ftb-donation-form-admin-display.php:589
+#: admin/partials/ftb-donation-form-admin-display.php:593
 msgid "Toegang opgeslagen."
 msgstr ""
 
-#: admin/partials/ftb-donation-form-admin-display.php:598
+#: admin/partials/ftb-donation-form-admin-display.php:602
 msgid "Formulierbeheerders"
 msgstr ""
 
-#: admin/partials/ftb-donation-form-admin-display.php:600
+#: admin/partials/ftb-donation-form-admin-display.php:604
 msgid "Bepaal welke redacteuren toegang hebben tot de plugin-instellingen en donaties. Beheerders hebben altijd toegang."
 msgstr ""
 
-#: admin/partials/ftb-donation-form-admin-display.php:604
+#: admin/partials/ftb-donation-form-admin-display.php:608
 msgid "Toegangsniveau"
 msgstr ""
 
-#: admin/partials/ftb-donation-form-admin-display.php:609
+#: admin/partials/ftb-donation-form-admin-display.php:613
 msgid "Alle redacteuren"
 msgstr ""
 
-#: admin/partials/ftb-donation-form-admin-display.php:617
+#: admin/partials/ftb-donation-form-admin-display.php:621
 msgid "Specifieke redacteuren"
 msgstr ""
 
-#: admin/partials/ftb-donation-form-admin-display.php:625
+#: admin/partials/ftb-donation-form-admin-display.php:629
 msgid "Alleen beheerders"
 msgstr ""
 
-#: admin/partials/ftb-donation-form-admin-display.php:631
+#: admin/partials/ftb-donation-form-admin-display.php:635
 msgid "Selecteer redacteuren met toegang"
 msgstr ""
 
-#: admin/partials/ftb-donation-form-admin-display.php:649
+#: admin/partials/ftb-donation-form-admin-display.php:653
 msgid "Geen redacteuren gevonden."
 msgstr ""
 
-#: admin/partials/ftb-donation-form-admin-display.php:656
+#: admin/partials/ftb-donation-form-admin-display.php:660
 msgid "Toegang opslaan"
+msgstr ""
+
+#: admin/partials/ftb-donation-form-admin-display.php:680
+msgid "Bij verwijderen van de plugin"
+msgstr ""
+
+#: admin/partials/ftb-donation-form-admin-display.php:683
+msgid "Standaard blijven donaties en instellingen bewaard als de plugin wordt verwijderd. Deactiveren wist nooit gegevens."
+msgstr ""
+
+#: admin/partials/ftb-donation-form-admin-display.php:690
+msgid "Opslaan"
 msgstr ""
 
 #: admin/partials/ftb-donation-form-admin-footer.php:15

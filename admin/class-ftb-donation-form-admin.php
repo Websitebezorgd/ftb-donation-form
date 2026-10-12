@@ -886,22 +886,24 @@ class FTB_Donation_Form_Admin {
 	}
 
 	/**
-	 * Render the "delete data on uninstall" checkbox field.
+	 * Render the "delete data on uninstall" toggle with a warning shown while it is on.
 	 */
 	public function field_delete_data_on_uninstall() {
-		$value = get_option( 'ftb_delete_data_on_uninstall', '0' );
+		$value = (string) get_option( 'ftb_delete_data_on_uninstall', '0' );
 		?>
-		<div class="ftb-admin-form__field">
-			<input type="hidden" name="ftb_delete_data_on_uninstall" value="0" />
-			<label for="ftb_delete_data_on_uninstall">
-				<input
-					type="checkbox"
-					id="ftb_delete_data_on_uninstall"
-					name="ftb_delete_data_on_uninstall"
-					value="1"
-					<?php checked( '1', $value ); ?> />
-				<?php esc_html_e( 'Verwijder alle donaties en instellingen definitief bij het verwijderen van de plugin', 'ftb-donation-form' ); ?>
+		<div class="ftb-toggle-group">
+			<input type="hidden" name="ftb_delete_data_on_uninstall" value="0">
+			<label class="ftb-toggle" for="ftb_delete_data_on_uninstall">
+				<input class="ftb-toggle__input" type="checkbox" role="switch" id="ftb_delete_data_on_uninstall" name="ftb_delete_data_on_uninstall" value="1" <?php checked( '1', $value ); ?>>
+				<span class="ftb-toggle__slider" aria-hidden="true"></span>
+				<span><?php esc_html_e( 'Alle gegevens wissen bij verwijderen', 'ftb-donation-form' ); ?></span>
 			</label>
+			<div class="ftb-conditional<?php echo '1' === $value ? ' is-visible' : ''; ?>" data-show-when="ftb_delete_data_on_uninstall=1">
+				<div class="ftb-notice ftb-notice--error" role="note">
+					<span class="dashicons dashicons-warning" aria-hidden="true"></span>
+					<?php esc_html_e( 'Let op: zodra de plugin wordt verwijderd, worden alle donaties en instellingen definitief gewist. Dit kan niet ongedaan worden gemaakt. Exporteer eerst je donaties als je ze wilt bewaren.', 'ftb-donation-form' ); ?>
+				</div>
+			</div>
 		</div>
 		<?php
 	}

@@ -578,7 +578,7 @@ if ( current_user_can( 'manage_options' ) ) :
 		)
 	);
 	?>
-	<h2 class="ftb-admin-form__section-heading"><?php esc_html_e( 'Toegang', 'ftb-donation-form' ); ?></h2>
+	<h2 class="ftb-admin-form__section-heading"><?php esc_html_e( 'Toegang en beheer', 'ftb-donation-form' ); ?></h2>
 
 	<?php if ( $editor_users ) : ?>
 
@@ -680,14 +680,14 @@ if ( current_user_can( 'manage_options' ) ) :
 				<?php esc_html_e( 'Bij verwijderen van de plugin', 'ftb-donation-form' ); ?>
 			</h3>
 			<p class="ftb-admin-form__description">
-				<?php esc_html_e( 'Standaard blijven alle donaties en instellingen bewaard, ook wanneer de plugin volledig van de website wordt verwijderd (dus niet alleen gedeactiveerd). Vink onderstaande optie aan als je wilt dat alles definitief wordt gewist zodra de plugin wordt verwijderd — via dit scherm, via wp-cli, of via een extern beheerdashboard. Dit kan niet ongedaan worden gemaakt.', 'ftb-donation-form' ); ?>
+				<?php esc_html_e( 'Standaard blijven donaties en instellingen bewaard als de plugin wordt verwijderd. Deactiveren wist nooit gegevens.', 'ftb-donation-form' ); ?>
 			</p>
 			<div class="ftb-admin-form__group">
 				<?php $this->field_delete_data_on_uninstall(); ?>
 			</div>
 		</section>
 		<div class="ftb-admin-form__submit">
-			<?php submit_button( __( 'Verwijderinstelling opslaan', 'ftb-donation-form' ), 'secondary', 'submit', false ); ?>
+			<?php submit_button( __( 'Opslaan', 'ftb-donation-form' ), 'secondary', 'submit', false ); ?>
 		</div>
 	</form>
 

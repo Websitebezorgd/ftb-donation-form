@@ -13,6 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class FTB_DB {
 
+	/** Placeholder in mollie_subscription_id while a subscription is being created. */
+	const SUBSCRIPTION_PENDING = 'creating';
+
 	/** @var string Full table name including WP prefix */
 	private $table;
 
@@ -131,23 +134,59 @@ class FTB_DB {
 	}
 
 	/**
-	 * Update the payment status of a donation.
+	 * Change the payment status only if it differs from the stored one.
 	 *
-	 * @param string $mollie_id Mollie payment ID.
-	 * @param string $status    New status (pending, paid, failed, cancelled).
-	 * @return int|false Number of rows updated or false on failure.
+	 * The check and the update happen in one query, so when the webhook and the
+	 * return flow (or two webhook calls) run at the same time, only one of them
+	 * sees the change. Use the return value to run side effects exactly once.
+	 *
+	 * @param int    $id     Local donation row ID.
+	 * @param string $status New status.
+	 * @return bool True if this call changed the status.
 	 */
-	public function update_payment_status( string $mollie_id, string $status ) {
+	public function transition_payment_status( int $id, string $status ): bool {
+		global $wpdb;
+
+		$status = sanitize_text_field( $status );
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$updated = $wpdb->query(
+			$wpdb->prepare(
+                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table name from $wpdb->prefix, not user input
+				"UPDATE {$this->table} SET payment_status = %s WHERE id = %d AND payment_status <> %s",
+				$status,
+				$id,
+				$status
+			)
+		);
+
+		return 1 === $updated;
+	}
+
+	/**
+	 * Reserve a donation for subscription creation.
+	 *
+	 * Sets a placeholder in mollie_subscription_id, but only while the column is
+	 * still empty. Only the call that wins the reservation may create the
+	 * subscription, which prevents two subscriptions for one donation.
+	 *
+	 * @param int $id Local donation row ID.
+	 * @return bool True if this call got the reservation.
+	 */
+	public function claim_subscription_creation( int $id ): bool {
 		global $wpdb;
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		return $wpdb->update(
-			$this->table,
-			array( 'payment_status' => sanitize_text_field( $status ) ),
-			array( 'mollie_payment_id' => $mollie_id ),
-			array( '%s' ),
-			array( '%s' )
+		$updated = $wpdb->query(
+			$wpdb->prepare(
+                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table name from $wpdb->prefix, not user input
+				"UPDATE {$this->table} SET mollie_subscription_id = %s WHERE id = %d AND mollie_subscription_id = ''",
+				self::SUBSCRIPTION_PENDING,
+				$id
+			)
 		);
+
+		return 1 === $updated;
 	}
 
 	/**

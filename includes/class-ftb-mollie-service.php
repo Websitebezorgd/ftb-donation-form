@@ -129,7 +129,9 @@ class FTB_Mollie_Service {
 	 * @param string $interval    Billing interval, e.g. '1 month' or '1 year'.
 	 * @param string $start_date  ISO 8601 date (Y-m-d) for the first subscription charge.
 	 * @param string $description Shown on the donor's bank statement.
-	 * @param string $webhook_url Where Mollie sends notifications for each charge.
+	 * @param string $webhook_url     Where Mollie sends notifications for each charge.
+	 * @param string $idempotency_key Same key for the same donation, so Mollie
+	 *                                creates the subscription at most once.
 	 * @return object Mollie Subscription resource.
 	 * @throws ApiException
 	 */
@@ -139,7 +141,8 @@ class FTB_Mollie_Service {
 		string $interval,
 		string $start_date,
 		string $description,
-		string $webhook_url
+		string $webhook_url,
+		string $idempotency_key
 	): object {
 		$params = array(
 			'amount'      => array(
@@ -155,8 +158,10 @@ class FTB_Mollie_Service {
 			$params['webhookUrl'] = $webhook_url;
 		}
 
-		$customer = $this->mollie->customers->get( $customer_id );
-		return $customer->createSubscription( $params );
+		// The SDK resets the key after every request, so set it right before the
+		// create call (no other request in between).
+		$this->mollie->setIdempotencyKey( $idempotency_key );
+		return $this->mollie->subscriptions->createForId( $customer_id, $params );
 	}
 
 	/**

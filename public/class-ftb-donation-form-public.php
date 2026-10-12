@@ -141,27 +141,31 @@ class FTB_Donation_Form_Public {
 		);
 		$status = $status_map[ $payment->status ] ?? $payment->status;
 
-		// Update status — by payment ID for one-time/first payments, by row ID for subscription charges.
 		if ( $is_subscription_charge ) {
+			// Subscription charges share one row, so a status change cannot tell one charge
+			// from the next. Mail on every paid charge until charges get their own rows.
 			$db->update_payment_status_by_id( (int) $donation->id, $status );
+			$became_paid = 'paid' === $status;
 		} else {
-			$db->update_payment_status( $mollie_id, $status );
+			// Mollie can call the webhook more than once, and the return flow may have
+			// updated the status already. Only the call that changes it sends the emails.
+			$became_paid = $db->transition_payment_status( (int) $donation->id, $status ) && 'paid' === $status;
 		}
 
-		// Send email notifications on successful payment.
-		if ( 'paid' === $status ) {
+		if ( $became_paid ) {
 			FTB_Email::send_donor_confirmation( $donation );
 			FTB_Email::send_admin_notification( $donation );
 		}
 
 		// After the first payment of a recurring donation is paid, create the subscription.
-		// Mollie will then handle all future charges automatically.
+		// Mollie will then handle all future charges automatically. The claim makes sure
+		// that concurrent or repeated webhook calls create only one subscription.
 		if (
 			'paid' === $status
 			&& ! $is_subscription_charge
 			&& ! empty( $donation->mollie_customer_id )
-			&& empty( $donation->mollie_subscription_id )
 			&& in_array( $donation->frequency, array( 'monthly', 'yearly' ), true )
+			&& $db->claim_subscription_creation( (int) $donation->id )
 		) {
 			$interval   = 'monthly' === $donation->frequency ? '1 month' : '1 year';
 			$start_date = ( new \DateTime() )->modify( 'monthly' === $donation->frequency ? '+1 month' : '+1 year' )->format( 'Y-m-d' );
@@ -181,14 +185,19 @@ class FTB_Donation_Form_Public {
 					$interval,
 					$start_date,
 					$description,
-					$is_local ? '' : $sub_webhook_url
+					$is_local ? '' : $sub_webhook_url,
+					'ftb-subscription-' . $donation->mollie_customer_id . '-' . $donation->id
 				);
 				$db->update_mollie_subscription_id( (int) $donation->id, $subscription->id );
 			} catch ( \Exception $e ) {
+				// Release the claim and answer with an error, so Mollie calls the webhook
+				// again later and the subscription is retried.
+				$db->update_mollie_subscription_id( (int) $donation->id, '' );
 				if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
                     // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 					error_log( 'FTB Mollie subscription error: ' . $e->getMessage() );
 				}
+				return new WP_REST_Response( null, 500 );
 			}
 		}
 
@@ -245,8 +254,12 @@ class FTB_Donation_Form_Public {
 							$payment        = $mollie_service->get_payment( $returned_donation->mollie_payment_id );
 							$status_map     = array( 'open' => 'pending', 'canceled' => 'cancelled' );
 							$status         = $status_map[ $payment->status ] ?? $payment->status;
-							if ( $status !== $returned_donation->payment_status ) {
-								$db->update_payment_status( $returned_donation->mollie_payment_id, $status );
+
+							// The webhook may arrive at the same moment. Whichever changes the
+							// status first sends the emails, so they go out exactly once.
+							if ( $db->transition_payment_status( (int) $returned_donation->id, $status ) && 'paid' === $status ) {
+								FTB_Email::send_donor_confirmation( $returned_donation );
+								FTB_Email::send_admin_notification( $returned_donation );
 							}
 						} catch ( \Throwable $e ) {
 							// Mollie not reachable (e.g. no API key) — fall back to database status.

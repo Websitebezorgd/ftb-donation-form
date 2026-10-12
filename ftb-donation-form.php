@@ -3,7 +3,7 @@
  * Plugin Name: For The Better donatieformulier
  * Plugin URI: https://forthebetter.nl/
  * Description: Een plugin voor donatieformulieren met Mollie-betaalintegratie  conform WCAG 2.2 en AVG-richtlijnen.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: For The Better
  * License: GPL v2 or later
  * Text Domain: ftb-donation-form
@@ -27,7 +27,7 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 }
 
 // Define plugin constants.
-define( 'FTB_DONATION_FORM_VERSION', '1.0.0' );
+define( 'FTB_DONATION_FORM_VERSION', '1.0.1' );
 define( 'FTB_DONATION_FORM_DB_VERSION', '1.2' );
 define( 'FTB_DONATION_FORM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'FTB_DONATION_FORM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );

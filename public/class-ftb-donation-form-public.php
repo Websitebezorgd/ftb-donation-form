@@ -14,6 +14,13 @@ class FTB_Donation_Form_Public {
 
 	private $plugin_name;
 
+	/**
+	 * Outcome of handling the current form request; null until handled.
+	 *
+	 * @var array|null
+	 */
+	private $request_state = null;
+
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
 		unset( $version ); // Version unused: filemtime() used for cache-busting instead.
@@ -208,28 +215,95 @@ class FTB_Donation_Form_Public {
 		add_shortcode( 'ftb_donation_form', array( $this, 'render_donation_form' ) );
 	}
 
+	/**
+	 * Handle a form submission or a return from Mollie before any output is sent.
+	 *
+	 * Runs on template_redirect, so the redirects to Mollie and to the thank-you
+	 * page work regardless of output buffering. The outcome is kept for the
+	 * shortcode, which renders the form later in the same request.
+	 */
+	public function handle_form_request(): void {
+		$this->request_state = $this->process_form_request();
+	}
+
 	public function render_donation_form( $atts = array() ) {
-		$form_heading = get_option( 'ftb_form_heading', '' );
-		$title        = $form_heading ? $form_heading : __( 'Doneer nu', 'ftb-donation-form' );
+		// Normally already handled on template_redirect. Fall back for renders outside
+		// the main request (e.g. page builder previews).
+		if ( null === $this->request_state ) {
+			$this->request_state = $this->process_form_request();
+		}
+
+		$settings = $this->get_form_settings();
+
+		$title                 = $settings['title'];
+		$form_fields           = $settings['form_fields'];
+		$amount_options        = $settings['amount_options'];
+		$show_presets          = $settings['show_presets'];
+		$allow_custom          = $settings['allow_custom'];
+		$min_custom_amount     = $settings['min_custom_amount'];
+		$enable_recurring      = $settings['enable_recurring'];
+		$privacy_url           = $settings['privacy_url'];
+		$post_payment_message  = $settings['post_payment_message'];
+		$errors                = $this->request_state['errors'];
+		$old_values            = $this->request_state['old_values'];
+		$success               = $this->request_state['success'];
+		$payment_message       = $this->request_state['payment_message'];
+		$payment_message_class = $this->request_state['payment_message_class'];
+
+		ob_start();
+		include 'partials/ftb-donation-form-public-display.php';
+		return ob_get_clean();
+	}
+
+	/**
+	 * Read the admin settings used by both the processing and the template.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function get_form_settings(): array {
+		$form_heading  = get_option( 'ftb_form_heading', '' );
+		$saved_message = get_option( 'ftb_post_payment_message', '' );
+
+		return array(
+			'title'                 => $form_heading ? $form_heading : __( 'Doneer nu', 'ftb-donation-form' ),
+			'form_fields'           => get_option( 'ftb_form_fields', array() ),
+			'amount_options'        => array_values( array_filter( (array) get_option( 'ftb_amount_options', array( '5', '10', '25' ) ) ) ),
+			'show_presets'          => (bool) get_option( 'ftb_show_preset_amounts', '1' ),
+			'allow_custom'          => (bool) get_option( 'ftb_allow_custom_amount', '1' ),
+			'min_custom_amount'     => (float) get_option( 'ftb_min_custom_amount', '1' ),
+			'enable_recurring'      => (bool) get_option( 'ftb_enable_recurring', '1' ),
+			'privacy_url'           => get_option( 'ftb_privacy_url', '' ),
+			'post_payment_behavior' => get_option( 'ftb_post_payment_behavior', 'message' ),
+			'post_payment_message'  => $saved_message ? $saved_message : __( 'Hartelijk dank voor je donatie!', 'ftb-donation-form' ),
+			'post_payment_redirect' => get_option( 'ftb_post_payment_redirect_url', '' ),
+		);
+	}
+
+	/**
+	 * Process a return from Mollie or a form submission, if the request is one.
+	 *
+	 * May redirect (to Mollie checkout or the configured thank-you page) and exit.
+	 * Otherwise returns what the form needs to show: errors, submitted values and
+	 * payment messages.
+	 *
+	 * @return array{errors: array<string, string>, old_values: array<string, string>, success: bool, payment_message: string, payment_message_class: string}
+	 */
+	private function process_form_request(): array {
+		$settings = $this->get_form_settings();
+
+		$amount_options        = $settings['amount_options'];
+		$show_presets          = $settings['show_presets'];
+		$allow_custom          = $settings['allow_custom'];
+		$min_custom_amount     = $settings['min_custom_amount'];
+		$enable_recurring      = $settings['enable_recurring'];
+		$post_payment_behavior = $settings['post_payment_behavior'];
+		$post_payment_redirect = $settings['post_payment_redirect'];
 
 		$errors                = array();
 		$old_values            = array();
 		$success               = false;
 		$payment_message       = '';
 		$payment_message_class = '';
-
-		// Read admin settings (needed by both processing and template).
-		$form_fields           = get_option( 'ftb_form_fields', array() );
-		$amount_options        = array_values( array_filter( (array) get_option( 'ftb_amount_options', array( '5', '10', '25' ) ) ) );
-		$show_presets          = (bool) get_option( 'ftb_show_preset_amounts', '1' );
-		$allow_custom          = (bool) get_option( 'ftb_allow_custom_amount', '1' );
-		$min_custom_amount     = (float) get_option( 'ftb_min_custom_amount', '1' );
-		$enable_recurring      = (bool) get_option( 'ftb_enable_recurring', '1' );
-		$privacy_url           = get_option( 'ftb_privacy_url', '' );
-		$post_payment_behavior = get_option( 'ftb_post_payment_behavior', 'message' );
-		$saved_message         = get_option( 'ftb_post_payment_message', '' );
-		$post_payment_message  = $saved_message ? $saved_message : __( 'Hartelijk dank voor je donatie!', 'ftb-donation-form' );
-		$post_payment_redirect = get_option( 'ftb_post_payment_redirect_url', '' );
 
 		// Return from Mollie checkout — verify the one-time token before showing the thank-you.
 		if ( isset( $_GET['ftb_return'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -288,9 +362,7 @@ class FTB_Donation_Form_Public {
 				}
 			}
 
-			ob_start();
-			include 'partials/ftb-donation-form-public-display.php';
-			return ob_get_clean();
+			return compact( 'errors', 'old_values', 'success', 'payment_message', 'payment_message_class' );
 		}
 
 		if ( isset( $_POST['ftb_donation_nonce'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- verified on next line
@@ -471,8 +543,6 @@ class FTB_Donation_Form_Public {
 			}
 		}
 
-		ob_start();
-		include 'partials/ftb-donation-form-public-display.php';
-		return ob_get_clean();
+		return compact( 'errors', 'old_values', 'success', 'payment_message', 'payment_message_class' );
 	}
 }

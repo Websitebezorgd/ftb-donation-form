@@ -116,6 +116,7 @@ class FTB_Donation_Form {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
+		$this->loader->add_action( 'template_redirect', $plugin_public, 'handle_form_request' );
 		$this->loader->add_action( 'rest_api_init', $plugin_public, 'restrict_rest_namespace' );
 		$this->loader->add_action( 'rest_api_init', $plugin_public, 'register_webhook_route' );
 	}

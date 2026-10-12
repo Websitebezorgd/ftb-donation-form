@@ -309,6 +309,42 @@ Found via WAVE + Narrator:
 - [x] **Switchers (Narrator)** — `role="switch"` toegevoegd, aangekondigd als "schakelaar ingeschakeld/uitgeschakeld"
 - [x] **Dropdown (Narrator)** — werkt correct, geen aanpassing nodig
 
+### Code review findings (2026-10-12)
+Fix the first group before the next live test on SiteGround, otherwise the tests have to be repeated.
+
+**Before the live test — payments:**
+- [ ] **Duplicate subscriptions** — the webhook creates the subscription when the first payment is `paid`. Mollie can call the webhook more than once (also simultaneously), which can create two subscriptions and charge the donor twice. Claim the donation in the DB before creating the subscription and pass an idempotency key to Mollie (`public/class-ftb-donation-form-public.php`, `handle_webhook()`)
+- [ ] **Duplicate emails** — every webhook call with status `paid` sends the donor and admin emails again (e.g. a repeated call or a refund). Only send when the status actually changes to `paid`
+- [ ] **Redirect from inside the shortcode** — form POST handling and the redirect to Mollie run in `render_donation_form()`, after output has started. `wp_safe_redirect()` then only works thanks to PHP output buffering. Move processing to the `template_redirect` hook
+- [ ] **Each subscription charge as its own record** — a new charge overwrites the status of the original donation; one failed charge marks the whole donation `failed` and earlier payments are not visible. Store each charge as a separate row linked to the subscription
+- [ ] **Cancelling subscriptions** — there is no way to stop a subscription (admin or donor). When the plugin is deleted with data, the table is dropped but charges in Mollie continue. At minimum: a "Cancel subscription" action in the dashboard
+
+**Robustness:**
+- [ ] **Spam protection** — no honeypot or rate limit; every submission creates a DB row and, for recurring, a Mollie customer
+- [ ] **Orphan `pending` rows** — the donation is inserted before the API key / SEPA checks; the return value of `insert_donation()` is not checked
+- [ ] **Failed subscription creation is invisible** — only logged when `WP_DEBUG` is on. Show an admin notice or retry
+
+**Cleanup:**
+- [ ] `vendor/composer/*` and `vendor/autoload.php` are tracked in git despite `vendor/` in `.gitignore` — remove with `git rm -r --cached vendor`
+- [ ] Duplicate orphan docblock in `includes/class-ftb-mollie-service.php` (above `create_customer()`)
+- [ ] `readme.txt` mentions PDF/Excel export and an Elementor widget — only CSV export and the shortcode exist
+- [ ] Webhook URL + local-dev check and the Mollie status mapping are duplicated — extract shared helpers
+
+**Quality:**
+- [ ] PHPUnit tests for the webhook logic (status mapping, subscription creation, when emails are sent)
+- [ ] Run PHPCS and PHPStan in GitHub Actions on every push
+
+### Plugin Check (WordPress 7.1.3)
+Run on the development folder: 3 errors, 4 warnings.
+- [x] **`outdated_tested_upto_header`** — `Tested up to` raised from 7.0 to 7.1 in `readme.txt` and the plugin header
+- [ ] **Re-run Plugin Check on the release zip** — install the zip from the GitHub release workflow on a test site and check that installation; only what remains there needs fixing
+
+Not an issue — these files are listed in `.distignore` and are not part of the release zip:
+- `hidden_files` — `.editorconfig`, `.distignore`, `.gitignore`
+- `github_directory` — `.github`
+- `unexpected_markdown_file` — `HANDLEIDING.md`
+- `missing_direct_file_access_protection` — `phpstan-bootstrap.php`. Do **not** add an `ABSPATH` check here: PHPStan runs without WordPress, so `exit` would stop the analysis
+
 ### Plugin updates on client sites
 How to deliver updates to clients once the plugin is installed. Options to explore: WordPress.org repository, a private update server (e.g. WP Update Server), or a GitHub-based updater hook. To be decided.
 

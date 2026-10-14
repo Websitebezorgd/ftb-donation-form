@@ -119,11 +119,11 @@ Kies wat er gebeurt nadat de donateur succesvol heeft betaald:
 |---|---|
 | Melding bij nieuwe donatie | Stuur automatisch een e-mail naar het ingestelde e-mailadres bij elke geslaagde betaling. Onderwerp en inhoud zijn vast. |
 | Bevestigingsmail naar donateur | Stuur de donateur een bevestiging na geslaagde betaling. |
-| E-mailadres voor meldingen en afzender | Ontvanger van de melding bij nieuwe donatie én afzender van de bevestigingsmail. Alleen zichtbaar — en dan verplicht — als minstens één van de twee e-mails aan staat. |
+| E-mailadres voor meldingen en afzender | Ontvanger van de melding bij nieuwe donatie én afzender van de bevestigingsmail. Alleen zichtbaar als minstens één van de twee e-mails aan staat. |
 
 De bevestigingsmail naar de donateur heeft een aanpasbaar onderwerp en berichttekst, met een live voorbeeld in de instellingen. De interne melding heeft een vaste inhoud.
 
-**Gebruik het e-mailadres van de klant**, niet dat van het bureau: donateurs die op de bevestigingsmail antwoorden, mailen naar dit adres. Zonder geldig adres kun je de instellingen niet opslaan; wordt het toch leeg opgeslagen, dan worden de e-mails automatisch uitgeschakeld. De plugin valt bewust **niet** terug op het beheerdersadres van WordPress, omdat dat meestal van het bureau is.
+**Vul bij voorkeur het e-mailadres van de klant in**: donateurs die op de bevestigingsmail antwoorden, mailen naar dit adres. Blijft het veld leeg, dan gebruikt de plugin het beheerdersadres van WordPress (**Instellingen → Algemeen**) als ontvanger en afzender. Een gele melding onder het veld laat zien welk adres dat is.
 
 ---
 

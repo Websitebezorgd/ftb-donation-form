@@ -167,24 +167,9 @@
         applyColor($colorInput.val() || defaultColor);
     }
 
-    /**
-     * The sender address is required while any email is switched on.
-     */
-    function updateSenderRequired() {
-        var isOn =
-            $("#ftb_email_admin_notification").is(":checked") ||
-            $("#ftb_email_donor_confirmation").is(":checked");
-        $("#ftb_email_sender_address").prop("required", isOn);
-    }
-
     $(document).ready(function () {
         // Run on page load to reflect saved value
         updateConditionalFields();
-
-        $("#ftb_email_admin_notification, #ftb_email_donor_confirmation").on(
-            "change",
-            updateSenderRequired,
-        );
 
         // Re-run whenever any select, checkbox, or text/url/email input changes
         $('select, input[type="checkbox"]').on(

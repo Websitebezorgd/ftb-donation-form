@@ -40,7 +40,7 @@ FTB Donation Form is a WordPress plugin for collecting one-time and recurring do
 == Changelog ==
 
 = 1.0.2 =
-* Email address for notifications and sender is required while the new donation notification and/or the donor confirmation is on; emails no longer fall back to the WordPress admin address
+* Email address for notifications and sender is only shown when an email is switched on, with a clearer label and a notice showing the WordPress admin address used when it is left empty
 * Accessibility: error summary links go to the right field (also on the other step), focus moves to server-side errors and to the message after returning from Mollie, and the custom amount field announces its error
 * Accessibility: focus ring on amount and frequency options also after a mouse click or screen reader activation, and a visible marker after "Next" with the keyboard
 * Focus no longer changes the shape of buttons and fields set by the theme (e.g. Elementor rounded buttons)

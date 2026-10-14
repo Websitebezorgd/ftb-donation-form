@@ -237,7 +237,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 					$prv_items[]   = __( 'frequentie (eenmalig, maandelijks of jaarlijks)', 'ftb-donation-form' );
 					$prv_items[]   = __( 'datum van de donatie', 'ftb-donation-form' );
 					$prv_items[]   = __( 'betaalstatus', 'ftb-donation-form' );
-					$prv_sender    = get_option( 'ftb_email_sender_address', '' );
+					// Only mention the email address while it is in use, i.e. at least one email is switched on.
+					$prv_emails_on = get_option( 'ftb_email_admin_notification', '0' ) || get_option( 'ftb_email_donor_confirmation', '0' );
+					$prv_sender    = $prv_emails_on ? get_option( 'ftb_email_sender_address', '' ) : '';
 					$prv_heading   = __( 'Donatieformulier', 'ftb-donation-form' );
 					$prv_intro     = __( 'Via het donatieformulier op onze website verwerken wij persoonsgegevens om donaties te kunnen ontvangen en administreren. De volgende gegevens worden verzameld:', 'ftb-donation-form' );
 					$prv_mollie    = __( 'Betalingen worden verwerkt via Mollie Payments B.V. Wij delen jouw gegevens uitsluitend met Mollie voor zover dat noodzakelijk is voor de uitvoering van de betaling. Wij verkopen jouw gegevens niet aan derden en delen deze niet voor andere doeleinden, tenzij wij daartoe wettelijk verplicht zijn.', 'ftb-donation-form' );
@@ -438,7 +440,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="ftb-conditional<?php echo $email_any ? ' is-visible' : ''; ?>" data-show-when="ftb_email_admin_notification=1|ftb_email_donor_confirmation=1">
 						<div class="ftb-admin-form__stacked-field ftb-admin-form__stacked-field--bordered">
 							<label class="ftb-admin-form__label" for="ftb_email_sender_address">
-								<?php esc_html_e( 'E-mailadres voor meldingen en afzender (verplicht)', 'ftb-donation-form' ); ?>
+								<?php esc_html_e( 'E-mailadres voor meldingen en afzender', 'ftb-donation-form' ); ?>
 							</label>
 							<input
 								type="email"
@@ -447,13 +449,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 								value="<?php echo esc_attr( $email_from ); ?>"
 								class="regular-text"
 								placeholder="info@jouwwebsite.nl"
-								aria-describedby="ftb_email_sender_address_description"
-								<?php echo $email_any ? 'required' : ''; ?> />
+								aria-describedby="ftb_email_sender_address_description" />
 							<p class="description" id="ftb_email_sender_address_description"><?php esc_html_e( 'Meldingen bij nieuwe donaties gaan naar dit adres. Het is ook de afzender van de bevestigingsmail, dus donateurs die antwoorden, mailen naar dit adres.', 'ftb-donation-form' ); ?></p>
 							<div class="ftb-conditional<?php echo ! $email_from ? ' is-visible' : ''; ?>" data-show-when="ftb_email_sender_address=">
-								<div class="ftb-notice ftb-notice--error" role="note">
+								<div class="ftb-notice ftb-notice--warning" role="note">
 									<span class="dashicons dashicons-warning" aria-hidden="true"></span>
-									<?php esc_html_e( 'Vul een e-mailadres in. Dit is nodig omdat de melding bij nieuwe donaties en/of de bevestigingsmail aan staat.', 'ftb-donation-form' ); ?>
+									<?php
+									printf(
+										/* translators: %s: WordPress admin email address */
+										esc_html__( 'Geen e-mailadres ingevuld. Meldingen en de afzender gebruiken nu het beheerdersadres van WordPress (%s).', 'ftb-donation-form' ),
+										esc_html( get_bloginfo( 'admin_email' ) )
+									);
+									?>
 								</div>
 							</div>
 						</div>

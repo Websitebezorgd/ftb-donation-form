@@ -48,12 +48,8 @@ class FTB_Email {
 			return;
 		}
 
-		// No fallback to the WordPress admin address: that is usually the agency, not the client.
-		$to = get_option( 'ftb_email_sender_address', '' );
-		if ( ! $to ) {
-			return;
-		}
-
+		$raw_to  = get_option( 'ftb_email_sender_address', '' );
+		$to      = $raw_to ? $raw_to : get_bloginfo( 'admin_email' );
 		$raw_sub = get_option( 'ftb_email_admin_subject', '' );
 		$subject = $raw_sub ? $raw_sub : __( 'Je hebt een nieuwe donatie ontvangen', 'ftb-donation-form' );
 		$body    = self::build_body(
@@ -67,18 +63,14 @@ class FTB_Email {
 	/**
 	 * Build the From header. Sender name is always the site title.
 	 *
-	 * Without a configured address no From header is set, so WordPress uses its
-	 * default sender instead of the admin address (usually the agency's).
-	 *
 	 * @return array
 	 */
 	private static function get_headers(): array {
-		$email = get_option( 'ftb_email_sender_address', '' );
-		if ( ! $email ) {
-			return array();
-		}
+		$name      = get_bloginfo( 'name' );
+		$raw_email = get_option( 'ftb_email_sender_address', '' );
+		$email     = $raw_email ? $raw_email : get_bloginfo( 'admin_email' );
 
-		return array( 'From: ' . get_bloginfo( 'name' ) . ' <' . $email . '>' );
+		return array( 'From: ' . $name . ' <' . $email . '>' );
 	}
 
 	/**

@@ -305,7 +305,7 @@ class FTB_Donation_Form_Admin {
 			'ftb_donation_form_settings',
 			'ftb_email_admin_notification',
 			array(
-				'sanitize_callback' => 'absint',
+				'sanitize_callback' => array( $this, 'sanitize_email_admin_notification' ),
 			)
 		);
 		register_setting(
@@ -568,6 +568,32 @@ class FTB_Donation_Form_Admin {
 				'error'
 			);
 			return 1;
+		}
+		return $value;
+	}
+
+	/**
+	 * The admin notification needs an email address; switch it off without one.
+	 *
+	 * @param mixed $input Submitted toggle value.
+	 * @return int
+	 */
+	public function sanitize_email_admin_notification( $input ) {
+		$value = absint( $input );
+
+		// Use the submitted address when saving the settings form, the stored one otherwise (e.g. wp-cli).
+		$address = isset( $_POST['ftb_email_sender_address'] ) // phpcs:ignore WordPress.Security.NonceVerification.Missing -- nonce verified by Settings API before sanitize callbacks run
+			? sanitize_email( wp_unslash( $_POST['ftb_email_sender_address'] ) ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			: get_option( 'ftb_email_sender_address', '' );
+
+		if ( $value && ! $address ) {
+			add_settings_error(
+				'ftb_donation_form_settings',
+				'ftb_admin_notification_no_address',
+				__( 'Vul een geldig e-mailadres in om meldingen bij nieuwe donaties te ontvangen. Melding bij nieuwe donatie is uitgeschakeld.', 'ftb-donation-form' ),
+				'error'
+			);
+			return 0;
 		}
 		return $value;
 	}

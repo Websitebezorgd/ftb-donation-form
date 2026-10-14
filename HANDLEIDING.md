@@ -120,7 +120,7 @@ Kies wat er gebeurt nadat de donateur succesvol heeft betaald:
 | Melding bij nieuwe donatie | Stuur automatisch een e-mail naar het afzenderadres bij elke geslaagde betaling. Onderwerp en inhoud zijn vast. |
 | Bevestigingsmail naar donateur | Stuur de donateur een bevestiging na geslaagde betaling. |
 
-De bevestigingsmail naar de donateur heeft een aanpasbaar onderwerp en berichttekst, met een live voorbeeld in de instellingen. De interne melding heeft een vaste inhoud en gaat naar het e-mailadres dat is ingesteld als afzender.
+De bevestigingsmail naar de donateur heeft een aanpasbaar onderwerp en berichttekst, met een live voorbeeld in de instellingen. De interne melding heeft een vaste inhoud en gaat naar het e-mailadres dat is ingesteld als afzender. Zolang **Melding bij nieuwe donatie** aan staat, is dat e-mailadres verplicht: zonder geldig adres kun je de instellingen niet opslaan, en als het toch leeg wordt opgeslagen, wordt de melding automatisch uitgeschakeld.
 
 ---
 

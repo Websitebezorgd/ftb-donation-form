@@ -435,14 +435,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 
 					<div class="ftb-admin-form__stacked-field ftb-admin-form__stacked-field--bordered">
-						<label class="ftb-admin-form__label" for="ftb_email_sender_address"><?php esc_html_e( 'E-mailadres afzender', 'ftb-donation-form' ); ?></label>
+						<label class="ftb-admin-form__label" for="ftb_email_sender_address">
+							<?php esc_html_e( 'E-mailadres afzender', 'ftb-donation-form' ); ?>
+							<span id="ftb_email_sender_required"<?php echo '1' !== $email_admin ? ' hidden' : ''; ?>><?php esc_html_e( '(verplicht)', 'ftb-donation-form' ); ?></span>
+						</label>
 						<input
 							type="email"
 							id="ftb_email_sender_address"
 							name="ftb_email_sender_address"
 							value="<?php echo esc_attr( $email_from ); ?>"
 							class="regular-text"
-							placeholder="info@jouwwebsite.nl" />
+							placeholder="info@jouwwebsite.nl"
+							<?php echo '1' === $email_admin ? 'required' : ''; ?> />
+						<div class="ftb-conditional<?php echo '1' === $email_admin ? ' is-visible' : ''; ?>" data-show-when="ftb_email_admin_notification=1">
+							<div class="ftb-conditional<?php echo ! $email_from ? ' is-visible' : ''; ?>" data-show-when="ftb_email_sender_address=">
+								<div class="ftb-notice ftb-notice--error" role="note">
+									<span class="dashicons dashicons-warning" aria-hidden="true"></span>
+									<?php esc_html_e( 'Vul een e-mailadres in. Dit is verplicht zolang Melding bij nieuwe donatie aan staat.', 'ftb-donation-form' ); ?>
+								</div>
+							</div>
+						</div>
 					</div>
 
 				</div>

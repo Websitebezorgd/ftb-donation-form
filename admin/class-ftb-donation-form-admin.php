@@ -284,7 +284,7 @@ class FTB_Donation_Form_Admin {
 			'ftb_donation_form_settings',
 			'ftb_email_donor_confirmation',
 			array(
-				'sanitize_callback' => 'absint',
+				'sanitize_callback' => array( $this, 'sanitize_email_donor_confirmation' ),
 			)
 		);
 		register_setting(
@@ -579,18 +579,54 @@ class FTB_Donation_Form_Admin {
 	 * @return int
 	 */
 	public function sanitize_email_admin_notification( $input ) {
-		$value = absint( $input );
+		return $this->require_email_address(
+			absint( $input ),
+			'ftb_admin_notification_no_address',
+			__( 'Melding bij nieuwe donatie', 'ftb-donation-form' )
+		);
+	}
+
+	/**
+	 * The donor confirmation needs a sender address; switch it off without one.
+	 *
+	 * @param mixed $input Submitted toggle value.
+	 * @return int
+	 */
+	public function sanitize_email_donor_confirmation( $input ) {
+		return $this->require_email_address(
+			absint( $input ),
+			'ftb_donor_confirmation_no_address',
+			__( 'Bevestigingsmail naar donateur', 'ftb-donation-form' )
+		);
+	}
+
+	/**
+	 * Keep an email toggle on only when a valid email address is set.
+	 *
+	 * Without one, mails would fall back to the WordPress admin address, which
+	 * usually belongs to the agency rather than the client.
+	 *
+	 * @param int    $value      Sanitized toggle value.
+	 * @param string $error_code Settings error code.
+	 * @param string $label      Toggle label, used in the error message.
+	 * @return int
+	 */
+	private function require_email_address( int $value, string $error_code, string $label ): int {
+		if ( ! $value ) {
+			return 0;
+		}
 
 		// Use the submitted address when saving the settings form, the stored one otherwise (e.g. wp-cli).
 		$address = isset( $_POST['ftb_email_sender_address'] ) // phpcs:ignore WordPress.Security.NonceVerification.Missing -- nonce verified by Settings API before sanitize callbacks run
 			? sanitize_email( wp_unslash( $_POST['ftb_email_sender_address'] ) ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			: get_option( 'ftb_email_sender_address', '' );
 
-		if ( $value && ! $address ) {
+		if ( ! $address ) {
 			add_settings_error(
 				'ftb_donation_form_settings',
-				'ftb_admin_notification_no_address',
-				__( 'Vul een geldig e-mailadres in om meldingen bij nieuwe donaties te ontvangen. Melding bij nieuwe donatie is uitgeschakeld.', 'ftb-donation-form' ),
+				$error_code,
+				/* translators: %s: name of the email setting that was switched off */
+				sprintf( __( 'Vul een geldig e-mailadres in voor meldingen en afzender. "%s" is uitgeschakeld.', 'ftb-donation-form' ), $label ),
 				'error'
 			);
 			return 0;

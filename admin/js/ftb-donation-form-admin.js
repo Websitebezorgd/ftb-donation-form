@@ -7,7 +7,21 @@
      *
      * Fields wrapped in .ftb-conditional[data-show-when="fieldId=value"]
      * are shown only when the referenced select matches the expected value.
+     * Separate several conditions with "|" to show the field when any of them
+     * matches, e.g. "field_a=1|field_b=1".
      */
+    function matchesCondition(condition) {
+        var parts = condition.split("=");
+        var $field = $("#" + parts[0]);
+        var actual = $field.is(":checkbox")
+            ? $field.is(":checked")
+                ? "1"
+                : "0"
+            : $field.val();
+
+        return actual === parts[1];
+    }
+
     function updateConditionalFields() {
         $(".ftb-conditional").each(function () {
             var condition = $(this).data("show-when"); // e.g. "ftb_post_payment_behavior=message"
@@ -15,18 +29,9 @@
                 return;
             }
 
-            var parts = condition.split("=");
-            var fieldId = parts[0];
-            var expected = parts[1];
-            var $field = $("#" + fieldId);
-            var actual = $field.is(":checkbox")
-                ? $field.is(":checked")
-                    ? "1"
-                    : "0"
-                : $field.val();
             var $row = $(this).closest("tr");
 
-            if (actual === expected) {
+            if (condition.split("|").some(matchesCondition)) {
                 $(this).addClass("is-visible").prop("hidden", false);
                 $row.removeClass("ftb-row-hidden");
             } else {
@@ -163,19 +168,23 @@
     }
 
     /**
-     * The sender address is required while the admin notification is on.
+     * The sender address is required while any email is switched on.
      */
     function updateSenderRequired() {
-        var isOn = $("#ftb_email_admin_notification").is(":checked");
+        var isOn =
+            $("#ftb_email_admin_notification").is(":checked") ||
+            $("#ftb_email_donor_confirmation").is(":checked");
         $("#ftb_email_sender_address").prop("required", isOn);
-        $("#ftb_email_sender_required").prop("hidden", !isOn);
     }
 
     $(document).ready(function () {
         // Run on page load to reflect saved value
         updateConditionalFields();
 
-        $("#ftb_email_admin_notification").on("change", updateSenderRequired);
+        $("#ftb_email_admin_notification, #ftb_email_donor_confirmation").on(
+            "change",
+            updateSenderRequired,
+        );
 
         // Re-run whenever any select, checkbox, or text/url/email input changes
         $('select, input[type="checkbox"]').on(

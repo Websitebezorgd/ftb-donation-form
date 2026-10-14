@@ -226,10 +226,11 @@
 }
 
 /* ── Focus styles ────────────────────────────────────────────────────────── */
+/* No border-radius here: the outline follows the element's own shape, so a
+   theme's button or field style (e.g. Elementor pill buttons) is kept on focus. */
 .ftb-donation-form :focus-visible {
 	outline: 3px solid var(--color-focus);
 	outline-offset: 3px;
-	border-radius: var(--radius-sm);
 }
 
 /* ── Steps ────────────────────────────────────────────────────────────────── */
@@ -394,6 +395,13 @@
 	background-color: color-mix(in srgb, var(--color-primary) 12%, var(--color-white));
 	font-weight: bold;
 	color: var(--color-text);
+}
+
+/* Thin ring for any focus, also after a mouse click or a screen reader
+   (NVDA) activating the radio, which :focus-visible does not cover. */
+.ftb-donation-form__radio:focus + .ftb-donation-form__radio-label {
+	outline: 2px solid var(--color-focus);
+	outline-offset: 3px;
 }
 
 /* Focus indicator — WCAG 2.2 Focus Appearance */
@@ -663,6 +671,12 @@
 
 .ftb-donation-form__step-intro:focus {
 	outline: none;
+}
+
+/* After "Volgende" via the keyboard, show where focus went (not after a mouse click). */
+.ftb-donation-form__step-intro:focus-visible {
+	outline: 2px solid var(--color-focus);
+	outline-offset: 4px;
 }
 
 .ftb-donation-form__required-note {

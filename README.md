@@ -311,7 +311,8 @@ All webhook-dependent features require a live HTTPS server.
 - [x] Custom amount input gets `aria-invalid` and `aria-describedby` for its error
 - [x] Error summary links at least 24px high (WCAG 2.5.8)
 - [x] Removed meaningless `aria-describedby` on the wrapper and the incorrect `autocomplete="address-line2"` on house number
-- [ ] Manual test with NVDA (Firefox/Chrome) and Narrator (Edge)
+- [x] Manual test with NVDA + Chrome (2026-10-14)
+- [ ] Manual test with Narrator + Edge
 - [ ] Mobile test with VoiceOver (iOS) / TalkBack (Android)
 
 ### Accessibility — admin dashboard
@@ -333,6 +334,7 @@ Fix the first group before the next live test on SiteGround, otherwise the tests
 **Robustness:**
 - [ ] **Spam protection** — no honeypot or rate limit; every submission creates a DB row and, for recurring, a Mollie customer
 - [ ] **Orphan `pending` rows** — the donation is inserted before the API key / SEPA checks; the return value of `insert_donation()` is not checked
+- [ ] **Hide recurring options when Mollie can't do recurring** — when SEPA Direct Debit is not active in Mollie (e.g. rejected), donors can still choose monthly/yearly and only get "Terugkerende betalingen zijn momenteel niet beschikbaar" after filling in the whole form. Hide the frequency choice in that case and show a warning in the admin settings. Cache the result of `is_recurring_available()` (e.g. a transient refreshed when the API key or settings are saved) instead of calling Mollie on every page load
 - [ ] **Failed subscription creation is invisible** — only logged when `WP_DEBUG` is on. Show an admin notice or retry
 
 **Cleanup:**

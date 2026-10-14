@@ -51,7 +51,7 @@ msgstr "Donationform settings"
 
 #: admin/class-ftb-donation-form-admin.php:89
 #: admin/partials/ftb-donation-form-admin-display.php:243
-#: public/partials/ftb-donation-form-public-display.php:128
+#: public/partials/ftb-donation-form-public-display.php:150
 msgid "Donatieformulier"
 msgstr "Donationform"
 
@@ -95,7 +95,7 @@ msgstr "Form fields"
 
 #: admin/class-ftb-donation-form-admin.php:267
 #: admin/partials/ftb-donation-form-admin-display.php:210
-#: public/partials/ftb-donation-form-public-display.php:347
+#: public/partials/ftb-donation-form-public-display.php:369
 msgid "Privacyverklaring"
 msgstr "Privacy statement"
 
@@ -123,27 +123,27 @@ msgstr "Enable test mode (use test API key)"
 
 #: admin/class-ftb-donation-form-admin.php:445
 #: admin/class-ftb-donations-list-table.php:38
-#: public/partials/ftb-donation-form-public-display.php:275
+#: public/partials/ftb-donation-form-public-display.php:297
 msgid "Telefoonnummer"
 msgstr "Phone number"
 
 #: admin/class-ftb-donation-form-admin.php:446
-#: public/partials/ftb-donation-form-public-display.php:290
+#: public/partials/ftb-donation-form-public-display.php:312
 msgid "Straat"
 msgstr "Street"
 
 #: admin/class-ftb-donation-form-admin.php:447
-#: public/partials/ftb-donation-form-public-display.php:302
+#: public/partials/ftb-donation-form-public-display.php:324
 msgid "Huisnummer"
 msgstr "House number"
 
 #: admin/class-ftb-donation-form-admin.php:448
-#: public/partials/ftb-donation-form-public-display.php:318
+#: public/partials/ftb-donation-form-public-display.php:340
 msgid "Postcode"
 msgstr "Zip code"
 
 #: admin/class-ftb-donation-form-admin.php:449
-#: public/partials/ftb-donation-form-public-display.php:330
+#: public/partials/ftb-donation-form-public-display.php:352
 msgid "Plaats"
 msgstr "City"
 
@@ -153,7 +153,7 @@ msgstr "Optional fields"
 
 #: admin/class-ftb-donation-form-admin.php:477
 #: public/class-ftb-donation-form-public.php:268
-#: public/partials/ftb-donation-form-public-display.php:374
+#: public/partials/ftb-donation-form-public-display.php:396
 msgid "Doneer nu"
 msgstr "Donate now"
 
@@ -238,20 +238,20 @@ msgstr "Delete"
 
 #: admin/class-ftb-donations-list-table.php:120
 #: includes/class-ftb-email.php:140
-#: public/partials/ftb-donation-form-public-display.php:141
+#: public/partials/ftb-donation-form-public-display.php:163
 msgid "Eenmalig"
 msgstr "One-time"
 
 #: admin/class-ftb-donations-list-table.php:121
 #: admin/partials/ftb-donation-form-admin-display.php:369
 #: includes/class-ftb-email.php:141
-#: public/partials/ftb-donation-form-public-display.php:142
+#: public/partials/ftb-donation-form-public-display.php:164
 msgid "Maandelijks"
 msgstr "Monthly"
 
 #: admin/class-ftb-donations-list-table.php:122
 #: includes/class-ftb-email.php:142
-#: public/partials/ftb-donation-form-public-display.php:143
+#: public/partials/ftb-donation-form-public-display.php:165
 msgid "Jaarlijks"
 msgstr "Yearly"
 
@@ -542,7 +542,7 @@ msgid "Naam, bedrag, frequentie, datum en de ingevulde formuliervelden worden au
 msgstr "Name, amount, frequency, date, and the completed form fields are added automatically."
 
 #: admin/partials/ftb-donation-form-admin-display.php:427
-#: admin/partials/ftb-donation-form-admin-display.php:565
+#: admin/partials/ftb-donation-form-admin-display.php:581
 msgid "Voorbeeld"
 msgstr "Preview"
 
@@ -550,91 +550,87 @@ msgstr "Preview"
 msgid "Onderwerp:"
 msgstr "Subject:"
 
-#: admin/partials/ftb-donation-form-admin-display.php:478
+#: admin/partials/ftb-donation-form-admin-display.php:480
 msgid "Kaart"
 msgstr "Card"
 
-#: admin/partials/ftb-donation-form-admin-display.php:479
+#: admin/partials/ftb-donation-form-admin-display.php:484
 msgid "Vlak"
 msgstr "Flat"
 
-#: admin/partials/ftb-donation-form-admin-display.php:480
-msgid "Minimaal"
-msgstr "Minimal"
-
-#: admin/partials/ftb-donation-form-admin-display.php:485
+#: admin/partials/ftb-donation-form-admin-display.php:495
 msgid "Stijl"
 msgstr "Style"
 
-#: admin/partials/ftb-donation-form-admin-display.php:488
+#: admin/partials/ftb-donation-form-admin-display.php:498
 msgid "Kies hoe het formulier eruitziet op de pagina."
 msgstr "Choose how the form looks on the page."
 
-#: admin/partials/ftb-donation-form-admin-display.php:493
+#: admin/partials/ftb-donation-form-admin-display.php:503
 msgid "Variant"
 msgstr "Variant"
 
-#: admin/partials/ftb-donation-form-admin-display.php:516
+#: admin/partials/ftb-donation-form-admin-display.php:526
 msgid "Primaire kleur"
 msgstr "Primary color"
 
-#: admin/partials/ftb-donation-form-admin-display.php:535
+#: admin/partials/ftb-donation-form-admin-display.php:551
 msgid "Elementor globale kleuren:"
 msgstr "Elementor global colors:"
 
-#: admin/partials/ftb-donation-form-admin-display.php:543
+#: admin/partials/ftb-donation-form-admin-display.php:559
 msgid "Thema kleuren:"
 msgstr "Theme colors:"
 
-#: admin/partials/ftb-donation-form-admin-display.php:571
+#: admin/partials/ftb-donation-form-admin-display.php:587
 msgid "Doneren"
 msgstr "Donate"
 
-#: admin/partials/ftb-donation-form-admin-display.php:575
+#: admin/partials/ftb-donation-form-admin-display.php:591
 msgid "Volgende stap →"
 msgstr "Next step →"
 
-#: admin/partials/ftb-donation-form-admin-display.php:588
+#: admin/partials/ftb-donation-form-admin-display.php:604
 msgid "Instellingen opslaan"
 msgstr "Save settings"
 
-#: admin/partials/ftb-donation-form-admin-display.php:614
+#: admin/partials/ftb-donation-form-admin-display.php:630
 msgid "Toegang opgeslagen."
 msgstr "Access saved."
 
-#: admin/partials/ftb-donation-form-admin-display.php:623
+#: admin/partials/ftb-donation-form-admin-display.php:639
 msgid "Formulierbeheerders"
 msgstr "Form managers"
 
-#: admin/partials/ftb-donation-form-admin-display.php:625
+#: admin/partials/ftb-donation-form-admin-display.php:641
 msgid "Bepaal welke redacteuren toegang hebben tot de plugin-instellingen en donaties. Beheerders hebben altijd toegang."
 msgstr "Determine which editors have access to the plugin settings and donations. Administrators always have access."
 
-#: admin/partials/ftb-donation-form-admin-display.php:629
+#: admin/partials/ftb-donation-form-admin-display.php:645
 msgid "Toegangsniveau"
 msgstr "Accesslevel"
 
-#: admin/partials/ftb-donation-form-admin-display.php:634
+#: admin/partials/ftb-donation-form-admin-display.php:650
 msgid "Alle redacteuren"
 msgstr "All editors"
 
-#: admin/partials/ftb-donation-form-admin-display.php:642
+#: admin/partials/ftb-donation-form-admin-display.php:658
 msgid "Specifieke redacteuren"
 msgstr "Specific editors"
 
-#: admin/partials/ftb-donation-form-admin-display.php:650
+#: admin/partials/ftb-donation-form-admin-display.php:666
 msgid "Alleen beheerders"
 msgstr "Administrators only"
 
-#: admin/partials/ftb-donation-form-admin-display.php:656
+#: admin/partials/ftb-donation-form-admin-display.php:672
 msgid "Selecteer redacteuren met toegang"
 msgstr "Select editors with access"
 
-#: admin/partials/ftb-donation-form-admin-display.php:674
+#: admin/partials/ftb-donation-form-admin-display.php:690
 msgid "Geen redacteuren gevonden."
 msgstr "No editors found."
 
-#: admin/partials/ftb-donation-form-admin-display.php:681
+#: admin/partials/ftb-donation-form-admin-display.php:697
 msgid "Toegang opslaan"
 msgstr "Save access"
 
@@ -726,7 +722,7 @@ msgid "Je moet akkoord gaan met de privacyverklaring om te doneren."
 msgstr "You must agree to the privacy statement to donate."
 
 #: public/class-ftb-donation-form-public.php:65
-#: public/partials/ftb-donation-form-public-display.php:108
+#: public/partials/ftb-donation-form-public-display.php:130
 msgid "Controleer de volgende fouten:"
 msgstr "Check the following errors:"
 
@@ -767,107 +763,109 @@ msgstr "SEPA Direct Debit is not enabled in Mollie. Enable SEPA Direct Debit in 
 msgid "Terugkerende betalingen zijn momenteel niet beschikbaar. Kies een eenmalige donatie."
 msgstr "Recurring payments are currently unavailable. Please choose a one-time donation."
 
-#: public/partials/ftb-donation-form-public-display.php:102
+#: public/partials/ftb-donation-form-public-display.php:106
+#: public/partials/ftb-donation-form-public-display.php:114
 msgid "Jouw donatie"
 msgstr "Your donation"
 
-#: public/partials/ftb-donation-form-public-display.php:103
-#: public/partials/ftb-donation-form-public-display.php:241
+#: public/partials/ftb-donation-form-public-display.php:107
+#: public/partials/ftb-donation-form-public-display.php:115
+#: public/partials/ftb-donation-form-public-display.php:263
 msgid "Jouw gegevens"
 msgstr "Your details"
 
-#: public/partials/ftb-donation-form-public-display.php:131
+#: public/partials/ftb-donation-form-public-display.php:153
 msgid "Stap 1 van 2: Jouw donatie, huidige stap"
 msgstr "Step 1 of 2: Your donation, current step"
 
-#: public/partials/ftb-donation-form-public-display.php:132
-#: public/partials/ftb-donation-form-public-display.php:237
+#: public/partials/ftb-donation-form-public-display.php:154
+#: public/partials/ftb-donation-form-public-display.php:259
 msgid "Als iets verplicht is, staat dat erbij."
 msgstr "If something is required, it will be stated."
 
-#: public/partials/ftb-donation-form-public-display.php:136
+#: public/partials/ftb-donation-form-public-display.php:158
 msgid "Frequentie (verplicht)"
 msgstr "Frequency (required)"
 
-#: public/partials/ftb-donation-form-public-display.php:158
+#: public/partials/ftb-donation-form-public-display.php:180
 msgid "Kies hoe vaak je wilt doneren"
 msgstr "Choose how often you want to donate"
 
-#: public/partials/ftb-donation-form-public-display.php:166
+#: public/partials/ftb-donation-form-public-display.php:188
 msgid "Bedrag (verplicht)"
 msgstr "Amount (required)"
 
-#: public/partials/ftb-donation-form-public-display.php:166
+#: public/partials/ftb-donation-form-public-display.php:188
 msgid "Eenmalig bedrag (verplicht)"
 msgstr "One-time amount (required)"
 
-#: public/partials/ftb-donation-form-public-display.php:190
+#: public/partials/ftb-donation-form-public-display.php:212
 msgid "Anders"
 msgstr "Other"
 
-#: public/partials/ftb-donation-form-public-display.php:202
+#: public/partials/ftb-donation-form-public-display.php:224
 msgid "Eigen bedrag"
 msgstr "Custom amount"
 
 #. translators: %s: minimum amount, e.g. "1"
-#: public/partials/ftb-donation-form-public-display.php:207
+#: public/partials/ftb-donation-form-public-display.php:229
 #, php-format
 msgid "Vul een bedrag in (minimaal €%s)"
 msgstr "Enter an amount (minimum €%s)"
 
-#: public/partials/ftb-donation-form-public-display.php:227
+#: public/partials/ftb-donation-form-public-display.php:249
 msgid "Kies een bedrag om te doneren"
 msgstr "Choose an amount to donate"
 
-#: public/partials/ftb-donation-form-public-display.php:231
+#: public/partials/ftb-donation-form-public-display.php:253
 msgid "Volgende"
 msgstr "Next"
 
-#: public/partials/ftb-donation-form-public-display.php:235
+#: public/partials/ftb-donation-form-public-display.php:257
 msgid "Stap 2 van 2: Jouw gegevens, huidige stap"
 msgstr "Step 2 of 2: Your details, current step"
 
-#: public/partials/ftb-donation-form-public-display.php:244
+#: public/partials/ftb-donation-form-public-display.php:266
 msgid "Volledige naam (verplicht)"
 msgstr "Full name (required)"
 
-#: public/partials/ftb-donation-form-public-display.php:255
+#: public/partials/ftb-donation-form-public-display.php:277
 msgid "Vul je naam in"
 msgstr "Enter your name"
 
-#: public/partials/ftb-donation-form-public-display.php:259
+#: public/partials/ftb-donation-form-public-display.php:281
 msgid "E-mailadres (verplicht)"
 msgstr "Email address (required)"
 
-#: public/partials/ftb-donation-form-public-display.php:270
+#: public/partials/ftb-donation-form-public-display.php:292
 msgid "Vul een geldig e-mailadres in"
 msgstr "Enter a valid email address"
 
-#: public/partials/ftb-donation-form-public-display.php:350
+#: public/partials/ftb-donation-form-public-display.php:372
 msgid "Lees onze privacyverklaring"
 msgstr "Read our privacy statement"
 
-#: public/partials/ftb-donation-form-public-display.php:350
+#: public/partials/ftb-donation-form-public-display.php:372
 msgid "(opent in nieuw tabblad)"
 msgstr "(opens in new tab)"
 
-#: public/partials/ftb-donation-form-public-display.php:352
+#: public/partials/ftb-donation-form-public-display.php:374
 msgid "Privacyverklaring nog niet beschikbaar."
 msgstr "Privacy statement not yet available."
 
-#: public/partials/ftb-donation-form-public-display.php:366
+#: public/partials/ftb-donation-form-public-display.php:388
 msgid "Ik ga akkoord met de privacyverklaring (verplicht)"
 msgstr "I agree to the privacy statement (required)"
 
-#: public/partials/ftb-donation-form-public-display.php:369
+#: public/partials/ftb-donation-form-public-display.php:391
 msgid "Je moet akkoord gaan met de privacyverklaring"
 msgstr "You must agree to the privacy statement"
 
-#: public/partials/ftb-donation-form-public-display.php:373
+#: public/partials/ftb-donation-form-public-display.php:395
 msgid "Vorige"
 msgstr "Previous"
 
-#: public/partials/ftb-donation-form-public-display.php:374
+#: public/partials/ftb-donation-form-public-display.php:396
 msgid "Doneer nu eenmalig"
 msgstr "Donate once now"
 
@@ -879,19 +877,19 @@ msgstr "Delete all data on uninstall"
 msgid "Let op: zodra de plugin wordt verwijderd, worden alle donaties en instellingen definitief gewist. Dit kan niet ongedaan worden gemaakt. Exporteer eerst je donaties als je ze wilt bewaren."
 msgstr "Warning: once the plugin is deleted, all donations and settings will be permanently removed. This cannot be undone. Export your donations first if you want to keep them."
 
-#: admin/partials/ftb-donation-form-admin-display.php:602
+#: admin/partials/ftb-donation-form-admin-display.php:618
 msgid "Toegang en beheer"
 msgstr "Access and management"
 
-#: admin/partials/ftb-donation-form-admin-display.php:701
+#: admin/partials/ftb-donation-form-admin-display.php:717
 msgid "Bij verwijderen van de plugin"
 msgstr "When the plugin is deleted"
 
-#: admin/partials/ftb-donation-form-admin-display.php:704
+#: admin/partials/ftb-donation-form-admin-display.php:720
 msgid "Standaard blijven donaties en instellingen bewaard als de plugin wordt verwijderd. Deactiveren wist nooit gegevens."
 msgstr "By default, donations and settings are kept when the plugin is deleted. Deactivating never removes data."
 
-#: admin/partials/ftb-donation-form-admin-display.php:711
+#: admin/partials/ftb-donation-form-admin-display.php:727
 msgid "Opslaan"
 msgstr "Save"
 
@@ -908,3 +906,25 @@ msgstr "Email address for notifications and sender"
 #, php-format
 msgid "Geen e-mailadres ingevuld. Meldingen en de afzender gebruiken nu het beheerdersadres van WordPress (%s)."
 msgstr "No email address entered. Notifications and the sender currently use the WordPress admin address (%s)."
+
+#. translators: 1: current step number, 2: total number of steps, 3: step name
+#: public/partials/ftb-donation-form-public-display.php:122
+#, php-format
+msgid "Stap %1$d van %2$d: %3$s"
+msgstr "Step %1$d of %2$d: %3$s"
+
+#: admin/partials/ftb-donation-form-admin-display.php:488
+msgid "Thema"
+msgstr "Theme"
+
+#: admin/partials/ftb-donation-form-admin-display.php:489
+msgid "Bij Thema neemt het formulier de stijl van het thema over. Deze kleur wordt dan alleen gebruikt als het thema zelf geen kleur geeft, bijvoorbeeld aan de knoppen."
+msgstr "With Theme, the form takes over the theme style. This colour is then only used when the theme itself does not set a colour, for example on the buttons."
+
+#: admin/partials/ftb-donation-form-admin-display.php:481
+msgid "Bij Kaart staat het formulier in een wit vlak met schaduw, in de stijl van de plugin. Deze kleur wordt gebruikt voor de knoppen, het gekozen bedrag en de actieve stap."
+msgstr "With Card, the form is shown in a white panel with a shadow, in the plugin style. This colour is used for the buttons, the selected amount and the active step."
+
+#: admin/partials/ftb-donation-form-admin-display.php:485
+msgid "Bij Vlak staat het formulier in een wit vlak zonder schaduw, in de stijl van de plugin. Deze kleur wordt gebruikt voor de knoppen, het gekozen bedrag en de actieve stap."
+msgstr "With Flat, the form is shown in a white panel without a shadow, in the plugin style. This colour is used for the buttons, the selected amount and the active step."

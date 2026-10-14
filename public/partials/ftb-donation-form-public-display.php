@@ -47,6 +47,10 @@ if ( $ftb_color ) {
 	$ftb_inline_style = '--color-primary:var(--e-global-color-primary,#c42e31);';
 }
 // Geen kleur en geen Elementor — CSS tokens uit de stylesheet gelden.
+
+// Minimal on a block theme: wp-element-button lets the theme apply its own button style
+// (theme.json). Not on classic themes, where WordPress would add its default button style.
+$ftb_button_class = ( 'minimal' === $ftb_style && function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() ) ? ' wp-element-button' : '';
 ?>
 
 <div class="ftb-donation-form ftb-donation-form--style-<?php echo esc_attr( $ftb_style ); ?>"<?php echo $ftb_inline_style ? ' style="' . esc_attr( $ftb_inline_style ) . '"' : ''; ?>>
@@ -102,6 +106,24 @@ if ( $ftb_color ) {
 			<li id="ftb-step-label-1" data-step="1" class="<?php echo 1 === $start_on_step ? 'is-active' : ''; ?>" <?php echo 1 === $start_on_step ? 'aria-current="step"' : ''; ?>><?php esc_html_e( 'Jouw donatie', 'ftb-donation-form' ); ?></li>
 			<li id="ftb-step-label-2" data-step="2" class="<?php echo 2 === $start_on_step ? 'is-active' : ''; ?>" <?php echo 2 === $start_on_step ? 'aria-current="step"' : ''; ?>><?php esc_html_e( 'Jouw gegevens', 'ftb-donation-form' ); ?></li>
 		</ol>
+
+		<?php // Step indicator as plain text, shown instead of the list in the Minimal style. ?>
+		<p class="ftb-donation-form__step-text">
+			<?php
+			$step_names = array(
+				1 => __( 'Jouw donatie', 'ftb-donation-form' ),
+				2 => __( 'Jouw gegevens', 'ftb-donation-form' ),
+			);
+			foreach ( $step_names as $step_number => $step_name ) :
+				?>
+				<span data-step="<?php echo esc_attr( $step_number ); ?>"<?php echo $step_number !== $start_on_step ? ' hidden' : ''; ?>>
+					<?php
+					/* translators: 1: current step number, 2: total number of steps, 3: step name */
+					echo esc_html( sprintf( __( 'Stap %1$d van %2$d: %3$s', 'ftb-donation-form' ), $step_number, count( $step_names ), $step_name ) );
+					?>
+				</span>
+			<?php endforeach; ?>
+		</p>
 
 		<div class="ftb-donation-form__error-summary" id="ftb-error-summary" role="alert" tabindex="-1" <?php echo empty( $errors ) ? 'hidden' : ''; ?>>
 			<p class="ftb-donation-form__error-summary-title">
@@ -228,7 +250,7 @@ if ( $ftb_color ) {
 				</fieldset>
 
 				<div class="ftb-donation-form__field ftb-donation-form__field--buttons">
-					<button type="button" class="ftb-donation-form__button ftb-donation-form__button--next" id="ftb-next-button"><?php esc_html_e( 'Volgende', 'ftb-donation-form' ); ?></button>
+					<button type="button" class="ftb-donation-form__button<?php echo esc_attr( $ftb_button_class ); ?> ftb-donation-form__button--next" id="ftb-next-button"><?php esc_html_e( 'Volgende', 'ftb-donation-form' ); ?></button>
 				</div>
 			</div>
 
@@ -370,8 +392,8 @@ if ( $ftb_color ) {
 				</fieldset>
 
 				<div class="ftb-donation-form__field ftb-donation-form__field--buttons">
-					<button type="button" class="ftb-donation-form__button ftb-donation-form__button--previous" id="ftb-previous-button"><?php esc_html_e( 'Vorige', 'ftb-donation-form' ); ?></button>
-					<button class="ftb-donation-form__button ftb-donation-form__button--submit" type="submit"><?php echo $enable_recurring ? esc_html__( 'Doneer nu', 'ftb-donation-form' ) : esc_html__( 'Doneer nu eenmalig', 'ftb-donation-form' ); ?></button>
+					<button type="button" class="ftb-donation-form__button<?php echo esc_attr( $ftb_button_class ); ?> ftb-donation-form__button--previous" id="ftb-previous-button"><?php esc_html_e( 'Vorige', 'ftb-donation-form' ); ?></button>
+					<button class="ftb-donation-form__button<?php echo esc_attr( $ftb_button_class ); ?> ftb-donation-form__button--submit" type="submit"><?php echo $enable_recurring ? esc_html__( 'Doneer nu', 'ftb-donation-form' ) : esc_html__( 'Doneer nu eenmalig', 'ftb-donation-form' ); ?></button>
 				</div>
 			</div>
 		</form>

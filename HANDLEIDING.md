@@ -125,6 +125,17 @@ De bevestigingsmail naar de donateur heeft een aanpasbaar onderwerp en berichtte
 
 **Vul bij voorkeur het e-mailadres van de klant in**: donateurs die op de bevestigingsmail antwoorden, mailen naar dit adres. Blijft het veld leeg, dan gebruikt de plugin het beheerdersadres van WordPress (**Instellingen → Algemeen**) als ontvanger en afzender. Een gele melding onder het veld laat zien welk adres dat is.
 
+### Stijl
+| Variant | Uitleg |
+|---|---|
+| Kaart | Formulier in een wit vlak met schaduw en afgeronde hoeken, in de stijl van de plugin. |
+| Vlak | Zoals Kaart, maar zonder schaduw en afgeronde hoeken. |
+| Thema | Het formulier neemt de stijl van het thema over: koppen, labels, invoervelden, links en knoppen. Waar het thema niets voor instelt, gebruikt de plugin zijn eigen stijl als fallback. De bedrag- en frequentiekeuzes blijven klikbare vakken in de tekstkleur van het thema, en de stappen staan als tekst ("Stap 1 van 2: Jouw donatie"). |
+
+De **primaire kleur** bepaalt bij Kaart en Vlak de accentkleur. Bij Thema is het de fallback-kleur: die wordt alleen gebruikt als het thema zelf geen kleur geeft, bijvoorbeeld aan de knoppen. Focusranden en foutmeldingen zijn bij alle varianten van de plugin, vanwege de toegankelijkheid.
+
+**Let op het contrast**: de primaire kleur wordt ook gebruikt als tekstkleur (de knop "Vorige" en de link naar de privacyverklaring). Kies een kleur die donker genoeg is tegen de achtergrond. Bij Thema is het formulier transparant, dus telt de achtergrondkleur van de pagina.
+
 ---
 
 ## Donaties beheren

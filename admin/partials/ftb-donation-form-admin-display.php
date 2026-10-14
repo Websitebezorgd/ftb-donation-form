@@ -474,10 +474,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$form_style         = get_option( 'ftb_form_style', 'card' );
 			$form_primary_color = get_option( 'ftb_form_primary_color', '' );
 			$preview_color      = $form_primary_color ?: '#c42e31';
+			// Internal value "minimal" is kept (CSS class, saved settings); the label is "Thema".
 			$style_options      = array(
-				'card'    => __( 'Kaart', 'ftb-donation-form' ),
-				'flat'    => __( 'Vlak', 'ftb-donation-form' ),
-				'minimal' => __( 'Minimaal', 'ftb-donation-form' ),
+				'card'    => array(
+					'label'       => __( 'Kaart', 'ftb-donation-form' ),
+					'description' => __( 'Bij Kaart staat het formulier in een wit vlak met schaduw, in de stijl van de plugin. Deze kleur wordt gebruikt voor de knoppen, het gekozen bedrag en de actieve stap.', 'ftb-donation-form' ),
+				),
+				'flat'    => array(
+					'label'       => __( 'Vlak', 'ftb-donation-form' ),
+					'description' => __( 'Bij Vlak staat het formulier in een wit vlak zonder schaduw, in de stijl van de plugin. Deze kleur wordt gebruikt voor de knoppen, het gekozen bedrag en de actieve stap.', 'ftb-donation-form' ),
+				),
+				'minimal' => array(
+					'label'       => __( 'Thema', 'ftb-donation-form' ),
+					'description' => __( 'Bij Thema neemt het formulier de stijl van het thema over. Deze kleur wordt dan alleen gebruikt als het thema zelf geen kleur geeft, bijvoorbeeld aan de knoppen.', 'ftb-donation-form' ),
+				),
 			);
 			?>
 			<section class="ftb-admin-form__section">
@@ -491,7 +501,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					<fieldset class="ftb-admin__radio-group ftb-style-picker">
 						<legend class="ftb-admin-form__label"><?php esc_html_e( 'Variant', 'ftb-donation-form' ); ?></legend>
-						<?php foreach ( $style_options as $val => $label ) : ?>
+						<?php foreach ( $style_options as $val => $option ) : ?>
 						<label class="ftb-style-picker__option" for="ftb_form_style_<?php echo esc_attr( $val ); ?>">
 							<input
 								type="radio"
@@ -506,10 +516,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 								</span>
 								<span class="ftb-style-picker__mock-button"></span>
 							</span>
-							<span class="ftb-style-picker__label"><?php echo esc_html( $label ); ?></span>
+							<span class="ftb-style-picker__label"><?php echo esc_html( $option['label'] ); ?></span>
 						</label>
 						<?php endforeach; ?>
 					</fieldset>
+					<?php // Explanation of the selected style and what the colour is used for. ?>
+						<?php foreach ( $style_options as $val => $option ) : ?>
+						<div class="ftb-conditional<?php echo $val === $form_style ? ' is-visible' : ''; ?>" data-show-when="ftb_form_style_<?php echo esc_attr( $val ); ?>=1">
+							<p class="description"><?php echo esc_html( $option['description'] ); ?></p>
+						</div>
+						<?php endforeach; ?>
 
 					<div class="ftb-admin-form__stacked-field">
 						<label class="ftb-admin-form__label" for="ftb_form_primary_color">

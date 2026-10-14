@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const stepIndicators = document.querySelectorAll(
     ".ftb-donation-form__steps li",
   );
+  // Plain-text step indicator used by the Minimal style.
+  const stepTexts = document.querySelectorAll(
+    ".ftb-donation-form__step-text [data-step]",
+  );
   const form = document.querySelector(".ftb-donation-form__form");
 
   const startStep = parseInt(form?.dataset.startStep ?? "1", 10) - 1;
@@ -25,6 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
     stepIndicators.forEach((indicator, i) => {
       indicator.classList.toggle("is-active", i === index);
       indicator.setAttribute("aria-current", i === index ? "step" : "false");
+    });
+    stepTexts.forEach((text, i) => {
+      text.hidden = i !== index;
     });
 
     currentStep = index;
@@ -54,6 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "aria-current",
       i === startStep ? "step" : "false",
     );
+  });
+  stepTexts.forEach((text, i) => {
+    text.hidden = i !== startStep;
   });
 
   // ─────────────────────────────────────────────

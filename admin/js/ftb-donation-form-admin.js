@@ -13,7 +13,8 @@
     function matchesCondition(condition) {
         var parts = condition.split("=");
         var $field = $("#" + parts[0]);
-        var actual = $field.is(":checkbox")
+        // Checkboxes and radio buttons count as "1" when checked, "0" otherwise.
+        var actual = $field.is(":checkbox, :radio")
             ? $field.is(":checked")
                 ? "1"
                 : "0"
@@ -171,8 +172,8 @@
         // Run on page load to reflect saved value
         updateConditionalFields();
 
-        // Re-run whenever any select, checkbox, or text/url/email input changes
-        $('select, input[type="checkbox"]').on(
+        // Re-run whenever any select, checkbox, radio, or text/url/email input changes
+        $('select, input[type="checkbox"], input[type="radio"]').on(
             "change",
             updateConditionalFields,
         );

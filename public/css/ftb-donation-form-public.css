@@ -93,7 +93,8 @@
 }
 
 /* ── Title ────────────────────────────────────────────────────────────────── */
-.ftb-donation-form__title {
+/* Card/Flat only; Minimal uses the theme's heading style (fallback at the end). */
+.ftb-donation-form:not(.ftb-donation-form--style-minimal) .ftb-donation-form__title {
 	font-size: var(--font-size-xl);
 	margin: 0 0 var(--space-6);
 	color: var(--color-text);
@@ -315,13 +316,16 @@
 }
 
 .ftb-donation-form .ftb-donation-form__legend {
-	font-size: var(--font-size-label);
-	font-weight: bold;
-	color: var(--color-text);
 	margin-bottom: var(--space-2);
 	padding: 0;
 	display: block;
 	width: 100%;
+}
+
+.ftb-donation-form:not(.ftb-donation-form--style-minimal) .ftb-donation-form__legend {
+	font-size: var(--font-size-label);
+	font-weight: bold;
+	color: var(--color-text);
 }
 
 /* ── Radio group ──────────────────────────────────────────────────────────── */
@@ -342,7 +346,6 @@
 
 .ftb-donation-form__fieldset--personal .ftb-donation-form__legend {
 	margin-bottom: var(--space-4);
-	font-size: var(--font-size-label);
 }
 
 .ftb-donation-form__fieldset--radio legend {
@@ -446,33 +449,35 @@
 .ftb-donation-form__input-wrapper {
 	display: inline-flex;
 	align-items: stretch;
-	background-color: color-mix(in srgb, var(--color-primary) 12%, var(--color-white));
 	width: max-content;
+}
+
+.ftb-donation-form:not(.ftb-donation-form--style-minimal) .ftb-donation-form__input-wrapper {
+	background-color: color-mix(in srgb, var(--color-primary) 12%, var(--color-white));
 	border-radius: var(--radius-sm);
 }
 
 .ftb-donation-form__currency-prefix {
 	display: flex;
 	align-items: center;
+	font-weight: 600;
+	user-select: none;
+}
+
+.ftb-donation-form:not(.ftb-donation-form--style-minimal) .ftb-donation-form__currency-prefix {
 	padding: var(--space-2) var(--space-3);
 	border: 2px solid var(--color-border);
 	border-right: none;
 	border-radius: var(--radius-sm) 0 0 var(--radius-sm);
 	font-size: var(--font-size-base);
-	font-weight: 600;
-	
-	user-select: none;
 }
 
-.ftb-donation-form__input--amount {
-	padding: var(--space-2) var(--space-3);
-	border: 2px solid var(--color-border);
-	font-size: var(--font-size-base);
-}
-
-.ftb-donation-form__input.ftb-donation-form__input--amount,
-.ftb-donation-form__input.ftb-donation-form__input--amount:focus-visible {
+.ftb-donation-form__input.ftb-donation-form__input--amount {
 	width: 6rem;
+}
+
+/* Joined to the € prefix (Card/Flat). Higher specificity than the general input style. */
+.ftb-donation-form:not(.ftb-donation-form--style-minimal) .ftb-donation-form__input.ftb-donation-form__input--amount {
 	padding: var(--space-2) var(--space-3);
 	border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
@@ -482,16 +487,9 @@
 		width: 100%;
 	}
 
-	.ftb-donation-form__input.ftb-donation-form__input--amount,
-	.ftb-donation-form__input.ftb-donation-form__input--amount:focus-visible {
+	.ftb-donation-form__input.ftb-donation-form__input--amount {
 		width: 100%;
 	}
-}
-
-.ftb-donation-form__input--amount:focus-visible {
-	outline: 3px solid var(--color-focus);
-	outline-offset: 3px;
-	border-color: var(--color-primary);
 }
 
 /* ── Field ────────────────────────────────────────────────────────────────── */
@@ -527,7 +525,7 @@
 }
 
 /* ── Label ────────────────────────────────────────────────────────────────── */
-.ftb-donation-form .ftb-donation-form__label {
+.ftb-donation-form:not(.ftb-donation-form--style-minimal) .ftb-donation-form__label {
 	font-size: var(--font-size-label);
 	font-weight: 600;
 	color: var(--color-text);
@@ -536,13 +534,16 @@
 /* ── Input ────────────────────────────────────────────────────────────────── */
 .ftb-donation-form__input {
 	width: 100%;
+	box-sizing: border-box;
+}
+
+.ftb-donation-form:not(.ftb-donation-form--style-minimal) .ftb-donation-form__input {
 	padding: var(--space-3);
 	border: 2px solid var(--color-border);
 	border-radius: var(--radius-sm);
 	font-size: var(--font-size-base);
 	color: var(--color-text);
 	background: var(--color-white);
-	box-sizing: border-box;
 	transition: border-color var(--transition);
 }
 
@@ -550,23 +551,28 @@
 	margin-bottom: var(--space-2);
 }
 
-.ftb-donation-form__input:hover {
+.ftb-donation-form:not(.ftb-donation-form--style-minimal) .ftb-donation-form__input:hover {
 	border-color: var(--color-border-hover);
 }
 
-.ftb-donation-form__input:focus-visible {
-	outline: 3px solid var(--color-focus);
-	outline-offset: 2px;
-	border-color: var(--color-primary);
-}
-
 /* Error state: red border + icon, not color alone (WCAG 1.4.1) */
-.ftb-donation-form__input--error {
+.ftb-donation-form .ftb-donation-form__input.ftb-donation-form__input--error {
 	border-color: var(--color-error);
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='%23c0392b'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/%3E%3C/svg%3E");
 	background-repeat: no-repeat;
 	background-position: right var(--space-3) center;
 	padding-right: 2.5rem;
+}
+
+/* Focus: same specificity as the Card/Flat input style and later, so it wins. */
+.ftb-donation-form .ftb-donation-form__input:focus-visible {
+	outline: 3px solid var(--color-focus);
+	outline-offset: 2px;
+	border-color: var(--color-primary);
+}
+
+.ftb-donation-form .ftb-donation-form__input--amount:focus-visible {
+	outline-offset: 3px;
 }
 
 /* ── Inline field error ───────────────────────────────────────────────────── */
@@ -626,11 +632,14 @@
 }
 
 .ftb-donation-form__privacy-link {
-	color: var(--color-link);
-	font-size: var(--font-size-base);
 	text-decoration: underline !important;
 	display: block;
 	margin-bottom: var(--space-4);
+}
+
+.ftb-donation-form:not(.ftb-donation-form--style-minimal) .ftb-donation-form__privacy-link {
+	color: var(--color-link);
+	font-size: var(--font-size-base);
 }
 
 .ftb-donation-form__checkbox-wrapper {
@@ -724,7 +733,8 @@
 	border-color: var(--color-focus);
 }
 
-.ftb-donation-form__button--next {
+/* Extra class in the selector: themes reset button width (e.g. Hello Elementor: width: auto). */
+.ftb-donation-form .ftb-donation-form__button--next {
 	width: 100%;
 }
 
@@ -783,5 +793,93 @@
 
 	.ftb-donation-form__button {
 	width: 100% !important;
+	}
+}
+
+/* ── Stijl: Minimaal ──────────────────────────────────────────────────────── */
+/* The theme styles the form. Set here: layout, accessibility and the option
+   tiles (a theme has no style for these). Title, labels, fields and the privacy
+   link use the plugin style below only as a fallback; buttons already do (:where). */
+
+.ftb-donation-form--style-minimal .ftb-donation-form__steps {
+	display: none;
+}
+
+.ftb-donation-form__step-text {
+	display: none;
+}
+
+.ftb-donation-form--style-minimal .ftb-donation-form__step-text {
+	display: block;
+	margin: 0 0 var(--space-6);
+	font-weight: bold;
+}
+
+.ftb-donation-form--style-minimal .ftb-donation-form__step-intro,
+.ftb-donation-form--style-minimal .ftb-donation-form__required-note {
+	color: inherit;
+}
+
+/* Option tiles in the theme's text colour. */
+.ftb-donation-form--style-minimal .ftb-donation-form__radio-label {
+	color: inherit;
+	border-color: color-mix(in srgb, currentColor 35%, transparent);
+}
+
+.ftb-donation-form--style-minimal .ftb-donation-form__radio-label:hover {
+	border-color: currentColor;
+}
+
+.ftb-donation-form--style-minimal .ftb-donation-form__radio:checked + .ftb-donation-form__radio-label {
+	color: inherit;
+	border-color: currentColor;
+	background-color: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+/* Keyboard focus stays on top of the checked style. */
+.ftb-donation-form--style-minimal .ftb-donation-form__radio:focus-visible + .ftb-donation-form__radio-label {
+	color: var(--color-white);
+	border-color: var(--color-focus);
+	background-color: var(--color-focus);
+}
+
+.ftb-donation-form--style-minimal .ftb-donation-form__input-wrapper {
+	align-items: center;
+	gap: var(--space-2);
+}
+
+/* Fallback: the plugin style for Minimal, used only where the theme sets nothing.
+   Any theme rule (outside a layer) wins over a layer, whatever its specificity. */
+@layer ftb-donation-form-fallback {
+	.ftb-donation-form--style-minimal .ftb-donation-form__title {
+		font-size: var(--font-size-xl);
+		margin: 0 0 var(--space-6);
+	}
+
+	.ftb-donation-form--style-minimal .ftb-donation-form__legend {
+		font-size: var(--font-size-label);
+		font-weight: bold;
+	}
+
+	.ftb-donation-form--style-minimal .ftb-donation-form__label {
+		font-size: var(--font-size-label);
+		font-weight: 600;
+	}
+
+	.ftb-donation-form--style-minimal .ftb-donation-form__input {
+		padding: var(--space-3);
+		border: 2px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		font-size: var(--font-size-base);
+		color: inherit;
+		background: var(--color-white);
+	}
+
+	.ftb-donation-form--style-minimal .ftb-donation-form__input:hover {
+		border-color: var(--color-border-hover);
+	}
+
+	.ftb-donation-form--style-minimal .ftb-donation-form__privacy-link {
+		color: var(--color-link);
 	}
 }

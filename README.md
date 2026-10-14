@@ -64,7 +64,7 @@ Recurring payments are also built: the plugin creates a Mollie customer and firs
 - GDPR consent checkbox with link to privacy statement
 - Client-side and server-side validation with accessible error summary
 - Full keyboard navigation, screen reader support, WCAG 2.2
-- Colour tokens overridable per site via CSS custom properties on `.ftb-donation-form`; style variant classes (`--style-card`, `--style-flat`, `--style-minimal`) applied automatically based on admin setting
+- Colour tokens overridable per site via CSS custom properties on `.ftb-donation-form`; style variant classes (`--style-card`, `--style-flat`, `--style-minimal`) applied automatically based on admin setting. Card/Flat visual rules are scoped with `:not(.ftb-donation-form--style-minimal)`; Minimal lets the theme style headings, labels, fields, links and buttons and only falls back to the plugin style via `@layer ftb-donation-form-fallback` (any unlayered theme rule wins). On block themes, Minimal buttons also get `wp-element-button` so the theme.json button style applies (not on classic themes, where WordPress would add its default button style). Layout, focus and error styles always apply
 - Adapts to container width — works inside Elementor columns and any page builder
 
 ### Mollie payments

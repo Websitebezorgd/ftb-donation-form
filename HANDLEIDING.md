@@ -134,7 +134,9 @@ De bevestigingsmail naar de donateur heeft een aanpasbaar onderwerp en berichtte
 
 De **primaire kleur** bepaalt bij Kaart en Vlak de accentkleur. Bij Thema is het de fallback-kleur: die wordt alleen gebruikt als het thema zelf geen kleur geeft, bijvoorbeeld aan de knoppen. Focusranden en foutmeldingen zijn bij alle varianten van de plugin, vanwege de toegankelijkheid.
 
-**Let op het contrast**: de primaire kleur wordt ook gebruikt als tekstkleur (de knop "Vorige" en de link naar de privacyverklaring). Kies een kleur die donker genoeg is tegen de achtergrond. Bij Thema is het formulier transparant, dus telt de achtergrondkleur van de pagina.
+Bij **Kaart en Vlak** wordt de primaire kleur afgedwongen op de knoppen en het gekozen bedrag of de gekozen frequentie, ook als het thema eigen knopstijlen heeft.
+
+**Contrast wordt automatisch bewaakt**: de plugin kiest zelf witte of zwarte tekst op de primaire kleur, en maakt de kleur donkerder waar hij als tekst op wit staat (de knop "Vorige" en de link naar de privacyverklaring). Daardoor is het contrast altijd minimaal 4,5:1 (WCAG). Een lichte kleur geeft dus zwarte tekst op de knop. Bij Thema bepaalt het thema de knoppen; let daar zelf op het contrast met de achtergrond van de pagina.
 
 ---
 

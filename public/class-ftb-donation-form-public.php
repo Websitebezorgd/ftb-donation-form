@@ -211,6 +211,117 @@ class FTB_Donation_Form_Public {
 		return new WP_REST_Response( null, 200 );
 	}
 
+	/**
+	 * CSS custom properties for a primary colour, with text colours that meet WCAG 4.5:1.
+	 *
+	 * --color-on-primary:    text on the primary colour (white or black, whichever contrasts most;
+	 *                        one of the two always reaches 4.5:1).
+	 * --color-primary-hover: background on hover, moved away from the text colour so contrast
+	 *                        only increases.
+	 * --color-primary-text:  the primary colour as text on white (e.g. "Vorige", privacy link),
+	 *                        darkened until it reaches 4.5:1.
+	 *
+	 * @param string $hex   Colour used to calculate the tokens (#rgb or #rrggbb).
+	 * @param string $value Value for --color-primary; defaults to $hex (e.g. a CSS variable with $hex as fallback).
+	 * @return string Inline CSS declarations, or '' for an invalid colour.
+	 */
+	public static function primary_color_tokens( string $hex, string $value = '' ): string {
+		$rgb = self::hex_to_rgb( $hex );
+		if ( ! $rgb ) {
+			return '';
+		}
+
+		$white = array( 255, 255, 255 );
+		$black = array( 0, 0, 0 );
+		$on    = self::contrast_ratio( $rgb, $white ) >= self::contrast_ratio( $rgb, $black ) ? $white : $black;
+		$hover = self::mix_rgb( $rgb, $white === $on ? $black : $white, 0.15 );
+
+		$text  = $rgb;
+		$steps = 0;
+		while ( $steps++ < 20 && self::contrast_ratio( $text, $white ) < 4.5 ) {
+			$text = self::mix_rgb( $text, $black, 0.1 );
+		}
+
+		return sprintf(
+			'--color-primary:%s;--color-on-primary:%s;--color-primary-hover:%s;--color-primary-text:%s;',
+			$value ? $value : self::rgb_to_hex( $rgb ),
+			self::rgb_to_hex( $on ),
+			self::rgb_to_hex( $hover ),
+			self::rgb_to_hex( $text )
+		);
+	}
+
+	/**
+	 * Primary colour of the active Elementor kit, or '' when not available.
+	 */
+	public static function elementor_primary_color(): string {
+		if ( ! class_exists( '\Elementor\Plugin' ) || ! isset( \Elementor\Plugin::$instance->kits_manager ) ) {
+			return '';
+		}
+		$kit = \Elementor\Plugin::$instance->kits_manager->get_active_kit();
+		if ( ! $kit ) {
+			return '';
+		}
+		$settings = get_post_meta( $kit->get_id(), '_elementor_page_settings', true );
+		foreach ( (array) ( $settings['system_colors'] ?? array() ) as $color ) {
+			if ( 'primary' === ( $color['_id'] ?? '' ) && ! empty( $color['color'] ) ) {
+				return (string) $color['color'];
+			}
+		}
+		return '';
+	}
+
+	/**
+	 * @return int[]|null RGB values, or null for an invalid hex colour.
+	 */
+	private static function hex_to_rgb( string $hex ): ?array {
+		$hex = ltrim( trim( $hex ), '#' );
+		if ( 3 === strlen( $hex ) ) {
+			$hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+		}
+		if ( ! preg_match( '/^[0-9a-f]{6}$/i', $hex ) ) {
+			return null;
+		}
+		return array( hexdec( substr( $hex, 0, 2 ) ), hexdec( substr( $hex, 2, 2 ) ), hexdec( substr( $hex, 4, 2 ) ) );
+	}
+
+	private static function rgb_to_hex( array $rgb ): string {
+		return sprintf( '#%02x%02x%02x', ...array_map( 'intval', array_map( 'round', $rgb ) ) );
+	}
+
+	/**
+	 * Mix $rgb with $with by $amount (0–1).
+	 */
+	private static function mix_rgb( array $rgb, array $with, float $amount ): array {
+		return array_map(
+			static function ( $a, $b ) use ( $amount ) {
+				return $a + ( $b - $a ) * $amount;
+			},
+			$rgb,
+			$with
+		);
+	}
+
+	/**
+	 * WCAG 2 contrast ratio between two RGB colours.
+	 */
+	private static function contrast_ratio( array $a, array $b ): float {
+		$luminance = static function ( array $rgb ): float {
+			$c = array_map(
+				static function ( $v ) {
+					$v /= 255;
+					return $v <= 0.03928 ? $v / 12.92 : ( ( $v + 0.055 ) / 1.055 ) ** 2.4;
+				},
+				$rgb
+			);
+			return 0.2126 * $c[0] + 0.7152 * $c[1] + 0.0722 * $c[2];
+		};
+
+		$la = $luminance( $a );
+		$lb = $luminance( $b );
+		return ( max( $la, $lb ) + 0.05 ) / ( min( $la, $lb ) + 0.05 );
+	}
+
 	public function register_shortcodes() {
 		add_shortcode( 'ftb_donation_form', array( $this, 'render_donation_form' ) );
 	}

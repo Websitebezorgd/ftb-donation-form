@@ -124,13 +124,22 @@
             return;
         }
 
+        // Same rule as FTB_Donation_Form_Public::primary_color_tokens(): white or black,
+        // whichever has the higher WCAG contrast (one of the two always reaches 4.5:1).
         function onColor(hex) {
-            var r = parseInt(hex.slice(1, 3), 16);
-            var g = parseInt(hex.slice(3, 5), 16);
-            var b = parseInt(hex.slice(5, 7), 16);
-            return 0.299 * r + 0.587 * g + 0.114 * b > 128
-                ? "#1a1a1a"
-                : "#ffffff";
+            var luminance = [1, 3, 5]
+                .map(function (i) {
+                    var v = parseInt(hex.slice(i, i + 2), 16) / 255;
+                    return v <= 0.03928
+                        ? v / 12.92
+                        : Math.pow((v + 0.055) / 1.055, 2.4);
+                })
+                .reduce(function (sum, v, i) {
+                    return sum + v * [0.2126, 0.7152, 0.0722][i];
+                }, 0);
+            var onWhite = 1.05 / (luminance + 0.05);
+            var onBlack = (luminance + 0.05) / 0.05;
+            return onWhite >= onBlack ? "#ffffff" : "#000000";
         }
 
         function applyColor(color) {

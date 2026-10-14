@@ -303,6 +303,17 @@ All webhook-dependent features require a live HTTPS server.
 - [x] Frequency and amount radio groups work correctly with Windows Narrator
 - [x] Step indicator announced correctly — `aria-current="step"` on the `<li>` is sufficient; aria-live caused double announcements so was not added
 
+### Accessibility — frontend form (axe-core + keyboard, 2026-10-14)
+- [x] Error summary links for frequency and amount pointed to non-existent IDs — now point to the radio / custom amount input; clicking a link opens the right step and moves focus
+- [x] Server-side errors and the message after returning from Mollie now receive focus on page load (`role="alert"` is not announced on load)
+- [x] Errors on both steps: the form opens on step 1 instead of step 2
+- [x] `aria-expanded` removed from the "Anders" radio (not allowed on radios)
+- [x] Custom amount input gets `aria-invalid` and `aria-describedby` for its error
+- [x] Error summary links at least 24px high (WCAG 2.5.8)
+- [x] Removed meaningless `aria-describedby` on the wrapper and the incorrect `autocomplete="address-line2"` on house number
+- [ ] Manual test with NVDA (Firefox/Chrome) and Narrator (Edge)
+- [ ] Mobile test with VoiceOver (iOS) / TalkBack (Android)
+
 ### Accessibility — admin dashboard
 Found via WAVE + Narrator:
 - [x] **Lege link (WAVE)** — Iris color picker drag-handles verborgen via `aria-hidden`, `tabindex="-1"` en `role="presentation"` na `wpColorPicker()` init

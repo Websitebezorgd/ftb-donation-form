@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const startStep = parseInt(form?.dataset.startStep ?? "1", 10) - 1;
   let currentStep = startStep;
 
-  function goToStep(index) {
+  function goToStep(index, moveFocus = true) {
     steps.forEach((step, i) => {
       const active = i === index;
       step.classList.toggle("is-active", active);
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     currentStep = index;
-    focusFirstInput(index);
+    if (moveFocus) focusFirstInput(index);
   }
 
   function focusFirstInput(stepIndex) {
@@ -60,6 +60,31 @@ document.addEventListener("DOMContentLoaded", () => {
   // ERROR SUMMARY MANAGEMENT
   // ─────────────────────────────────────────────
 
+  // Radio groups have no element with the field's own ID, so error summary links
+  // point to the control the user has to change. Error IDs are "ftb-{field}-error".
+  function errorTargetId(errorId) {
+    const fieldId = errorId.replace(/-error$/, "");
+
+    if (fieldId === "ftb-frequency") {
+      const radio =
+        document.querySelector('input[name="ftb_frequency"]:checked') ??
+        document.querySelector('input[name="ftb_frequency"]');
+      return radio?.id ?? "";
+    }
+
+    if (fieldId === "ftb-amount") {
+      const custom = document.querySelector("#ftb-custom-amount");
+      const customBox = document.querySelector("#ftb-custom-amount-wrapper");
+      if (custom && !customBox?.hidden) return custom.id;
+      const radio =
+        document.querySelector('input[name="ftb_amount"]:checked') ??
+        document.querySelector('input[type="radio"][name="ftb_amount"]');
+      return radio?.id ?? "";
+    }
+
+    return fieldId;
+  }
+
   function syncErrorSummary(stepIndex) {
     const activeStep = steps[stepIndex];
     const summary = document.querySelector(".ftb-donation-form__error-summary");
@@ -71,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ".ftb-donation-form__error:not([hidden])",
     );
 
-    list.innerHTML = "";
+    list.replaceChildren();
 
     if (visibleErrors.length === 0) {
       summary.hidden = true;
@@ -79,15 +104,41 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     visibleErrors.forEach((error) => {
-      // Error IDs follow the pattern "ftb-{field}-error"; derive field ID by stripping "-error"
-      const fieldId = error.id.replace(/-error$/, "");
       const li = document.createElement("li");
-      li.innerHTML = `<a href="#${fieldId}">${error.textContent}</a>`;
+      const targetId = errorTargetId(error.id);
+      if (targetId && document.getElementById(targetId)) {
+        const link = document.createElement("a");
+        link.href = `#${targetId}`;
+        link.textContent = error.textContent;
+        li.appendChild(link);
+      } else {
+        li.textContent = error.textContent;
+      }
       list.appendChild(li);
     });
 
     summary.hidden = false;
   }
+
+  // Error summary links: open the step the field is on and move focus to it.
+  // A plain anchor jump would only scroll, and cannot reach a hidden step.
+  document
+    .querySelector(".ftb-donation-form__error-summary")
+    ?.addEventListener("click", (e) => {
+      const link = e.target.closest("a[href^='#']");
+      const target = link && document.getElementById(link.hash.slice(1));
+      if (!target) return;
+
+      e.preventDefault();
+      const stepIndex = Array.from(steps).indexOf(
+        target.closest(".ftb-donation-form__step"),
+      );
+      if (stepIndex !== -1 && stepIndex !== currentStep) {
+        goToStep(stepIndex, false);
+      }
+      target.focus();
+      target.scrollIntoView({ block: "center" });
+    });
 
   // ─────────────────────────────────────────────
   // VALIDATION
@@ -124,6 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!customAmount?.value || Number(customAmount.value) < minAmount) {
           amountError.textContent = ftbDonationForm?.i18n?.errorCustom ?? amountError.textContent;
           amountError.hidden = false;
+          customAmount?.setAttribute("aria-invalid", "true");
           isValid = false;
         }
       } else {
@@ -138,6 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
             amountError.textContent = ftbDonationForm?.i18n?.errorCustom ?? amountError.textContent;
             amountError.hidden = false;
             activeStep.querySelectorAll('input[name="ftb_amount"]').forEach((r) => r.setAttribute("aria-invalid", "true"));
+            customAmount?.setAttribute("aria-invalid", "true");
             isValid = false;
           }
         }
@@ -215,7 +268,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     customAmountBox.hidden = !isVisible;
 
-    if (customRadio) customRadio.setAttribute("aria-expanded", String(isVisible));
     customAmountInput.setAttribute("aria-required", String(isVisible));
     customAmountInput.required = isVisible;
 
@@ -256,6 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (Number(customAmountInput.value) >= minAmount) {
       const amountError = document.querySelector("#ftb-amount-error");
       if (amountError) amountError.hidden = true;
+      customAmountInput.setAttribute("aria-invalid", "false");
       syncErrorSummary(currentStep);
     }
   });
@@ -316,4 +369,18 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
     }
   });
+
+  // ─────────────────────────────────────────────
+  // FOCUS ON PAGE LOAD
+  // ─────────────────────────────────────────────
+
+  // After a reload with server errors or a return from Mollie, move focus to the
+  // message so screen readers read it (role="alert" is not announced on page load).
+  const loadSummary = document.querySelector(".ftb-donation-form__error-summary");
+  const paymentMessage = document.querySelector(".ftb-donation-form__payment-message");
+  if (loadSummary && !loadSummary.hidden) {
+    loadSummary.focus();
+  } else if (paymentMessage) {
+    paymentMessage.focus();
+  }
 });

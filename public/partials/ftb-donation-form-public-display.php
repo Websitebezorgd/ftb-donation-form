@@ -49,7 +49,7 @@ if ( $ftb_color ) {
 // Geen kleur en geen Elementor — CSS tokens uit de stylesheet gelden.
 ?>
 
-<div class="ftb-donation-form ftb-donation-form--style-<?php echo esc_attr( $ftb_style ); ?>"<?php echo $ftb_inline_style ? ' style="' . esc_attr( $ftb_inline_style ) . '"' : ''; ?> aria-describedby="ftb-donation-title">
+<div class="ftb-donation-form ftb-donation-form--style-<?php echo esc_attr( $ftb_style ); ?>"<?php echo $ftb_inline_style ? ' style="' . esc_attr( $ftb_inline_style ) . '"' : ''; ?>>
 
 	<?php if ( $success ) : ?>
 
@@ -62,20 +62,40 @@ if ( $ftb_color ) {
 		<h2 id="ftb-donation-title" class="ftb-donation-form__title"><?php echo esc_html( $title ); ?></h2>
 
 		<?php if ( $payment_message ) : ?>
-			<div class="ftb-donation-form__payment-message <?php echo esc_attr( $payment_message_class ); ?>" role="alert">
+			<div class="ftb-donation-form__payment-message <?php echo esc_attr( $payment_message_class ); ?>" role="alert" tabindex="-1">
 				<?php echo esc_html( $payment_message ); ?>
 			</div>
 		<?php endif; ?>
 
 		<?php
+		// Open on step 2 only when all errors are there; step 1 errors come first.
+		$step1_fields  = array( 'frequency', 'amount' );
 		$step2_fields  = array( 'name', 'email', 'gdpr', 'phone', 'street', 'house_number', 'postal_code', 'city' );
 		$start_on_step = 1;
-		foreach ( $step2_fields as $f ) {
-			if ( ! empty( $errors[ $f ] ) ) {
-				$start_on_step = 2;
-				break;
-			}
+		if ( ! array_intersect_key( $errors, array_flip( $step1_fields ) ) && array_intersect_key( $errors, array_flip( $step2_fields ) ) ) {
+			$start_on_step = 2;
 		}
+
+		$custom_amount_selected = $allow_custom && ( ! $show_presets || 'custom' === $old( 'amount' ) );
+
+		// Radio groups have no element with the field's own ID, so error summary
+		// links point to the control the user has to change.
+		$error_target = static function ( $field ) use ( $enable_recurring, $amount_options, $show_presets, $custom_amount_selected, $old ) {
+			if ( 'frequency' === $field ) {
+				return $enable_recurring ? 'ftb-frequency-' . ( $old( 'frequency' ) ? $old( 'frequency' ) : 'one_time' ) : '';
+			}
+			if ( 'amount' === $field ) {
+				if ( $custom_amount_selected ) {
+					return 'ftb-custom-amount';
+				}
+				$selected = in_array( $old( 'amount' ), $amount_options, true ) ? $old( 'amount' ) : ( $amount_options[0] ?? '' );
+				return $show_presets && '' !== $selected ? 'ftb-amount-' . $selected : '';
+			}
+			if ( 'payment' === $field ) {
+				return '';
+			}
+			return 'ftb-' . str_replace( '_', '-', $field );
+		};
 		?>
 
 		<ol class="ftb-donation-form__steps">
@@ -89,7 +109,12 @@ if ( $ftb_color ) {
 			</p>
 			<ul class="ftb-donation-form__error-list">
 				<?php foreach ( $errors as $field => $message ) : ?>
-					<li><a href="#ftb-<?php echo esc_attr( $field ); ?>"><?php echo esc_html( $message ); ?></a></li>
+					<?php $target = $error_target( $field ); ?>
+					<?php if ( $target ) : ?>
+						<li><a href="#<?php echo esc_attr( $target ); ?>"><?php echo esc_html( $message ); ?></a></li>
+					<?php else : ?>
+						<li><?php echo esc_html( $message ); ?></li>
+					<?php endif; ?>
 				<?php endforeach; ?>
 			</ul>
 		</div>
@@ -193,7 +218,8 @@ if ( $ftb_color ) {
 									step="0.01"
 									value="<?php echo esc_attr( $old( 'custom_amount' ) ); ?>"
 									aria-required="<?php echo ( $custom_always_visible || $old( 'amount' ) === 'custom' ) ? 'true' : 'false'; ?>"
-									aria-invalid="false">
+									aria-invalid="<?php echo ( $custom_amount_selected && ! empty( $errors['amount'] ) ) ? 'true' : 'false'; ?>"
+									aria-describedby="ftb-amount-error">
 							</div>
 						</div>
 					<?php endif; ?>
@@ -279,8 +305,7 @@ if ( $ftb_color ) {
 										type="text"
 										name="ftb_house_number"
 										id="ftb-house-number"
-										value="<?php echo esc_attr( $old( 'house_number' ) ); ?>"
-										autocomplete="address-line2">
+										value="<?php echo esc_attr( $old( 'house_number' ) ); ?>">
 								</div>
 							<?php endif; ?>
 						</div>

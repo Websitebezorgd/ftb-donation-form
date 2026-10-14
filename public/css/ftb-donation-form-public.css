@@ -213,6 +213,9 @@
 }
 
 .ftb-donation-form__error-list a {
+	display: inline-block;
+	min-height: 24px; /* WCAG 2.5.8 target size */
+	padding-block: 0.125rem;
 	color: var(--color-error);
 	text-decoration: underline;
 }

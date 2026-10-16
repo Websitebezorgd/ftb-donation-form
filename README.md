@@ -363,6 +363,12 @@ Fix the first group before the next live test on SiteGround, otherwise the tests
 - [ ] **Hide recurring options when Mollie can't do recurring** — when SEPA Direct Debit is not active in Mollie (e.g. rejected), donors can still choose monthly/yearly and only get "Terugkerende betalingen zijn momenteel niet beschikbaar" after filling in the whole form. Hide the frequency choice in that case and show a warning in the admin settings. Cache the result of `is_recurring_available()` (e.g. a transient refreshed when the API key or settings are saved) instead of calling Mollie on every page load
 - [ ] **Failed subscription creation is invisible** — only logged when `WP_DEBUG` is on. Show an admin notice or retry
 
+**Wishes:**
+- [ ] **Choose the thank-you page instead of only pasting a URL** — like inserting a link in a post: search pages and posts, or paste a URL. Also store the chosen post ID, so the redirect follows a changed slug, and fall back to the thank-you message when the page is no longer published. Options investigated (2026-10-16):
+  - **A. Classic WordPress link dialog (`wpLink`)** — built and tested, then reverted. Works well with the keyboard (dialog role, focus trap, Escape, focus back to the field — needs a manual focus fix on open and close). Weak for screen readers: search results are not announced and the arrow-key selection is not exposed (plain `<ul>`, no `aria-activedescendant`). Core WordPress limitation; pasting a URL stays fully accessible
+  - **B. Block editor `LinkControl`** — not recommended: only available as `__experimentalLinkControl` (may break on WordPress updates), needs block-editor context and ~1 MB extra scripts, React without a build step
+  - **Middle way (preferred if built)** — own search field with suggestions on the stable REST endpoint `/wp/v2/search`, built as an accessible ARIA combobox (results count announced, selected option exposed). Estimate: half a day
+
 **Cleanup:**
 - [ ] `vendor/composer/*` and `vendor/autoload.php` are tracked in git despite `vendor/` in `.gitignore` — remove with `git rm -r --cached vendor`
 - [ ] Duplicate orphan docblock in `includes/class-ftb-mollie-service.php` (above `create_customer()`)

@@ -641,7 +641,7 @@ if ( current_user_can( 'manage_options' ) ) :
 
 	<?php
 		$managers_saved     = isset( $_GET['managers_saved'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$editor_access_mode = get_option( 'ftb_editor_access_mode', 'all' );
+		$editor_access_mode = get_option( 'ftb_editor_access_mode', FTB_Access::DEFAULT_MODE );
 		$designated_ids     = array_map( 'absint', (array) get_option( 'ftb_designated_managers', array() ) );
 	?>
 
@@ -664,6 +664,13 @@ if ( current_user_can( 'manage_options' ) ) :
 				<fieldset class="ftb-admin__radio-group">
 					<legend class="screen-reader-text"><?php esc_html_e( 'Toegangsniveau', 'ftb-donation-form' ); ?></legend>
 					<div class="ftb-toggle-group">
+						<label class="ftb-toggle" for="ftb_editor_access_mode_admin_only">
+							<input class="ftb-toggle__input" type="radio" id="ftb_editor_access_mode_admin_only" name="ftb_editor_access_mode" value="admin_only" <?php checked( $editor_access_mode, 'admin_only' ); ?>>
+							<span class="ftb-toggle__slider" aria-hidden="true"></span>
+							<span><?php esc_html_e( 'Alleen beheerders', 'ftb-donation-form' ); ?></span>
+						</label>
+					</div>
+					<div class="ftb-toggle-group">
 						<label class="ftb-toggle" for="ftb_editor_access_mode_all">
 							<input class="ftb-toggle__input" type="radio" id="ftb_editor_access_mode_all" name="ftb_editor_access_mode" value="all" <?php checked( $editor_access_mode, 'all' ); ?>>
 							<span class="ftb-toggle__slider" aria-hidden="true"></span>
@@ -679,13 +686,6 @@ if ( current_user_can( 'manage_options' ) ) :
 						</label>
 					</div>
 					<?php endif; ?>
-					<div class="ftb-toggle-group">
-						<label class="ftb-toggle" for="ftb_editor_access_mode_admin_only">
-							<input class="ftb-toggle__input" type="radio" id="ftb_editor_access_mode_admin_only" name="ftb_editor_access_mode" value="admin_only" <?php checked( $editor_access_mode, 'admin_only' ); ?>>
-							<span class="ftb-toggle__slider" aria-hidden="true"></span>
-							<span><?php esc_html_e( 'Alleen beheerders', 'ftb-donation-form' ); ?></span>
-						</label>
-					</div>
 				</fieldset>
 				<fieldset id="ftb-specific-editors" class="ftb-admin-form__stacked-field<?php echo 'specific' !== $editor_access_mode ? ' is-hidden' : ''; ?>">
 					<?php if ( $editor_users ) : ?>

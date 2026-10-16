@@ -34,6 +34,8 @@ define( 'FTB_DONATION_FORM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 // Include core files.
 require_once FTB_DONATION_FORM_PLUGIN_DIR . 'includes/class-ftb-donation-form.php';
+// Loaded here (not via the loader) because activation needs it too.
+require_once FTB_DONATION_FORM_PLUGIN_DIR . 'includes/class-ftb-access.php';
 
 // Initialize the plugin.
 function ftb_donation_form_init() {
@@ -45,15 +47,6 @@ add_action( 'plugins_loaded', 'ftb_donation_form_init' );
 // Activation hook.
 register_activation_hook( __FILE__, 'ftb_donation_form_activate' );
 function ftb_donation_form_activate() {
-	$admin = get_role( 'administrator' );
-	if ( $admin ) {
-		$admin->add_cap( 'ftb_manage_settings' );
-	}
-	// Default: all editors have access.
-	$editor = get_role( 'editor' );
-	if ( $editor ) {
-		$editor->add_cap( 'ftb_manage_settings' );
-	}
 	global $wpdb;
 
 	$table_name      = $wpdb->prefix . 'ftb_donations';
@@ -113,8 +106,14 @@ function ftb_donation_form_activate() {
 	add_option( 'ftb_email_admin_notification', '0' );
 	add_option( 'ftb_email_sender_address', '' );
 	add_option( 'ftb_db_version', FTB_DONATION_FORM_DB_VERSION );
-	add_option( 'ftb_editor_access_mode', 'all' );
+	// New installation: administrators only. An existing choice is kept (add_option never overwrites).
+	add_option( 'ftb_editor_access_mode', FTB_Access::DEFAULT_MODE );
 	add_option( 'ftb_designated_managers', array() );
+
+	// Apply the saved access choice again: deactivating removes all capabilities.
+	$designated = array_map( 'absint', (array) get_option( 'ftb_designated_managers', array() ) );
+	$granted    = FTB_Access::apply( (string) get_option( 'ftb_editor_access_mode', FTB_Access::DEFAULT_MODE ), $designated, $designated );
+	update_option( 'ftb_designated_managers', $granted );
 }
 
 // DB migration — runs on every page load but exits early once the version matches.

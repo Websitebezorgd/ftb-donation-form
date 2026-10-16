@@ -671,62 +671,18 @@ class FTB_Donation_Form_Admin {
 		}
 		check_admin_referer( 'ftb_save_managers' );
 
-		$old_mode = get_option( 'ftb_editor_access_mode', 'all' );
-		$allowed  = array( 'all', 'specific', 'admin_only' );
 		$raw_mode = isset( $_POST['ftb_editor_access_mode'] ) ? sanitize_key( wp_unslash( $_POST['ftb_editor_access_mode'] ) ) : '';
-		$new_mode = in_array( $raw_mode, $allowed, true ) ? $raw_mode : 'all';
+		$new_mode = in_array( $raw_mode, FTB_Access::MODES, true ) ? $raw_mode : FTB_Access::DEFAULT_MODE;
 
-		$editor = get_role( 'editor' );
+		$old_ids = array_map( 'absint', (array) get_option( 'ftb_designated_managers', array() ) );
+		$new_ids = isset( $_POST['ftb_designated_managers'] )
+			? array_map( 'absint', (array) $_POST['ftb_designated_managers'] ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+			: array();
 
-		if ( 'all' === $new_mode ) {
-			if ( $editor ) {
-				$editor->add_cap( 'ftb_manage_settings' );
-			}
-			// Remove user-level caps from previously designated managers.
-			foreach ( array_map( 'absint', (array) get_option( 'ftb_designated_managers', array() ) ) as $id ) {
-				$user = get_user_by( 'id', $id );
-				if ( $user && ! $user->has_cap( 'manage_options' ) ) {
-					$user->remove_cap( 'ftb_manage_settings' );
-				}
-			}
-			update_option( 'ftb_designated_managers', array() );
-		} elseif ( 'admin_only' === $new_mode ) {
-			if ( $editor ) {
-				$editor->remove_cap( 'ftb_manage_settings' );
-			}
-			foreach ( array_map( 'absint', (array) get_option( 'ftb_designated_managers', array() ) ) as $id ) {
-				$user = get_user_by( 'id', $id );
-				if ( $user && ! $user->has_cap( 'manage_options' ) ) {
-					$user->remove_cap( 'ftb_manage_settings' );
-				}
-			}
-			update_option( 'ftb_designated_managers', array() );
-		} else {
-			if ( 'all' === $old_mode && $editor ) {
-				$editor->remove_cap( 'ftb_manage_settings' );
-			}
+		// Same function as on activation, so the screen and the actual access always match.
+		$granted = FTB_Access::apply( $new_mode, $new_ids, $old_ids );
 
-			$old_ids = array_map( 'absint', (array) get_option( 'ftb_designated_managers', array() ) );
-			$new_ids = isset( $_POST['ftb_designated_managers'] )
-				? array_map( 'absint', (array) $_POST['ftb_designated_managers'] ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
-				: array();
-
-			foreach ( array_diff( $new_ids, $old_ids ) as $id ) {
-				$user = get_user_by( 'id', $id );
-				if ( $user && ! $user->has_cap( 'manage_options' ) && in_array( 'editor', (array) $user->roles, true ) ) {
-					$user->add_cap( 'ftb_manage_settings' );
-				}
-			}
-			foreach ( array_diff( $old_ids, $new_ids ) as $id ) {
-				$user = get_user_by( 'id', $id );
-				if ( $user && ! $user->has_cap( 'manage_options' ) ) {
-					$user->remove_cap( 'ftb_manage_settings' );
-				}
-			}
-
-			update_option( 'ftb_designated_managers', $new_ids );
-		}
-
+		update_option( 'ftb_designated_managers', $granted );
 		update_option( 'ftb_editor_access_mode', $new_mode );
 		wp_safe_redirect( add_query_arg( 'managers_saved', '1', admin_url( 'admin.php?page=ftb-donation-form' ) ) );
 		exit;

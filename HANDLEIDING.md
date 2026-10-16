@@ -174,9 +174,11 @@ Ga naar **WP-admin → Donatieformulier → Instellingen** (sectie Toegang en be
 
 | Optie | Uitleg |
 |---|---|
+| Alleen beheerders | Geen redacteuren hebben toegang (**standaard bij een nieuwe installatie**) |
 | Alle redacteuren | Alle gebruikers met de redacteursrol hebben toegang |
 | Specifieke redacteuren | Alleen aangevinkte redacteuren hebben toegang (zichtbaar bij 2+ redacteuren) |
-| Alleen beheerders | Geen redacteuren hebben toegang |
+
+De gekozen toegang blijft gelden als de plugin wordt gedeactiveerd en weer geactiveerd, of opnieuw wordt geïnstalleerd zonder de gegevens te wissen. Bestaande sites houden hun huidige keuze bij een update. Een specifieke redacteur die later een andere rol krijgt (bijvoorbeeld Auteur), verliest de toegang automatisch zodra de keuze opnieuw wordt opgeslagen of de plugin opnieuw wordt geactiveerd.
 
 ### Bij verwijderen van de plugin
 

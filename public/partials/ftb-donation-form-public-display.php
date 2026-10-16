@@ -70,7 +70,8 @@ $ftb_button_class = ( 'minimal' === $ftb_style && function_exists( 'wp_is_block_
 		<?php
 		// Open on step 2 only when all errors are there; step 1 errors come first.
 		$step1_fields  = array( 'frequency', 'amount' );
-		$step2_fields  = array( 'name', 'email', 'gdpr', 'phone', 'street', 'house_number', 'postal_code', 'city' );
+		// 'security' (expired session) opens step 2 too: that is where "Doneer nu" is.
+		$step2_fields  = array( 'name', 'email', 'gdpr', 'phone', 'street', 'house_number', 'postal_code', 'city', 'security' );
 		$start_on_step = 1;
 		if ( ! array_intersect_key( $errors, array_flip( $step1_fields ) ) && array_intersect_key( $errors, array_flip( $step2_fields ) ) ) {
 			$start_on_step = 2;
@@ -91,7 +92,7 @@ $ftb_button_class = ( 'minimal' === $ftb_style && function_exists( 'wp_is_block_
 				$selected = in_array( $old( 'amount' ), $amount_options, true ) ? $old( 'amount' ) : ( $amount_options[0] ?? '' );
 				return $show_presets && '' !== $selected ? 'ftb-amount-' . $selected : '';
 			}
-			if ( 'payment' === $field ) {
+			if ( 'payment' === $field || 'security' === $field ) {
 				return '';
 			}
 			return 'ftb-' . str_replace( '_', '-', $field );

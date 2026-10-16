@@ -51,6 +51,7 @@ class FTB_Donation_Form_Public {
 			$this->plugin_name,
 			'ftbDonationForm',
 			array(
+				'ajaxUrl'           => admin_url( 'admin-ajax.php' ),
 				'allowCustomAmount' => (bool) get_option( 'ftb_allow_custom_amount', '1' ),
 				'showPresetAmounts' => (bool) get_option( 'ftb_show_preset_amounts', '1' ),
 				'minCustomAmount'   => $min_amount,
@@ -322,6 +323,17 @@ class FTB_Donation_Form_Public {
 		return ( max( $la, $lb ) + 0.05 ) / ( min( $la, $lb ) + 0.05 );
 	}
 
+	/**
+	 * Return a fresh form nonce (admin-ajax, also for visitors that are not logged in).
+	 *
+	 * Page caches can serve the form with a nonce that expired after 12–24 hours. The
+	 * form's JavaScript asks for a fresh one on page load; admin-ajax.php is never cached.
+	 */
+	public function ajax_refresh_nonce(): void {
+		nocache_headers();
+		wp_send_json_success( array( 'nonce' => wp_create_nonce( 'ftb_donation_submit' ) ) );
+	}
+
 	public function register_shortcodes() {
 		add_shortcode( 'ftb_donation_form', array( $this, 'render_donation_form' ) );
 	}
@@ -479,9 +491,9 @@ class FTB_Donation_Form_Public {
 		if ( isset( $_POST['ftb_donation_nonce'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- verified on next line
 			$nonce = sanitize_text_field( wp_unslash( $_POST['ftb_donation_nonce'] ) );
 
-			if ( ! wp_verify_nonce( $nonce, 'ftb_donation_submit' ) ) {
-				wp_die( esc_html__( 'Beveiligingscontrole mislukt. Probeer het opnieuw.', 'ftb-donation-form' ) );
-			}
+			// An expired nonce (e.g. a cached page older than a day) must not lose the donor's
+			// input: it becomes a form error below instead of a bare wp_die() screen.
+			$nonce_valid = (bool) wp_verify_nonce( $nonce, 'ftb_donation_submit' );
 
 			// Sanitize all inputs.
             // phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotValidated
@@ -547,6 +559,11 @@ class FTB_Donation_Form_Public {
 				'city'          => $city,
 				'gdpr'          => $gdpr,
 			);
+
+			// Nothing is processed without a valid nonce; the form is shown again with the input kept.
+			if ( ! $nonce_valid ) {
+				$errors = array( 'security' => __( 'Je sessie is verlopen. Je gegevens zijn bewaard: controleer ze en klik opnieuw op ‘Doneer nu’.', 'ftb-donation-form' ) ) + $errors;
+			}
 
 			if ( empty( $errors ) ) {
 				$db          = new FTB_DB();

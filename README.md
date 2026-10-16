@@ -321,6 +321,32 @@ Found via WAVE + Narrator:
 - [x] **Switchers (Narrator)** — `role="switch"` toegevoegd, aangekondigd als "schakelaar ingeschakeld/uitgeschakeld"
 - [x] **Dropdown (Narrator)** — werkt correct, geen aanpassing nodig
 
+### Code review by colleague (2026-10-16)
+Verdict: not releasable until 1 and 2 are fixed (done). Planned order: 5 → 6 → 7 → 4 (short fix) → small items.
+
+**Findings:**
+- [x] **1. Mollie API key readable in the page source** — key never written into the HTML any more; masked display (`live_••••Ab3x`), empty field keeps the key, separate "Verwijderen" button with confirmation, invalid keys are not saved (previous key kept), Mollie unreachable → saved with a warning. Users with plugin access can still add/change/delete the key (by design: clients usually have the editor role)
+- [x] **2. Reactivating gave all editors access again** — `FTB_Access::apply()` (`includes/class-ftb-access.php`) is used both on activation and when saving "Toegang en beheer". New installs default to "Alleen beheerders" (listed first); existing sites keep their choice. Chosen editors who no longer have the editor role lose access
+- [x] **3. Formulas in the CSV export** — `csv_safe()` prefixes donor values starting with `= + - @`, tab or line break with an apostrophe (visible in Excel; documented in HANDLEIDING). Database unchanged
+- [ ] **4. Duplicate thank-you emails for recurring charges** — short fix: remember the Mollie payment ID per charge and only mail when it is new and becomes paid. Structural fix: one row per charge (see "Each subscription charge as its own record" below). Can only be tested for real once SEPA Direct Debit is approved
+- [x] **5. Form fails after ~a day on cached pages** — an expired nonce now gives a form error (input kept, opens on step 2) instead of `wp_die()`; the form JS fetches a fresh nonce on page load via `admin-ajax.php?action=ftb_refresh_nonce` (never cached). Caching tip in HANDLEIDING
+- [ ] **6. External thank-you page redirects to wp-admin** — `wp_safe_redirect()` without the redirect URL's host in `allowed_redirect_hosts`
+- [ ] **7. Double-click on "Doneer nu"** — two donations and two Mollie payments; disable the button after the first click
+- [ ] **8. Orphan "pending" donations** — same as the Robustness item below
+- [ ] **9. No maximum amount** — Mollie refuses e.g. € 99.999.999 with a generic error
+- [ ] **10. Refresh after payment** — return token is deleted on the first visit, a refresh shows an empty form
+- [ ] **11. Test mode toggle does nothing** — remove it or warn when it doesn't match the key (test_/live_)
+- [ ] **12. Separate recipient for admin notifications** — discuss first (we chose one field with fallback to the admin email)
+- [ ] **13. Uninstall leftovers** — `ftb_form_style`, `ftb_form_primary_color`, `ftb_return_*` transients
+- [ ] **14. CSS/JS loaded on every page** — only enqueue when the shortcode is on the page
+- [ ] **15. GDPR tools** — hook into WordPress personal data export/erase; retention period
+- [ ] **16. Release workflow** — validate the version input and pass it via an env variable
+- [ ] **17. Duplicate code** — same as the Cleanup item below
+- [ ] **18. Orphan docblock** in `class-ftb-mollie-service.php` — same as the Cleanup item below
+- [ ] **19. Automated tests** — same as the Quality item below
+
+**WordPress.org repository (later):** source strings are Dutch — English is strongly recommended as source language for translate.wordpress.org; readme must be in English.
+
 ### Code review findings (2026-10-12)
 Fix the first group before the next live test on SiteGround, otherwise the tests have to be repeated.
 

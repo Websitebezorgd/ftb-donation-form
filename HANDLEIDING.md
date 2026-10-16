@@ -200,6 +200,12 @@ Plaats het formulier op een pagina met:
 [ftb_donation_form]
 ```
 
+### Caching
+
+Het formulier werkt ook op sites met een cache (WP Rocket, LiteSpeed, de cache van de hoster): bij het laden haalt het formulier zelf een verse beveiligingscode op. Is die code toch verlopen (bijvoorbeeld als de pagina een dag open heeft gestaan), dan ziet de donateur een melding in het formulier en blijven de ingevulde gegevens bewaard.
+
+**Tip:** sluit de donatiepagina toch uit van caching als dat kan. Dan is er geen extra verzoek nodig en zie je altijd de nieuwste versie van het formulier.
+
 ---
 
 ## Vertalingen bijwerken

@@ -381,6 +381,29 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ─────────────────────────────────────────────
+  // FRESH NONCE (cached pages)
+  // ─────────────────────────────────────────────
+
+  // A page cache may serve the form with an expired nonce. Fetch a fresh one;
+  // if this fails, the old nonce stays and the server shows a form error instead.
+  const nonceField = form?.querySelector('input[name="ftb_donation_nonce"]');
+  if (nonceField && ftbDonationForm?.ajaxUrl) {
+    fetch(ftbDonationForm.ajaxUrl, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: "action=ftb_refresh_nonce",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data?.success && data.data?.nonce) {
+          nonceField.value = data.data.nonce;
+        }
+      })
+      .catch(() => {});
+  }
+
+  // ─────────────────────────────────────────────
   // FOCUS ON PAGE LOAD
   // ─────────────────────────────────────────────
 

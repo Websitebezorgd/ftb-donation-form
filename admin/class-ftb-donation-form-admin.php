@@ -74,8 +74,9 @@ class FTB_Donation_Form_Admin {
 			$this->plugin_name,
 			'ftbAdmin',
 			array(
-				'showApiKey' => __( 'API sleutel tonen', 'ftb-donation-form' ),
-				'hideApiKey' => __( 'API sleutel verbergen', 'ftb-donation-form' ),
+				'showApiKey'          => __( 'API sleutel tonen', 'ftb-donation-form' ),
+				'hideApiKey'          => __( 'API sleutel verbergen', 'ftb-donation-form' ),
+				'confirmDeleteApiKey' => __( 'Weet je zeker dat je de Mollie API sleutel wilt verwijderen? Zonder sleutel kunnen er geen donaties worden ontvangen.', 'ftb-donation-form' ),
 			)
 		);
 	}
@@ -397,18 +398,39 @@ class FTB_Donation_Form_Admin {
 
 	// ── Field renderers ────────────────────────────────────────────────────────
 
+	/**
+	 * Render the Mollie API key field.
+	 *
+	 * The stored key is never written into the page: only a masked version is shown.
+	 * The input always starts empty; the eye button can therefore only reveal a key
+	 * the user is typing or pasting, never the stored one.
+	 */
 	public function field_mollie_api_key() {
-		$value = get_option( 'ftb_mollie_api_key', '' );
+		$stored = (string) get_option( 'ftb_mollie_api_key', '' );
 		?>
 		<div class="ftb-admin-form__field">
+			<?php if ( $stored ) : ?>
+				<p class="ftb-api-key-current" id="ftb_mollie_api_key_current">
+					<?php esc_html_e( 'Huidige sleutel:', 'ftb-donation-form' ); ?>
+					<code><?php echo esc_html( self::mask_api_key( $stored ) ); ?></code>
+					<a
+						class="button ftb-api-key-delete"
+						href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin.php?page=ftb-donation-form&ftb_action=delete_api_key' ), 'ftb_delete_api_key' ) ); ?>">
+						<span class="dashicons dashicons-trash" aria-hidden="true"></span>
+						<?php esc_html_e( 'Verwijderen', 'ftb-donation-form' ); ?>
+					</a>
+				</p>
+			<?php endif; ?>
 			<div class="ftb-password-wrap">
 				<input
 					type="password"
 					id="ftb_mollie_api_key"
 					name="ftb_mollie_api_key"
-					value="<?php echo esc_attr( $value ); ?>"
+					value=""
 					class="regular-text"
-					autocomplete="new-password" />
+					autocomplete="new-password"
+					placeholder="<?php echo $stored ? esc_attr__( 'Plak hier je nieuwe API sleutel', 'ftb-donation-form' ) : esc_attr__( 'Plak hier je Mollie API sleutel', 'ftb-donation-form' ); ?>"
+					<?php echo $stored ? 'aria-describedby="ftb_mollie_api_key_current"' : ''; ?> />
 				<button
 					type="button"
 					class="ftb-toggle-password"
@@ -420,6 +442,17 @@ class FTB_Donation_Form_Admin {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Masked version of an API key: the prefix (test_ / live_) and the last 4 characters.
+	 *
+	 * @param string $key Full API key.
+	 * @return string E.g. "live_••••••••Ab3x".
+	 */
+	private static function mask_api_key( string $key ): string {
+		$prefix = preg_match( '/^[a-z]+_/', $key, $m ) ? $m[0] : '';
+		return $prefix . str_repeat( '•', 8 ) . substr( $key, -4 );
 	}
 
 	public function field_mollie_test_mode() {
@@ -513,20 +546,37 @@ class FTB_Donation_Form_Admin {
 
 	// ── Sanitization callbacks ─────────────────────────────────────────────────
 
+	/**
+	 * Save the Mollie API key.
+	 *
+	 * The field is always empty when the page loads (the key is never sent to the browser),
+	 * so an empty value means "keep the stored key". Deleting is a separate action
+	 * (handle_delete_api_key).
+	 */
 	public function sanitize_mollie_api_key( $value ): string {
 		$value = sanitize_text_field( (string) $value );
 
-		if ( empty( $value ) ) {
-			return $value;
+		if ( '' === $value ) {
+			return (string) get_option( 'ftb_mollie_api_key', '' );
 		}
 
+		// Notices are stored per user so they render with ftb-notice styling in the template.
 		try {
 			$mollie = new \Mollie\Api\MollieApiClient();
 			$mollie->setApiKey( $value );
 			$mollie->methods->allActive();
 		} catch ( \Throwable $e ) {
-			// Store per-user so the notice renders with ftb-notice styling in the template.
+			// Mollie unreachable or down: the key may be fine, so save it but say it was not checked.
+			// (Checked with instanceof: the SDK's docblocks don't declare network errors, but the
+			// curl adapter throws them.)
+			if ( $e instanceof \Mollie\Api\Exceptions\NetworkRequestException || $e instanceof \Mollie\Api\Exceptions\ServerException ) {
+				set_transient( 'ftb_mollie_key_unverified_' . get_current_user_id(), true, 60 );
+				return $value;
+			}
+
+			// Invalid key (wrong format or refused by Mollie): don't save it, keep the previous key.
 			set_transient( 'ftb_mollie_key_error_' . get_current_user_id(), true, 60 );
+			return (string) get_option( 'ftb_mollie_api_key', '' );
 		}
 
 		return $value;
@@ -718,6 +768,37 @@ class FTB_Donation_Form_Admin {
 	/**
 	 * Handle individual row delete on admin_init — before any output is sent.
 	 */
+	/**
+	 * Delete the Mollie API key via the "Verwijderen" link next to the masked key.
+	 *
+	 * Runs on admin_init. Same access as the settings page; protected with a nonce.
+	 */
+	public function handle_delete_api_key() {
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended
+		if ( empty( $_GET['page'] ) || 'ftb-donation-form' !== $_GET['page'] ) {
+			return;
+		}
+		if ( empty( $_GET['ftb_action'] ) || 'delete_api_key' !== $_GET['ftb_action'] ) {
+			return;
+		}
+        // phpcs:enable
+
+		if ( ! current_user_can( 'ftb_manage_settings' ) ) {
+			wp_die( esc_html__( 'Je hebt onvoldoende rechten om deze actie uit te voeren.', 'ftb-donation-form' ) );
+		}
+
+		check_admin_referer( 'ftb_delete_api_key' );
+
+		// delete_option, not update_option: the sanitize callback keeps the key on an empty value.
+		delete_option( 'ftb_mollie_api_key' );
+
+		// One-time notice per user (not a URL parameter, which would survive the next save).
+		set_transient( 'ftb_mollie_key_deleted_' . get_current_user_id(), true, 60 );
+
+		wp_safe_redirect( admin_url( 'admin.php?page=ftb-donation-form' ) );
+		exit;
+	}
+
 	public function handle_row_delete() {
         // phpcs:disable WordPress.Security.NonceVerification.Recommended
 		if ( empty( $_GET['page'] ) || 'ftb-submissions' !== $_GET['page'] ) {

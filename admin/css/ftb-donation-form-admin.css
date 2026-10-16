@@ -201,6 +201,55 @@ h1.ftb-admin__title {
 	margin-bottom: var(--space-3);
 }
 
+/* ── Mollie API key: masked current key + delete option ────────────────────── */
+.ftb-api-key-current {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-2);
+	margin: 0 0 var(--space-2);
+}
+
+.ftb-api-key-current code {
+	padding: 4px 8px;
+	border-radius: 3px;
+	line-height: 20px;
+	letter-spacing: 0.05em;
+}
+
+/* Compact outlined button in WordPress "delete" red, same height as the masked key. */
+.wp-core-ui .button.ftb-api-key-delete {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	height: 28px;
+	min-height: 28px;
+	padding: 0 10px;
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 1;
+	color: #b32d2e;
+	border-color: #b32d2e;
+	background: #fff;
+	text-decoration: none;
+}
+
+.wp-core-ui .button.ftb-api-key-delete:hover,
+.wp-core-ui .button.ftb-api-key-delete:focus {
+	color: #fff;
+	border-color: #b32d2e;
+	background: #b32d2e;
+}
+
+.wp-core-ui .button.ftb-api-key-delete .dashicons {
+	width: 16px;
+	height: 16px;
+	margin: 0;
+	font-size: 16px;
+	line-height: 1;
+	vertical-align: middle;
+}
+
 /* ── Password reveal ──────────────────────────────────────────────────────── */
 .ftb-password-wrap {
 	display: inline-flex;

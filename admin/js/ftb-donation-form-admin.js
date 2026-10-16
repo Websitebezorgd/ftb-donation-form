@@ -206,6 +206,13 @@
         initStylePicker();
 
         // API key — toggle password visibility
+        // Deleting the Mollie API key stops all donations: ask first.
+        $(".ftb-api-key-delete").on("click", function (e) {
+            if (!window.confirm(ftbAdmin.confirmDeleteApiKey)) {
+                e.preventDefault();
+            }
+        });
+
         $(".ftb-toggle-password").on("click", function () {
             var $btn = $(this);
             var $input = $("#" + $btn.attr("aria-controls"));

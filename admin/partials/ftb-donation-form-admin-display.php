@@ -32,13 +32,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="ftb-admin-form__group">
 				<?php do_settings_fields( 'ftb_donation_form_settings', 'ftb_section_mollie' ); ?>
 				<?php
+				$deleted_key = 'ftb_mollie_key_deleted_' . get_current_user_id();
+				if ( get_transient( $deleted_key ) ) :
+					delete_transient( $deleted_key );
+					?>
+					<div class="ftb-notice ftb-notice--success" role="status">
+						<span class="dashicons dashicons-yes" aria-hidden="true"></span>
+						<?php esc_html_e( 'De Mollie API sleutel is verwijderd. Vul een nieuwe sleutel in om weer donaties te ontvangen.', 'ftb-donation-form' ); ?>
+					</div>
+				<?php endif; ?>
+				<?php
 				$transient_key = 'ftb_mollie_key_error_' . get_current_user_id();
 				if ( get_transient( $transient_key ) ) :
 					delete_transient( $transient_key );
 					?>
 					<div class="ftb-notice ftb-notice--error" role="alert">
 						<span class="dashicons dashicons-warning" aria-hidden="true"></span>
-						<?php esc_html_e( 'Mollie API sleutel is ongeldig. Controleer de sleutel en probeer het opnieuw.', 'ftb-donation-form' ); ?>
+						<?php esc_html_e( 'Deze Mollie API sleutel is ongeldig en is niet opgeslagen. Controleer de sleutel en probeer het opnieuw.', 'ftb-donation-form' ); ?>
+					</div>
+				<?php endif; ?>
+				<?php
+				$unverified_key = 'ftb_mollie_key_unverified_' . get_current_user_id();
+				if ( get_transient( $unverified_key ) ) :
+					delete_transient( $unverified_key );
+					?>
+					<div class="ftb-notice ftb-notice--warning" role="alert">
+						<span class="dashicons dashicons-warning" aria-hidden="true"></span>
+						<?php esc_html_e( 'De Mollie API sleutel is opgeslagen, maar kon niet worden gecontroleerd omdat Mollie niet bereikbaar was. Probeer later een testdonatie.', 'ftb-donation-form' ); ?>
 					</div>
 				<?php endif; ?>
 			</div>

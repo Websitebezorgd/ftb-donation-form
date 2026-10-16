@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-16T13:33:49+00:00\n"
+"POT-Creation-Date: 2026-10-16T13:59:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ftb-donation-form\n"
@@ -48,7 +48,7 @@ msgid "Weet je zeker dat je de Mollie API sleutel wilt verwijderen? Zonder sleut
 msgstr ""
 
 #: admin/class-ftb-donation-form-admin.php:89
-#: admin/class-ftb-donation-form-admin.php:655
+#: admin/class-ftb-donation-form-admin.php:683
 msgid "Donatieformulier instellingen"
 msgstr ""
 
@@ -65,7 +65,7 @@ msgstr ""
 
 #: admin/class-ftb-donation-form-admin.php:109
 #: admin/class-ftb-donation-form-admin.php:110
-#: admin/class-ftb-donation-form-admin.php:873
+#: admin/class-ftb-donation-form-admin.php:901
 msgid "Donaties"
 msgstr ""
 
@@ -173,7 +173,7 @@ msgid "Optionele velden"
 msgstr ""
 
 #: admin/class-ftb-donation-form-admin.php:510
-#: public/class-ftb-donation-form-public.php:391
+#: public/class-ftb-donation-form-public.php:416
 #: public/partials/ftb-donation-form-public-display.php:393
 msgid "Doneer nu"
 msgstr ""
@@ -190,42 +190,46 @@ msgstr ""
 msgid "Doorsturen naar een pagina"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:617
+#: admin/class-ftb-donation-form-admin.php:605
+msgid "De doorstuur-URL moet een volledig webadres zijn dat begint met http:// of https://. De vorige URL is behouden."
+msgstr ""
+
+#: admin/class-ftb-donation-form-admin.php:645
 msgid "Je moet minimaal één bedragoptie inschakelen. Vaste bedragen zijn hersteld."
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:652
-#: admin/class-ftb-donation-form-admin.php:849
+#: admin/class-ftb-donation-form-admin.php:680
+#: admin/class-ftb-donation-form-admin.php:877
 msgid "Je hebt onvoldoende rechten om deze pagina te bekijken."
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:670
-#: admin/class-ftb-donation-form-admin.php:706
-#: admin/class-ftb-donation-form-admin.php:743
-#: admin/class-ftb-donation-form-admin.php:774
-#: admin/class-ftb-donation-form-admin.php:805
-#: admin/class-ftb-donation-form-admin.php:836
+#: admin/class-ftb-donation-form-admin.php:698
+#: admin/class-ftb-donation-form-admin.php:734
+#: admin/class-ftb-donation-form-admin.php:771
+#: admin/class-ftb-donation-form-admin.php:802
+#: admin/class-ftb-donation-form-admin.php:833
+#: admin/class-ftb-donation-form-admin.php:864
 msgid "Je hebt onvoldoende rechten om deze actie uit te voeren."
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:814
+#: admin/class-ftb-donation-form-admin.php:842
 msgid "Ongeldige status."
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:865
+#: admin/class-ftb-donation-form-admin.php:893
 #: admin/class-ftb-donations-list-table.php:89
 msgid "Status wijzigen"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:871
+#: admin/class-ftb-donation-form-admin.php:899
 msgid "Exporteer CSV"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:957
+#: admin/class-ftb-donation-form-admin.php:985
 msgid "Alle gegevens wissen bij verwijderen"
 msgstr ""
 
-#: admin/class-ftb-donation-form-admin.php:962
+#: admin/class-ftb-donation-form-admin.php:990
 msgid "Let op: zodra de plugin wordt verwijderd, worden alle donaties en instellingen definitief gewist. Dit kan niet ongedaan worden gemaakt. Exporteer eerst je donaties als je ze wilt bewaren."
 msgstr ""
 
@@ -483,7 +487,7 @@ msgid "Bedankbericht"
 msgstr ""
 
 #: admin/partials/ftb-donation-form-admin-display.php:332
-#: public/class-ftb-donation-form-public.php:400
+#: public/class-ftb-donation-form-public.php:425
 msgid "Hartelijk dank voor je donatie!"
 msgstr ""
 
@@ -769,34 +773,34 @@ msgid "Donatie van %s"
 msgstr ""
 
 #: public/class-ftb-donation-form-public.php:59
-#: public/class-ftb-donation-form-public.php:516
+#: public/class-ftb-donation-form-public.php:541
 msgid "Kies een frequentie."
 msgstr ""
 
 #: public/class-ftb-donation-form-public.php:60
-#: public/class-ftb-donation-form-public.php:530
+#: public/class-ftb-donation-form-public.php:555
 msgid "Kies een bedrag."
 msgstr ""
 
 #. translators: %s: minimum amount, e.g. "1"
 #: public/class-ftb-donation-form-public.php:62
-#: public/class-ftb-donation-form-public.php:525
+#: public/class-ftb-donation-form-public.php:550
 #, php-format
 msgid "Je eigen bedrag moet minimaal €%s zijn."
 msgstr ""
 
 #: public/class-ftb-donation-form-public.php:63
-#: public/class-ftb-donation-form-public.php:535
+#: public/class-ftb-donation-form-public.php:560
 msgid "Vul je volledige naam in."
 msgstr ""
 
 #: public/class-ftb-donation-form-public.php:64
-#: public/class-ftb-donation-form-public.php:540
+#: public/class-ftb-donation-form-public.php:565
 msgid "Vul een geldig e-mailadres in."
 msgstr ""
 
 #: public/class-ftb-donation-form-public.php:65
-#: public/class-ftb-donation-form-public.php:545
+#: public/class-ftb-donation-form-public.php:570
 msgid "Je moet akkoord gaan met de privacyverklaring om te doneren."
 msgstr ""
 
@@ -805,40 +809,40 @@ msgstr ""
 msgid "Controleer de volgende fouten:"
 msgstr ""
 
-#: public/class-ftb-donation-form-public.php:473
+#: public/class-ftb-donation-form-public.php:498
 msgid "Je hebt de betaling geannuleerd. Je kunt het opnieuw proberen."
 msgstr ""
 
-#: public/class-ftb-donation-form-public.php:476
+#: public/class-ftb-donation-form-public.php:501
 msgid "De betaling is mislukt. Probeer het opnieuw of kies een andere betaalmethode."
 msgstr ""
 
-#: public/class-ftb-donation-form-public.php:479
+#: public/class-ftb-donation-form-public.php:504
 msgid "De betaalsessie is verlopen. Probeer het opnieuw."
 msgstr ""
 
-#: public/class-ftb-donation-form-public.php:482
+#: public/class-ftb-donation-form-public.php:507
 msgid "Je betaling is in behandeling. Je ontvangt een bevestiging zodra de betaling is verwerkt."
 msgstr ""
 
-#: public/class-ftb-donation-form-public.php:565
+#: public/class-ftb-donation-form-public.php:590
 msgid "Je sessie is verlopen. Je gegevens zijn bewaard: controleer ze en klik opnieuw op ‘Doneer nu’."
 msgstr ""
 
-#: public/class-ftb-donation-form-public.php:600
+#: public/class-ftb-donation-form-public.php:625
 msgid "Mollie is tijdelijk niet beschikbaar. Controleer of er een API sleutel is ingevuld."
 msgstr ""
 
-#: public/class-ftb-donation-form-public.php:601
-#: public/class-ftb-donation-form-public.php:669
+#: public/class-ftb-donation-form-public.php:626
+#: public/class-ftb-donation-form-public.php:682
 msgid "De betaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
 msgstr ""
 
-#: public/class-ftb-donation-form-public.php:627
+#: public/class-ftb-donation-form-public.php:652
 msgid "SEPA-incasso is niet ingeschakeld in Mollie. Activeer SEPA-incasso in je Mollie-dashboard om terugkerende betalingen mogelijk te maken."
 msgstr ""
 
-#: public/class-ftb-donation-form-public.php:628
+#: public/class-ftb-donation-form-public.php:653
 msgid "Terugkerende betalingen zijn momenteel niet beschikbaar. Kies een eenmalige donatie."
 msgstr ""
 

@@ -112,7 +112,7 @@ Voer de URL in naar de privacyverklaring van je website. De plugin toont een AVG
 ### Na betaling
 Kies wat er gebeurt nadat de donateur succesvol heeft betaald:
 - **Bedankbericht** — toon een tekst op de formualierpagina (aanpasbaar)
-- **Doorsturen naar een pagina** — voer een URL in
+- **Doorsturen naar een pagina** — voer een URL in. Dat mag ook een pagina op een ander domein zijn, zoals de hoofdsite van de organisatie of een adres met `www.`. Alleen volledige webadressen die beginnen met `http://` of `https://` worden geaccepteerd.
 
 ### E-mailnotificaties
 | Instelling | Uitleg |

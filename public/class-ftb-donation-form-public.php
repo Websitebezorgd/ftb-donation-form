@@ -324,6 +324,31 @@ class FTB_Donation_Form_Public {
 	}
 
 	/**
+	 * Redirect to a URL we trust (Mollie checkout or the thank-you page from the settings)
+	 * and stop.
+	 *
+	 * wp_safe_redirect() only allows the site's own domain and silently sends anything
+	 * else to /wp-admin/ (the login screen for donors). Only the host of this one URL is
+	 * allowed, only for this redirect. Never use this for a URL taken from the request.
+	 *
+	 * @param string $url Trusted absolute URL.
+	 */
+	private static function redirect_to_trusted_url( string $url ): void {
+		$host = wp_parse_url( $url, PHP_URL_HOST );
+		add_filter(
+			'allowed_redirect_hosts',
+			static function ( $hosts ) use ( $host ) {
+				if ( $host ) {
+					$hosts[] = $host;
+				}
+				return $hosts;
+			}
+		);
+		wp_safe_redirect( $url );
+		exit;
+	}
+
+	/**
 	 * Return a fresh form nonce (admin-ajax, also for visitors that are not logged in).
 	 *
 	 * Page caches can serve the form with a nonce that expired after 12–24 hours. The
@@ -465,8 +490,8 @@ class FTB_Donation_Form_Public {
 
 					if ( 'paid' === $status ) {
 						if ( 'redirect' === $post_payment_behavior && ! empty( $post_payment_redirect ) ) {
-							wp_safe_redirect( $post_payment_redirect );
-							exit;
+							// May be on another domain (main site, subdomain, www); set in the admin settings.
+							self::redirect_to_trusted_url( $post_payment_redirect );
 						}
 						$success = true;
 					} elseif ( 'cancelled' === $status ) {
@@ -647,19 +672,7 @@ class FTB_Donation_Form_Public {
 
 						$db->update_mollie_payment_id( (int) $donation_id, $payment->id );
 
-						$checkout_url  = $payment->getCheckoutUrl();
-						$checkout_host = wp_parse_url( $checkout_url, PHP_URL_HOST );
-						add_filter(
-							'allowed_redirect_hosts',
-							static function ( $hosts ) use ( $checkout_host ) {
-								if ( $checkout_host ) {
-									$hosts[] = $checkout_host;
-								}
-								return $hosts;
-							}
-						);
-						wp_safe_redirect( $checkout_url );
-						exit;
+						self::redirect_to_trusted_url( $payment->getCheckoutUrl() );
 					}
 				} catch ( \Exception $e ) {
 					if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {

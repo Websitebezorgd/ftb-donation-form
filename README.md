@@ -330,7 +330,7 @@ Verdict: not releasable until 1 and 2 are fixed (done). Planned order: 5 → 6 �
 - [x] **3. Formulas in the CSV export** — `csv_safe()` prefixes donor values starting with `= + - @`, tab or line break with an apostrophe (visible in Excel; documented in HANDLEIDING). Database unchanged
 - [ ] **4. Duplicate thank-you emails for recurring charges** — short fix: remember the Mollie payment ID per charge and only mail when it is new and becomes paid. Structural fix: one row per charge (see "Each subscription charge as its own record" below). Can only be tested for real once SEPA Direct Debit is approved
 - [x] **5. Form fails after ~a day on cached pages** — an expired nonce now gives a form error (input kept, opens on step 2) instead of `wp_die()`; the form JS fetches a fresh nonce on page load via `admin-ajax.php?action=ftb_refresh_nonce` (never cached). Caching tip in HANDLEIDING
-- [ ] **6. External thank-you page redirects to wp-admin** — `wp_safe_redirect()` without the redirect URL's host in `allowed_redirect_hosts`
+- [x] **6. External thank-you page redirects to wp-admin** — new `redirect_to_trusted_url()` allows only the host of the configured thank-you URL (or Mollie checkout) for that one redirect; also fixes www/non-www and subdomains. The setting only accepts http(s) URLs (`sanitize_post_payment_redirect_url()`)
 - [ ] **7. Double-click on "Doneer nu"** — two donations and two Mollie payments; disable the button after the first click
 - [ ] **8. Orphan "pending" donations** — same as the Robustness item below
 - [ ] **9. No maximum amount** — Mollie refuses e.g. € 99.999.999 with a generic error

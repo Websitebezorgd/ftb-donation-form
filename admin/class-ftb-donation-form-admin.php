@@ -339,7 +339,7 @@ class FTB_Donation_Form_Admin {
 			'ftb_donation_form_settings',
 			'ftb_post_payment_redirect_url',
 			array(
-				'sanitize_callback' => 'esc_url_raw',
+				'sanitize_callback' => array( $this, 'sanitize_post_payment_redirect_url' ),
 			)
 		);
 
@@ -580,6 +580,34 @@ class FTB_Donation_Form_Admin {
 		}
 
 		return $value;
+	}
+
+	/**
+	 * Thank-you page URL: only http:// and https:// (donors are redirected there).
+	 *
+	 * Anything else (e.g. mailto:, javascript:, a typo) is refused with an error and the
+	 * previous URL is kept.
+	 *
+	 * @param mixed $input Submitted URL.
+	 * @return string
+	 */
+	public function sanitize_post_payment_redirect_url( $input ): string {
+		$input = trim( (string) $input );
+		if ( '' === $input ) {
+			return '';
+		}
+
+		$url = esc_url_raw( $input, array( 'http', 'https' ) );
+		if ( '' === $url || ! wp_parse_url( $url, PHP_URL_HOST ) ) {
+			add_settings_error(
+				'ftb_donation_form_settings',
+				'ftb_invalid_redirect_url',
+				__( 'De doorstuur-URL moet een volledig webadres zijn dat begint met http:// of https://. De vorige URL is behouden.', 'ftb-donation-form' ),
+				'error'
+			);
+			return (string) get_option( 'ftb_post_payment_redirect_url', '' );
+		}
+		return $url;
 	}
 
 	public function sanitize_min_custom_amount( $input ) {

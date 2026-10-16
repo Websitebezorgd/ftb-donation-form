@@ -337,12 +337,12 @@ Verdict: not releasable until 1 and 2 are fixed (done). Planned order: 5 → 6 �
 - [ ] **10. Refresh after payment** — return token is deleted on the first visit, a refresh shows an empty form
 - [ ] **11. Test mode toggle does nothing** — remove it or warn when it doesn't match the key (test_/live_)
 - [ ] **12. Separate recipient for admin notifications** — discuss first (we chose one field with fallback to the admin email)
-- [ ] **13. Uninstall leftovers** — `ftb_form_style`, `ftb_form_primary_color`, `ftb_return_*` transients
+- [x] **13. Uninstall leftovers** — `uninstall.php` now also deletes `ftb_form_style`, `ftb_form_primary_color`, `ftb_email_admin_subject`, `ftb_email_admin_body` and all `ftb_` transients (return tokens and one-time admin notices)
 - [ ] **14. CSS/JS loaded on every page** — only enqueue when the shortcode is on the page
 - [ ] **15. GDPR tools** — hook into WordPress personal data export/erase; retention period
 - [ ] **16. Release workflow** — validate the version input and pass it via an env variable
 - [ ] **17. Duplicate code** — same as the Cleanup item below
-- [ ] **18. Orphan docblock** in `class-ftb-mollie-service.php` — same as the Cleanup item below
+- [x] **18. Orphan docblock** in `class-ftb-mollie-service.php` — removed
 - [ ] **19. Automated tests** — same as the Quality item below
 
 **WordPress.org repository (later):** source strings are Dutch — English is strongly recommended as source language for translate.wordpress.org; readme must be in English.
@@ -371,7 +371,7 @@ Fix the first group before the next live test on SiteGround, otherwise the tests
 
 **Cleanup:**
 - [ ] `vendor/composer/*` and `vendor/autoload.php` are tracked in git despite `vendor/` in `.gitignore` — remove with `git rm -r --cached vendor`
-- [ ] Duplicate orphan docblock in `includes/class-ftb-mollie-service.php` (above `create_customer()`)
+- [x] Duplicate orphan docblock in `includes/class-ftb-mollie-service.php` (above `create_customer()`) — removed (review point 18)
 - [ ] `readme.txt` mentions PDF/Excel export and an Elementor widget — only CSV export and the shortcode exist
 - [ ] Webhook URL + local-dev check and the Mollie status mapping are duplicated — extract shared helpers
 

@@ -32,20 +32,6 @@ class FTB_Mollie_Service {
 	}
 
 	/**
-	 * Create a new Mollie payment and return the payment object.
-	 *
-	 * The checkout URL is available via $payment->getCheckoutUrl().
-	 * The Mollie payment ID is available via $payment->id.
-	 *
-	 * @param int    $donation_id  Local DB row ID — stored in Mollie metadata.
-	 * @param float  $amount       Amount in euros (e.g. 10.00).
-	 * @param string $donor_name   Shown in the payment description.
-	 * @param string $redirect_url Where Mollie sends the donor after payment.
-	 * @param string $webhook_url  Where Mollie sends status-change notifications.
-	 * @return Payment
-	 * @throws ApiException
-	 */
-	/**
 	 * Create a Mollie customer.
 	 *
 	 * Required before creating a recurring (first) payment so Mollie can store

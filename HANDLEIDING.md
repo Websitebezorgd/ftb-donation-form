@@ -162,6 +162,10 @@ Klik op **Status wijzigen** onder de naam van een donateur om de betaalstatus ha
 ### CSV-exporteren
 Klik op de knop **Exporteer CSV** rechtsboven op de donatiespagina. Het bestand is UTF-8 met BOM (correct leesbaar in Excel).
 
+**Apostrof voor sommige waarden**: begint een door de donateur ingevulde waarde met `=`, `+`, `-` of `@` (bijvoorbeeld een telefoonnummer als `+31 6 12345678`), dan staat er in het exportbestand een apostrof voor: `'+31 6 12345678`. Dat is een beveiliging: zonder apostrof zou Excel zo'n waarde als formule uitvoeren, en via het openbare formulier kan iemand bewust een kwaadaardige formule invullen. In de donaties in WordPress zelf staat de waarde gewoon zonder apostrof.
+
+Zie je `########` in een kolom, dan is die kolom te smal; maak hem breder.
+
 ---
 
 ## Toegang en beheer
